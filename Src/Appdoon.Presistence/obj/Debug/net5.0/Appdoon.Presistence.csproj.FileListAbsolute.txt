@@ -1,0 +1,12 @@
+C:\Appdoon\Src\Appdoon.Presistence\bin\Debug\net5.0\Appdoon.Presistence.deps.json
+C:\Appdoon\Src\Appdoon.Presistence\bin\Debug\net5.0\Appdoon.Presistence.dll
+C:\Appdoon\Src\Appdoon.Presistence\bin\Debug\net5.0\Appdoon.Presistence.pdb
+C:\Appdoon\Src\Appdoon.Presistence\obj\Debug\net5.0\Appdoon.Presistence.csproj.AssemblyReference.cache
+C:\Appdoon\Src\Appdoon.Presistence\obj\Debug\net5.0\Appdoon.Presistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Appdoon\Src\Appdoon.Presistence\obj\Debug\net5.0\Appdoon.Presistence.AssemblyInfoInputs.cache
+C:\Appdoon\Src\Appdoon.Presistence\obj\Debug\net5.0\Appdoon.Presistence.AssemblyInfo.cs
+C:\Appdoon\Src\Appdoon.Presistence\obj\Debug\net5.0\Appdoon.Presistence.csproj.CoreCompileInputs.cache
+C:\Appdoon\Src\Appdoon.Presistence\obj\Debug\net5.0\Appdoon.Presistence.dll
+C:\Appdoon\Src\Appdoon.Presistence\obj\Debug\net5.0\refint\Appdoon.Presistence.dll
+C:\Appdoon\Src\Appdoon.Presistence\obj\Debug\net5.0\Appdoon.Presistence.pdb
+C:\Appdoon\Src\Appdoon.Presistence\obj\Debug\net5.0\ref\Appdoon.Presistence.dll
