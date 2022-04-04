@@ -5684,19 +5684,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\arman\\.nuget\\packages\\": {}
+    "C:\\Users\\Jazebeh\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\arman\\OneDrive\\Desktop\\Appdoon_OnlineUniversity\\OU_API\\OU_API\\OU_API.csproj",
+      "projectUniqueName": "C:\\Appdoon\\OU_API\\OU_API\\OU_API.csproj",
       "projectName": "OU_API",
-      "projectPath": "C:\\Users\\arman\\OneDrive\\Desktop\\Appdoon_OnlineUniversity\\OU_API\\OU_API\\OU_API.csproj",
-      "packagesPath": "C:\\Users\\arman\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\arman\\OneDrive\\Desktop\\Appdoon_OnlineUniversity\\OU_API\\OU_API\\obj\\",
+      "projectPath": "C:\\Appdoon\\OU_API\\OU_API\\OU_API.csproj",
+      "packagesPath": "C:\\Users\\Jazebeh\\.nuget\\packages\\",
+      "outputPath": "C:\\Appdoon\\OU_API\\OU_API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\arman\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Jazebeh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5763,7 +5768,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }
