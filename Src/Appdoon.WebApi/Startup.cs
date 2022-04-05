@@ -1,3 +1,5 @@
+using Appdoon.Application.Interfaces;
+using Appdoon.Presistence.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -49,6 +51,10 @@ namespace OU_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OU_API", Version = "v1" });
             });
+
+
+            // Dependency Injection for Database Context
+            services.AddScoped<IDatabaseContext, DatabaseContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
