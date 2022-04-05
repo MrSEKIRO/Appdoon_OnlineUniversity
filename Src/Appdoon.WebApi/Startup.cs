@@ -1,7 +1,11 @@
+using Appdoon.Application.Interfaces;
+using Appdoon.Application.Services.Users.RegisterUserService;
+using Appdoon.Presistence.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -49,6 +53,16 @@ namespace OU_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OU_API", Version = "v1" });
             });
+
+            // Inject Register User service
+            services.AddScoped<IRegisterUserService, RegisterUserService>();
+
+			// Dependency Injection for Database Context
+			services.AddScoped<IDatabaseContext, DatabaseContext>();
+
+			// Add EF Core
+			services.AddEntityFrameworkSqlServer()
+                .AddDbContext<DatabaseContext>(option => option.UseSqlServer(Configuration["ConnectionStrings:OUAppCon"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

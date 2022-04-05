@@ -33,6 +33,8 @@
     ".NETCoreApp,Version=v5.0": {
       "Appdoon.WebApi/1.0.0": {
         "dependencies": {
+          "Appdoon.Domain": "1.0.0",
+          "Appdoon.Presistence": "1.0.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "5.0.13",
           "Microsoft.EntityFrameworkCore": "5.0.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13",
@@ -1333,6 +1335,48 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XmlDocument": "4.3.0"
+        }
+      },
+      "Appdoon.Application/1.0.0": {
+        "dependencies": {
+          "Appdoon.Common": "1.0.0",
+          "Appdoon.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "5.0.13"
+        },
+        "runtime": {
+          "Appdoon.Application.dll": {}
+        },
+        "compile": {
+          "Appdoon.Application.dll": {}
+        }
+      },
+      "Appdoon.Common/1.0.0": {
+        "runtime": {
+          "Appdoon.Common.dll": {}
+        },
+        "compile": {
+          "Appdoon.Common.dll": {}
+        }
+      },
+      "Appdoon.Domain/1.0.0": {
+        "runtime": {
+          "Appdoon.Domain.dll": {}
+        },
+        "compile": {
+          "Appdoon.Domain.dll": {}
+        }
+      },
+      "Appdoon.Presistence/1.0.0": {
+        "dependencies": {
+          "Appdoon.Application": "1.0.0",
+          "Appdoon.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13"
+        },
+        "runtime": {
+          "Appdoon.Presistence.dll": {}
+        },
+        "compile": {
+          "Appdoon.Presistence.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
@@ -3742,6 +3786,26 @@
       "sha512": "sha512-MYoTCP7EZ98RrANESW05J5ZwskKDoN0AuZ06ZflnowE50LTpbR5yRg3tHckTVm5j/m47stuGgCrCHWePyHS70Q==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "Appdoon.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Appdoon.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Appdoon.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Appdoon.Presistence/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
       "type": "referenceassembly",
