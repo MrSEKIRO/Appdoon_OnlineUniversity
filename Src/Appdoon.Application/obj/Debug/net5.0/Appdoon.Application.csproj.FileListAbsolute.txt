@@ -10,3 +10,8 @@ C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.dll
 C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\refint\Appdoon.Application.dll
 C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.pdb
 C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\ref\Appdoon.Application.dll
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Common.dll
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Domain.dll
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Common.pdb
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Domain.pdb
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.csproj.CopyComplete

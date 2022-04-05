@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "Appdoon.Presistence/1.0.0": {
         "dependencies": {
+          "Appdoon.Application": "1.0.0",
           "Appdoon.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore.Design": "5.0.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13"
@@ -1062,6 +1063,21 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
+      "Appdoon.Application/1.0.0": {
+        "dependencies": {
+          "Appdoon.Common": "1.0.0",
+          "Appdoon.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "5.0.13"
+        },
+        "runtime": {
+          "Appdoon.Application.dll": {}
+        }
+      },
+      "Appdoon.Common/1.0.0": {
+        "runtime": {
+          "Appdoon.Common.dll": {}
+        }
+      },
       "Appdoon.Domain/1.0.0": {
         "runtime": {
           "Appdoon.Domain.dll": {}
@@ -1746,6 +1762,16 @@
       "sha512": "sha512-MYoTCP7EZ98RrANESW05J5ZwskKDoN0AuZ06ZflnowE50LTpbR5yRg3tHckTVm5j/m47stuGgCrCHWePyHS70Q==",
       "path": "system.xml.xmlserializer/4.3.0",
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    },
+    "Appdoon.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Appdoon.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Appdoon.Domain/1.0.0": {
       "type": "project",

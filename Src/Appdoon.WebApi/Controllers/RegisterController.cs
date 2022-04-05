@@ -1,8 +1,8 @@
-﻿using Appdoon.Domain.Entities.Users;
+﻿using Appdoon.Application.Services.Users.RegisterUserService;
+using Appdoon.Domain.Entities.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using OU_API.Models.Services.Register;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +14,12 @@ namespace OU_API.Controllers
     [ApiController]
     public class RegisterController : ControllerBase
     {
+		private readonly IRegisterUserService _registerUserService;
 
-        private readonly IRegisterService _registerService;
-
-        public RegisterController(IConfiguration configuration)
-        {
-            _registerService = new RegisterService(configuration);
-        }
+		public RegisterController(IRegisterUserService registerUserService)
+		{
+			_registerUserService = registerUserService;
+		}
 
 
         [HttpPost]
@@ -28,7 +27,7 @@ namespace OU_API.Controllers
         {
             // use new regiser user service
 
-			return _registerService.Execute(user);
+			return new JsonResult(_registerUserService.Execute(user).Message);
 		}
 
 

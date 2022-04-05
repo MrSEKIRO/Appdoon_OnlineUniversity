@@ -10,22 +10,12 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Presistence.Contexts
 {
-    public class DatabaseContext : DbContext,IDatabaseContext
-    {
-        private readonly IConfiguration _configuration;
-        public DatabaseContext(IConfiguration configuration)
-        {
-            this._configuration = configuration;
-        }
+	public class DatabaseContext : DbContext, IDatabaseContext
+	{
+		public DatabaseContext(DbContextOptions options) : base(options)
+		{
+		}
 
-        public DbSet<User> Users { get; set; }
-
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            string SqlDataSource = _configuration.GetConnectionString("OUAppCon");
-            optionsBuilder.UseSqlServer(SqlDataSource);
-        }
-    }
+		public DbSet<User> Users { get; set; }
+	}
 }
