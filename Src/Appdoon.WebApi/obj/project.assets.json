@@ -1523,6 +1523,56 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Appdoon.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Appdoon.Common": "1.0.0",
+          "Appdoon.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "5.0.13"
+        },
+        "compile": {
+          "bin/placeholder/Appdoon.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Appdoon.Application.dll": {}
+        }
+      },
+      "Appdoon.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Appdoon.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Appdoon.Common.dll": {}
+        }
+      },
+      "Appdoon.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Appdoon.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Appdoon.Domain.dll": {}
+        }
+      },
+      "Appdoon.Presistence/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Appdoon.Application": "1.0.0",
+          "Appdoon.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.13"
+        },
+        "compile": {
+          "bin/placeholder/Appdoon.Presistence.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Appdoon.Presistence.dll": {}
+        }
       }
     }
   },
@@ -5672,10 +5722,32 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Appdoon.Application/1.0.0": {
+      "type": "project",
+      "path": "../Appdoon.Application/Appdoon.Application.csproj",
+      "msbuildProject": "../Appdoon.Application/Appdoon.Application.csproj"
+    },
+    "Appdoon.Common/1.0.0": {
+      "type": "project",
+      "path": "../Appdoon.Common/Appdoon.Common.csproj",
+      "msbuildProject": "../Appdoon.Common/Appdoon.Common.csproj"
+    },
+    "Appdoon.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Appdoon.Domain/Appdoon.Domain.csproj",
+      "msbuildProject": "../Appdoon.Domain/Appdoon.Domain.csproj"
+    },
+    "Appdoon.Presistence/1.0.0": {
+      "type": "project",
+      "path": "../Appdoon.Presistence/Appdoon.Presistence.csproj",
+      "msbuildProject": "../Appdoon.Presistence/Appdoon.Presistence.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Appdoon.Domain >= 1.0.0",
+      "Appdoon.Presistence >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 5.0.13",
       "Microsoft.EntityFrameworkCore >= 5.0.13",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.13",
@@ -5714,7 +5786,14 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Appdoon\\Src\\Appdoon.Domain\\Appdoon.Domain.csproj": {
+              "projectPath": "C:\\Appdoon\\Src\\Appdoon.Domain\\Appdoon.Domain.csproj"
+            },
+            "C:\\Appdoon\\Src\\Appdoon.Presistence\\Appdoon.Presistence.csproj": {
+              "projectPath": "C:\\Appdoon\\Src\\Appdoon.Presistence\\Appdoon.Presistence.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

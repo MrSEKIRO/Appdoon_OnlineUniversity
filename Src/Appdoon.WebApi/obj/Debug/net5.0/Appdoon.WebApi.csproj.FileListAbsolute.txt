@@ -61,3 +61,7 @@ C:\Appdoon\Src\Appdoon.WebApi\obj\Debug\net5.0\refint\Appdoon.WebApi.dll
 C:\Appdoon\Src\Appdoon.WebApi\obj\Debug\net5.0\Appdoon.WebApi.pdb
 C:\Appdoon\Src\Appdoon.WebApi\obj\Debug\net5.0\Appdoon.WebApi.genruntimeconfig.cache
 C:\Appdoon\Src\Appdoon.WebApi\obj\Debug\net5.0\ref\Appdoon.WebApi.dll
+C:\Appdoon\Src\Appdoon.WebApi\bin\Debug\net5.0\Appdoon.Domain.dll
+C:\Appdoon\Src\Appdoon.WebApi\bin\Debug\net5.0\Appdoon.Presistence.dll
+C:\Appdoon\Src\Appdoon.WebApi\bin\Debug\net5.0\Appdoon.Domain.pdb
+C:\Appdoon\Src\Appdoon.WebApi\bin\Debug\net5.0\Appdoon.Presistence.pdb

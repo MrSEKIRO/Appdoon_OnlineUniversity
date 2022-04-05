@@ -1,17 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Appdoon.Application.Interfaces;
+using Appdoon.Domain.Entities.Users;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using OU_API.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace OU_API.Models.Contexts
+namespace Appdoon.Presistence.Contexts
 {
-
-
-
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext,IDatabaseContext
     {
         private readonly IConfiguration _configuration;
         public DatabaseContext(IConfiguration configuration)

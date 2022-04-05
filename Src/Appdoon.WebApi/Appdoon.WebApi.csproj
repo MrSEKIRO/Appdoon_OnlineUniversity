@@ -15,4 +15,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Appdoon.Domain\Appdoon.Domain.csproj" />
+    <ProjectReference Include="..\Appdoon.Presistence\Appdoon.Presistence.csproj" />
+  </ItemGroup>
+
 </Project>

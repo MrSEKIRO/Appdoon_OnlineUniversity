@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Appdoon.Domain.Entities.Users;
+using Appdoon.Presistence.Contexts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using OU_API.Models.Contexts;
-using OU_API.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
