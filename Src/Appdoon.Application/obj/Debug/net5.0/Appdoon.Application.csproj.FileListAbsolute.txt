@@ -1,0 +1,17 @@
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Application.deps.json
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Application.dll
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Application.pdb
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.csproj.AssemblyReference.cache
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.AssemblyInfoInputs.cache
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.AssemblyInfo.cs
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.csproj.CoreCompileInputs.cache
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.dll
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\refint\Appdoon.Application.dll
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.pdb
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\ref\Appdoon.Application.dll
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Common.dll
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Domain.dll
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Common.pdb
+C:\Appdoon\Src\Appdoon.Application\bin\Debug\net5.0\Appdoon.Domain.pdb
+C:\Appdoon\Src\Appdoon.Application\obj\Debug\net5.0\Appdoon.Application.csproj.CopyComplete

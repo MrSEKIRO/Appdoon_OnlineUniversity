@@ -1,0 +1,12 @@
+C:\Appdoon\Src\Appdoon.Common\bin\Debug\net5.0\Appdoon.Common.deps.json
+C:\Appdoon\Src\Appdoon.Common\bin\Debug\net5.0\Appdoon.Common.dll
+C:\Appdoon\Src\Appdoon.Common\bin\Debug\net5.0\Appdoon.Common.pdb
+C:\Appdoon\Src\Appdoon.Common\obj\Debug\net5.0\Appdoon.Common.csproj.AssemblyReference.cache
+C:\Appdoon\Src\Appdoon.Common\obj\Debug\net5.0\Appdoon.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Appdoon\Src\Appdoon.Common\obj\Debug\net5.0\Appdoon.Common.AssemblyInfoInputs.cache
+C:\Appdoon\Src\Appdoon.Common\obj\Debug\net5.0\Appdoon.Common.AssemblyInfo.cs
+C:\Appdoon\Src\Appdoon.Common\obj\Debug\net5.0\Appdoon.Common.csproj.CoreCompileInputs.cache
+C:\Appdoon\Src\Appdoon.Common\obj\Debug\net5.0\Appdoon.Common.dll
+C:\Appdoon\Src\Appdoon.Common\obj\Debug\net5.0\refint\Appdoon.Common.dll
+C:\Appdoon\Src\Appdoon.Common\obj\Debug\net5.0\Appdoon.Common.pdb
+C:\Appdoon\Src\Appdoon.Common\obj\Debug\net5.0\ref\Appdoon.Common.dll
