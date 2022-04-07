@@ -27,7 +27,7 @@ namespace OU_API.Controllers
         {
             // use new regiser user service
 
-			return new JsonResult(_registerUserService.Execute(user).Message);
+			return new JsonResult(_registerUserService.Execute(user));
 		}
 
 
