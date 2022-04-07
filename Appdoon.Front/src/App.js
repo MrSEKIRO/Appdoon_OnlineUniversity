@@ -1,8 +1,9 @@
 import React from 'react';
 
-import {Register} from './components/Register'; 
-import  {Home}  from './components/Home';
+import {Register} from './Components/Register'; 
+import  {Home}  from './Components/Home';
 import {Navigation} from "./Statics/Navigation";
+import {Footer} from "./Statics/Footer";
 
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
@@ -15,9 +16,7 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="container">
-          <h3 className='m-3 d-flex justify-content-center'> Random Bullshit </h3>
-        </div>
+        
 
         <Navigation/>
 
@@ -26,6 +25,10 @@ class App extends React.Component {
           <Route path="/" element={<Home/>} exact/>  
           <Route path="/register" element={<Register/>}/>
         </Routes>
+
+
+
+        <Footer/>
 
       </BrowserRouter>
 
