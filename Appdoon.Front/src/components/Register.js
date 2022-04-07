@@ -1,4 +1,5 @@
 import React,{Component} from "react";
+import {NavLink} from 'react-router-dom';
 //import{Button,Form} from 'react-bootstrap';
 
 export class Register extends Component{
@@ -25,10 +26,20 @@ export class Register extends Component{
         })
         .then(res=>res.json())
         .then((result)=>{
-            alert(result);
+            if(result.IsSuccess){
+                document.getElementById("register_error").style.color = "green";
+                document.getElementById("register_error").innerHTML = result.Message;
+            }
+            else{
+                document.getElementById("register_error").style.color = "red";
+                document.getElementById("register_error").innerHTML = result.Message;
+            }
+            
+            
         },
         (error)=>{
-            alert("Failed!");
+            document.getElementById("register_error").style.color = "red";
+            document.getElementById("register_error").innerHTML = "خطایی رخ داده است!";
         })
     }
 
@@ -53,27 +64,46 @@ export class Register extends Component{
                                         <a href="#" className="account-box-logo">digismart</a>
                                         <div className="account-box">
                                             <div className="account-box-headline">
-                                                <a href="login.html" className="login-ds">
-                                                    <span className="title">ورود</span>
-                                                    <span className="sub-title">به دیجی اسمارت</span>
-                                                </a>
-                                                <a href="register.html" className="register-ds active">
-                                                    <span className="title">ثبت نام</span>
-                                                    <span className="sub-title">در دیجی اسمارت</span>
-                                                </a>
+                                                <NavLink to="/login" class="login-ds">
+                                                    <span class="title">ورود</span>
+                                                    <span class="sub-title">به دیجی اسمارت</span>
+                                                </NavLink>
+
+
+                                                <NavLink to="/register" class="register-ds active">
+                                                    <span class="title">ثبت نام</span>
+                                                    <span class="sub-title">در دیجی اسمارت</span>
+                                                </NavLink>
                                             </div>
                                             <div className="Login-to-account mt-4">
                                                 <div className="account-box-content">
                                                     <h4>ثبت نام در دیجی اسمارت</h4>
-                                                    <form action="#" className="form-account text-right">
+                                                    <form Form onSubmit={this.handleSubmit} action="#" className="form-account text-right">
+
+
+
+
+
+
+
                                                         <div className="form-account-title">
-                                                            <label for="email-phone">ایمیل / شماره موبایل</label>
-                                                            <input type="text" className="number-email-input" id="email-phone" name="email-account"/>
+                                                            <label for="email-phone">ایمیل</label>
+                                                            <input type="text" className="number-email-input" name="Email"/>
                                                         </div>
+
+                                                        <div className="form-account-title">
+                                                            <label for="email-phone">نام کاربری</label>
+                                                            <input type="text" className="number-email-input" name="Username"/>
+                                                        </div>
+
                                                         <div className="form-account-title">
                                                             <label for="password">رمز عبور</label>
-                                                            <input type="password" className="password-input" name="password-account"/>
+                                                            <input type="password" className="password-input" name="Password"/>
                                                         </div>
+
+
+                                                        {/*
+
                                                         <div className="form-auth-row">
                                                             <label for="#" className="ui-checkbox mt-1">
                                                                 <input type="checkbox" value="1" name="login" id="remember"/>
@@ -81,9 +111,23 @@ export class Register extends Component{
                                                             </label>
                                                             <label for="remember" className="remember-me mr-0"><a href="#">حریم خصوصی</a> و <a href="#">شرایط قوانین </a>استفاده از سرویس های سایت دیجی‌اسمارت را مطالعه نموده و با کلیه موارد آن موافقم.</label>
                                                         </div>
-                                                        <div className="form-row-account">
-                                                            <button className="btn btn-primary btn-register">ثبت نام در دیجی اسمارت</button>
+
+                                                        */}
+
+                                                        <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
+                                                            <p style={{fontSize : "14px"}} id="register_error"></p>
                                                         </div>
+
+                                                        <div className="form-row-account">
+                                                            <button variant="primary" type="submit" className="btn btn-primary btn-register">ثبت نام در دیجی اسمارت</button>
+                                                        </div>
+
+
+
+
+
+
+
                                                     </form>
                                                 </div>
                                             </div>

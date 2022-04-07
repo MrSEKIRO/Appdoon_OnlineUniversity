@@ -18,22 +18,6 @@ export class Footer extends Component{
                 <br/>
                 <br/>
                 <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
                 <footer class="footer-main-site">
                     <section class="d-block d-xl-block d-lg-block d-md-block d-sm-block order-1">
                         <div class="footer-shopping-features">

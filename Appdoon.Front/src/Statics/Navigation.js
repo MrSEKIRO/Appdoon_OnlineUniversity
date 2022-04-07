@@ -270,7 +270,7 @@ export class Navigation extends Component{
 
                                             <li id="nav-menu-item" class="menu-item">
                                                 <NavLink className="current-link-menu" to="/register">
-                                                    ثبت نام
+                                                    ثبت نام / ورود
                                                 </NavLink>
                                             </li>
 
@@ -1113,7 +1113,7 @@ export class Navigation extends Component{
                                     */}
 
                                     <li><NavLink className="current-link-menu" to="/">صفحه اصلی</NavLink></li>
-                                    <li><NavLink className="current-link-menu" to="/register">ثبت نام</NavLink></li>
+                                    <li><NavLink className="current-link-menu" to="/register">ثبت نام / ورود</NavLink></li>
 
 
                                 </ul>
