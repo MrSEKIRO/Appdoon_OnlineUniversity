@@ -1,11 +1,57 @@
 import React,{Component} from "react";
 import {NavLink} from 'react-router-dom';
 
-export class Login extends Component{
 
+export class Login extends Component{
+    constructor(props){
+        super(props)
+        this.handleSubmit=this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(event){
+        
+
+        event.preventDefault();
+        
+        fetch(process.env.REACT_APP_API+'login',{
+            method:"POST",
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            
+            body:JSON.stringify({
+                Email:event.target.Email_Username.value,
+                Username:event.target.Email_Username.value,
+                Password:event.target.Password.value
+
+
+            })
+        })
+        
+        .then(res=>res.json())
+        .then((result)=>{
+            if(result.IsSuccess){
+                document.getElementById("login_error").style.color = "green";
+                document.getElementById("login_error").innerHTML = result.Message;
+            }
+            else{
+                document.getElementById("login_error").style.color = "red";
+                document.getElementById("login_error").innerHTML = result.Message;
+            }
+            
+            
+            
+        },
+        (error)=>{
+            document.getElementById("login_error").style.color = "red";
+            document.getElementById("login_error").innerHTML = "خطایی رخ داده است!";
+        })
+    }
 
     componentDidMount() {
-        document.title = "ورود"; 
+        document.title = "ورود";
+        
     }
 
     render(){
@@ -34,16 +80,26 @@ export class Login extends Component{
                                             <div class="Login-to-account mt-4">
                                                 <div class="account-box-content">
                                                     <h4>ورود به حساب کاربری</h4>
-                                                    <form action="#" class="form-account text-right">
+                                                    <form onSubmit={this.handleSubmit} action="#" class="form-account text-right">
+
+
+
+
+
                                                         <div class="form-account-title">
-                                                            <label for="email-phone">ایمیل / شماره موبایل</label>
-                                                            <input type="text" class="number-email-input" id="email-phone" name="email-account"/>
+                                                            <label for="email-phone">ایمیل / نام کاربری</label>
+                                                            <input type="text" class="number-email-input" name="Email_Username"/>
                                                         </div>
+
+                                                        
                                                         <div class="form-account-title">
                                                             <label for="password">رمز عبور</label>
                                                             <a href="#" class="account-link-password">رمز خود را فراموش کرده ام</a>
-                                                            <input type="password" class="password-input" name="password-account"/>
+                                                            <input type="password" class="password-input" name="Password"/>
                                                         </div>
+
+
+                                                        {/*
                                                         <div class="form-auth-row">
                                                             <label for="#" class="ui-checkbox mt-1">
                                                                 <input type="checkbox" value="1" name="login" id="remember"/>
@@ -51,9 +107,22 @@ export class Login extends Component{
                                                             </label>
                                                             <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
                                                         </div>
-                                                        <div class="form-row-account">
-                                                            <button class="btn btn-primary btn-login">ورود به دیجی اسمارت</button>
+                                                        */}
+
+
+                                                        <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
+                                                            <p style={{fontSize : "14px"}} id="login_error"></p>
                                                         </div>
+
+                                                        <div class="form-row-account">
+                                                            <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود به دیجی اسمارت</button>
+                                                        </div>
+
+
+
+
+
+
                                                     </form>
                                                 </div>
                                             </div>

@@ -78,7 +78,7 @@ export class Register extends Component{
                                             <div className="Login-to-account mt-4">
                                                 <div className="account-box-content">
                                                     <h4>ثبت نام در دیجی اسمارت</h4>
-                                                    <form Form onSubmit={this.handleSubmit} action="#" className="form-account text-right">
+                                                    <form onSubmit={this.handleSubmit} action="#" className="form-account text-right">
 
 
 
