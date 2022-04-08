@@ -1,4 +1,5 @@
 using Appdoon.Application.Interfaces;
+using Appdoon.Application.Services.Users.LoginUserService;
 using Appdoon.Application.Services.Users.RegisterUserService;
 using Appdoon.Presistence.Contexts;
 using Microsoft.AspNetCore.Builder;
@@ -55,8 +56,11 @@ namespace OU_API
             // Inject Register User service
             services.AddScoped<IRegisterUserService, RegisterUserService>();
 
-			// Dependency Injection for Database Context
-			services.AddScoped<IDatabaseContext, DatabaseContext>();
+            // Inject Login User service
+            services.AddScoped<ILoginUserService, LoginUserService>();
+
+            // Dependency Injection for Database Context
+            services.AddScoped<IDatabaseContext, DatabaseContext>();
 
 			// Add EF Core
 			services.AddEntityFrameworkSqlServer()
