@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Appdoon.Common.CommonRegex;
+using Appdoon.Common.HashFunctions;
 
 namespace Appdoon.Application.Services.Users.RegisterUserService
 {
@@ -54,11 +55,48 @@ namespace Appdoon.Application.Services.Users.RegisterUserService
                 };
             }
 
-            //Uniqueness(Email/Password)
+
+
+            //Uniqueness(Email/Username)
+            var matchesEmail = _context.Users.Where(p => p.Email == user.Email);
+
+            if (matchesEmail.Count() != 0)
+            {
+                return new ResultDto()
+                {
+                    IsSuccess = false,
+                    Message = "ایمیل تکراری است!",
+                };
+            }
+
+
+            var matchesUsername = _context.Users.Where(p => p.Username == user.Username);
+
+            if (matchesUsername.Count() != 0)
+            {
+                return new ResultDto()
+                {
+                    IsSuccess = false,
+                    Message = "نام کاربری تکراری است!",
+                };
+            }
 
 
 
-            _context.Users.Add(user);
+            string newpass = ArshiaHash.Hash(user.Password);
+
+
+
+
+            User newuser = new User();
+            newuser.UserId = user.UserId;
+            newuser.Email = user.Email;
+            newuser.Username = user.Username;
+            newuser.Password = newpass;
+            
+
+
+            _context.Users.Add(newuser);
             _context.SaveChanges();
 
             return new ResultDto()
