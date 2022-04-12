@@ -33,7 +33,7 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapService
 		{
 			try
 			{
-				var roadmap = new RoadMap()
+				var roadmap = new Domain.Entities.RoadMaps.RoadMap()
 				{
 					Title = Title,
 					Description = Description,
