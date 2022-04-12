@@ -13,4 +13,9 @@
     <ProjectReference Include="..\Appdoon.Domain\Appdoon.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\RoadMap\Command\" />
+    <Folder Include="Services\RoadMap\Query\" />
+  </ItemGroup>
+
 </Project>
