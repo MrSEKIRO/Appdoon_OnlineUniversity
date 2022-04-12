@@ -1,6 +1,8 @@
-﻿using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapService;
+﻿
+using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Appdoon.WebApi.Controllers
 {
@@ -8,16 +10,16 @@ namespace Appdoon.WebApi.Controllers
 	[ApiController]
 	public class BuildRoadMapController : ControllerBase
 	{
-		private readonly ICreateRoadMapService _createRoadMapService;
+		private readonly ICreateRoadMapIndividualService _createRoadMapService;
 
-		public BuildRoadMapController(ICreateRoadMapService createRoadMapService)
+		public BuildRoadMapController(ICreateRoadMapIndividualService createRoadMapService)
 		{
 			_createRoadMapService = createRoadMapService;
 		}
 		[HttpPost]
-		public JsonResult Create(string Title, string Description,string ImageSrc, int Stars)
+		public JsonResult Create(string Title, string Description,string ImageSrc, List<int> CategoriesId)
 		{
-			var reslut= _createRoadMapService.Execute(Title, Description, ImageSrc, Stars);
+			var reslut= _createRoadMapService.Execute(Title, Description, ImageSrc, CategoriesId);
 
 			return new JsonResult(reslut);
 		}

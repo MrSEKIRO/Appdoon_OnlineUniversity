@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Appdoon.Application.Interfaces;
 
-namespace Appdoon.Application.Services.RoadMap.Query.GetRoadMapService
+namespace Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService
 {
     public interface IGetRoadMapService
     {
-		ResultDto<List<RoadMapDto>> Execute();
+		ResultDto<List<IndividualRoadMapDto>> Execute();
 	}
     public class GetRoadMapService : IGetRoadMapService
     {
@@ -21,13 +21,14 @@ namespace Appdoon.Application.Services.RoadMap.Query.GetRoadMapService
         {
             _context = context;
         }
-		public ResultDto<List<RoadMapDto>> Execute()
+		public ResultDto<List<IndividualRoadMapDto>> Execute()
 		{
 			try
 			{
 				var roadmaps = _context.RoadMaps
 					.Include(r => r.Categories)
-					.Select(r => new RoadMapDto()
+					.Include(r => r.Steps)
+					.Select(r => new IndividualRoadMapDto()
 					{
 						Id = r.Id,
 						Description = r.Description,
@@ -38,7 +39,7 @@ namespace Appdoon.Application.Services.RoadMap.Query.GetRoadMapService
 						Steps = r.Steps,
 					}).ToList();
 
-				return new ResultDto<List<RoadMapDto>>()
+				return new ResultDto<List<IndividualRoadMapDto>>()
 				{
 					IsSuccess = true,
 					Message = "رودمپ ها ارسال شد",
@@ -47,16 +48,16 @@ namespace Appdoon.Application.Services.RoadMap.Query.GetRoadMapService
 			}
 			catch (Exception e)
 			{
-				return new ResultDto<List<RoadMapDto>>()
+				return new ResultDto<List<IndividualRoadMapDto>>()
 				{
 					IsSuccess = false,
 					Message = "ارسال ناموفق!",
-					Data = new List<RoadMapDto>(),
+					Data = new List<IndividualRoadMapDto>(),
 				};
 			}
 		}
 	}
-	public class RoadMapDto
+	public class IndividualRoadMapDto
 	{
 		public int Id { get; set; }
 		public string Title { get; set; } = string.Empty;

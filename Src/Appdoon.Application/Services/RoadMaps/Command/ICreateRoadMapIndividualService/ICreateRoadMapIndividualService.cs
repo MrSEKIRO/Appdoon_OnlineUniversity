@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appdoon.Application.Services.RoadMap.Command.ICreateRoadMapIndividualService
+namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualService
 {
     public interface ICreateRoadMapIndividualService
     {
-        ResultDto Execute(string Title, string Description, string ImageSrc, int Stars, List<Category> Categories, List<Step> Steps);
+        ResultDto Execute(string Title, string Description, string ImageSrc, List<int> CategoriesId);
     }
 	public class CreateRoadMapIndividualService : ICreateRoadMapIndividualService
 	{
@@ -21,18 +21,22 @@ namespace Appdoon.Application.Services.RoadMap.Command.ICreateRoadMapIndividualS
 		{
 			_context = context;
 		}
-		public ResultDto Execute(string Title, string Description, string ImageSrc, int Stars, List<Category> Categories, List<Step> Steps)
+		public ResultDto Execute(string Title, string Description, string ImageSrc, List<int> CategoriesId)
 		{
 			try
 			{
-				var roadmap = new Domain.Entities.RoadMaps.RoadMap()
+				List<Category> categories = new List<Category>();
+                foreach (var item in CategoriesId)
+                {
+					Category category = _context.Categories.Find(item);
+					categories.Add(category);
+                }
+				var roadmap = new RoadMap()
 				{
 					Title = Title,
 					Description = Description,
 					ImageSrc = ImageSrc,
-					Stars = Stars,
-					Categories = Categories,
-					Steps = Steps,
+					Categories = categories,
 				};
 
 				_context.RoadMaps.Add(roadmap);
