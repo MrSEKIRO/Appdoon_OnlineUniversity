@@ -1,4 +1,5 @@
 ﻿
+using Appdoon.Application.Services.Categories.Command.ICreateCategoryService;
 using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,14 @@ namespace Appdoon.WebApi.Controllers
 	public class BuildRoadMapController : ControllerBase
 	{
 		private readonly ICreateRoadMapIndividualService _createRoadMapService;
+        private readonly ICreateCategoryService _createCategoryService;
 
-		public BuildRoadMapController(ICreateRoadMapIndividualService createRoadMapService)
+        public BuildRoadMapController(ICreateRoadMapIndividualService createRoadMapService, ICreateCategoryService createCategoryService)
 		{
 			_createRoadMapService = createRoadMapService;
+			_createCategoryService = createCategoryService;
 		}
+
 		[HttpPost]
 		public JsonResult Create(string Title, string Description,string ImageSrc, List<int> CategoriesId)
 		{
@@ -23,6 +27,12 @@ namespace Appdoon.WebApi.Controllers
 
 			return new JsonResult(reslut);
 		}
+		[HttpPost]
+		public JsonResult CreateCategoy(string Name, string Link)
+        {
+			var result = _createCategoryService.Execute(Name, Link);
+			return new JsonResult(result);
+        }
 	}
 
 	
