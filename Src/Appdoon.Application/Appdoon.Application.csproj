@@ -14,8 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\RoadMap\Command\" />
-    <Folder Include="Services\RoadMap\Query\" />
+    <Folder Include="Services\Categories\Query\" />
   </ItemGroup>
 
 </Project>
