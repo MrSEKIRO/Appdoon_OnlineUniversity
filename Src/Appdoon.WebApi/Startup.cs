@@ -1,7 +1,6 @@
 using Appdoon.Application.Interfaces;
-using Appdoon.Application.Services.RoadMap.Command.ICreateRoadMapIndividualService;
-using Appdoon.Application.Services.RoadMap.Query.GetRoadMapService;
-using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapService;
+using Appdoon.Application.Services.Categories.Command.ICreateCategoryService;
+using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualService;
 using Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService;
 using Appdoon.Application.Services.Users.LoginUserService;
 using Appdoon.Application.Services.Users.RegisterUserService;
@@ -69,14 +68,14 @@ namespace OU_API
             // Dependency Injection for Get All RoadMap Service
             services.AddScoped<IGetAllRoadMapService, GetAllRoadMapService>();
 
-            services.AddScoped<ICreateRoadMapService,CreateRoadMapService>();
-
-
             //Dependency Injection for Get RoadMap Service
             services.AddScoped<IGetRoadMapService, GetRoadMapService>();
 
             //Dependency Injection for create RoadMap individual Service
             services.AddScoped<ICreateRoadMapIndividualService, CreateRoadMapIndividualService>();
+
+            //Dependency Injection for create category Service
+            services.AddScoped<ICreateCategoryService, CreateCategoryService>();
 
             // Add EF Core
             services.AddEntityFrameworkSqlServer()

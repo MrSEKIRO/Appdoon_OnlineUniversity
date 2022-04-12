@@ -25,10 +25,10 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 		{
 			try
 			{
-				List<Category> categories = new List<Category>();
+				List<Domain.Entities.RoadMaps.Category> categories = new List<Domain.Entities.RoadMaps.Category>();
                 foreach (var item in CategoriesId)
                 {
-					Category category = _context.Categories.Find(item);
+					Domain.Entities.RoadMaps.Category category = _context.Categories.Find(item);
 					categories.Add(category);
                 }
 				var roadmap = new RoadMap()
