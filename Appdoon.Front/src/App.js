@@ -7,6 +7,9 @@ import {Navigation} from "./Statics/Navigation";
 import {Footer} from "./Statics/Footer";
 
 import{Login} from "./Components/Login";
+import Timeline from "./Components/Timeline/Timeline";
+
+
 
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
@@ -18,25 +21,33 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        
-
-        <Navigation/>
-
-
-        <Routes>
-          <Route path="/" element={<Home/>} exact/>  
+      <div>
+        <BrowserRouter>
           
-          <Route path="/register" element={<Register/>}/>
 
-          <Route path="/login" element={<Login/>}/>
-        </Routes>
+          <Navigation/>
 
 
+          <Routes>
+            <Route path="/" element={<Home/>} exact/>  
+            
+            <Route path="/register" element={<Register/>}/>
 
-        <Footer/>
+            <Route path="/login" element={<Login/>}/>
 
-      </BrowserRouter>
+
+            <Route path="/timeline" element={<Timeline/>}/>
+
+            
+
+          </Routes>
+
+
+
+          <Footer/>
+
+        </BrowserRouter>
+      </div>
 
     );
   }
