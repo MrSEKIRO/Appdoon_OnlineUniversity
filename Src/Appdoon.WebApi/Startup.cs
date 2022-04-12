@@ -1,4 +1,6 @@
 using Appdoon.Application.Interfaces;
+using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapService;
+using Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService;
 using Appdoon.Application.Services.Users.LoginUserService;
 using Appdoon.Application.Services.Users.RegisterUserService;
 using Appdoon.Presistence.Contexts;
@@ -61,6 +63,11 @@ namespace OU_API
 
             // Dependency Injection for Database Context
             services.AddScoped<IDatabaseContext, DatabaseContext>();
+
+            // Dependency Injection for Get All RoadMap Service
+            services.AddScoped<IGetAllRoadMapService, GetAllRoadMapService>();
+
+            services.AddScoped<ICreateRoadMapService,CreateRoadMapService>();
 
 			// Add EF Core
 			services.AddEntityFrameworkSqlServer()
