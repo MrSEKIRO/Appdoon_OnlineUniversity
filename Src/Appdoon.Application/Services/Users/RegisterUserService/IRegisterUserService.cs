@@ -89,7 +89,7 @@ namespace Appdoon.Application.Services.Users.RegisterUserService
 
 
             User newuser = new User();
-            newuser.UserId = user.UserId;
+            newuser.Id = user.Id;
             newuser.Email = user.Email;
             newuser.Username = user.Username;
             newuser.Password = newpass;
