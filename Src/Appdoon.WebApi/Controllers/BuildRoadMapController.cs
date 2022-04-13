@@ -21,9 +21,13 @@ namespace Appdoon.WebApi.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult Create(string Title, string Description,string ImageSrc, List<int> CategoriesId)
+		public JsonResult CreateRoadMap(string Title, string Description, List<int> CategoriesId)
 		{
-			var reslut= _createRoadMapService.Execute(Title, Description, ImageSrc, CategoriesId);
+			IFormFile image=null;
+			if(Request.Form.Files.Count>0)
+				image = Request.Form.Files[0];
+			
+			var reslut= _createRoadMapService.Execute(Title, Description, image, CategoriesId);
 
 			return new JsonResult(reslut);
 		}
