@@ -133,7 +133,6 @@ export class Navigation extends Component{
                                         <div class="col-lg-3 pr">
                                             <div class="header-logo row text-right">
                                                 <a href="#">
-
                                                     <img src="../assets/images/logo.png" alt="دیجی اسمارت"/>
                                                 </a>
                                             </div>
@@ -233,7 +232,7 @@ export class Navigation extends Component{
                                                         <span class="icon-account">
                                                             <img src="../assets/images/man.png" class="avator"/>
                                                         </span>
-                                                        <span class="title-account">حساب کاربری</span>
+                                                        <span class="title-account">پروفایل</span>
                                                         <div class="dropdown-menu">
                                                             <ul class="account-uls mb-0">
                                                                 <li class="account-item">
@@ -263,7 +262,7 @@ export class Navigation extends Component{
                                         <ul class="menu-ul mega-menu-level-one">
 
                                             <li id="nav-menu-item" class="menu-item">
-                                                <NavLink className="current-link-menu" to="/">
+                                                <NavLink className="current-link-menu" to="/timeline">
                                                     صفحه اصلی
                                                 </NavLink>
                                             </li>
