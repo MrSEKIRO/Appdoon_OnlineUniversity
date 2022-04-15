@@ -1,4 +1,5 @@
 import TimelineItem from "./TimelineItem";
+import React,{Component} from "react";
 import "../../assets/css/timeline/style.css";
 import ReactDOM from 'react-dom';
 
@@ -68,24 +69,84 @@ const timelineData = [
 ]
 
 
-const Timeline = () =>
-    timelineData.length > 0 && (
-        <div className='timelineBody'>
-            <h1>... رودمپ</h1>
-            <div className="timeline-container">
-                {timelineData.map((data, idx) => (
-                    <TimelineItem data={data} key={idx} />
-                ))}
-            </div>
-        </div>
-    )
-    
-    timelineData.length == 0 && (
-        <div>
-            .رودمپ خالی است
-        </div>
-    )
-    
-    ;
 
-export default Timeline;
+export class Timeline extends Component{
+
+    constructor(props){
+        super(props)
+        this.handleSubmit=this.handleSubmit.bind(this);
+    }
+
+    
+
+    handleSubmit(event){
+        
+
+        event.preventDefault();
+        
+        fetch(process.env.REACT_APP_API+'login',{
+            method:"POST",
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            
+            body:JSON.stringify({
+                Email:event.target.Email_Username.value,
+                Username:event.target.Email_Username.value,
+                Password:event.target.Password.value
+
+
+            })
+        })
+        
+        .then(res=>res.json())
+        .then((result)=>{
+            if(result.IsSuccess){
+                document.getElementById("login_error").style.color = "green";
+                document.getElementById("login_error").innerHTML = result.Message;
+            }
+            else{
+                document.getElementById("login_error").style.color = "red";
+                document.getElementById("login_error").innerHTML = result.Message;
+            }
+            
+            
+            
+        },
+        (error)=>{
+            document.getElementById("login_error").style.color = "red";
+            document.getElementById("login_error").innerHTML = "خطایی رخ داده است!";
+        })
+    }
+
+
+
+    componentDidMount() {
+        document.title = "رودمپ ..."; 
+    }
+
+    render(){
+        return(
+            <div>
+                {timelineData.length > 0 && (
+                    <div className='timelineBody'>
+                        <h1>... رودمپ</h1>
+                        <div className="timeline-container">
+                            {timelineData.map((data, idx) => (
+                                <TimelineItem data={data} key={idx} />
+                            ))}
+                        </div>
+                    </div>
+                    )
+                }
+    
+                {timelineData.length == 0 && (
+                    <div>
+                        .رودمپ خالی است
+                    </div>)
+                }
+            </div>
+        );
+    }
+}

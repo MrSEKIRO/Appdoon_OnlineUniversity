@@ -7,7 +7,9 @@ import {Navigation} from "./Statics/Navigation";
 import {Footer} from "./Statics/Footer";
 
 import{Login} from "./Components/Login";
-import Timeline from "./Components/Timeline/Timeline";
+import {Timeline} from "./Components/Timeline/Timeline";
+
+import {Roadmaps} from "./Components/Roadmaps";
 
 
 
@@ -37,6 +39,8 @@ class App extends React.Component {
 
 
             <Route path="/timeline" element={<Timeline/>}/>
+
+            <Route path="/roadmaps" element={<Roadmaps/>}/>
 
             
 
