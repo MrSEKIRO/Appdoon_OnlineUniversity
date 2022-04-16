@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Appdoon.WebApi.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/[controller]/[action]")]
 	[ApiController]
 	public class BuildRoadMapController : ControllerBase
 	{
@@ -31,6 +31,7 @@ namespace Appdoon.WebApi.Controllers
 
 			return new JsonResult(reslut);
 		}
+
 		[HttpPost]
 		public JsonResult CreateCategoy(string Name, string Link)
         {

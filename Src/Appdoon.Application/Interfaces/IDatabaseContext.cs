@@ -12,7 +12,7 @@ namespace Appdoon.Application.Interfaces
 {
 	public interface IDatabaseContext
 	{
-		DbSet<User> Users { get; set; } 
+		DbSet<User> Users { get; set; }
 		DbSet<Role> Roles { get; set; }
 		DbSet<RoadMap> RoadMaps { get; set; }
 		DbSet<Category> Categories { get; set; }
