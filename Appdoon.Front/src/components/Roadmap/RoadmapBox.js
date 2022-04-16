@@ -1,5 +1,11 @@
 //import "../../assets/css/timeline/style.css";
+import {Link} from 'react-router-dom';
 
+function individualRoadmap(id){
+    const {data : roadmap, isLogin, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/IndividualRoadMap');
+    
+
+}
 
 const RoadmapBox = ({ data : roadmap }) => (
 
@@ -18,9 +24,9 @@ const RoadmapBox = ({ data : roadmap }) => (
                 <div class="post-title">
 
 
-                    <a href="#" class="d-block">
+                    <Link onClick={individualRoadmap(data.id)} to={"/"} className="d-block">
                         <h4>{roadmap.Description}</h4>
-                    </a>
+                    </Link>
 
 
                     <span class="post-date">
