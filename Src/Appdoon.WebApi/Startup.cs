@@ -4,7 +4,9 @@ using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualServ
 using Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService;
 using Appdoon.Application.Services.Users.LoginUserService;
 using Appdoon.Application.Services.Users.RegisterUserService;
+using Appdoon.Application.Validatores.UserValidatore;
 using Appdoon.Presistence.Contexts;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -76,6 +78,11 @@ namespace OU_API
 
             //Dependency Injection for create category Service
             services.AddScoped<ICreateCategoryService, CreateCategoryService>();
+
+
+            // Injection for user validatore
+            // Be aware of UserValidatore class in Asp.Net
+            services.AddScoped<IValidator<RequestRegisterUserDto>, UserValidatore>();
 
             // Add EF Core
             services.AddEntityFrameworkSqlServer()

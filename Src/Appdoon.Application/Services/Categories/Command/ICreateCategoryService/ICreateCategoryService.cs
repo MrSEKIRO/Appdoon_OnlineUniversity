@@ -36,7 +36,7 @@ namespace Appdoon.Application.Services.Categories.Command.ICreateCategoryService
 				return new ResultDto()
 				{
 					IsSuccess = true,
-					Message = "کنگوری اضافه شد",
+					Message = "کتگوری اضافه شد",
 				};
 			}
 			catch(Exception e)

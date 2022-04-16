@@ -27,7 +27,7 @@ namespace Appdoon.WebApi.Controllers
 		}
 
 		[HttpGet]
-		public JsonResult IndividualRoadMap(int RoadMapId)
+		public JsonResult IndividualRoadMap([FromBody] int RoadMapId)
 		{
 			var result = _getRoadMapService.Execute(RoadMapId);
 			return new JsonResult(result);
