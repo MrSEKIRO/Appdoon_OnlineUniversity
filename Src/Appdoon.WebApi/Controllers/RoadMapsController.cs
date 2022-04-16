@@ -9,9 +9,9 @@ namespace Appdoon.WebApi.Controllers
 	public class RoadMapsController : ControllerBase
 	{
 		private readonly IGetAllRoadMapService _getAllRoadMapService;
-        private readonly IGetRoadMapService _getRoadMapService;
+        private readonly IGetIndivdualRoadMapService _getRoadMapService;
 
-        public RoadMapsController(IGetAllRoadMapService getAllRoadMapService, IGetRoadMapService getRoadMapService)
+        public RoadMapsController(IGetAllRoadMapService getAllRoadMapService, IGetIndivdualRoadMapService getRoadMapService)
 		{
 			_getAllRoadMapService = getAllRoadMapService;
 			_getRoadMapService = getRoadMapService;
@@ -27,9 +27,9 @@ namespace Appdoon.WebApi.Controllers
 		}
 
 		[HttpGet]
-		public JsonResult IndivisualRoadMap()
+		public JsonResult IndividualRoadMap(int RoadMapId)
 		{
-			var result = _getRoadMapService.Execute();
+			var result = _getRoadMapService.Execute(RoadMapId);
 			return new JsonResult(result);
 		}
 	}
