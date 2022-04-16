@@ -9,7 +9,7 @@ import {Footer} from "./Statics/Footer";
 import{Login} from "./Components/Login";
 import {Timeline} from "./Components/Timeline/Timeline";
 
-import {Roadmaps} from "./Components/Roadmaps";
+import Roadmaps from "./Components/Roadmap/Roadmaps";
 
 
 

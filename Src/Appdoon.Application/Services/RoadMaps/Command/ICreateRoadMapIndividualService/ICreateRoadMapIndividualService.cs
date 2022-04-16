@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
@@ -76,7 +78,7 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 		{
 			if(file != null)
 			{
-				string folder = $@"images\ProductImages\";
+				string folder = $@"images\roadmaps\";
 				var uploadsRootFolder = Path.Combine(environment.WebRootPath, folder);
 				if(Directory.Exists(uploadsRootFolder) == false)
 				{

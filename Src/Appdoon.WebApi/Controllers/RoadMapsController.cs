@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Appdoon.WebApi.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/[controller]/[action]")]
 	[ApiController]
 	public class RoadMapsController : ControllerBase
 	{

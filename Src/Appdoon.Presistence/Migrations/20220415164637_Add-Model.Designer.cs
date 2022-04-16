@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Appdoon.Presistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220411100221_Add_Model")]
-    partial class Add_Model
+    [Migration("20220415164637_Add-Model")]
+    partial class AddModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,21 +199,21 @@ namespace Appdoon.Presistence.Migrations
                         new
                         {
                             Id = 1,
-                            InsertTime = new DateTime(2022, 4, 11, 14, 32, 20, 470, DateTimeKind.Local).AddTicks(6810),
+                            InsertTime = new DateTime(2022, 4, 15, 21, 16, 37, 598, DateTimeKind.Local).AddTicks(3781),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            InsertTime = new DateTime(2022, 4, 11, 14, 32, 20, 474, DateTimeKind.Local).AddTicks(2612),
+                            InsertTime = new DateTime(2022, 4, 15, 21, 16, 37, 600, DateTimeKind.Local).AddTicks(8614),
                             IsRemoved = false,
                             Name = "Teacher"
                         },
                         new
                         {
                             Id = 3,
-                            InsertTime = new DateTime(2022, 4, 11, 14, 32, 20, 474, DateTimeKind.Local).AddTicks(2826),
+                            InsertTime = new DateTime(2022, 4, 15, 21, 16, 37, 600, DateTimeKind.Local).AddTicks(8721),
                             IsRemoved = false,
                             Name = "User"
                         });
