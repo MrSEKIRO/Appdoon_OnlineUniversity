@@ -33,7 +33,7 @@ namespace Appdoon.WebApi.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult CreateCategoy(string Name, string Link)
+		public JsonResult CreateCategory(string Name, string Link)
         {
 			var result = _createCategoryService.Execute(Name, Link);
 			return new JsonResult(result);
