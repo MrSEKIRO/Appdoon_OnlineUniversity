@@ -1,33 +1,35 @@
-﻿using System;
+﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Appdoon.Application.Interfaces;
 
 namespace Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService
 {
-    public interface IGetRoadMapService
-    {
-		ResultDto<List<IndividualRoadMapDto>> Execute();
+	public interface IGetIndivdualRoadMapService
+	{
+		ResultDto<IndividualRoadMapDto> Execute(int RoadMapId);
 	}
-    public class GetRoadMapService : IGetRoadMapService
-    {
-        private readonly IDatabaseContext _context;
-        public GetRoadMapService(IDatabaseContext context)
-        {
-            _context = context;
-        }
-		public ResultDto<List<IndividualRoadMapDto>> Execute()
+	public class GetIndividualRoadMapService : IGetIndivdualRoadMapService
+	{
+		private readonly IDatabaseContext _context;
+		public GetIndividualRoadMapService(IDatabaseContext context)
+		{
+			_context = context;
+		}
+		public ResultDto<IndividualRoadMapDto> Execute(int RoadMapId)
 		{
 			try
 			{
-				var roadmaps = _context.RoadMaps
+				var roadmap = _context.RoadMaps
+					.Where(x => x.Id == RoadMapId)
 					.Include(r => r.Categories)
 					.Include(r => r.Steps)
+					.ThenInclude(s => s.ChildSteps)
 					.Select(r => new IndividualRoadMapDto()
 					{
 						Id = r.Id,
@@ -37,22 +39,32 @@ namespace Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService
 						Title = r.Title,
 						Categories = r.Categories,
 						Steps = r.Steps,
-					}).ToList();
+					}).FirstOrDefault();
 
-				return new ResultDto<List<IndividualRoadMapDto>>()
+				if(roadmap == null)
+				{
+					return new ResultDto<IndividualRoadMapDto>()
+					{
+						IsSuccess = false,
+						Message = "رود مپ یافت نشد!",
+						Data = new IndividualRoadMapDto(),
+					};
+				}
+
+				return new ResultDto<IndividualRoadMapDto>()
 				{
 					IsSuccess = true,
 					Message = "رودمپ ها ارسال شد",
-					Data = roadmaps,
+					Data = roadmap,
 				};
 			}
-			catch (Exception e)
+			catch(Exception e)
 			{
-				return new ResultDto<List<IndividualRoadMapDto>>()
+				return new ResultDto<IndividualRoadMapDto>()
 				{
 					IsSuccess = false,
 					Message = "ارسال ناموفق!",
-					Data = new List<IndividualRoadMapDto>(),
+					Data = new IndividualRoadMapDto(),
 				};
 			}
 		}

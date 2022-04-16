@@ -69,7 +69,7 @@ namespace OU_API
             services.AddScoped<IGetAllRoadMapService, GetAllRoadMapService>();
 
             //Dependency Injection for Get RoadMap Service
-            services.AddScoped<IGetRoadMapService, GetRoadMapService>();
+            services.AddScoped<IGetIndivdualRoadMapService, GetIndividualRoadMapService>();
 
             //Dependency Injection for create RoadMap individual Service
             services.AddScoped<ICreateRoadMapIndividualService, CreateRoadMapIndividualService>();
