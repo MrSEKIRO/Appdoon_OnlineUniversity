@@ -5,16 +5,16 @@ const TimelineItem = ({ data }) => (
     <div className="timeline-item">
         <div className="timeline-item-content">
             <span className="tag">
-                {data.category.tag}
+                {data.Title}
             </span>
-            <p text-align = {data.alignn}>{data.text}</p>
-            {data.link && (
+            <p>{data.Description}</p>
+            {data.Link && (
                 <a
-                    href={data.link.url}
+                    href={data.Link}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    {data.link.text}
+                    {data.Title}
                 </a>
             )}
             <span className="circle" />
