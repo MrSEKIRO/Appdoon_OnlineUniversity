@@ -1,22 +1,26 @@
 //import "../../assets/css/timeline/style.css";
 import {Link} from 'react-router-dom';
+import { useState } from "react";
+import { useEffect } from "react";
+import { useHistory } from 'react-router-dom';
+import { Button } from 'bootstrap';
 
-function individualRoadmap(id){
-    const {data : roadmap, isLogin, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/IndividualRoadMap');
-    
 
-}
 
-const RoadmapBox = ({ data : roadmap }) => (
 
+
+const RoadmapBox = ({ data:roadmap }) => {
+
+
+
+
+    return(
         <article class="blog-item">
             <figure class="figure">
 
-
                 
                 <div class="post-thumbnail">
-                    <img src={roadmap.ImageSrc}
-                        alt={roadmap.Description}/>
+                    <img src={roadmap.ImageSrc} alt={roadmap.Description}/>
                 </div>
 
 
@@ -24,7 +28,9 @@ const RoadmapBox = ({ data : roadmap }) => (
                 <div class="post-title">
 
 
-                    <Link onClick={individualRoadmap(data.id)} to={"/"} className="d-block">
+                    
+
+                    <Link to= {`/timeline/${roadmap.Id}`} className="d-block">
                         <h4>{roadmap.Description}</h4>
                     </Link>
 
@@ -33,15 +39,18 @@ const RoadmapBox = ({ data : roadmap }) => (
                         <i class="fa fa-calendar"></i>
                         {roadmap.Title}
                     </span>
+
+
+
+                    
                 </div>
 
 
 
             </figure>
         </article>
+    )
+}
 
-
-
-);
 
 export default RoadmapBox;

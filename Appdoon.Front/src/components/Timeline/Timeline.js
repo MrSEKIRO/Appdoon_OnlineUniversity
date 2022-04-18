@@ -2,6 +2,13 @@ import TimelineItem from "./TimelineItem";
 import React,{Component} from "react";
 import "../../assets/css/timeline/style.css";
 import ReactDOM from 'react-dom';
+import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+
+
+
+import { useState } from "react";
 
 const timelineData = [
     {
@@ -75,83 +82,116 @@ const timelineData = [
 
 
 
-export class Timeline extends Component{
 
-    constructor(props){
-        super(props)
-        this.handleSubmit=this.handleSubmit.bind(this);
-    }
 
+
+
+
+
+
+
+
+
+
+const Timeline = () => {
     
 
-    handleSubmit(event){
-        
+    //e.preventDefault();
 
-        event.preventDefault();
-        
-        fetch(process.env.REACT_APP_API+'login',{
-            method:"POST",
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
+    //setIsPending(true);
+
+
+    const {id} = useParams();
+
+    const [isPending, setIsPending] = useState(false)
+
+    const history = useNavigate()
+    
+    const [data, setData] = useState([])
+    const [error, setError] = useState(null)
+    const [isLogin, setIsLogin] = useState(true)
+    const url = process.env.REACT_APP_API + 'RoadMaps/IndividualRoadMap';
+
+    useEffect(() => {
+
+    
+    
+
+        fetch(url,{
             
+            method : "POST",
+            headers : {"Content-Type" : "application/json"},
             body:JSON.stringify({
-                Email:event.target.Email_Username.value,
-                Username:event.target.Email_Username.value,
-                Password:event.target.Password.value
-
-
+                RoadMapId:id
             })
+            
+        }).then(res => {
+            
+            //console.log(res);
+            
+            if(!res.ok){
+                
+                throw Error('could not fetch!');
+            }
+            
+            return res.json();
         })
-        
-        .then(res=>res.json())
-        .then((result)=>{
-            if(result.IsSuccess){
-                document.getElementById("login_error").style.color = "green";
-                document.getElementById("login_error").innerHTML = result.Message;
+        .then(data => {
+            
+            //alert(data.Data.length);
+            console.log(data);
+            //alert(data.Data.Id);
+            setData(data.Data);
+            setIsLogin(false);
+            setError(null);
+            //alert("sfd");
+            
+        }).then(() =>{
+            
+            //setIsPending(false);
+            //console.log("New Blog added");
+            //history.push(`/timeline/${id}`);
+            
+        })
+        .catch(err => {
+            
+            if(err.name === 'AbortError'){
+                console.log('fetch aborted');
             }
             else{
-                document.getElementById("login_error").style.color = "red";
-                document.getElementById("login_error").innerHTML = result.Message;
+                setError(err.message);
+                setIsLogin(false);
             }
-            
-            
-            
-        },
-        (error)=>{
-            document.getElementById("login_error").style.color = "red";
-            document.getElementById("login_error").innerHTML = "خطایی رخ داده است!";
         })
-    }
+    }, [url]);
 
 
-
-    componentDidMount() {
-        document.title = "رودمپ ..."; 
-    }
-
-    render(){
-        return(
-            <div>
-                {timelineData.length > 0 && (
-                    <div className='timelineBody'>
-                        <h1>... رودمپ</h1>
-                        <div className="timeline-container">
-                            {timelineData.map((data, idx) => (
-                                <TimelineItem data={data} key={idx} />
-                            ))}
-                        </div>
+    return(
+        <div>
+            {data && data.Id > 0 && (
+                <div className='timelineBody'>
+                    <h1>{data.Title} رودمپ</h1>
+                    <div className="timeline-container">
+                        
+                        {data.Steps.map((step, idx) => (
+                            <TimelineItem data={step} key={idx} />
+                        ))}
                     </div>
-                    )
-                }
-    
-                {timelineData.length == 0 && (
-                    <div>
-                        .رودمپ خالی است
-                    </div>)
-                }
-            </div>
-        );
-    }
+                </div>
+                )
+            }
+
+            {data && data.Id == 0 && (
+                <div>
+                    .رودمپ خالی است
+                </div>)
+            }
+        </div>
+    )
 }
+
+
+export default Timeline;
+
+
+
