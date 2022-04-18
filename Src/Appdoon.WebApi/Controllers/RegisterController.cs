@@ -26,7 +26,7 @@ namespace Appdoon.WebApi.Controllers
 
 
         [HttpPost]
-        public JsonResult Register(User user)
+        public JsonResult Register(RequestRegisterUserDto user)
         {
             // use new regiser user service
 
