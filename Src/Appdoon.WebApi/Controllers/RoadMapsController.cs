@@ -26,11 +26,21 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 
-		[HttpGet]
-		public JsonResult IndividualRoadMap(int RoadMapId)
+		[HttpPost]
+		public JsonResult IndividualRoadMap(JsonClass jclass)
 		{
-			var result = _getRoadMapService.Execute(RoadMapId);
+			var result = _getRoadMapService.Execute(jclass.RoadMapId);
 			return new JsonResult(result);
 		}
+
+
+		public class JsonClass
+        {
+			public int RoadMapId { get; set; }
+
+		}
+
+
+
 	}
 }
