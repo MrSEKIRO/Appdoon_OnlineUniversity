@@ -1,45 +1,22 @@
 import {NavLink} from 'react-router-dom';
 import { useState } from "react";
-import useFetch from "../../useFetch";
-import { Col, Form } from "react-bootstrap";
 
+const CreateChildStep = () => {
 
-
-
-const CreateRoadmap = () => {
-
-    const {data : categories, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/GetCategories');
-
-    const [field, setField] = useState([]);
-
-    
     const handleSubmit = (event) => {
         event.preventDefault();
-        let imagesrc = "1.jpg";
-        const formData = new FormData();
-
-        if(event.target.Photo.files.length){
-            imagesrc = event.target.Photo.files[0].name;
-            formData.append("myFile",event.target.Photo.files[0]);
-        }
-
-        formData.append("Title",event.target.Title.value);
-        formData.append("Description",event.target.Description.value);
-        formData.append("PhotoFileName",imagesrc);
-
-        let i = 0;
-        for (var option of event.target.Categories.options)
-        {
-            i++;
-            if (option.selected) {
-                formData.append("CategoriesId"+i,option.value);
-            }
-        }
         
-
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateRoadMap',{
+        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateChildStep',{
             method:"POST",
-            body:formData
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            
+            body:JSON.stringify({
+                Name:event.target.Name.value,
+                Link:event.target.Description.value,
+            })
         })
         
         .then(res=>res.json())
@@ -52,6 +29,9 @@ const CreateRoadmap = () => {
                 document.getElementById("result_message").style.color = "red";
                 document.getElementById("result_message").innerHTML = result.Message;
             }
+            
+            
+            
         },
         (error)=>{
             document.getElementById("result_message").style.color = "red";
@@ -72,7 +52,7 @@ const CreateRoadmap = () => {
 
                                             
                                             
-                                            <NavLink to="/create_roadmap" class="login-ds active">
+                                            <NavLink to="/create_roadmap" class="login-ds">
                                                 <span class="title">رودمپ</span>
                                                 <span class="sub-title">قالب رودمپ</span>
                                             </NavLink>
@@ -87,7 +67,7 @@ const CreateRoadmap = () => {
                                                 <span class="sub-title">مراحل رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/create_child_step" class="register-ds">
+                                            <NavLink to="/create_child_step" class="register-ds active">
                                                 <span class="title">محتوا‌</span>
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
@@ -97,7 +77,7 @@ const CreateRoadmap = () => {
                                         </div>
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
-                                                <h4>ساخت رودمپ</h4>
+                                                <h4>ساخت محتوا</h4>
                                                 <form onSubmit={handleSubmit} action="#" class="form-account text-right">
 
 
@@ -105,42 +85,14 @@ const CreateRoadmap = () => {
 
 
                                                     <div class="form-account-title">
-                                                        <label for="Title">نام رودمپ</label>
-                                                        <input type="text" class="number-email-input" name="Title"/>
+                                                        <label for="email-phone">نام دسته</label>
+                                                        <input type="text" class="number-email-input" name="Name"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
-                                                        <label for="Description">توضیحات</label>
-                                                        <input type="text" class="number-email-input" name="Description"/>
-                                                    </div>
-
-                                                    <div class="form-account-title">
-                                                        <label for="Photo">تصویر رودمپ</label>
-                                                        <input class="form-control" type="File" name='Photo'/>
-                                                    </div>
-
-                                                    <div class="form-account-title">
-                                                        <label for="Categories">دسته‌بندی‌ها</label>
-                                                        {categories.length > 0 && (
-                                                            <Form.Label>My multiselect</Form.Label>,
-                                                            <Form.Control name='Categories' as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
-                                                            {categories.map((data, idx) => (
-                                                                <option value={data.Name}>
-                                                                    {data.Name}
-                                                                </option>
-                                                            ))}
-                                                            </Form.Control>
-
-                
-
-                                                            )
-                                                        }
-                                                        
-                                                        {categories.length == 0 &&(
-                                                                <div></div>
-                                                            )
-                                                        }
+                                                        <label for="email-phone">لینک</label>
+                                                        <input type="text-area" class="number-email-input" name="Description"/>
                                                     </div>
 
 
@@ -152,8 +104,7 @@ const CreateRoadmap = () => {
                                                         </label>
                                                         <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
                                                     </div>
-                                                    */
-                                                    }
+                                                    */}
 
 
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
@@ -161,7 +112,7 @@ const CreateRoadmap = () => {
                                                     </div>
 
                                                     <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ساخت رودمپ</button>
+                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ساخت محتوا</button>
                                                     </div>
 
 
@@ -191,4 +142,4 @@ const CreateRoadmap = () => {
 }
 
 
-export default CreateRoadmap;
+export default CreateChildStep;
