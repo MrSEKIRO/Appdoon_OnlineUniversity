@@ -8,28 +8,58 @@ import {Footer} from "./Statics/Footer";
 
 import{Login} from "./Components/Login";
 
+import Roadmaps from "./Components/Roadmap/Roadmaps";
+
+import Timeline from './Components/Timeline/Timeline';
+
+import { useLocation } from 'react-router-dom'
+
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
-class App extends React.Component {
-  //constructor(props) {
-  //  super(props);
-  //}
+import CreateRoadmap from './Components/BuildRoadmap/CreateRoadmap';
+
+import CreateStep from './Components/BuildRoadmap/CreateStep';
+import CreateCategory from './Components/BuildRoadmap/CreateCategory';
 
 
-  render() {
-    return (
+
+function App() {
+
+  return (
+    <div>
       <BrowserRouter>
         
 
         <Navigation/>
+        
 
 
         <Routes>
-          <Route path="/" element={<Home/>} exact/>  
+          <Route exact path="/" element={<Home/>}/>
           
-          <Route path="/register" element={<Register/>}/>
+          <Route exact path="/register" element={<Register/>}/>
 
-          <Route path="/login" element={<Login/>}/>
+          <Route exact path="/login" element={<Login/>}/>
+
+
+          {/*<Route path="/timeline" element={<Timeline/>} exact/>*/}
+
+          <Route exact path="/roadmaps" element={<Roadmaps/>}/>
+
+          
+
+          
+          {/*<Route exact path="/timeline" element={<Timeline/>}/>*/}
+
+          <Route path={`/timeline/:id`} element={<Timeline/>}/>
+
+          <Route path={`/create_roadmap`} element={<CreateRoadmap/>}/>
+          <Route path={`/create_step`} element={<CreateStep/>}/>
+          <Route path={`/create_category`} element={<CreateCategory/>}/>
+
+          <Route path="*" element={<Home/>}/>
+
+
         </Routes>
 
 
@@ -37,9 +67,11 @@ class App extends React.Component {
         <Footer/>
 
       </BrowserRouter>
+    </div>
 
-    );
-  }
+  );
+
+
 }
 
 export default App;

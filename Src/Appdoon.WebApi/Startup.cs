@@ -1,7 +1,12 @@
 using Appdoon.Application.Interfaces;
+using Appdoon.Application.Services.Categories.Command.ICreateCategoryService;
+using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualService;
+using Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService;
 using Appdoon.Application.Services.Users.LoginUserService;
 using Appdoon.Application.Services.Users.RegisterUserService;
+using Appdoon.Application.Validatores.UserValidatore;
 using Appdoon.Presistence.Contexts;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,6 +21,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
+using Appdoon.Application.Services.Categories.Query.GetCategoriesService;
 
 namespace OU_API
 {
@@ -62,8 +70,28 @@ namespace OU_API
             // Dependency Injection for Database Context
             services.AddScoped<IDatabaseContext, DatabaseContext>();
 
-			// Add EF Core
-			services.AddEntityFrameworkSqlServer()
+            // Dependency Injection for Get All RoadMap Service
+            services.AddScoped<IGetAllRoadMapService, GetAllRoadMapService>();
+
+            //Dependency Injection for Get RoadMap Service
+            services.AddScoped<IGetIndivdualRoadMapService, GetIndividualRoadMapService>();
+
+            //Dependency Injection for create RoadMap individual Service
+            services.AddScoped<ICreateRoadMapIndividualService, CreateRoadMapIndividualService>();
+
+            //Dependency Injection for create category Service
+            services.AddScoped<ICreateCategoryService, CreateCategoryService>();
+
+            //Dependency Injection for create category Service
+            services.AddScoped<IGetCategoriesService, GetCategoriesService>();
+
+
+            // Injection for user validatore
+            // Be aware of UserValidatore class in Asp.Net
+            services.AddScoped<IValidator<RequestRegisterUserDto>, UserValidatore>();
+
+            // Add EF Core
+            services.AddEntityFrameworkSqlServer()
                 .AddDbContext<DatabaseContext>(option => option.UseSqlServer(Configuration["ConnectionStrings:OUAppCon"]));
         }
 
@@ -88,6 +116,13 @@ namespace OU_API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),
+                "Photos")),
+                RequestPath = "/Photos"
             });
         }
     }
