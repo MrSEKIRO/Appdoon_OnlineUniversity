@@ -6,20 +6,17 @@ import {Home}  from './Components/Home';
 import {Navigation} from "./Statics/Navigation";
 import {Footer} from "./Statics/Footer";
 
-import{Login} from "./Components/Login";
+import Login from "./Components/Login";
 
 import Roadmaps from "./Components/Roadmap/Roadmaps";
 
 import Timeline from './Components/Timeline/Timeline';
-
-import { useLocation } from 'react-router-dom'
-
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import CreateRoadmap from './Components/BuildRoadmap/CreateRoadmap';
-
-import CreateStep from './Components/BuildRoadmap/CreateStep';
 import CreateCategory from './Components/BuildRoadmap/CreateCategory';
+import CreateStep from './Components/BuildRoadmap/CreateStep';
+import CreateChildStep from './Components/BuildRoadmap/CreateChildStep';
 
 
 
@@ -56,6 +53,7 @@ function App() {
           <Route path={`/create_roadmap`} element={<CreateRoadmap/>}/>
           <Route path={`/create_step`} element={<CreateStep/>}/>
           <Route path={`/create_category`} element={<CreateCategory/>}/>
+          <Route path={`/create_child_step`} element={<CreateChildStep/>}/>
 
           <Route path="*" element={<Home/>}/>
 
