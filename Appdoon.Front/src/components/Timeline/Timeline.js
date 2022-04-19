@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 import { useState } from "react";
 
-const timelineData = [
+/*const timelineData = [
     {
         text: 'اول یک زبان بکند یاد بگیر(به جز C#)',
         date: 'February 25 2019',
@@ -79,7 +79,7 @@ const timelineData = [
         alignn : 'left'
     }
 ]
-
+*/
 
 
 

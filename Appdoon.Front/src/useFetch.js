@@ -24,7 +24,7 @@ const useFetch = (url) =>{
                 return res.json();
             })
             .then(data => {
-                //alert(data.Data.length);
+                //alert(data.Message);
                 setData(data.Data);
                 setIsLogin(false);
                 setError(null);
@@ -32,7 +32,7 @@ const useFetch = (url) =>{
                 
             })
             .catch(err => {
-                
+                alert("Error in Fetch!");
                 if(err.name === 'AbortError'){
                     console.log('fetch aborted');
                 }

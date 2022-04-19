@@ -21,6 +21,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
+using Appdoon.Application.Services.Categories.Query.GetCategoriesService;
 
 namespace OU_API
 {
@@ -79,6 +82,9 @@ namespace OU_API
             //Dependency Injection for create category Service
             services.AddScoped<ICreateCategoryService, CreateCategoryService>();
 
+            //Dependency Injection for create category Service
+            services.AddScoped<IGetCategoriesService, GetCategoriesService>();
+
 
             // Injection for user validatore
             // Be aware of UserValidatore class in Asp.Net
@@ -110,6 +116,13 @@ namespace OU_API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),
+                "Photos")),
+                RequestPath = "/Photos"
             });
         }
     }

@@ -10,9 +10,13 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService
 {
+	public class RoadmapIdDto
+	{
+		public int RoadMapId { get; set; }
+	}
 	public interface IGetIndivdualRoadMapService
 	{
-		ResultDto<IndividualRoadMapDto> Execute(int RoadMapId);
+		ResultDto<IndividualRoadMapDto> Execute(RoadmapIdDto RoadMapId);
 	}
 	public class GetIndividualRoadMapService : IGetIndivdualRoadMapService
 	{
@@ -21,12 +25,12 @@ namespace Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService
 		{
 			_context = context;
 		}
-		public ResultDto<IndividualRoadMapDto> Execute(int RoadMapId)
+		public ResultDto<IndividualRoadMapDto> Execute(RoadmapIdDto RoadMapId)
 		{
 			try
 			{
 				var roadmap = _context.RoadMaps
-					.Where(x => x.Id == RoadMapId)
+					.Where(x => x.Id == RoadMapId.RoadMapId)
 					.Include(r => r.Categories)
 					.Include(r => r.Steps)
 					.ThenInclude(s => s.ChildSteps)

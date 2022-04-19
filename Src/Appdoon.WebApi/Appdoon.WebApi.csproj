@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Appdoon.Presistence\Appdoon.Presistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Photos\" />
+  </ItemGroup>
+
 </Project>
