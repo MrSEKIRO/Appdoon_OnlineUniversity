@@ -129,7 +129,7 @@ const Roadmaps = () =>{
                             {roadmaps.length > 0 && (
                                 <div class="col-12 col-md-4 col-lg-4 col-xl-5 items-1 pr">
                                     {roadmaps.map((data, idx) => (
-                                            idx%3==0 &&
+                                            idx%3 == 0 &&
                                             <RoadmapBox data={data} key={idx} />
                                     ))}
                                 </div>

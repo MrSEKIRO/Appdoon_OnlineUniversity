@@ -1,4 +1,5 @@
-﻿using Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService;
+﻿using Appdoon.Application.Services.Categories.Query.GetCategoriesService;
+using Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +12,15 @@ namespace Appdoon.WebApi.Controllers
 		private readonly IGetAllRoadMapService _getAllRoadMapService;
         private readonly IGetIndivdualRoadMapService _getRoadMapService;
 
-        public RoadMapsController(IGetAllRoadMapService getAllRoadMapService, IGetIndivdualRoadMapService getRoadMapService)
+
+		private readonly IGetCategoriesService _getCategoriesService;
+
+        public RoadMapsController(IGetAllRoadMapService getAllRoadMapService, IGetIndivdualRoadMapService getRoadMapService, IGetCategoriesService getCategoriesService)
 		{
 			_getAllRoadMapService = getAllRoadMapService;
 			_getRoadMapService = getRoadMapService;
+
+			_getCategoriesService = getCategoriesService;
 		}
 
 		[HttpGet]
@@ -27,18 +33,22 @@ namespace Appdoon.WebApi.Controllers
 		}
 
 		[HttpPost]
-		public JsonResult IndividualRoadMap(JsonClass jclass)
+		public JsonResult IndividualRoadMap(RoadmapIdDto roadmapId)
 		{
-			var result = _getRoadMapService.Execute(jclass.RoadMapId);
+			var result = _getRoadMapService.Execute(roadmapId);
 			return new JsonResult(result);
 		}
 
 
-		public class JsonClass
+		[HttpGet]
+		public JsonResult GetCategories()
         {
-			public int RoadMapId { get; set; }
-
+			var result = _getCategoriesService.Execute();
+			return new JsonResult(result);
 		}
+
+
+
 
 
 

@@ -12,11 +12,21 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
+
 namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualService
 {
+	public class RequestCreateRoadmapDto
+	{
+		public string Title { get; set; }
+        public string Description { get; set; }
+		public string PhotoFileName { get; set; }
+		public List<int> CategoriesId { get; set; }
+    }
+
+
     public interface ICreateRoadMapIndividualService
     {
-        ResultDto Execute(string Title, string Description, IFormFile Image, List<int> CategoriesId);
+        ResultDto Execute(HttpRequest httpRequest, string currentpath);
     }
 	public class CreateRoadMapIndividualService : ICreateRoadMapIndividualService
 	{
@@ -28,29 +38,95 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 			_context = context;
 			_environment = environment;
 		}
-		public ResultDto Execute(string Title, string Description, IFormFile Image, List<int> CategoriesId)
+		public ResultDto Execute(HttpRequest httpRequest, string currentpath)
 		{
 			try
 			{
-				List<Category> categories = new List<Category>();
-                foreach (var item in CategoriesId)
-                {
-					Category category = _context.Categories.Find(item);
-					categories.Add(category);
-                }
 
-				var imageSrc = ExtractImages(Image, _environment);
+
+				List<string> data = new List<string>();
+
+
+				foreach (var key in httpRequest.Form.Keys)
+				{
+					var val = httpRequest.Form[key];
+					data.Add(val);
+				}
+
+				var Title = data[0];
+				var Description = data[1];
+				var PhotoFileName = data[2];
+
+				List<string> CategoriesName = new List<string>();
+
+				for (int i = 3; i < data.Count; i++)
+                {
+					CategoriesName.Add(data[i]);
+				}
+
+
+
+
+
+
+
+
+				//Uniqueness(Title)
+				if (_context.RoadMaps.Where(s => s.Title == Title.ToString()).Count() != 0)
+                {
+					return new ResultDto()
+					{
+						IsSuccess = false,
+						Message = "این نام برای رودمپ تکراری است",
+					};
+				}
+
+				var imageSrc = "";
+
+				if (httpRequest.Form.Files.Count() != 0)
+				{
+					var postedFile = httpRequest.Form.Files[0];
+					string filename = postedFile.FileName;
+					var physicalPath = currentpath + "/Photos/" + $"({Title})" + filename;
+					using (var stream = new FileStream(physicalPath, FileMode.Create))
+					{
+						postedFile.CopyTo(stream);
+					}
+					imageSrc = $"({Title})" + PhotoFileName.ToString();
+				}
+				else
+				{
+					PhotoFileName = "1.jpg";
+					imageSrc = PhotoFileName;
+				}
+
+
+
+				List<Category> categories = new List<Category>();
+				if (CategoriesName.Count != 0)
+                {
+					foreach (var item in CategoriesName)
+					{
+						Category category = _context.Categories.Where(s => s.Name == item).FirstOrDefault();
+						categories.Add(category);
+					}
+				}
+
+
+				
 
 				var roadmap = new RoadMap()
 				{
-					Title = Title,
-					Description = Description,
+					Title = Title.ToString(),
+					Description = Description.ToString(),
 					ImageSrc = imageSrc,
 					Categories = categories,
 				};
 
 				_context.RoadMaps.Add(roadmap);
 				_context.SaveChanges();
+
+
 
 				return new ResultDto()
 				{
@@ -67,6 +143,7 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 				};
 			}
 		}
+		/*
 
 		private static string ExtractImages(IFormFile image, IHostingEnvironment environment)
 		{
@@ -116,6 +193,7 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 				};
 			}
 		}
+		*/
 	}
 
 	public class UploadDto

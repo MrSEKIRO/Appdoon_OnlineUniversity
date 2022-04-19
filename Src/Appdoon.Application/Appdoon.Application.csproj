@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Categories\Query\" />
+    <Folder Include="Services\Step\" />
   </ItemGroup>
 
 </Project>

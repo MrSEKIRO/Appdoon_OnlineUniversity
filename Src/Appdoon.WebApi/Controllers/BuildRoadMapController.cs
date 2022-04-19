@@ -4,6 +4,10 @@ using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualServ
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
+using System;
+using System.IO;
+using Appdoon.Common.Dtos;
 
 namespace Appdoon.WebApi.Controllers
 {
@@ -14,30 +18,40 @@ namespace Appdoon.WebApi.Controllers
 		private readonly ICreateRoadMapIndividualService _createRoadMapService;
         private readonly ICreateCategoryService _createCategoryService;
 
-        public BuildRoadMapController(ICreateRoadMapIndividualService createRoadMapService, ICreateCategoryService createCategoryService)
+		private readonly IWebHostEnvironment _env;
+
+        public BuildRoadMapController(ICreateRoadMapIndividualService createRoadMapService, ICreateCategoryService createCategoryService, IWebHostEnvironment env)
 		{
 			_createRoadMapService = createRoadMapService;
 			_createCategoryService = createCategoryService;
+
+			_env = env;
 		}
 
 		[HttpPost]
-		public JsonResult CreateRoadMap(string Title, string Description, List<int> CategoriesId)
+		public JsonResult CreateRoadMap()
 		{
-			IFormFile image=null;
-			if(Request.Form.Files.Count>0)
-				image = Request.Form.Files[0];
-			
-			var reslut= _createRoadMapService.Execute(Title, Description, image, CategoriesId);
-
+			var reslut = _createRoadMapService.Execute(Request,_env.ContentRootPath);
 			return new JsonResult(reslut);
 		}
 
 		[HttpPost]
-		public JsonResult CreateCategory(string Name, string Link)
+		public JsonResult CreateCategory(RequestCreateCategoryDto requestCreateCategoryDto)
         {
-			var result = _createCategoryService.Execute(Name, Link);
+			var result = _createCategoryService.Execute(requestCreateCategoryDto);
 			return new JsonResult(result);
         }
+
+		/*
+		[HttpPost]
+		public JsonResult CreateStep(RequestCreateCategoryDto requestCreateCategoryDto)
+		{
+			var result = _createCategoryService.Execute(requestCreateCategoryDto);
+			return new JsonResult(result);
+		}
+
+		*/
+
 	}
 
 	

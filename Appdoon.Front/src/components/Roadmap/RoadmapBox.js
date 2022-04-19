@@ -20,7 +20,7 @@ const RoadmapBox = ({ data:roadmap }) => {
 
                 
                 <div class="post-thumbnail">
-                    <img src={roadmap.ImageSrc} alt={roadmap.Description}/>
+                    <img src={process.env.REACT_APP_PHOTOPATH+roadmap.ImageSrc} alt={roadmap.Description}/>
                 </div>
 
 

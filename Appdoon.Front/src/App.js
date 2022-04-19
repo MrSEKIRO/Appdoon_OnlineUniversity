@@ -16,7 +16,10 @@ import { useLocation } from 'react-router-dom'
 
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
-import CreateRoadmap from './Components/CreateRoadmap';
+import CreateRoadmap from './Components/BuildRoadmap/CreateRoadmap';
+
+import CreateStep from './Components/BuildRoadmap/CreateStep';
+import CreateCategory from './Components/BuildRoadmap/CreateCategory';
 
 
 
@@ -51,6 +54,8 @@ function App() {
           <Route path={`/timeline/:id`} element={<Timeline/>}/>
 
           <Route path={`/create_roadmap`} element={<CreateRoadmap/>}/>
+          <Route path={`/create_step`} element={<CreateStep/>}/>
+          <Route path={`/create_category`} element={<CreateCategory/>}/>
 
           <Route path="*" element={<Home/>}/>
 
