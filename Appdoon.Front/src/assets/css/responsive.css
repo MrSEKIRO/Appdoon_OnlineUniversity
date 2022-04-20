@@ -52,7 +52,7 @@
     .slider-main-container .carousel-indicators-ul > li.carousel-indicators-item{
         width: 10px;
         height: 10px;
-        background-color: #ffffff;
+        background-color: #af3434;
         padding: 0;
     }
 
@@ -309,7 +309,7 @@
     }
 
     .amazing-section .container-amazing .slider-widget-products .widget .card-header .card-title{
-        color: #fff;
+        color: rgb(153, 36, 36);
     }
 
     .account-box .dropdown-menu{

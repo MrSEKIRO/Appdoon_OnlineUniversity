@@ -66,18 +66,18 @@ export class Register extends Component{
                                             <div className="account-box-headline">
                                                 <NavLink to="/login" class="login-ds">
                                                     <span class="title">ورود</span>
-                                                    <span class="sub-title">به دیجی اسمارت</span>
+                                                    <span class="sub-title">به رودمپ</span>
                                                 </NavLink>
 
 
                                                 <NavLink to="/register" class="register-ds active">
                                                     <span class="title">ثبت نام</span>
-                                                    <span class="sub-title">در دیجی اسمارت</span>
+                                                    <span class="sub-title">در رودمپ</span>
                                                 </NavLink>
                                             </div>
                                             <div className="Login-to-account mt-4">
                                                 <div className="account-box-content">
-                                                    <h4>ثبت نام در دیجی اسمارت</h4>
+                                                    <h4>ثبت نام در رودمپ</h4>
                                                     <form onSubmit={this.handleSubmit} action="#" className="form-account text-right">
 
 
