@@ -4,7 +4,9 @@ using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualServ
 using Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService;
 using Appdoon.Application.Services.Users.LoginUserService;
 using Appdoon.Application.Services.Users.RegisterUserService;
+using Appdoon.Application.Validatores.UserValidatore;
 using Appdoon.Presistence.Contexts;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -19,6 +21,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
+using Appdoon.Application.Services.Categories.Query.GetCategoriesService;
+using Appdoon.Application.Services.Steps.Command.CreateStepService;
+using Appdoon.Application.Services.Steps.Command.CreateChildStepService;
+using Appdoon.Application.Services.Steps.Query.GetAllStepService;
 
 namespace OU_API
 {
@@ -69,13 +77,30 @@ namespace OU_API
             services.AddScoped<IGetAllRoadMapService, GetAllRoadMapService>();
 
             //Dependency Injection for Get RoadMap Service
-            services.AddScoped<IGetRoadMapService, GetRoadMapService>();
+            services.AddScoped<IGetIndivdualRoadMapService, GetIndividualRoadMapService>();
 
             //Dependency Injection for create RoadMap individual Service
             services.AddScoped<ICreateRoadMapIndividualService, CreateRoadMapIndividualService>();
 
             //Dependency Injection for create category Service
             services.AddScoped<ICreateCategoryService, CreateCategoryService>();
+
+            //Dependency Injection for get category Service
+            services.AddScoped<IGetCategoriesService, GetCategoriesService>();
+
+            //Dependency Injection for create step Service
+            services.AddScoped<ICreateStepService, CreateStepService>();
+
+            //Dependency Injection for create child step Service
+            services.AddScoped<ICreateChildStepService, CreateChildStepService>();
+
+            //Dependency Injection for get all steps Service
+            services.AddScoped<IGetAllStepService, GetAllStepService>();
+
+
+            // Injection for user validatore
+            // Be aware of UserValidatore class in Asp.Net
+            services.AddScoped<IValidator<RequestRegisterUserDto>, UserValidatore>();
 
             // Add EF Core
             services.AddEntityFrameworkSqlServer()
@@ -103,6 +128,13 @@ namespace OU_API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),
+                "Photos")),
+                RequestPath = "/Photos"
             });
         }
     }

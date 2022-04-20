@@ -13,6 +13,6 @@ namespace Appdoon.Domain.Entities.RoadMaps
 		public RoadMap RoadMap { get; set; }
 		public int RoadMapId { get; set; }
 
-		public List<ChildStep> ChildSteps { get; set; }
+		public List<ChildStep> ChildSteps { get; set; } = new();
 	}
 }

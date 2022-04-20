@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 
 
-namespace OU_API.Controllers
+namespace Appdoon.WebApi.Controllers
 {
 
     [Route("api/[controller]")]
@@ -26,7 +26,7 @@ namespace OU_API.Controllers
 
 
         [HttpPost]
-        public JsonResult Register(User user)
+        public JsonResult Register(RequestRegisterUserDto user)
         {
             // use new regiser user service
 

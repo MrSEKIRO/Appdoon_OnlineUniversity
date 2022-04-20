@@ -45,7 +45,7 @@ namespace Appdoon.Common.HashFunctions
 			var base64Hash = Convert.ToBase64String(hashBytes);
 
 			// Format hash with extra information
-			return string.Format("$MYHASH$V1${0}${1}", iterations, base64Hash);
+			return string.Format("$ArshiaHASH$V1${0}${1}", iterations, base64Hash);
 		}
 
 		/// <summary>

@@ -9,9 +9,15 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.Categories.Command.ICreateCategoryService
 {
-    public interface ICreateCategoryService
+	public class RequestCreateCategoryDto
+	{
+		public string Name { get; set; }
+		public string Link { get; set; }
+
+	}
+	public interface ICreateCategoryService
     {
-		ResultDto Execute(string name, string link);
+		ResultDto Execute(RequestCreateCategoryDto requestCreateCategoryDto);
     }
     public class CreateCategoryService: ICreateCategoryService
     {
@@ -21,14 +27,27 @@ namespace Appdoon.Application.Services.Categories.Command.ICreateCategoryService
 		{
 			_context = context;
 		}
-		public ResultDto Execute(string name, string link)
+		public ResultDto Execute(RequestCreateCategoryDto requestCreateCategoryDto)
 		{
             try
             {
+				//Uniqueness(Name)
+				if (_context.Categories.Where(s => s.Name == requestCreateCategoryDto.Name.ToString()).Count() != 0)
+				{
+					return new ResultDto()
+					{
+						IsSuccess = false,
+						Message = "این نام برای دسته تکراری است",
+					};
+				}
+
+
+
+
 				var category = new Category()
 				{
-					Name = name,
-					Link = link,
+					Name = requestCreateCategoryDto.Name,
+					Link = requestCreateCategoryDto.Link,
 				};
 				_context.Categories.Add(category);
 				_context.SaveChanges();
@@ -36,7 +55,7 @@ namespace Appdoon.Application.Services.Categories.Command.ICreateCategoryService
 				return new ResultDto()
 				{
 					IsSuccess = true,
-					Message = "کنگوری اضافه شد",
+					Message = "کتگوری اضافه شد",
 				};
 			}
 			catch(Exception e)
