@@ -1,13 +1,25 @@
 //import "../../assets/css/timeline/style.css";
+import ChildStep from "./ChildStep";
 
 
-const TimelineItem = ({ data }) => (
+const Step = ({ data }) => (
     <div className="timeline-item">
         <div className="timeline-item-content">
             <span className="tag">
                 {data.Title}
             </span>
             <p>{data.Description}</p>
+            <br/>
+
+            <div>
+                {
+                data.ChildSteps.map((childstep, idx) => (
+                    <ChildStep data={childstep} key={idx} />
+                ))
+                }
+            </div>
+
+
             {data.Link && (
                 <a
                     href={data.Link}
@@ -22,4 +34,4 @@ const TimelineItem = ({ data }) => (
     </div>
 );
 
-export default TimelineItem;
+export default Step;

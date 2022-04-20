@@ -31,13 +31,16 @@ const RoadmapBox = ({ data:roadmap }) => {
                     
 
                     <Link to= {`/timeline/${roadmap.Id}`} className="d-block">
-                        <h4>{roadmap.Description}</h4>
+                        <h4>{roadmap.Title}</h4>
                     </Link>
 
 
                     <span class="post-date">
-                        <i class="fa fa-calendar"></i>
-                        {roadmap.Title}
+                        {roadmap.Categories.map((data, idx) => (
+                            
+                            data.Name
+                            + " / "
+                        ))}
                     </span>
 
 

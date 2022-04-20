@@ -1,13 +1,15 @@
 import {NavLink} from 'react-router-dom';
+import useFetch from '../../useFetch';
 import { useState } from "react";
 
 const CreateStep = () => {
 
+    const {data : roadmaps, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/Index');
 
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateCategory',{
+        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateStep',{
             method:"POST",
             headers:{
                 'Accept':'application/json',
@@ -15,8 +17,10 @@ const CreateStep = () => {
             },
             
             body:JSON.stringify({
-                Name:event.target.Name.value,
-                Link:event.target.Description.value,
+                Title:event.target.Title.value,
+                Description:event.target.Description.value,
+                Link:event.target.Link.value,
+                RoadMapId:event.target.Roadmap.options[event.target.Roadmap.selectedIndex].value,
             })
         })
         
@@ -30,8 +34,6 @@ const CreateStep = () => {
                 document.getElementById("result_message").style.color = "red";
                 document.getElementById("result_message").innerHTML = result.Message;
             }
-            
-            
             
         },
         (error)=>{
@@ -86,14 +88,44 @@ const CreateStep = () => {
 
 
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">نام رودمپ</label>
-                                                        <input type="text" class="number-email-input" name="Email_Username"/>
+                                                        <label for="email-phone">نام قدم</label>
+                                                        <input type="text" class="number-email-input" name="Title"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
                                                         <label for="email-phone">توضیحات</label>
-                                                        <input type="text-area" class="number-email-input" name="Description"/>
+                                                        <input type="text" class="number-email-input" name="Description"/>
+                                                    </div>
+
+                                                    <div class="form-account-title">
+                                                        <label for="email-phone">لینک</label>
+                                                        <input type="text" class="number-email-input" name="Link"/>
+                                                    </div>
+
+
+
+
+                                                    <div class="form-account-title">
+                                                        <label for="Roadmap">رودمپ‌</label>
+                                                        {roadmaps.length > 0 && (
+                                                            <select name = "Roadmap" class="form-select" aria-label="Default select example">
+                                                                <option value="default">
+                                                                    انتخاب کنید
+                                                                </option>
+                                                                {roadmaps.map((data, idx) => (
+                                                                    <option value={data.Id}>
+                                                                        {data.Title}
+                                                                    </option>
+                                                                ))}
+                                                            </select>
+                                                            )
+                                                        }
+                                                        
+                                                        {roadmaps.length == 0 &&(
+                                                                <div></div>
+                                                            )
+                                                        }
                                                     </div>
 
 

@@ -1,4 +1,4 @@
-import TimelineItem from "./TimelineItem";
+import Step from "./Step";
 import React,{Component} from "react";
 import "../../assets/css/timeline/style.css";
 import ReactDOM from 'react-dom';
@@ -93,7 +93,7 @@ import { useState } from "react";
 
 
 
-const Timeline = () => {
+const Roadmap = () => {
     
 
     //e.preventDefault();
@@ -170,11 +170,12 @@ const Timeline = () => {
         <div>
             {data && data.Id > 0 && (
                 <div className='timelineBody'>
-                    <h1>{data.Title} رودمپ</h1>
+                    <h1>رودمپ {data.Title}</h1>
+                    <p style={{color:"white"}}>{data.Description}</p>
                     <div className="timeline-container">
                         
                         {data.Steps.map((step, idx) => (
-                            <TimelineItem data={step} key={idx} />
+                            <Step data={step} key={idx} />
                         ))}
                     </div>
                 </div>
@@ -191,7 +192,7 @@ const Timeline = () => {
 }
 
 
-export default Timeline;
+export default Roadmap;
 
 
 

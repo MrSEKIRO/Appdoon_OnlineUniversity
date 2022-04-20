@@ -10,7 +10,7 @@ import Login from "./Components/Login";
 
 import Roadmaps from "./Components/Roadmap/Roadmaps";
 
-import Timeline from './Components/Timeline/Timeline';
+import Roadmap from './Components/Roadmap/Roadmap';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import CreateRoadmap from './Components/BuildRoadmap/CreateRoadmap';
@@ -48,7 +48,7 @@ function App() {
           
           {/*<Route exact path="/timeline" element={<Timeline/>}/>*/}
 
-          <Route path={`/timeline/:id`} element={<Timeline/>}/>
+          <Route path={`/timeline/:id`} element={<Roadmap/>}/>
 
           <Route path={`/create_roadmap`} element={<CreateRoadmap/>}/>
           <Route path={`/create_step`} element={<CreateStep/>}/>
