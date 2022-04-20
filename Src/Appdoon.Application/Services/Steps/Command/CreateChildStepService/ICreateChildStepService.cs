@@ -15,16 +15,15 @@ namespace Appdoon.Application.Services.Steps.Command.CreateChildStepService
         public string Description { get; set; }
         public string Link { get; set; }
         public int StepId { get; set; }
-
     }
     public interface ICreateChildStepService
     {
         ResultDto Execute(RequestCreateChildStepDto childStepDto);
     }
-    public class CreateChildStepDto : ICreateChildStepService
+    public class CreateChildStepService : ICreateChildStepService
     {
         private readonly IDatabaseContext _context;
-        public CreateChildStepDto(IDatabaseContext context)
+        public CreateChildStepService(IDatabaseContext context)
         {
             _context = context;
         }

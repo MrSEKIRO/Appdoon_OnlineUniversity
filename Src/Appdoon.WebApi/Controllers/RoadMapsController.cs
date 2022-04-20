@@ -1,5 +1,6 @@
 ﻿using Appdoon.Application.Services.Categories.Query.GetCategoriesService;
 using Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService;
+using Appdoon.Application.Services.Steps.Query.GetAllStepService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,13 +15,16 @@ namespace Appdoon.WebApi.Controllers
 
 
 		private readonly IGetCategoriesService _getCategoriesService;
+		private readonly IGetAllStepService _getAllStepService;
 
-        public RoadMapsController(IGetAllRoadMapService getAllRoadMapService, IGetIndivdualRoadMapService getRoadMapService, IGetCategoriesService getCategoriesService)
+		public RoadMapsController(IGetAllRoadMapService getAllRoadMapService, IGetIndivdualRoadMapService getRoadMapService, 
+			IGetCategoriesService getCategoriesService, IGetAllStepService getAllStepService)
 		{
 			_getAllRoadMapService = getAllRoadMapService;
 			_getRoadMapService = getRoadMapService;
 
 			_getCategoriesService = getCategoriesService;
+			_getAllStepService = getAllStepService;
 		}
 
 		[HttpGet]
@@ -44,6 +48,13 @@ namespace Appdoon.WebApi.Controllers
 		public JsonResult GetCategories()
         {
 			var result = _getCategoriesService.Execute();
+			return new JsonResult(result);
+		}
+
+		[HttpGet]
+		public JsonResult GetSteps()
+		{
+			var result = _getAllStepService.Execute();
 			return new JsonResult(result);
 		}
 

@@ -1,7 +1,13 @@
 import {NavLink} from 'react-router-dom';
+import useFetch from '../../useFetch';
 import { useState } from "react";
 
 const CreateChildStep = () => {
+
+    const {data : step, error1} = useFetch(process.env.REACT_APP_API+'RoadMaps/GetSteps');
+    const {data : roadmaps, error2} = useFetch(process.env.REACT_APP_API+'RoadMaps/Index');
+
+    const [selectedRoadmapId, setSelectedRoadmapId] = useState(-1);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -14,8 +20,10 @@ const CreateChildStep = () => {
             },
             
             body:JSON.stringify({
-                Name:event.target.Name.value,
-                Link:event.target.Description.value,
+                Title:event.target.Title.value,
+                Description:event.target.Description.value,
+                Link:event.target.Link.value,
+                StepId:event.target.Step.options[event.target.Step.selectedIndex].value,
             })
         })
         
@@ -37,6 +45,12 @@ const CreateChildStep = () => {
             document.getElementById("result_message").style.color = "red";
             document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
         })
+    }
+
+    const handleChange = (event) =>{
+        event.preventDefault();
+        setSelectedRoadmapId(event.target.options[event.target.selectedIndex].value);
+        //document.getElementById("SelectStepId").contentWindow.location.reload(true);
     }
 
     return(
@@ -85,14 +99,65 @@ const CreateChildStep = () => {
 
 
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">نام دسته</label>
-                                                        <input type="text" class="number-email-input" name="Name"/>
+                                                        <label for="Title">نام محتوا</label>
+                                                        <input type="text" class="number-email-input" name="Title"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">لینک</label>
-                                                        <input type="text-area" class="number-email-input" name="Description"/>
+                                                        <label for="Description">توضیحات</label>
+                                                        <input type="text" class="number-email-input" name="Description"/>
+                                                    </div>
+
+                                                    <div class="form-account-title">
+                                                        <label for="Link">لینک</label>
+                                                        <input type="text" class="number-email-input" name="Link"/>
+                                                    </div>
+
+
+                                                    <div class="form-account-title">
+                                                        <label for="Roadmap">رودمپ‌</label>
+                                                        {roadmaps.length > 0 && (
+                                                            <select onChange={handleChange} name = "Roadmap" class="form-select" aria-label="Default select example">
+                                                                <option value="default">
+                                                                    انتخاب کنید
+                                                                </option>
+                                                                {roadmaps.map((data, idx) => (
+                                                                    <option value={data.Id}>
+                                                                        {data.Title}
+                                                                    </option>
+                                                                ))}
+                                                            </select>
+                                                            )
+                                                        }
+                                                        
+                                                        {roadmaps.length == 0 &&(
+                                                                <div></div>
+                                                            )
+                                                        }
+                                                    </div>
+
+                                                    <div class="form-account-title">
+                                                        <label for="Step">قدم</label>
+                                                        {step.length > 0 && (
+                                                            <select id ="SelectStepId" name = "Step" class="form-select" aria-label="Default select example">
+                                                                <option value="default">
+                                                                    انتخاب کنید
+                                                                </option>
+                                                                {step.map((data, idx) => (
+                                                                    selectedRoadmapId == data.RoadMapId &&
+                                                                    <option value={data.Id}>
+                                                                        {data.Title}
+                                                                    </option>
+                                                                ))}
+                                                            </select>
+                                                            )
+                                                        }
+                                                        
+                                                        {step.length == 0 &&(
+                                                                <div></div>
+                                                            )
+                                                        }
                                                     </div>
 
 
