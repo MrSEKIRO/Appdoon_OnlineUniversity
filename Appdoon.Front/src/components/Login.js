@@ -68,22 +68,19 @@ export class Login extends Component{
                                             <div class="account-box-headline">
                                                 <NavLink to="/login" class="login-ds active">
                                                     <span class="title">ورود</span>
-                                                    <span class="sub-title">به دیجی اسمارت</span>
+                                                    <span class="sub-title">به رودمپ </span>
                                                 </NavLink>
 
 
                                                 <NavLink to="/register" class="register-ds">
                                                     <span class="title">ثبت نام</span>
-                                                    <span class="sub-title">در دیجی اسمارت</span>
+                                                    <span class="sub-title">در رودمپ</span>
                                                 </NavLink>
                                             </div>
                                             <div class="Login-to-account mt-4">
                                                 <div class="account-box-content">
                                                     <h4>ورود به حساب کاربری</h4>
                                                     <form onSubmit={this.handleSubmit} action="#" class="form-account text-right">
-
-
-
 
 
                                                         <div class="form-account-title">
@@ -93,9 +90,11 @@ export class Login extends Component{
 
                                                         
                                                         <div class="form-account-title">
+                                                            <form>                                                          
                                                             <label for="password">رمز عبور</label>
                                                             <a href="#" class="account-link-password">رمز خود را فراموش کرده ام</a>
                                                             <input type="password" class="password-input" name="Password"/>
+                                                            </form>
                                                         </div>
 
 
@@ -115,14 +114,8 @@ export class Login extends Component{
                                                         </div>
 
                                                         <div class="form-row-account">
-                                                            <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود به دیجی اسمارت</button>
+                                                            <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود به رودمپ</button>
                                                         </div>
-
-
-
-
-
-
                                                     </form>
                                                 </div>
                                             </div>
