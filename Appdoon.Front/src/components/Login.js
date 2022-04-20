@@ -98,17 +98,12 @@ const Login = () => {
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
                                                         <p style={{fontSize : "14px"}} id="result_message"></p>
                                                     </div>
+                                                        <div class="form-row-account">
+                                                            <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود به رودمپ</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
 
-                                                    <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود به دیجی اسمارت</button>
-                                                    </div>
-
-
-
-
-
-
-                                                </form>
                                             </div>
                                         </div>
                                     </div>

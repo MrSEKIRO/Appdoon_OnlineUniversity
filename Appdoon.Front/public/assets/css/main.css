@@ -4626,9 +4626,10 @@ span.shipping-destination {
     width: 100%;
     height: 30px;
     outline: none;
-    text-align: left;
+    text-align: right;
     position: relative;
     padding: 0 15px;
+    margin: 100 100 ;
     border-radius: 20px;
     background: #f3f3f3;
     color: #666;
@@ -4642,7 +4643,7 @@ span.shipping-destination {
     border: 1px solid #eee;
 }
 
-.account-box-content .form-account-title input.number-email-input::placeholder {
+/*.account-box-content .form-account-title input.number-email-input::placeholder {
     text-align: right;
     color: #9f9f9f;
 }
@@ -4650,7 +4651,7 @@ span.shipping-destination {
 .account-box-content .form-account-title input.password-input::placeholder {
     text-align: right;
     color: #9f9f9f;
-}
+}*/
 
 .account-box-content .form-account-title label {
     font-size: 12px;
