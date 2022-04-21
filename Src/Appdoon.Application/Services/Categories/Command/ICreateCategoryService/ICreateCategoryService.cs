@@ -1,4 +1,5 @@
 ﻿using Appdoon.Application.Interfaces;
+using Appdoon.Application.Validatores.CategoryValidatore;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
 using System;
@@ -31,6 +32,18 @@ namespace Appdoon.Application.Services.Categories.Command.ICreateCategoryService
 		{
             try
             {
+				// check validation rules
+				CategoryValidatore validationRules = new CategoryValidatore();
+				var result = validationRules.Validate(requestCreateCategoryDto);
+				if(result.IsValid == false)
+				{
+					return new ResultDto()
+					{
+						IsSuccess = false,
+						Message = result.Errors[0].ErrorMessage,
+					};
+				}
+
 				//Uniqueness(Name)
 				if (_context.Categories.Where(s => s.Name == requestCreateCategoryDto.Name.ToString()).Count() != 0)
 				{
@@ -40,9 +53,6 @@ namespace Appdoon.Application.Services.Categories.Command.ICreateCategoryService
 						Message = "این نام برای دسته تکراری است",
 					};
 				}
-
-
-
 
 				var category = new Category()
 				{
