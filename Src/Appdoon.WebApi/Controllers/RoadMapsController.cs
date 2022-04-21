@@ -57,11 +57,5 @@ namespace Appdoon.WebApi.Controllers
 			var result = _getAllStepService.Execute();
 			return new JsonResult(result);
 		}
-
-
-
-
-
-
 	}
 }
