@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {Register} from './Components/Register'; 
+import Register from './Components/Register'; 
 
-import {Home}  from './Components/Home';
-import {Navigation} from "./Statics/Navigation";
-import {Footer} from "./Statics/Footer";
+import Home  from './Components/Home';
+import Navigation from "./Statics/Navigation";
+import Footer from "./Statics/Footer";
 
 import Login from "./Components/Login";
 
@@ -23,7 +23,7 @@ import CreateChildStep from './Components/BuildRoadmap/CreateChildStep';
 function App() {
 
   return (
-    <div>
+
       <BrowserRouter>
         
 
@@ -48,7 +48,7 @@ function App() {
           
           {/*<Route exact path="/timeline" element={<Timeline/>}/>*/}
 
-          <Route path={`/timeline/:id`} element={<Roadmap/>}/>
+          <Route path={`/roadmap/:id`} element={<Roadmap/>}/>
 
           <Route path={`/create_roadmap`} element={<CreateRoadmap/>}/>
           <Route path={`/create_step`} element={<CreateStep/>}/>
@@ -65,7 +65,7 @@ function App() {
         <Footer/>
 
       </BrowserRouter>
-    </div>
+
 
   );
 

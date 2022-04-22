@@ -15,7 +15,7 @@ const CreateCategory = () => {
             
             body:JSON.stringify({
                 Name:event.target.Name.value,
-                Link:event.target.Description.value,
+                Link:event.target.Link.value,
             })
         })
         
@@ -47,6 +47,7 @@ const CreateCategory = () => {
                         <section class="page-account-box">
                             <div class="col-lg-6 col-md-6 col-xs-12 mx-auto">
                                 <div class="ds-userlogin">
+                                    <a href="#" className="account-box-logo">Appdoon</a>
                                     <div class="account-box">
                                         <div class="account-box-headline">
 
@@ -92,7 +93,7 @@ const CreateCategory = () => {
                                                     
                                                     <div class="form-account-title">
                                                         <label for="email-phone">لینک</label>
-                                                        <input type="text-area" class="number-email-input" name="Description"/>
+                                                        <input type="text-area" class="number-email-input" name="Link"/>
                                                     </div>
 
 
@@ -136,6 +137,11 @@ const CreateCategory = () => {
                     <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
                 </svg>
             </div>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
 
         </div>
     );
