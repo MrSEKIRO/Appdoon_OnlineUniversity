@@ -18,27 +18,27 @@ namespace Appdoon.Application.Validatores.UserValidatore
 				.EmailAddress().WithMessage("");
 
 			RuleFor(u => u.Password)
-				.NotEmpty().WithMessage("");
+				.NotEmpty().WithMessage("لطفا رمز خود را وارد کنید!");
 
 			// check repass be same as password
 			RuleFor(u => u.RePassword)
-				.NotEmpty().WithMessage("")
+				.NotEmpty().WithMessage("لطفا تکرار رمز عبور خود را وارد کنید!")
 				.Equal(u => u.Password).WithMessage("");
 
 			RuleFor(u => u.Username)
-				.NotEmpty().WithMessage("")
+				.NotEmpty().WithMessage("نام کاربری را وارد کنید!")
 				.Length(3, 20).WithMessage("");
 
 			RuleFor(u => u.FirstName)
-				.NotEmpty().WithMessage("")
+				.NotEmpty().WithMessage("اسم خوذ را وارد کنید!")
 				.Length(3, 20).WithMessage("");
 
 			RuleFor(u=>u.LastName)
-				.NotEmpty().WithMessage("")
+				.NotEmpty().WithMessage("نام خوانوداگی را وارد کنید!")
 				.Length(3, 20).WithMessage("");
 
 			RuleFor(u => u.PhoneNumber)
-				.NotEmpty().WithMessage("");
+				.NotEmpty().WithMessage("شماره تلفن خود را وارد کنید!")
 		}
 	}
 }
