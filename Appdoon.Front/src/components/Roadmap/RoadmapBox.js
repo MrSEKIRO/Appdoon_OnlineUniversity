@@ -11,7 +11,13 @@ import { Button } from 'bootstrap';
 
 const RoadmapBox = ({ data:roadmap }) => {
 
-
+    let catResult = "";
+    for (var i = 0; i < roadmap.Categories.length; i++) {
+        catResult += roadmap.Categories[i].Name;
+        if(i != roadmap.Categories.length - 1){
+            catResult += " / ";
+        }
+    }
 
 
     return(
@@ -30,17 +36,15 @@ const RoadmapBox = ({ data:roadmap }) => {
 
                     
 
-                    <Link to= {`/timeline/${roadmap.Id}`} className="d-block">
+                    <Link to= {`/roadmap/${roadmap.Id}`} className="d-block">
                         <h4>{roadmap.Title}</h4>
                     </Link>
 
+                    
+
 
                     <span class="post-date">
-                        {roadmap.Categories.map((data, idx) => (
-                            
-                            data.Name
-                            + " / "
-                        ))}
+                        {catResult}
                     </span>
 
 

@@ -50,18 +50,20 @@ const Login = () => {
                                 <div class="ds-userlogin">
                                     <a href="#" class="account-box-logo">digismart</a>
                                     <div class="account-box">
+                                        
                                         <div class="account-box-headline">
                                             <NavLink to="/login" class="login-ds active">
                                                 <span class="title">ورود</span>
-                                                <span class="sub-title">به دیجی اسمارت</span>
+                                                <span class="sub-title">به حساب کاربری</span>
                                             </NavLink>
 
 
                                             <NavLink to="/register" class="register-ds">
                                                 <span class="title">ثبت نام</span>
-                                                <span class="sub-title">در دیجی اسمارت</span>
+                                                <span class="sub-title">در سایت</span>
                                             </NavLink>
                                         </div>
+
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
                                                 <h4>ورود به حساب کاربری</h4>
@@ -99,13 +101,13 @@ const Login = () => {
                                                         <p style={{fontSize : "14px"}} id="result_message"></p>
                                                     </div>
                                                         <div class="form-row-account">
-                                                            <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود به رودمپ</button>
+                                                            <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود</button>
                                                         </div>
                                                     </form>
-                                                </div>
 
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +122,13 @@ const Login = () => {
                 </svg>
             </div>
 
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
         </div>
+        
     );
 }
 
