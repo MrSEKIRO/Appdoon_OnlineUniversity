@@ -67,6 +67,7 @@ const CreateRoadmap = () => {
                         <section class="page-account-box">
                             <div class="col-lg-6 col-md-6 col-xs-12 mx-auto">
                                 <div class="ds-userlogin">
+                                    <a href="#" className="account-box-logo">Appdoon</a>
                                     <div class="account-box">
                                         <div class="account-box-headline">
 
@@ -112,7 +113,7 @@ const CreateRoadmap = () => {
                                                     
                                                     <div class="form-account-title">
                                                         <label for="Description">توضیحات</label>
-                                                        <input type="text" class="number-email-input" name="Description"/>
+                                                        <textarea class="number-email-input" name="Description"/>
                                                     </div>
 
                                                     <div class="form-account-title">
@@ -185,6 +186,11 @@ const CreateRoadmap = () => {
                     <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
                 </svg>
             </div>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
 
         </div>
     );

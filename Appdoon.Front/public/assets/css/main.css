@@ -37,7 +37,7 @@ div {
 }
 
 @font-face {
-    font-family: "IRANSans";
+    font-family: IRANSans;
     font-style: normal;
     font-weight: 900;
     src: url("../fonts/IRANSans/eot/IRANSansWeb_Black.eot");
@@ -377,6 +377,7 @@ header.header-main {
 .account-box .dropdown-menu ul.account-uls li.account-item {
     display: block;
     line-height: 30px;
+    margin-left: -30px;
 }
 
 .account-box .dropdown-menu ul.account-uls li.account-item a.account-link {
@@ -4625,6 +4626,21 @@ span.shipping-destination {
 .password-input {
     width: 100%;
     height: 30px;
+    outline: none;
+    text-align: right;
+    position: relative;
+    padding: 0 15px;
+    margin: 100 100 ;
+    border-radius: 20px;
+    background: #f3f3f3;
+    color: #666;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+textarea.number-email-input{
+    width: 100%;
+    height: 100px;
     outline: none;
     text-align: right;
     position: relative;
@@ -9694,6 +9710,7 @@ footer.footer-main-site .footer-shopping-features .item span.icon-shopping {
     line-height: normal;
     text-align: center;
     margin: 0 !important;
+    
     font-size: 36px;
     color: #616161;
     position: absolute;
@@ -9838,6 +9855,25 @@ footer.footer-main-site .footer-middlebar .footer-copyright .footer-copyright-te
     font-size: 14px;
     float: right;
 }
+
+.footer-trust-us .footer-trust-us-text{
+    width: 100%;
+    color: #7b7979;
+    padding-top: 0;
+    text-align: right;
+    font-size: 14px;
+    float: right;
+}
+
+.footer-enamad{
+    margin-right: -200px;
+}
+
+@media screen and (max-width: 991px) {
+    .footer-enamad{
+        margin-right: 0px;
+    }
+  }
 
 /* footer------------------------------*/
 
