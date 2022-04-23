@@ -22,9 +22,9 @@ namespace Appdoon.Application.Validatores.ChildStepValidatore
 			RuleFor(x => x.Link)
 				.NotEmpty().WithMessage("لینک قدم را وارد کنید!");
 
-			RuleFor(x => x.StepId)
-				.NotNull().WithMessage("")
-				.GreaterThan(0).WithMessage("");
+			//RuleFor(x => x.StepId)
+			//	.NotNull().WithMessage("")
+			//	.GreaterThan(0).WithMessage("");
 		}
 	}
 }
