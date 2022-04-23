@@ -38,7 +38,7 @@ namespace Appdoon.Application.Validatores.UserValidatore
 				.Length(3, 20).WithMessage("");
 
 			RuleFor(u => u.PhoneNumber)
-				.NotEmpty().WithMessage("شماره تلفن خود را وارد کنید!")
+				.NotEmpty().WithMessage("شماره تلفن خود را وارد کنید!");
 		}
 	}
 }
