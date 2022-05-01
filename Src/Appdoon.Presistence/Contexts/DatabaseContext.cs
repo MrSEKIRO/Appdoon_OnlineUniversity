@@ -38,7 +38,6 @@ namespace Appdoon.Presistence.Contexts
 			modelBuilder.Entity<Step>().HasQueryFilter(u => u.IsRemoved == false);
 			modelBuilder.Entity<ChildStep>().HasQueryFilter(u => u.IsRemoved == false);
 
-			/*
 			// Registerd RoadMaps for User
 			modelBuilder.Entity<User>()
 				.HasMany<RoadMap>(u => u.SignedRoadMaps)
@@ -55,7 +54,6 @@ namespace Appdoon.Presistence.Contexts
 				.WithMany(u => u.CreatedRoadMaps)
 				.HasForeignKey(r => r.CreatoreId)
 				.OnDelete(DeleteBehavior.NoAction);
-			*/
 		}
 	}
 }
