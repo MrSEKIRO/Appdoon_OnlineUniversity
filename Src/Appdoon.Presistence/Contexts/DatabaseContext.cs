@@ -37,6 +37,25 @@ namespace Appdoon.Presistence.Contexts
 			modelBuilder.Entity<Category>().HasQueryFilter(u => u.IsRemoved == false);
 			modelBuilder.Entity<Step>().HasQueryFilter(u => u.IsRemoved == false);
 			modelBuilder.Entity<ChildStep>().HasQueryFilter(u => u.IsRemoved == false);
+
+			/*
+			// Registerd RoadMaps for User
+			modelBuilder.Entity<User>()
+				.HasMany<RoadMap>(u => u.SignedRoadMaps)
+				.WithMany(r => r.Students);
+
+			// Bookmarked RoadMap for User
+			modelBuilder.Entity<User>()
+				.HasMany<RoadMap>(u => u.BookmarkedRoadMaps)
+				.WithMany(r => r.UsersBookmarked);
+
+			// Creatore of RoadMap (Not Null)
+			modelBuilder.Entity<RoadMap>()
+				.HasOne(r => r.Creatore)
+				.WithMany(u => u.CreatedRoadMaps)
+				.HasForeignKey(r => r.CreatoreId)
+				.OnDelete(DeleteBehavior.NoAction);
+			*/
 		}
 	}
 }
