@@ -6,12 +6,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 import ChildStepModal from '../Modals/ChildStepModal';
-
-
 import { useState } from "react";
-
-
-
 
 
 const Roadmap = () => {
@@ -102,10 +97,11 @@ const Roadmap = () => {
             {data && data.Id > 0 && (
                 
                 <div className='timelineBody'>
-                    
+                    <button className = "butten_Edit" onclick="activateLasers()" type="button">ویرایش</button>
+                   
                     <h1 dir="rtl">رودمپ {data.Title}</h1>
                     <p  dir="rtl" style={{color:"white"}}>{data.Description}</p>
-                    <div className="timeline-container">
+                    <div class="timeline-container">
                         
                         {data.Steps.map((step, idx) => (
                             <Step data={step} key={idx} handleModalId={handleModal}/>

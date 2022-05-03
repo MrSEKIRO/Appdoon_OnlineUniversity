@@ -156,7 +156,23 @@ h1 {
     font-weight: bold;
     align-self:flex-start;
 }*/
-
+.butten_Edit
+{
+    border:3px #0d2b58;
+    background-color: #5071a2;
+    border-radius: 33%;
+    font-size: 16px;
+    padding: 0% 0%;
+    height: 38px;
+    width: 80px;
+    font-weight: bold;
+    margin-right: auto;
+    margin-left: 0;
+    box-shadow:  1px 1px 1px 1px rgb(139, 139, 161);
+}
+.butten_Edit:hover {
+    background: rgb(171, 171, 184);
+  }
 .timeline-container :hover
 {
     transform: scale(1.02);

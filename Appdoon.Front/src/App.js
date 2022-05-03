@@ -17,8 +17,10 @@ import CreateRoadmap from './Components/BuildRoadmap/CreateRoadmap';
 import CreateCategory from './Components/BuildRoadmap/CreateCategory';
 import CreateStep from './Components/BuildRoadmap/CreateStep';
 import CreateChildStep from './Components/BuildRoadmap/CreateChildStep';
-
-
+import Profile from './Components/User/Profile';
+import UserRoadmaps from './Components/User/UserRoadmaps';
+import UserFavoriteRoadmaps from './Components/User/UserFavoriteRoadmaps';
+import EditRoadmap from './Components/EditRoadmap';
 
 function App() {
 
@@ -54,6 +56,12 @@ function App() {
           <Route path={`/create_step`} element={<CreateStep/>}/>
           <Route path={`/create_category`} element={<CreateCategory/>}/>
           <Route path={`/create_child_step`} element={<CreateChildStep/>}/>
+          
+          
+          <Route path={`/Profile`} element={<Profile/>}/>
+          <Route path={`/UserRoadmaps`} element={<UserRoadmaps/>}/>
+          <Route path={`/UserFavoriteRoadmaps`} element={<UserFavoriteRoadmaps/>}/>
+          <Route path={`/EditRoadmap`} element={<EditRoadmap/>}/>
 
           <Route path="*" element={<Home/>}/>
 
