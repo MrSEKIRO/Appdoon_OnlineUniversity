@@ -31,7 +31,7 @@ namespace Appdoon.Application.Validatores.UserValidatore
 
 			RuleFor(u => u.FirstName)
 				.NotEmpty().WithMessage("اسم خوذ را وارد کنید!")
-				.Length(3, 20).WithMessage("");
+				.Length(3, 20).WithMessage("خطا در طول رشته");
 
 			RuleFor(u=>u.LastName)
 				.NotEmpty().WithMessage("نام خوانوداگی را وارد کنید!")
