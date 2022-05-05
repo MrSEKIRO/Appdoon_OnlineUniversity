@@ -30,8 +30,8 @@ namespace Appdoon.Application.Validatores.UserValidatore
 				.Length(3, 20).WithMessage("نام کاربری باید حداقل 3 و حداکثر 20 کاراکتر باشد!");
 
 			RuleFor(u => u.FirstName)
-				.NotEmpty().WithMessage("اسم خوذ را وارد کنید!")
-				.Length(3, 20).WithMessage("خطا در طول رشته");
+				.NotEmpty().WithMessage("اسم خود را وارد کنید!")
+				.Length(3, 20).WithMessage("نام بایستی حداقل 3 و حداکثر 20 کاراکتر باشد!");
 
 			RuleFor(u=>u.LastName)
 				.NotEmpty().WithMessage("نام خوانوداگی را وارد کنید!")

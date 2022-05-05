@@ -101,7 +101,7 @@ const Login = () => {
                                                         <p style={{fontSize : "14px"}} id="result_message"></p>
                                                     </div>
                                                         <div class="form-row-account">
-                                                            <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود</button>
+                                                            <button variant="primary" type="submit" class="btn btn-primary btn-login" onClick="window.location.href='http://localhost:3000/Profile';">ورود</button>
                                                         </div>
                                                     </form>
 

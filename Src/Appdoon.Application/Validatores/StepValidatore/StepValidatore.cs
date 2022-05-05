@@ -19,8 +19,8 @@ namespace Appdoon.Application.Validatores.StepValidatore
 			RuleFor(x => x.Description)
 				.MaximumLength(50).WithMessage("توضیحات باید حداکثر 50 کاراکتر باشد!");
 
-			RuleFor(x => x.Link)
-				.NotEmpty().WithMessage("لینک قدم را وارد کنید!");
+			//RuleFor(x => x.Link)
+				//.NotEmpty().WithMessage("لینک قدم را وارد کنید!");
 
 			//RuleFor(x => x.RoadMapId)
 			//	.NotNull().WithMessage("")

@@ -24,34 +24,24 @@ const RoadmapBox = ({ data:roadmap }) => {
         <article class="blog-item">
             <figure class="figure">
 
-                
-                <div class="post-thumbnail">
+            <Link to= {`/roadmap/${roadmap.Id}`} >
+
+                <div class="post-thumbnail" >
                     <img src={process.env.REACT_APP_PHOTOPATH+roadmap.ImageSrc} alt={roadmap.Description}/>
                 </div>
 
+                <div class="post-title">                    
 
-
-                <div class="post-title">
-
-
-                    
-
-                    <Link to= {`/roadmap/${roadmap.Id}`} className="d-block">
+               <Link to= {`/roadmap/${roadmap.Id}`} className="d-block">
                         <h4>{roadmap.Title}</h4>
-                    </Link>
-
-                    
-
+                </Link>
 
                     <span class="post-date">
                         {catResult}
                     </span>
-
-
-
-                    
                 </div>
 
+                </Link>
 
 
             </figure>
