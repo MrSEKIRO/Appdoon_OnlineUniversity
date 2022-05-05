@@ -4,14 +4,16 @@ using Appdoon.Presistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Appdoon.Presistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220501115226_Set_Nullables")]
+    partial class Set_Nullables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,9 +101,6 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CreatoreId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -128,8 +127,6 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatoreId");
 
                     b.ToTable("RoadMaps");
                 });
@@ -207,21 +204,21 @@ namespace Appdoon.Presistence.Migrations
                         new
                         {
                             Id = 1,
-                            InsertTime = new DateTime(2022, 5, 1, 16, 41, 55, 281, DateTimeKind.Local).AddTicks(1783),
+                            InsertTime = new DateTime(2022, 5, 1, 16, 22, 25, 464, DateTimeKind.Local).AddTicks(528),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            InsertTime = new DateTime(2022, 5, 1, 16, 41, 55, 287, DateTimeKind.Local).AddTicks(2176),
+                            InsertTime = new DateTime(2022, 5, 1, 16, 22, 25, 468, DateTimeKind.Local).AddTicks(935),
                             IsRemoved = false,
                             Name = "Teacher"
                         },
                         new
                         {
                             Id = 3,
-                            InsertTime = new DateTime(2022, 5, 1, 16, 41, 55, 287, DateTimeKind.Local).AddTicks(2556),
+                            InsertTime = new DateTime(2022, 5, 1, 16, 22, 25, 468, DateTimeKind.Local).AddTicks(1173),
                             IsRemoved = false,
                             Name = "User"
                         });
@@ -287,36 +284,6 @@ namespace Appdoon.Presistence.Migrations
                     b.ToTable("CategoryRoadMap");
                 });
 
-            modelBuilder.Entity("RoadMapUser", b =>
-                {
-                    b.Property<int>("SignedRoadMapsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SignedRoadMapsId", "StudentsId");
-
-                    b.HasIndex("StudentsId");
-
-                    b.ToTable("RoadMapUser");
-                });
-
-            modelBuilder.Entity("RoadMapUser1", b =>
-                {
-                    b.Property<int>("BookmarkedRoadMapsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsersBookmarkedId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookmarkedRoadMapsId", "UsersBookmarkedId");
-
-                    b.HasIndex("UsersBookmarkedId");
-
-                    b.ToTable("RoadMapUser1");
-                });
-
             modelBuilder.Entity("RoleUser", b =>
                 {
                     b.Property<int>("RolesId")
@@ -341,16 +308,6 @@ namespace Appdoon.Presistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Step");
-                });
-
-            modelBuilder.Entity("Appdoon.Domain.Entities.RoadMaps.RoadMap", b =>
-                {
-                    b.HasOne("Appdoon.Domain.Entities.Users.User", "Creatore")
-                        .WithMany("CreatedRoadMaps")
-                        .HasForeignKey("CreatoreId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Creatore");
                 });
 
             modelBuilder.Entity("Appdoon.Domain.Entities.RoadMaps.Step", b =>
@@ -379,36 +336,6 @@ namespace Appdoon.Presistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RoadMapUser", b =>
-                {
-                    b.HasOne("Appdoon.Domain.Entities.RoadMaps.RoadMap", null)
-                        .WithMany()
-                        .HasForeignKey("SignedRoadMapsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Appdoon.Domain.Entities.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("RoadMapUser1", b =>
-                {
-                    b.HasOne("Appdoon.Domain.Entities.RoadMaps.RoadMap", null)
-                        .WithMany()
-                        .HasForeignKey("BookmarkedRoadMapsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Appdoon.Domain.Entities.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersBookmarkedId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("RoleUser", b =>
                 {
                     b.HasOne("Appdoon.Domain.Entities.Users.Role", null)
@@ -432,11 +359,6 @@ namespace Appdoon.Presistence.Migrations
             modelBuilder.Entity("Appdoon.Domain.Entities.RoadMaps.Step", b =>
                 {
                     b.Navigation("ChildSteps");
-                });
-
-            modelBuilder.Entity("Appdoon.Domain.Entities.Users.User", b =>
-                {
-                    b.Navigation("CreatedRoadMaps");
                 });
 #pragma warning restore 612, 618
         }
