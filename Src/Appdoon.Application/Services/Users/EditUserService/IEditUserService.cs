@@ -80,7 +80,12 @@ namespace Appdoon.Application.Services.Users.EditUserService
 				user.PhoneNumber=editUserDto.PhoneNumber;
 
 				_context.SaveChanges();
-				
+
+				return new ResultDto()
+				{
+					IsSuccess = true,
+					Message = "اطلاعات با موفقیت تغییر یافت!",
+				};
 			}
 			catch(Exception e)
 			{
