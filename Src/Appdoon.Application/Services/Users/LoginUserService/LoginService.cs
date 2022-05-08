@@ -46,8 +46,6 @@ namespace Appdoon.Application.Services.Users.LoginUserService
                     Message = "فرمت ایمیل/نام کاربری را به درستی وارد کنید!",
                 };
             }
-
-
             //Regex
             if (is_Email)
             {

@@ -42,7 +42,20 @@ namespace Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService
 						Stars = r.Stars,
 						Title = r.Title,
 						Categories = r.Categories,
-						Steps = r.Steps,
+						Steps = r.Steps.Select(s => new Step()
+						{
+							Id = s.Id,
+							Title=s.Title,
+							Description= s.Description,
+							IsDone = s.IsDone,	
+							Link=s.Link,
+							IsRemoved = s.IsRemoved,
+							InsertTime = s.InsertTime,
+							UpdateTime=s.UpdateTime,
+							RemoveTime=s.RemoveTime,
+							RoadMapId=s.RoadMapId,
+							ChildSteps = s.ChildSteps,
+						}).ToList(),
 					}).FirstOrDefault();
 
 				if(roadmap == null)

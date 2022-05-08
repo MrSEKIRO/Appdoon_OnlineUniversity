@@ -18,10 +18,6 @@ const Roadmap = () => {
 
 
     const {id} = useParams();
-
-    const [isPending, setIsPending] = useState(false)
-
-    const history = useNavigate()
     
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
@@ -65,6 +61,7 @@ const Roadmap = () => {
             setData(data.Data);
             setIsLogin(false);
             setError(null);
+            //alert(data.Data.Steps[0].ChildSteps.length);
             //alert("sfd");
             
         }).then(() =>{
@@ -97,7 +94,7 @@ const Roadmap = () => {
             {data && data.Id > 0 && (
                 
                 <div className='timelineBody'>
-                    <button className = "butten_Edit" onclick="activateLasers()" type="button">ویرایش</button>
+                    
                    
                     <h1 dir="rtl">رودمپ {data.Title}</h1>
                     <p  dir="rtl" style={{color:"white"}}>{data.Description}</p>

@@ -9,7 +9,6 @@ const Step = ({ data , key , handleModalId}) => {
     const handleModal = (childStep) => {
         handleModalId(data.Id,childStep);
     }
-    
     return(
         <div className="timeline-item">
             <div className="timeline-item-content">
@@ -21,6 +20,7 @@ const Step = ({ data , key , handleModalId}) => {
 
                 <div>
                     <h4 dir="rtl">مراحل این قدم:</h4>
+                    
                     <ol dir="rtl"  style = {{marginRight: "20px"}}>
                         {
                             data.ChildSteps.map((childstep, idx) => (
