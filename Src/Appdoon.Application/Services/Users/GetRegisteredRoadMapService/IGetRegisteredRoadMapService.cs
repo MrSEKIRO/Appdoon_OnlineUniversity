@@ -16,6 +16,7 @@ namespace Appdoon.Application.Services.Users.GetRoadMapService
     }
     public class RegisteredRoadMapDto
     {
+        public int Id;
         public string Title;
         public string ImageSrc;
     }
@@ -39,6 +40,7 @@ namespace Appdoon.Application.Services.Users.GetRoadMapService
                 {
                     Title = r.Title,
                     ImageSrc = r.ImageSrc,
+                    Id = r.Id,
                 }).ToList();
 
                 return new ResultDto<List<RegisteredRoadMapDto>>()
