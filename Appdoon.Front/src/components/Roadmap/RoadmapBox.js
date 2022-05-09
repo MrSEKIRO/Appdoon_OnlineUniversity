@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useHistory } from 'react-router-dom';
 import { Button } from 'bootstrap';
 
+import "../../Modular_Css/RoadmapBox.css"
+
 
 
 
@@ -20,6 +22,24 @@ const RoadmapBox = ({ data:roadmap }) => {
     }
 
 
+    function stars(){
+        let A = "";
+        for(var i = 0; i < 5-roadmap.Stars; i++){
+            A += '<span class="fa fa-star"></span>';
+        }
+        for(var i = 0; i < roadmap.Stars; i++){
+            A += '<span class="fa fa-star checked"></span>';
+        }
+        return A;
+    }
+
+    useEffect( ()=>{
+        document.getElementById(roadmap.Id).innerHTML = stars();
+    }, [roadmap]);
+
+    
+
+
     return(
         <article class="blog-item">
             <figure class="figure">
@@ -32,13 +52,17 @@ const RoadmapBox = ({ data:roadmap }) => {
 
                 <div class="post-title">                    
 
-               <Link to= {`/roadmap/${roadmap.Id}`} className="d-block">
+                <Link to= {`/roadmap/${roadmap.Id}`} className="d-block">
                         <h4>{roadmap.Title}</h4>
                 </Link>
 
-                    <span class="post-date">
-                        {catResult}
-                    </span>
+                <span class="post-date">
+                    {catResult}
+                </span>
+
+                <span className="star" id = {roadmap.Id}>
+                </span>
+
                 </div>
 
                 </Link>
@@ -46,7 +70,7 @@ const RoadmapBox = ({ data:roadmap }) => {
 
             </figure>
         </article>
-    )
+    );
 }
 
 
