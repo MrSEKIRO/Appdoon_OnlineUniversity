@@ -6,13 +6,13 @@ namespace Appdoon.Domain.Entities.RoadMaps
 	public class Step : BaseEntity
 	{
 		public string Title { get; set; } = string.Empty;
-		public string Description { get; set; }
-		public string Link { get; set; }
+		public string? Description { get; set; }
+		public string? Link { get; set; }
 		public bool IsDone { get; set; } = false;
 
-		public RoadMap RoadMap { get; set; }
+		public RoadMap RoadMap { get; set; } = new();
 		public int RoadMapId { get; set; }
 
-		public List<ChildStep> ChildSteps { get; set; }
+		public List<ChildStep>? ChildSteps { get; set; }
 	}
 }

@@ -11,40 +11,37 @@ import { Button } from 'bootstrap';
 
 const RoadmapBox = ({ data:roadmap }) => {
 
-
+    let catResult = "";
+    for (var i = 0; i < roadmap.Categories.length; i++) {
+        catResult += roadmap.Categories[i].Name;
+        if(i != roadmap.Categories.length - 1){
+            catResult += " / ";
+        }
+    }
 
 
     return(
         <article class="blog-item">
             <figure class="figure">
 
-                
-                <div class="post-thumbnail">
+            <Link to= {`/roadmap/${roadmap.Id}`} >
+
+                <div class="post-thumbnail" >
                     <img src={process.env.REACT_APP_PHOTOPATH+roadmap.ImageSrc} alt={roadmap.Description}/>
                 </div>
 
+                <div class="post-title">                    
 
-
-                <div class="post-title">
-
-
-                    
-
-                    <Link to= {`/timeline/${roadmap.Id}`} className="d-block">
-                        <h4>{roadmap.Description}</h4>
-                    </Link>
-
+               <Link to= {`/roadmap/${roadmap.Id}`} className="d-block">
+                        <h4>{roadmap.Title}</h4>
+                </Link>
 
                     <span class="post-date">
-                        <i class="fa fa-calendar"></i>
-                        {roadmap.Title}
+                        {catResult}
                     </span>
-
-
-
-                    
                 </div>
 
+                </Link>
 
 
             </figure>

@@ -1,4 +1,5 @@
 ﻿using Appdoon.Application.Interfaces;
+using Appdoon.Application.Validatores.StepValidatore;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
 using System;
@@ -34,6 +35,17 @@ namespace Appdoon.Application.Services.Steps.Command.CreateStepService
         {
             try
             {
+                StepValidatore validationRules = new StepValidatore();
+                var result = validationRules.Validate(StepDto);
+				if(result.IsValid == false)
+				{
+                    return new ResultDto()
+                    {
+                        IsSuccess = false,
+                        Message = result.Errors[0].ErrorMessage,
+                    };
+				}
+
                 Step step = new Step()
                 {
                     Title = StepDto.Title,

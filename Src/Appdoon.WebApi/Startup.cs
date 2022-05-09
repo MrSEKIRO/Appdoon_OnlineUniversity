@@ -24,6 +24,9 @@ using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
 using Appdoon.Application.Services.Categories.Query.GetCategoriesService;
+using Appdoon.Application.Services.Steps.Command.CreateStepService;
+using Appdoon.Application.Services.Steps.Command.CreateChildStepService;
+using Appdoon.Application.Services.Steps.Query.GetAllStepService;
 
 namespace OU_API
 {
@@ -82,8 +85,17 @@ namespace OU_API
             //Dependency Injection for create category Service
             services.AddScoped<ICreateCategoryService, CreateCategoryService>();
 
-            //Dependency Injection for create category Service
+            //Dependency Injection for get category Service
             services.AddScoped<IGetCategoriesService, GetCategoriesService>();
+
+            //Dependency Injection for create step Service
+            services.AddScoped<ICreateStepService, CreateStepService>();
+
+            //Dependency Injection for create child step Service
+            services.AddScoped<ICreateChildStepService, CreateChildStepService>();
+
+            //Dependency Injection for get all steps Service
+            services.AddScoped<IGetAllStepService, GetAllStepService>();
 
 
             // Injection for user validatore

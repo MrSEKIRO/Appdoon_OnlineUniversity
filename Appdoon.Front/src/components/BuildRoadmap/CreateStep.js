@@ -1,19 +1,15 @@
 import {NavLink} from 'react-router-dom';
+import useFetch from '../../useFetch';
 import { useState } from "react";
 
 const CreateStep = () => {
 
-    
-    const [photofilename, setPhotofilename] = useState("1.jpg");
-    const [imagesrc, setImagesrc] = useState(process.env.REACT_APP_PHOTOPATH + photofilename);
-
+    const {data : roadmaps, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/Index');
 
     const handleSubmit = (event) => {
-        
-
         event.preventDefault();
         
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateRoadMap',{
+        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateStep',{
             method:"POST",
             headers:{
                 'Accept':'application/json',
@@ -21,53 +17,28 @@ const CreateStep = () => {
             },
             
             body:JSON.stringify({
-                Title:event.target.Email_Username.value,
+                Title:event.target.Title.value,
                 Description:event.target.Description.value,
-                PhotoFileName:imagesrc,
-                CategoriesId:null
+                Link:event.target.Link.value,
+                RoadMapId:event.target.Roadmap.options[event.target.Roadmap.selectedIndex].value,
             })
         })
         
         .then(res=>res.json())
         .then((result)=>{
             if(result.IsSuccess){
-                document.getElementById("login_error").style.color = "green";
-                document.getElementById("login_error").innerHTML = result.Message;
+                document.getElementById("result_message").style.color = "green";
+                document.getElementById("result_message").innerHTML = result.Message;
             }
             else{
-                document.getElementById("login_error").style.color = "red";
-                document.getElementById("login_error").innerHTML = result.Message;
+                document.getElementById("result_message").style.color = "red";
+                document.getElementById("result_message").innerHTML = result.Message;
             }
             
-            
-            
         },
         (error)=>{
-            document.getElementById("login_error").style.color = "red";
-            document.getElementById("login_error").innerHTML = "خطایی رخ داده است!";
-        })
-    }
-
-    const handleFileSelected = (event) => {
-        event.preventDefault();
-        setPhotofilename(event.target.files[0].name);
-        const formData = new FormData();
-        formData.append(
-            "myFile",
-            event.target.files[0],
-            event.target.files[0].name
-        );
-
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/SaveFile',{
-            method:'POST',
-            body:formData
-        })
-        .then(res=>res.json())
-        .then((result)=>{
-            setImagesrc(process.env.REACT_APP_PHOTOPATH+result);
-        },
-        (error)=>{
-            alert('Failed');
+            document.getElementById("result_message").style.color = "red";
+            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
         })
     }
 
@@ -79,21 +50,15 @@ const CreateStep = () => {
                         <section class="page-account-box">
                             <div class="col-lg-6 col-md-6 col-xs-12 mx-auto">
                                 <div class="ds-userlogin">
-                                    <h2 style={{textAlign : "center"}}>ساخت رودمپ</h2>
+                                    <a href="#" className="account-box-logo">Appdoon</a>
                                     <div class="account-box">
                                         <div class="account-box-headline">
 
                                             
                                             
-                                        <NavLink to="/create_roadmap" class="login-ds">
+                                            <NavLink to="/create_roadmap" class="login-ds">
                                                 <span class="title">رودمپ</span>
                                                 <span class="sub-title">قالب رودمپ</span>
-                                            </NavLink>
-
-
-                                            <NavLink to="/create_step" class="register-ds active">
-                                                <span class="title">قدم‌</span>
-                                                <span class="sub-title">مراحل رودمپ</span>
                                             </NavLink>
 
                                             <NavLink to="/create_category" class="register-ds">
@@ -101,12 +66,22 @@ const CreateStep = () => {
                                                 <span class="sub-title">دسته‌بندی رودمپ</span>
                                             </NavLink>
 
+                                            <NavLink to="/create_step" class="register-ds active">
+                                                <span class="title">قدم‌</span>
+                                                <span class="sub-title">مراحل رودمپ</span>
+                                            </NavLink>
+
+                                            <NavLink to="/create_child_step" class="register-ds">
+                                                <span class="title">محتوا‌</span>
+                                                <span class="sub-title">محتوا‌ قدم‌ها</span>
+                                            </NavLink>
+
 
 
                                         </div>
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
-                                                <h4>ورود به حساب کاربری</h4>
+                                                <h4>ساخت قدم</h4>
                                                 <form onSubmit={handleSubmit} action="#" class="form-account text-right">
 
 
@@ -114,19 +89,44 @@ const CreateStep = () => {
 
 
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">نام رودمپ</label>
-                                                        <input type="text" class="number-email-input" name="Email_Username"/>
+                                                        <label for="email-phone">نام قدم</label>
+                                                        <input type="text" class="number-email-input" name="Title"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
                                                         <label for="email-phone">توضیحات</label>
-                                                        <input type="text-area" class="number-email-input" name="Description"/>
+                                                        <textarea class="number-email-input" name="Description"/>
                                                     </div>
 
                                                     <div class="form-account-title">
-                                                        <label for="photo">عکس</label>
-                                                        <input onChange={handleFileSelected} type="File"/>
+                                                        <label for="email-phone">لینک</label>
+                                                        <input type="text" class="number-email-input" name="Link"/>
+                                                    </div>
+
+
+
+
+                                                    <div class="form-account-title">
+                                                        <label for="Roadmap">رودمپ‌</label>
+                                                        {roadmaps.length > 0 && (
+                                                            <select name = "Roadmap" class="form-select" aria-label="Default select example">
+                                                                <option value="default">
+                                                                    انتخاب کنید
+                                                                </option>
+                                                                {roadmaps.map((data, idx) => (
+                                                                    <option value={data.Id}>
+                                                                        {data.Title}
+                                                                    </option>
+                                                                ))}
+                                                            </select>
+                                                            )
+                                                        }
+                                                        
+                                                        {roadmaps.length == 0 &&(
+                                                                <div></div>
+                                                            )
+                                                        }
                                                     </div>
 
 
@@ -142,11 +142,11 @@ const CreateStep = () => {
 
 
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
-                                                        <p style={{fontSize : "14px"}} id="login_error"></p>
+                                                        <p style={{fontSize : "14px"}} id="result_message"></p>
                                                     </div>
 
                                                     <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود به دیجی اسمارت</button>
+                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ساخت قدم</button>
                                                     </div>
 
 
@@ -170,6 +170,11 @@ const CreateStep = () => {
                     <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
                 </svg>
             </div>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
 
         </div>
     );

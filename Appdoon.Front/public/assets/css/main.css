@@ -37,7 +37,7 @@ div {
 }
 
 @font-face {
-    font-family: "IRANSans";
+    font-family: IRANSans;
     font-style: normal;
     font-weight: 900;
     src: url("../fonts/IRANSans/eot/IRANSansWeb_Black.eot");
@@ -377,6 +377,7 @@ header.header-main {
 .account-box .dropdown-menu ul.account-uls li.account-item {
     display: block;
     line-height: 30px;
+    margin-left: -30px;
 }
 
 .account-box .dropdown-menu ul.account-uls li.account-item a.account-link {
@@ -1159,10 +1160,13 @@ header.header-main {
 
 #wrapper {
     text-align: center;
-    width: 500px;
+    width: 100%;
     margin: auto;
 }
-
+#heightB
+{
+    height: 10;
+}
 /*
  *  STYLE 1
  */
@@ -2091,7 +2095,10 @@ header.header-main {
 .content-widget-amazing #amazing-slider .carousel-indicators-order li {
     margin-right: 5px !important;
 }
-
+.content-widget
+{
+    height: auto;
+}
 .content-widget-amazing #amazing-slider .carousel-indicators-order li.active {
     background-color: #651fff !important;
     border-color: #651fff !important;
@@ -4626,9 +4633,25 @@ span.shipping-destination {
     width: 100%;
     height: 30px;
     outline: none;
-    text-align: left;
+    text-align: right;
     position: relative;
     padding: 0 15px;
+    margin: 100 100 ;
+    border-radius: 20px;
+    background: #f3f3f3;
+    color: #666;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+textarea.number-email-input{
+    width: 100%;
+    height: 100px;
+    outline: none;
+    text-align: right;
+    position: relative;
+    padding: 0 15px;
+    margin: 100 100 ;
     border-radius: 20px;
     background: #f3f3f3;
     color: #666;
@@ -4642,7 +4665,7 @@ span.shipping-destination {
     border: 1px solid #eee;
 }
 
-.account-box-content .form-account-title input.number-email-input::placeholder {
+/*.account-box-content .form-account-title input.number-email-input::placeholder {
     text-align: right;
     color: #9f9f9f;
 }
@@ -4650,7 +4673,7 @@ span.shipping-destination {
 .account-box-content .form-account-title input.password-input::placeholder {
     text-align: right;
     color: #9f9f9f;
-}
+}*/
 
 .account-box-content .form-account-title label {
     font-size: 12px;
@@ -4895,7 +4918,7 @@ span.shipping-destination {
     margin-bottom: 20px;
     border-radius: 20px;
     overflow: hidden;
-    background: #fbfbfb;
+    background: #281e75;
 }
 
 .post-item-profile .sidebar-profile .profile-box .profile-box-header-inline {
@@ -4909,7 +4932,7 @@ span.shipping-destination {
     height: 70px;
     margin: 20px auto;
     overflow: hidden;
-    padding: 0px;
+    padding: 10px;
     border: 1px solid #281e75;
     border-radius: 50px;
     text-align: center;
@@ -4989,7 +5012,7 @@ span.shipping-destination {
     font-size: 13px;
     border-radius: 20px;
     padding: 8px 15px;
-    color: #666;
+    color: rgb(249, 245, 245);
     font-weight: 500;
 }
 
@@ -4999,13 +5022,13 @@ span.shipping-destination {
 }
 
 .post-item-profile .sidebar-profile .profile-box ul.profile-account-navs li.profile-account-nav-item a:hover {
-    background: #eee;
+    background: rgb(29, 15, 81);
     transition: 0.2s;
 }
 
 .post-item-profile .sidebar-profile .profile-box ul.profile-account-navs li.profile-account-nav-item a.active {
     background-color: #dffcff !important;
-    color: #651fff !important;
+    color: #603bb6 !important;
 }
 
 .post-item-profile .profile-content {
@@ -5027,13 +5050,14 @@ span.shipping-destination {
 }
 
 .post-item-profile .profile-content .profile-stats table tr .title {
-    font-size: 12px;
+    font-size: 17px;
     color: #999999;
 }
 
 .post-item-profile .profile-content .profile-stats table tr .value {
-    font-size: 14px;
-    color: #666666;
+    font-size: 24px;
+    font-weight: bold;
+    color: #281e75;
 }
 
 .post-item-profile .profile-content .profile-stats .profile-edit-action {
@@ -8311,7 +8335,7 @@ span.show-less {
     bottom: 10px;
     left: 15px;
     display: inline-block;
-    font-size: 12px;
+    font-size: 22px;
     font-weight: 300;
     margin-top: 10px;
     color: #ffffff;
@@ -8811,15 +8835,25 @@ span.show-less {
 .add-group-border {
     width: 185px;
     height: 185px;
-    border: 2px solid #5cb860;
+    border: 2px solid #3b80b1;
     position: relative;
     margin: 0 10px 40px;
     display: inline-block;
+    background-color: #3b80b1;
 }
+.wrapper {
+    margin: 10px 0px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 10px;
+    row-gap: 115px;
+    grid-auto-rows: 100px;
+  }
+
 .add-group-border .add-group {
     width: 80px;
     height: 80px;
-    background-color: #5cb860;
+    background-color: #281e75;
     border-radius: 100%;
     margin: 33px auto;
     -webkit-transition: all 500ms ease;
@@ -8840,15 +8874,17 @@ span.show-less {
     transition: all 370ms ease;
 }
 .add-group-border img {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     position: absolute;
-    top: 48px;
-    right: 68px;
+    top: 15px;
+    right: 41px;
+    border: #000;
+    border-radius: 50px;
 }
 .add-group-border h3 {
     font-size: 16px;
-    color: #4d4d4d;
+    color: #fff;
     position: absolute;
     top: 135px;
     right: 0;
@@ -8863,7 +8899,7 @@ span.show-less {
 .add-group-border:hover h3 {
     color: #fff;
     position: absolute;
-    top: 115px;
+    top: 125px;
     right: 0;
     left: 0;
     text-align: center;
@@ -9693,6 +9729,7 @@ footer.footer-main-site .footer-shopping-features .item span.icon-shopping {
     line-height: normal;
     text-align: center;
     margin: 0 !important;
+    
     font-size: 36px;
     color: #616161;
     position: absolute;
@@ -9837,6 +9874,25 @@ footer.footer-main-site .footer-middlebar .footer-copyright .footer-copyright-te
     font-size: 14px;
     float: right;
 }
+
+.footer-trust-us .footer-trust-us-text{
+    width: 100%;
+    color: #7b7979;
+    padding-top: 0;
+    text-align: right;
+    font-size: 14px;
+    float: right;
+}
+
+.footer-enamad{
+    margin-right: -200px;
+}
+
+@media screen and (max-width: 991px) {
+    .footer-enamad{
+        margin-right: 0px;
+    }
+  }
 
 /* footer------------------------------*/
 

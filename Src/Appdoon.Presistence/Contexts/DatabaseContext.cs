@@ -24,6 +24,8 @@ namespace Appdoon.Presistence.Contexts
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Step> Steps { get; set; }
 		public DbSet<ChildStep> ChildSteps { get; set; }
+		public DbSet<Linker> Linkers { get; set; }
+		public DbSet<Lesson> Lessons { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -37,6 +39,23 @@ namespace Appdoon.Presistence.Contexts
 			modelBuilder.Entity<Category>().HasQueryFilter(u => u.IsRemoved == false);
 			modelBuilder.Entity<Step>().HasQueryFilter(u => u.IsRemoved == false);
 			modelBuilder.Entity<ChildStep>().HasQueryFilter(u => u.IsRemoved == false);
+
+			// Registerd RoadMaps for User
+			modelBuilder.Entity<User>()
+				.HasMany<RoadMap>(u => u.SignedRoadMaps)
+				.WithMany(r => r.Students);
+
+			// Bookmarked RoadMap for User
+			modelBuilder.Entity<User>()
+				.HasMany<RoadMap>(u => u.BookmarkedRoadMaps)
+				.WithMany(r => r.UsersBookmarked);
+
+			// Creatore of RoadMap (Not Null)
+			modelBuilder.Entity<RoadMap>()
+				.HasOne(r => r.Creatore)
+				.WithMany(u => u.CreatedRoadMaps)
+				.HasForeignKey(r => r.CreatoreId)
+				.OnDelete(DeleteBehavior.NoAction);
 		}
 	}
 }

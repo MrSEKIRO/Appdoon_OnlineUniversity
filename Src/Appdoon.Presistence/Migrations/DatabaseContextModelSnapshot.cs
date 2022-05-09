@@ -36,6 +36,7 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("RemoveTime")
@@ -78,6 +79,7 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateTime")
@@ -90,12 +92,83 @@ namespace Appdoon.Presistence.Migrations
                     b.ToTable("ChildSteps");
                 });
 
+            modelBuilder.Entity("Appdoon.Domain.Entities.RoadMaps.Lesson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TopBannerSrc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Lessons");
+                });
+
+            modelBuilder.Entity("Appdoon.Domain.Entities.RoadMaps.Linker", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("InsertTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RemoveTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Linkers");
+                });
+
             modelBuilder.Entity("Appdoon.Domain.Entities.RoadMaps.RoadMap", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CreatoreId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -116,12 +189,15 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatoreId");
 
                     b.ToTable("RoadMaps");
                 });
@@ -155,6 +231,7 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdateTime")
@@ -181,6 +258,7 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("RemoveTime")
@@ -197,21 +275,21 @@ namespace Appdoon.Presistence.Migrations
                         new
                         {
                             Id = 1,
-                            InsertTime = new DateTime(2022, 4, 15, 21, 16, 37, 598, DateTimeKind.Local).AddTicks(3781),
+                            InsertTime = new DateTime(2022, 5, 9, 14, 25, 42, 174, DateTimeKind.Local).AddTicks(678),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            InsertTime = new DateTime(2022, 4, 15, 21, 16, 37, 600, DateTimeKind.Local).AddTicks(8614),
+                            InsertTime = new DateTime(2022, 5, 9, 14, 25, 42, 182, DateTimeKind.Local).AddTicks(3059),
                             IsRemoved = false,
                             Name = "Teacher"
                         },
                         new
                         {
                             Id = 3,
-                            InsertTime = new DateTime(2022, 4, 15, 21, 16, 37, 600, DateTimeKind.Local).AddTicks(8721),
+                            InsertTime = new DateTime(2022, 5, 9, 14, 25, 42, 182, DateTimeKind.Local).AddTicks(3424),
                             IsRemoved = false,
                             Name = "User"
                         });
@@ -225,6 +303,7 @@ namespace Appdoon.Presistence.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -240,6 +319,7 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -252,6 +332,7 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -272,6 +353,51 @@ namespace Appdoon.Presistence.Migrations
                     b.HasIndex("RoadMapsId");
 
                     b.ToTable("CategoryRoadMap");
+                });
+
+            modelBuilder.Entity("ChildStepLinker", b =>
+                {
+                    b.Property<int>("ChildStepsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LinkersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ChildStepsId", "LinkersId");
+
+                    b.HasIndex("LinkersId");
+
+                    b.ToTable("ChildStepLinker");
+                });
+
+            modelBuilder.Entity("RoadMapUser", b =>
+                {
+                    b.Property<int>("SignedRoadMapsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SignedRoadMapsId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
+
+                    b.ToTable("RoadMapUser");
+                });
+
+            modelBuilder.Entity("RoadMapUser1", b =>
+                {
+                    b.Property<int>("BookmarkedRoadMapsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersBookmarkedId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BookmarkedRoadMapsId", "UsersBookmarkedId");
+
+                    b.HasIndex("UsersBookmarkedId");
+
+                    b.ToTable("RoadMapUser1");
                 });
 
             modelBuilder.Entity("RoleUser", b =>
@@ -300,6 +426,16 @@ namespace Appdoon.Presistence.Migrations
                     b.Navigation("Step");
                 });
 
+            modelBuilder.Entity("Appdoon.Domain.Entities.RoadMaps.RoadMap", b =>
+                {
+                    b.HasOne("Appdoon.Domain.Entities.Users.User", "Creatore")
+                        .WithMany("CreatedRoadMaps")
+                        .HasForeignKey("CreatoreId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Creatore");
+                });
+
             modelBuilder.Entity("Appdoon.Domain.Entities.RoadMaps.Step", b =>
                 {
                     b.HasOne("Appdoon.Domain.Entities.RoadMaps.RoadMap", "RoadMap")
@@ -322,6 +458,51 @@ namespace Appdoon.Presistence.Migrations
                     b.HasOne("Appdoon.Domain.Entities.RoadMaps.RoadMap", null)
                         .WithMany()
                         .HasForeignKey("RoadMapsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ChildStepLinker", b =>
+                {
+                    b.HasOne("Appdoon.Domain.Entities.RoadMaps.ChildStep", null)
+                        .WithMany()
+                        .HasForeignKey("ChildStepsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Appdoon.Domain.Entities.RoadMaps.Linker", null)
+                        .WithMany()
+                        .HasForeignKey("LinkersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RoadMapUser", b =>
+                {
+                    b.HasOne("Appdoon.Domain.Entities.RoadMaps.RoadMap", null)
+                        .WithMany()
+                        .HasForeignKey("SignedRoadMapsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Appdoon.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RoadMapUser1", b =>
+                {
+                    b.HasOne("Appdoon.Domain.Entities.RoadMaps.RoadMap", null)
+                        .WithMany()
+                        .HasForeignKey("BookmarkedRoadMapsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Appdoon.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersBookmarkedId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -349,6 +530,11 @@ namespace Appdoon.Presistence.Migrations
             modelBuilder.Entity("Appdoon.Domain.Entities.RoadMaps.Step", b =>
                 {
                     b.Navigation("ChildSteps");
+                });
+
+            modelBuilder.Entity("Appdoon.Domain.Entities.Users.User", b =>
+                {
+                    b.Navigation("CreatedRoadMaps");
                 });
 #pragma warning restore 612, 618
         }

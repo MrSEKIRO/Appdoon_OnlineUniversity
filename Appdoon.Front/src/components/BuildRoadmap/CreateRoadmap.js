@@ -7,7 +7,8 @@ import { Col, Form } from "react-bootstrap";
 
 
 const CreateRoadmap = () => {
-    const {data : categories, isLogin, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/GetCategories');
+
+    const {data : categories, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/GetCategories');
 
     const [field, setField] = useState([]);
 
@@ -44,17 +45,17 @@ const CreateRoadmap = () => {
         .then(res=>res.json())
         .then((result)=>{
             if(result.IsSuccess){
-                document.getElementById("login_error").style.color = "green";
-                document.getElementById("login_error").innerHTML = result.Message;
+                document.getElementById("result_message").style.color = "green";
+                document.getElementById("result_message").innerHTML = result.Message;
             }
             else{
-                document.getElementById("login_error").style.color = "red";
-                document.getElementById("login_error").innerHTML = result.Message;
+                document.getElementById("result_message").style.color = "red";
+                document.getElementById("result_message").innerHTML = result.Message;
             }
         },
         (error)=>{
-            document.getElementById("login_error").style.color = "red";
-            document.getElementById("login_error").innerHTML = "خطایی رخ داده است!";
+            document.getElementById("result_message").style.color = "red";
+            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
         })
     }
 
@@ -66,7 +67,7 @@ const CreateRoadmap = () => {
                         <section class="page-account-box">
                             <div class="col-lg-6 col-md-6 col-xs-12 mx-auto">
                                 <div class="ds-userlogin">
-                                    <h2 style={{textAlign : "center"}}>ساخت رودمپ</h2>
+                                    <a href="#" className="account-box-logo">Appdoon</a>
                                     <div class="account-box">
                                         <div class="account-box-headline">
 
@@ -77,15 +78,19 @@ const CreateRoadmap = () => {
                                                 <span class="sub-title">قالب رودمپ</span>
                                             </NavLink>
 
+                                            <NavLink to="/create_category" class="register-ds">
+                                                <span class="title">دسته‌</span>
+                                                <span class="sub-title">دسته‌بندی رودمپ</span>
+                                            </NavLink>
 
                                             <NavLink to="/create_step" class="register-ds">
                                                 <span class="title">قدم‌</span>
                                                 <span class="sub-title">مراحل رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/create_category" class="register-ds">
-                                                <span class="title">دسته‌</span>
-                                                <span class="sub-title">دسته‌بندی رودمپ</span>
+                                            <NavLink to="/create_child_step" class="register-ds">
+                                                <span class="title">محتوا‌</span>
+                                                <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
 
 
@@ -93,7 +98,7 @@ const CreateRoadmap = () => {
                                         </div>
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
-                                                <h4>ورود به حساب کاربری</h4>
+                                                <h4>ساخت رودمپ</h4>
                                                 <form onSubmit={handleSubmit} action="#" class="form-account text-right">
 
 
@@ -101,22 +106,23 @@ const CreateRoadmap = () => {
 
 
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">نام رودمپ</label>
+                                                        <label for="Title">نام رودمپ</label>
                                                         <input type="text" class="number-email-input" name="Title"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">توضیحات</label>
-                                                        <input type="text" class="number-email-input" name="Description"/>
+                                                        <label for="Description">توضیحات</label>
+                                                        <textarea class="number-email-input" name="Description"/>
                                                     </div>
 
                                                     <div class="form-account-title">
-                                                        <label for="Photo">عکس</label>
-                                                        <input type="File" name='Photo'/>
+                                                        <label for="Photo">تصویر رودمپ</label>
+                                                        <input class="form-control" type="File" name='Photo'/>
                                                     </div>
 
-                                                    <div>
+                                                    <div class="form-account-title">
+                                                        <label for="Categories">دسته‌بندی‌ها</label>
                                                         {categories.length > 0 && (
                                                             <Form.Label>My multiselect</Form.Label>,
                                                             <Form.Control name='Categories' as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
@@ -152,11 +158,11 @@ const CreateRoadmap = () => {
 
 
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
-                                                        <p style={{fontSize : "14px"}} id="login_error"></p>
+                                                        <p style={{fontSize : "14px"}} id="result_message"></p>
                                                     </div>
 
                                                     <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود به دیجی اسمارت</button>
+                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ساخت رودمپ</button>
                                                     </div>
 
 
@@ -180,6 +186,11 @@ const CreateRoadmap = () => {
                     <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
                 </svg>
             </div>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
 
         </div>
     );

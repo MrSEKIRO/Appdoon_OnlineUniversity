@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using System;
 using System.IO;
 using Appdoon.Common.Dtos;
+using Appdoon.Application.Services.Steps.Command.CreateChildStepService;
+using Appdoon.Application.Services.Steps.Command.CreateStepService;
 
 namespace Appdoon.WebApi.Controllers
 {
@@ -17,13 +19,18 @@ namespace Appdoon.WebApi.Controllers
 	{
 		private readonly ICreateRoadMapIndividualService _createRoadMapService;
         private readonly ICreateCategoryService _createCategoryService;
+		private readonly ICreateStepService _createStepService;
+		private readonly ICreateChildStepService _createChildStepService;
 
 		private readonly IWebHostEnvironment _env;
 
-        public BuildRoadMapController(ICreateRoadMapIndividualService createRoadMapService, ICreateCategoryService createCategoryService, IWebHostEnvironment env)
+        public BuildRoadMapController(ICreateRoadMapIndividualService createRoadMapService, ICreateCategoryService createCategoryService
+			, ICreateStepService createStepService, ICreateChildStepService createChildStepService, IWebHostEnvironment env)
 		{
 			_createRoadMapService = createRoadMapService;
 			_createCategoryService = createCategoryService;
+			_createStepService = createStepService;
+			_createChildStepService = createChildStepService;
 
 			_env = env;
 		}
@@ -42,15 +49,21 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
         }
 
-		/*
+
 		[HttpPost]
-		public JsonResult CreateStep(RequestCreateCategoryDto requestCreateCategoryDto)
+		public JsonResult CreateStep(RequestCreateStepDto requestCreateStepDto)
 		{
-			var result = _createCategoryService.Execute(requestCreateCategoryDto);
+			var result = _createStepService.Execute(requestCreateStepDto);
 			return new JsonResult(result);
 		}
 
-		*/
+		[HttpPost]
+		public JsonResult CreateChildStep(RequestCreateChildStepDto requestCreateChildStepDto)
+		{
+			var result = _createChildStepService.Execute(requestCreateChildStepDto);
+			return new JsonResult(result);
+		}
+
 
 	}
 
