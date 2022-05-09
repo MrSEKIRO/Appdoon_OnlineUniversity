@@ -16,6 +16,7 @@ namespace Appdoon.Application.Services.Users.GetBookMarkRoadMapService
     }
     public class BookMarkRoadMapDto
     {
+        public int Id;
         public string Title;
         public string ImageSrc;
     }
@@ -39,6 +40,7 @@ namespace Appdoon.Application.Services.Users.GetBookMarkRoadMapService
                 {
                     Title = r.Title,
                     ImageSrc = r.ImageSrc,
+                    Id = r.Id,
                 }).ToList();
 
                 return new ResultDto<List<BookMarkRoadMapDto>>()
