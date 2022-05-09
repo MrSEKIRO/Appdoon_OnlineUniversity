@@ -24,6 +24,8 @@ namespace Appdoon.Presistence.Contexts
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Step> Steps { get; set; }
 		public DbSet<ChildStep> ChildSteps { get; set; }
+		public DbSet<Linker> Linkers { get; set; }
+		public DbSet<Lesson> Lessons { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
