@@ -1,4 +1,5 @@
 ﻿using Appdoon.Domain.Commons;
+using System.Collections.Generic;
 
 namespace Appdoon.Domain.Entities.RoadMaps
 {
@@ -11,5 +12,7 @@ namespace Appdoon.Domain.Entities.RoadMaps
 
 		public Step Step { get; set; } = new();
 		public int StepId { get; set; }
+
+		public List<Linker>? Linkers { get; set; }
 	}
 }

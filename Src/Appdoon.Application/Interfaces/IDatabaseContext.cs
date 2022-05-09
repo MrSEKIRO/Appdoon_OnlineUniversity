@@ -18,6 +18,8 @@ namespace Appdoon.Application.Interfaces
 		DbSet<Category> Categories { get; set; }
 		DbSet<Step> Steps { get; set; }
 		DbSet<ChildStep> ChildSteps { get; set; }
+		DbSet<Linker> Linkers { get; set; }
+		DbSet<Lesson> Lessons { get; set; }
 		int SaveChanges(bool acceptAllChangesOnSuccess);
 		int SaveChanges();
 
