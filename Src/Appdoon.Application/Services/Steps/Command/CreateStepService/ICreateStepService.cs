@@ -55,6 +55,11 @@ namespace Appdoon.Application.Services.Steps.Command.CreateStepService
 
 
                 var roadmap = _context.RoadMaps.First(roadmap => roadmap.Id == StepDto.RoadMapId);
+
+                // trash
+                if(roadmap.Steps==null)
+                    roadmap.Steps = new List<Step>();
+
                 roadmap.Steps.Add(step);
 
                 _context.SaveChanges();
