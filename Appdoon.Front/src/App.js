@@ -76,7 +76,7 @@ function App() {
           <Route path={`/UserFavoriteRoadmaps`} element={<UserFavoriteRoadmaps/>}/>
           <Route path={`/EditProfile`} element={<EditProfile/>}/>
 
-          <Route path={`/Lesson`} element={<Lesson/>}/>
+          <Route path={`/lesson/:id`} element={<Lesson/>}/>
 
 
           <Route path="*" element={<Home/>}/>

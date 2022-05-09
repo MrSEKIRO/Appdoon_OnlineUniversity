@@ -1,4 +1,76 @@
+import React,{Component} from "react";
+import "../../Modular_Css/RoadmapStyle.css";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+
+
+
 const Lesson = () => {
+
+
+
+    const {id} = useParams();
+    
+    const [data, setData] = useState([])
+    const [error, setError] = useState(null)
+    const url = process.env.REACT_APP_API + 'RoadMaps/IndividualRoadMap';
+
+    useEffect(() => {
+
+    
+    
+
+        fetch(url,{
+            
+            method : "POST",
+            headers : {"Content-Type" : "application/json"},
+            body:JSON.stringify({
+                RoadMapId:id
+            })
+            
+        }).then(res => {
+            
+            //console.log(res);
+            
+            if(!res.ok){
+                
+                throw Error('could not fetch!');
+            }
+            
+            return res.json();
+        })
+        .then(data => {
+            
+            //alert(data.Data.length);
+            //console.log(data);
+            //alert(data.Data.Id);
+            setData(data.Data);
+
+            setError(null);
+            //alert(data.Data.Steps[0].ChildSteps.length);
+            
+        }).then(() =>{
+            
+            //setIsPending(false);
+            //console.log("New Blog added");
+            //history.push(`/timeline/${id}`);
+            
+        })
+        .catch(err => {
+            
+            if(err.name === 'AbortError'){
+                console.log('fetch aborted');
+            }
+            else{
+                setError(err.message);
+            }
+        })
+    }, [url]);
+
+
+
+
 
     return(
         <div>
@@ -27,31 +99,16 @@ const Lesson = () => {
                                         </div>
                                     </header>
                                     <div class="post-thumbnail">
-                                        <img src="assets/images/blog/fortnite-battle-royale-iphone.jpg"
-                                            alt="تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر کاهش پیدا کرد"/>
+                                        <img src={process.env.REACT_APP_PHOTOPATH+data.ImageSrc} alt={data.Description}/>
                                     </div>
                                     <div class="title">
                                         <a href="#">
-                                            <h1 class="title-tag">تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر کاهش پیدا
-                                                کرد</h1>
+                                            <h1 class="title-tag">{data.Title}</h1>
                                         </a>
                                     </div>
                                     <div class="content-blog">
-                                        <p>آپدیت ۸.۲۰ بازی Fortnite که انتشار آن به دو سه هفته‌ی پیش باز
-                                            می‌گردد، سر و صدای زیادی بین بازی‌کننده‌های این بازی به وجود آورد. این
-                                            آپدیت، یکی از قابلیت‌های جدید بازی را به طور کلی حذف کرد و
-                                            بازی‌کننده‌های فورتنایت هم چند هفته‌ی گذشته را مشغول حمله به اپیک گیمز
-                                            برای بازگرداندن این قابلیت بوده‌اند. اپیک گیمز بالاخره سکوت خود را شکسته
-                                            است و درباره‌ی دلیل حذف مکانیک جدید فورتنایت توضیح داده است.
-                                        </p>
-                                        <p>پیش از صحبت از بیانیه‌ی اپیک گیمز، بد نیست کمی درباره‌ی اتفاقات
-                                            پیش‌آمده صحبت کنیم. دو سه ماه پیش بود که اپیک گیمز در قالب آپدیت ۷.۴۰
-                                            بازی فورتنایت، قابلیتی جدید به بازی اضافه کرد. بازی‌کننده‌ها به ازای هر
-                                            بار کشتن طرف‌های مقابل خود، جوایزی دریافت می‌کردند. با توجه به میزان خط
-                                            سلامتی افراد، هر بار کشتن پاداشی به اندازی ۵۰ جان یا ۵۰ زره داشت.
-                                        </p>
-                                        <p>اخیرا و با آپدیت ۸.۲۰ بازی، اپیک گیمز این قابلیت را از بخش‌های اصلی
-                                            بازی، یعنی بخش بتل رویال تک نفره، دو نفره و چهار نفره، حذف کرد.
+                                        <p>
+                                            {data.Description}
                                         </p>
                                     </div>
                                 </article>
@@ -60,86 +117,14 @@ const Lesson = () => {
                                         <h2 class="comments-title">
                                             <i class="fa fa-comment-o"></i>
                                             نظرات کاربران
-                                            <p class="count-comment">253 نظر</p>
+                                            <p class="count-comment">1 نظر</p>
                                         </h2>
                                         <ol class="comment-list">
                                             <li class="comment-even">
                                                 <div class="comment-body">
                                                     <header class="comment-meta">
                                                         <div class="comment-author">
-                                                            <img src="assets/images/man.png" class="avator"/>
-                                                            توسط حسن شجاعی در تاریخ 14 اردیبهشت ۱۳۹۹
-                                                        </div>
-                                                    </header>
-                                                    <p>لوریم ایپسوم به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی
-                                                        گرافیک گفته می‌شود. طراح گرافیک از این متن به‌عنوان عنصری از ترکیب‌بندی
-                                                        برای پُر کردن صفحه و ارائهٔ اولیهٔ شکل ظاهری و کلیِ طرح
-                                                        سفارش‌گرفته‌شده‌استفاده می‌کند، تا ازنظر گرافیکی نشانگر چگونگی نوع و
-                                                        اندازهٔ قلم و ظاهرِ متن باشد</p>
-                                                    <div class="reply text-left">
-                                                        <a href="#" class="comment-reply-link">پاسخ دادن</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="comment-even">
-                                                <div class="comment-body">
-                                                    <header class="comment-meta">
-                                                        <div class="comment-author">
-                                                            <img src="assets/images/man.png" class="avator"/>
-                                                            توسط حسن شجاعی در تاریخ 14 اردیبهشت ۱۳۹۹
-                                                        </div>
-                                                    </header>
-                                                    <p>لوریم ایپسوم به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی
-                                                        گرافیک گفته می‌شود. طراح گرافیک از این متن به‌عنوان عنصری از ترکیب‌بندی
-                                                        برای پُر کردن صفحه و ارائهٔ اولیهٔ شکل ظاهری و کلیِ طرح
-                                                        سفارش‌گرفته‌شده‌استفاده می‌کند، تا ازنظر گرافیکی نشانگر چگونگی نوع و
-                                                        اندازهٔ قلم و ظاهرِ متن باشد</p>
-                                                    <div class="reply text-left">
-                                                        <a href="#" class="comment-reply-link">پاسخ دادن</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="comment-even">
-                                                <div class="comment-body">
-                                                    <header class="comment-meta">
-                                                        <div class="comment-author">
-                                                            <img src="assets/images/man.png" class="avator"/>
-                                                            توسط حسن شجاعی در تاریخ 14 اردیبهشت ۱۳۹۹
-                                                        </div>
-                                                    </header>
-                                                    <p>لوریم ایپسوم به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی
-                                                        گرافیک گفته می‌شود. طراح گرافیک از این متن به‌عنوان عنصری از ترکیب‌بندی
-                                                        برای پُر کردن صفحه و ارائهٔ اولیهٔ شکل ظاهری و کلیِ طرح
-                                                        سفارش‌گرفته‌شده‌استفاده می‌کند، تا ازنظر گرافیکی نشانگر چگونگی نوع و
-                                                        اندازهٔ قلم و ظاهرِ متن باشد</p>
-                                                    <div class="reply text-left">
-                                                        <a href="#" class="comment-reply-link">پاسخ دادن</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="comment-even">
-                                                <div class="comment-body">
-                                                    <header class="comment-meta">
-                                                        <div class="comment-author">
-                                                            <img src="assets/images/man.png" class="avator"/>
-                                                            توسط حسن شجاعی در تاریخ 14 اردیبهشت ۱۳۹۹
-                                                        </div>
-                                                    </header>
-                                                    <p>لوریم ایپسوم به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی
-                                                        گرافیک گفته می‌شود. طراح گرافیک از این متن به‌عنوان عنصری از ترکیب‌بندی
-                                                        برای پُر کردن صفحه و ارائهٔ اولیهٔ شکل ظاهری و کلیِ طرح
-                                                        سفارش‌گرفته‌شده‌استفاده می‌کند، تا ازنظر گرافیکی نشانگر چگونگی نوع و
-                                                        اندازهٔ قلم و ظاهرِ متن باشد</p>
-                                                    <div class="reply text-left">
-                                                        <a href="#" class="comment-reply-link">پاسخ دادن</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="comment-even">
-                                                <div class="comment-body">
-                                                    <header class="comment-meta">
-                                                        <div class="comment-author">
-                                                            <img src="assets/images/man.png" class="avator"/>
+                                                            <img src={process.env.REACT_APP_PHOTOPATH+"1.jpg"} class="avator"/>
                                                             توسط حسن شجاعی در تاریخ 14 اردیبهشت ۱۳۹۹
                                                         </div>
                                                     </header>
@@ -201,15 +186,17 @@ const Lesson = () => {
                             <div class="shortcode-widget-area-sidebar">
                                 <section class="widget-posts">
                                     <div class="header-sidebar mb-3">
-                                        <h3>جدیدترین نوشته ها</h3>
+                                        <h3>مقالات مرتبط</h3>
                                     </div>
+
                                     <div class="content-sidebar">
                                         <div class="item">
                                             <div class="item-inner">
                                                 <div class="item-thumb">
                                                     <a href="#" class="img-holder d-block">
-                                                        <img src="assets/images/blog/fortnite-battle-royale-iphone.jpg"
-                                                            alt="تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر کاهش پیدا کرد"/>
+                                                        <img src={process.env.REACT_APP_PHOTOPATH+"1.jpg"}
+                                                            alt="تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
+                                                            کاهش پیدا کرد"/>
                                                     </a>
                                                 </div>
                                                 <div class="title">
@@ -227,12 +214,15 @@ const Lesson = () => {
                                             <div class="item-inner">
                                                 <div class="item-thumb">
                                                     <a href="#" class="img-holder d-block">
-                                                        <img src="assets/images/blog/2017 Home Selling Results.jpg"
-                                                            alt="رسیدن به بهترین نتیجه در کمترین زمان ممکن!"/> </a>
+                                                        <img src={process.env.REACT_APP_PHOTOPATH+"1.jpg"}
+                                                            alt="تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
+                                                            کاهش پیدا کرد"/>
+                                                    </a>
                                                 </div>
                                                 <div class="title">
                                                     <a href="#">
-                                                        <h2 class="title-tag">رسیدن به بهترین نتیجه در کمترین زمان ممکن!</h2>
+                                                        <h2 class="title-tag">تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
+                                                            کاهش پیدا کرد</h2>
                                                     </a>
                                                     <span class="post-date">
                                                         14 اردیبهشت 1399
@@ -244,12 +234,15 @@ const Lesson = () => {
                                             <div class="item-inner">
                                                 <div class="item-thumb">
                                                     <a href="#" class="img-holder d-block">
-                                                        <img src="assets/images/blog/iphone-7-plus-water-damage-repair-.jpg"
-                                                            alt="آیفون ۲۰۱۹ از آنتن بهتری بهره خواهد برد"/> </a>
+                                                        <img src={process.env.REACT_APP_PHOTOPATH+"1.jpg"}
+                                                            alt="تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
+                                                            کاهش پیدا کرد"/>
+                                                    </a>
                                                 </div>
                                                 <div class="title">
                                                     <a href="#">
-                                                        <h2 class="title-tag">آیفون ۲۰۱۹ از آنتن بهتری بهره خواهد برد</h2>
+                                                        <h2 class="title-tag">تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
+                                                            کاهش پیدا کرد</h2>
                                                     </a>
                                                     <span class="post-date">
                                                         14 اردیبهشت 1399
@@ -261,12 +254,15 @@ const Lesson = () => {
                                             <div class="item-inner">
                                                 <div class="item-thumb">
                                                     <a href="#" class="img-holder d-block">
-                                                        <img src="assets/images/blog/women-calligrapher-in-cozy-home-working.jpg"
-                                                            alt="۴ فایده مهم نگهداری از گیاهان در منزل"/> </a>
+                                                        <img src={process.env.REACT_APP_PHOTOPATH+"1.jpg"}
+                                                            alt="تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
+                                                            کاهش پیدا کرد"/>
+                                                    </a>
                                                 </div>
                                                 <div class="title">
                                                     <a href="#">
-                                                        <h2 class="title-tag">۴ فایده مهم نگهداری از گیاهان در منزل</h2>
+                                                        <h2 class="title-tag">تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
+                                                            کاهش پیدا کرد</h2>
                                                     </a>
                                                     <span class="post-date">
                                                         14 اردیبهشت 1399
@@ -274,25 +270,7 @@ const Lesson = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="item">
-                                            <div class="item-inner">
-                                                <div class="item-thumb">
-                                                    <a href="#" class="img-holder d-block">
-                                                        <img src="assets/images/blog/inRqLEr.jpg"
-                                                            alt="منتقدان می‌گویند «نمای دور» جان تازه‌ای به کمدی رمانتیک بخشیده"/>
-                                                    </a>
-                                                </div>
-                                                <div class="title">
-                                                    <a href="#">
-                                                        <h2 class="title-tag">منتقدان می‌گویند «نمای دور» جان تازه‌ای به کمدی
-                                                            رمانتیک بخشیده</h2>
-                                                    </a>
-                                                    <span class="post-date">
-                                                        14 اردیبهشت 1399
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </section>
                             </div>
@@ -300,22 +278,6 @@ const Lesson = () => {
                     </div>
                 </div>
             </main>
-
-            <div class="progress-wrap">
-                <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                    <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-                </svg>
-            </div>
-            <div class="P-loader">
-                <div class="P-loader-content">
-                    <div class="logo-loader">
-                        <img src="assets/images/logo.png" alt="logo"/>
-                    </div>
-                    <div class="pic-loader text-center">
-                        <img src="assets/images/three-dots.svg" width="50" alt=""/>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 

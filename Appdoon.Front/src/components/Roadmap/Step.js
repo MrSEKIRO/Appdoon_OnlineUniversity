@@ -8,6 +8,7 @@ const Step = ({ data , key , handleModalId}) => {
 
     const handleModal = (childStep) => {
         handleModalId(data.Id,childStep);
+        
     }
     return(
         <div className="timeline-item">
@@ -15,7 +16,7 @@ const Step = ({ data , key , handleModalId}) => {
                 <span className="tag">
                     {data.Title}
                 </span>
-                <p  dir="rtl">{data.Description}</p>
+                <p dir="rtl">{data.Description}</p>
                 <br/>
 
                 <div>
@@ -25,7 +26,7 @@ const Step = ({ data , key , handleModalId}) => {
                         {
                             data.ChildSteps.map((childstep, idx) => (
                                 <li dir="rtl">
-                                    <a href="#!" onClick={() => {handleModal(childstep)}}>{childstep.Title}</a>
+                                    <a href="#!" data-toggle="modal" data-target="#myModal" onClick={() => {handleModal(childstep)}}>{childstep.Title}</a>
                                 </li>
                             ))
                             
