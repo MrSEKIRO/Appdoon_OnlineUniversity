@@ -51,6 +51,13 @@ namespace Appdoon.Application.Services.Steps.Command.CreateChildStepService
                 };
 
                 var step = _context.Steps.First(step => step.Id == childStepDto.StepId);
+
+                //trash
+                if (step.ChildSteps == null)
+                {
+                    step.ChildSteps = new List<ChildStep>();
+                }
+
                 step.ChildSteps.Add(childStep);
 
 
