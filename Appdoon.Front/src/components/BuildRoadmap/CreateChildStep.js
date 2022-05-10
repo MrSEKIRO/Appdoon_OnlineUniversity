@@ -24,6 +24,7 @@ const CreateChildStep = () => {
                 Description:event.target.Description.value,
                 Link:event.target.Link.value,
                 StepId:event.target.Step.options[event.target.Step.selectedIndex].value,
+                Linkers:inputFields
             })
         })
         
@@ -51,6 +52,33 @@ const CreateChildStep = () => {
         event.preventDefault();
         setSelectedRoadmapId(event.target.options[event.target.selectedIndex].value);
         //document.getElementById("SelectStepId").contentWindow.location.reload(true);
+    }
+
+
+
+    const [inputFields, setInputFields] = useState([
+        { LinkTitle: '', LinkURL: '' }
+    ]);
+
+    const handleFormChange = (index, event) => {
+        //alert(event.target.name)
+        let linkdata = [...inputFields];
+        linkdata[index][event.target.name] = event.target.value;
+        setInputFields(linkdata);
+    }
+
+    const addFields = () => {
+        let newfield = { LinkTitle: '', LinkURL: '' }
+    
+        setInputFields([...inputFields, newfield])
+    }
+
+    const removeFields = () => {
+        if(inputFields.length > 1){
+            let linkdata = [...inputFields];
+            linkdata.splice(inputFields.length-1, 1)
+            setInputFields(linkdata)
+        }
     }
 
     return(
@@ -86,6 +114,10 @@ const CreateChildStep = () => {
                                                 <span class="title">محتوا‌</span>
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
+                                            <NavLink to="/create_lesson" class="register-ds">
+                                                <span class="title">مقاله</span>
+                                                <span class="sub-title">مقاله درونی</span>
+                                            </NavLink>
 
 
 
@@ -111,9 +143,13 @@ const CreateChildStep = () => {
                                                     </div>
 
                                                     <div class="form-account-title">
-                                                        <label for="Link">لینک</label>
+                                                        <label for="Link">لینک اصلی محتوا</label>
                                                         <input type="text" class="number-email-input" name="Link"/>
                                                     </div>
+
+
+
+
 
 
                                                     <div class="form-account-title">
@@ -161,7 +197,47 @@ const CreateChildStep = () => {
                                                         }
                                                     </div>
 
+                                                    <div class="form-account-title">
+                                                        <p style={{fontSize:"15px"}}>لینک‌های محتوا</p>
+                                                    </div>
+                                                    
+                                                    <div style={{display:"flex", textAlign:"center"}}>
+                                                        <div style={{flex:"50%"}} class="form-account-title">
+                                                            <label for="LinkTitle">عنوان لینک</label>
+                                                        </div>
 
+                                                        <div style={{flex:"50%"}} class="form-account-title">
+                                                            <label for="LinkURL">URL لینک</label>
+                                                        </div>
+                                                    </div>
+
+                                                    {inputFields.map((input, index) => {
+                                                    return (
+                                                        <div style={{display:"flex", textAlign:"center"}}  key={index}>
+                                                            <div style={{flex:"50%"}} class="form-account-title">
+                                                                
+                                                                <input style={{width:"95%"}}
+                                                                class="number-email-input"
+                                                                name='LinkTitle'
+                                                                onChange={event => handleFormChange(index, event)}/>
+                                                            </div>
+
+                                                            <div style={{flex:"50%"}} class="form-account-title">
+                                                                
+                                                                <input style={{width:"95%"}}
+                                                                class="number-email-input"
+                                                                name='LinkURL'
+                                                                onChange={event => handleFormChange(index, event)}/>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                    })}
+                                                    <div class="form-row-account">
+                                                        <div>
+                                                            <a style={{width:"20%" , marginLeft:"10px" ,color:"black"}} class="btn btn-primary btn-login" onClick={addFields}>لینک بیشتر</a>
+                                                            <a style={{width:"20%" ,color:"black"}} class="btn btn-primary btn-login" onClick={() => removeFields()}>حذف لینک</a>
+                                                        </div>
+                                                    </div>
                                                     {/*
                                                     <div class="form-auth-row">
                                                         <label for="#" class="ui-checkbox mt-1">
@@ -173,12 +249,14 @@ const CreateChildStep = () => {
                                                     */}
 
 
+
+
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
                                                         <p style={{fontSize : "14px"}} id="result_message"></p>
                                                     </div>
 
                                                     <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ساخت محتوا</button>
+                                                        <button name='submit' variant="primary" type="submit" class="btn btn-primary btn-login">ساخت محتوا</button>
                                                     </div>
 
 

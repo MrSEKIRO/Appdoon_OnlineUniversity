@@ -1,22 +1,33 @@
 import {NavLink} from 'react-router-dom';
 import { useState } from "react";
+import useFetch from "../../useFetch";
+import { Col, Form } from "react-bootstrap";
 
-const CreateCategory = () => {
+
+
+
+const CreateLesson = () => {
+
+    const [field, setField] = useState([]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        let imagesrc = "1.jpg";
+        const formData = new FormData();
+
+        if(event.target.Photo.files.length){
+            imagesrc = event.target.Photo.files[0].name;
+            formData.append("myFile",event.target.Photo.files[0]);
+        }
+
+        formData.append("Title",event.target.Title.value);
+        formData.append("Text",event.target.Text.value);
+        formData.append("PhotoFileName",imagesrc);
         
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateCategory',{
+
+        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateLesson',{
             method:"POST",
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            
-            body:JSON.stringify({
-                Name:event.target.Name.value,
-                Link:event.target.Link.value,
-            })
+            body:formData
         })
         
         .then(res=>res.json())
@@ -29,9 +40,6 @@ const CreateCategory = () => {
                 document.getElementById("result_message").style.color = "red";
                 document.getElementById("result_message").innerHTML = result.Message;
             }
-            
-            
-            
         },
         (error)=>{
             document.getElementById("result_message").style.color = "red";
@@ -58,7 +66,7 @@ const CreateCategory = () => {
                                                 <span class="sub-title">قالب رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/create_category" class="register-ds active">
+                                            <NavLink to="/create_category" class="register-ds">
                                                 <span class="title">دسته‌</span>
                                                 <span class="sub-title">دسته‌بندی رودمپ</span>
                                             </NavLink>
@@ -72,7 +80,8 @@ const CreateCategory = () => {
                                                 <span class="title">محتوا‌</span>
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
-                                            <NavLink to="/create_lesson" class="register-ds">
+
+                                            <NavLink to="/create_lesson" class="register-ds active">
                                                 <span class="title">مقاله</span>
                                                 <span class="sub-title">مقاله درونی</span>
                                             </NavLink>
@@ -82,7 +91,7 @@ const CreateCategory = () => {
                                         </div>
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
-                                                <h4>ساخت دسته</h4>
+                                                <h4>ساخت مقاله</h4>
                                                 <form onSubmit={handleSubmit} action="#" class="form-account text-right">
 
 
@@ -90,14 +99,19 @@ const CreateCategory = () => {
 
 
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">نام دسته</label>
-                                                        <input type="text" class="number-email-input" name="Name"/>
+                                                        <label for="Title">نام مقاله</label>
+                                                        <input type="text" class="number-email-input" name="Title"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">لینک</label>
-                                                        <input type="text-area" class="number-email-input" name="Link"/>
+                                                        <label for="Text">متن</label>
+                                                        <textarea class="number-email-input" name="Text"/>
+                                                    </div>
+
+                                                    <div class="form-account-title">
+                                                        <label for="Photo">بنر مقاله</label>
+                                                        <input class="form-control" type="File" name='Photo'/>
                                                     </div>
 
 
@@ -109,7 +123,8 @@ const CreateCategory = () => {
                                                         </label>
                                                         <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
                                                     </div>
-                                                    */}
+                                                    */
+                                                    }
 
 
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
@@ -117,10 +132,8 @@ const CreateCategory = () => {
                                                     </div>
 
                                                     <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ساخت دسته‌</button>
+                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ساخت مقاله</button>
                                                     </div>
-
-
 
 
 
@@ -152,4 +165,4 @@ const CreateCategory = () => {
 }
 
 
-export default CreateCategory;
+export default CreateLesson;

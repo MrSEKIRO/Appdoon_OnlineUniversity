@@ -92,6 +92,10 @@ const CreateRoadmap = () => {
                                                 <span class="title">محتوا‌</span>
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
+                                            <NavLink to="/create_lesson" class="register-ds">
+                                                <span class="title">مقاله</span>
+                                                <span class="sub-title">مقاله درونی</span>
+                                            </NavLink>
 
 
 

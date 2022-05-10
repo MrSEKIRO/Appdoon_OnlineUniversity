@@ -17,6 +17,7 @@ import CreateRoadmap from './Components/BuildRoadmap/CreateRoadmap';
 import CreateCategory from './Components/BuildRoadmap/CreateCategory';
 import CreateStep from './Components/BuildRoadmap/CreateStep';
 import CreateChildStep from './Components/BuildRoadmap/CreateChildStep';
+import CreateLesson from './Components/BuildRoadmap/CreateLesson';
 
 import EditRoadmap from './Components/Edit_Roadmap/EditRoadmap';
 import EditCategory from './Components/Edit_Roadmap/EditCategory';
@@ -29,6 +30,8 @@ import UserRoadmaps from './Components/User/UserRoadmaps';
 import UserFavoriteRoadmaps from './Components/User/UserFavoriteRoadmaps';
 import EditProfile from './Components/User/EditProfile';
 import Lesson from './Components/Roadmap/Lesson';
+
+import Lessons from './Components/Roadmap/Lessons';
 
 function App() {
 
@@ -64,6 +67,7 @@ function App() {
           <Route path={`/create_step`} element={<CreateStep/>}/>
           <Route path={`/create_category`} element={<CreateCategory/>}/>
           <Route path={`/create_child_step`} element={<CreateChildStep/>}/>
+          <Route path={`/create_lesson`} element={<CreateLesson/>}/>
 
           <Route path={`/edit_roadmap`} element={<EditRoadmap/>}/>
           <Route path={`/edit_step`} element={<EditStep/>}/>
@@ -76,6 +80,7 @@ function App() {
           <Route path={`/UserFavoriteRoadmaps`} element={<UserFavoriteRoadmaps/>}/>
           <Route path={`/EditProfile`} element={<EditProfile/>}/>
 
+          <Route path={`/lessons`} element={<Lessons/>}/>
           <Route path={`/lesson/:id`} element={<Lesson/>}/>
 
 

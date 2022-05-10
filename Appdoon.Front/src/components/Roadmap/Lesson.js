@@ -14,7 +14,7 @@ const Lesson = () => {
     
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
-    const url = process.env.REACT_APP_API + 'RoadMaps/IndividualRoadMap';
+    const url = process.env.REACT_APP_API + 'RoadMaps/GetLesson';
 
     useEffect(() => {
 
@@ -26,7 +26,7 @@ const Lesson = () => {
             method : "POST",
             headers : {"Content-Type" : "application/json"},
             body:JSON.stringify({
-                RoadMapId:id
+                LessonId:id
             })
             
         }).then(res => {
@@ -44,7 +44,7 @@ const Lesson = () => {
             
             //alert(data.Data.length);
             //console.log(data);
-            //alert(data.Data.Id);
+            //alert(data.Message);
             setData(data.Data);
 
             setError(null);
@@ -69,7 +69,7 @@ const Lesson = () => {
     }, [url]);
 
 
-
+    const photopath = process.env.REACT_APP_PHOTOPATH + "lesson/"
 
 
     return(
@@ -78,109 +78,114 @@ const Lesson = () => {
                 <div class="container-main">
                     <div class="d-block">
                         <div class="col-lg-9 col-md-8 col-xs-12 pr mt-3">
-                            <section class="blog-home">
-                                <article class="post-item">
-                                    <header class="entry-header mb-3">
-                                        <div class="post-meta date">
-                                            <i class="mdi mdi-calendar-month"></i>1399/02/14
+                            {data && data.Id > 0 &&
+                                <section class="blog-home">
+                                    <article class="post-item">
+                                        <header class="entry-header mb-3">
+                                            <div class="post-meta date">
+                                                <i class="mdi mdi-calendar-month"></i>1399/02/14
+                                            </div>
+                                            <div class="post-meta author">
+                                                <i class="mdi mdi-account-circle-outline"></i>
+                                                ارسال شده توسط <a href="#"> مدیریت </a>
+                                            </div>
+                                            <div class="post-meta category">
+                                                <i class="mdi mdi-folder"></i>
+                                                <a href="#">دسته‌بندی نشده</a> ، <a href="#">بازی آنلاین</a> ، <a href="#">معرفی
+                                                    بازی</a>
+                                            </div>
+                                            <div class="post-meta Visit">
+                                                <i class="mdi mdi-eye"></i>
+                                                996 بازدید
+                                            </div>
+                                        </header>
+                                        <div class="post-thumbnail">
+                                            <img src={photopath+data.TopBannerSrc} alt={data.Title}/>
                                         </div>
-                                        <div class="post-meta author">
-                                            <i class="mdi mdi-account-circle-outline"></i>
-                                            ارسال شده توسط <a href="#"> مدیریت </a>
+                                        <div class="title">
+                                            <a href="#">
+                                                <h1 class="title-tag">{data.Title}</h1>
+                                            </a>
                                         </div>
-                                        <div class="post-meta category">
-                                            <i class="mdi mdi-folder"></i>
-                                            <a href="#">دسته‌بندی نشده</a> ، <a href="#">بازی آنلاین</a> ، <a href="#">معرفی
-                                                بازی</a>
+                                        <div class="content-blog">
+                                            <p>
+                                                {data.Text}
+                                            </p>
                                         </div>
-                                        <div class="post-meta Visit">
-                                            <i class="mdi mdi-eye"></i>
-                                            996 بازدید
-                                        </div>
-                                    </header>
-                                    <div class="post-thumbnail">
-                                        <img src={process.env.REACT_APP_PHOTOPATH+data.ImageSrc} alt={data.Description}/>
-                                    </div>
-                                    <div class="title">
-                                        <a href="#">
-                                            <h1 class="title-tag">{data.Title}</h1>
-                                        </a>
-                                    </div>
-                                    <div class="content-blog">
-                                        <p>
-                                            {data.Description}
-                                        </p>
-                                    </div>
-                                </article>
-                                <div class="post-comments">
-                                    <div class="comments-area">
-                                        <h2 class="comments-title">
-                                            <i class="fa fa-comment-o"></i>
-                                            نظرات کاربران
-                                            <p class="count-comment">1 نظر</p>
-                                        </h2>
-                                        <ol class="comment-list">
-                                            <li class="comment-even">
-                                                <div class="comment-body">
-                                                    <header class="comment-meta">
-                                                        <div class="comment-author">
-                                                            <img src={process.env.REACT_APP_PHOTOPATH+"1.jpg"} class="avator"/>
-                                                            توسط حسن شجاعی در تاریخ 14 اردیبهشت ۱۳۹۹
+                                    </article>
+                                    <div class="post-comments">
+                                        <div class="comments-area">
+                                            <h2 class="comments-title">
+                                                <i class="fa fa-comment-o"></i>
+                                                نظرات کاربران
+                                                <p class="count-comment">1 نظر</p>
+                                            </h2>
+                                            <ol class="comment-list">
+                                                <li class="comment-even">
+                                                    <div class="comment-body">
+                                                        <header class="comment-meta">
+                                                            <div class="comment-author">
+                                                                <img src={photopath+"1.jpg"} class="avator"/>
+                                                                توسط حسن شجاعی در تاریخ 14 اردیبهشت ۱۳۹۹
+                                                            </div>
+                                                        </header>
+                                                        <p>لوریم ایپسوم به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی
+                                                            گرافیک گفته می‌شود. طراح گرافیک از این متن به‌عنوان عنصری از ترکیب‌بندی
+                                                            برای پُر کردن صفحه و ارائهٔ اولیهٔ شکل ظاهری و کلیِ طرح
+                                                            سفارش‌گرفته‌شده‌استفاده می‌کند، تا ازنظر گرافیکی نشانگر چگونگی نوع و
+                                                            اندازهٔ قلم و ظاهرِ متن باشد</p>
+                                                        <div class="reply text-left">
+                                                            <a href="#" class="comment-reply-link">پاسخ دادن</a>
                                                         </div>
-                                                    </header>
-                                                    <p>لوریم ایپسوم به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی
-                                                        گرافیک گفته می‌شود. طراح گرافیک از این متن به‌عنوان عنصری از ترکیب‌بندی
-                                                        برای پُر کردن صفحه و ارائهٔ اولیهٔ شکل ظاهری و کلیِ طرح
-                                                        سفارش‌گرفته‌شده‌استفاده می‌کند، تا ازنظر گرافیکی نشانگر چگونگی نوع و
-                                                        اندازهٔ قلم و ظاهرِ متن باشد</p>
-                                                    <div class="reply text-left">
-                                                        <a href="#" class="comment-reply-link">پاسخ دادن</a>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        </ol>
-                                        <div class="form-comment">
-                                            <div class="col-md-12 col-sm-12">
-                                                <div class="form-ui">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <br/>
-                                                            <br/>
-                                                            <div class="form-row-title mb-2"> نام شما (اجباری)</div>
-                                                            <div class="form-row">
-                                                                <input class="input-ui pr-2" type="text"
-                                                                    placeholder=" نام خود را بنویسید"/>
+                                                </li>
+                                            </ol>
+                                            <div class="form-comment">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-ui">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <br/>
+                                                                <br/>
+                                                                <div class="form-row-title mb-2"> نام شما (اجباری)</div>
+                                                                <div class="form-row">
+                                                                    <input class="input-ui pr-2" type="text"
+                                                                        placeholder=" نام خود را بنویسید"/>
+                                                                </div>
+                                                                <br/>
+                                                                <div class="form-row-title mb-2">عنوان نظر شما (اجباری)</div>
+                                                                <div class="form-row">
+                                                                    <input class="input-ui pr-2" type="text"
+                                                                        placeholder="عنوان نظر خود را بنویسید"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 mt-5">
+                                                                <div class="form-row-title mb-2">متن نظر شما (اجباری)</div>
+                                                                <div class="form-row">
+                                                                    <textarea class="input-ui pr-2 pt-2" rows="5"
+                                                                        placeholder="متن خود را بنویسید"
+                                                                        style={{height:"120px"}}></textarea>
+                                                                </div>
                                                             </div>
                                                             <br/>
-                                                            <div class="form-row-title mb-2">عنوان نظر شما (اجباری)</div>
-                                                            <div class="form-row">
-                                                                <input class="input-ui pr-2" type="text"
-                                                                    placeholder="عنوان نظر خود را بنویسید"/>
+                                                            <br/>
+                                                            <br/>
+                                                            <div class="col-12 mt-5 px-0">
+                                                                <button class="btn comment-submit-button">
+                                                                    ثبت نظر
+                                                                </button>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-12 mt-5">
-                                                            <div class="form-row-title mb-2">متن نظر شما (اجباری)</div>
-                                                            <div class="form-row">
-                                                                <textarea class="input-ui pr-2 pt-2" rows="5"
-                                                                    placeholder="متن خود را بنویسید"
-                                                                    style={{height:"120px"}}></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <br/>
-                                                        <br/>
-                                                        <br/>
-                                                        <div class="col-12 mt-5 px-0">
-                                                            <button class="btn comment-submit-button">
-                                                                ثبت نظر
-                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </section>
+                                </section>
+                            }
+                            {data && data.Id == 0 &&
+                                <h1>این مقاله موجود نمی‌باشد!</h1>
+                            }
                         </div>
                         <div class="col-lg-3 col-md-4 col-xs-12 pr mt-3 sticky-sidebar">
                             <div class="shortcode-widget-area-sidebar">
@@ -194,7 +199,7 @@ const Lesson = () => {
                                             <div class="item-inner">
                                                 <div class="item-thumb">
                                                     <a href="#" class="img-holder d-block">
-                                                        <img src={process.env.REACT_APP_PHOTOPATH+"1.jpg"}
+                                                        <img src={photopath+"1.jpg"}
                                                             alt="تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
                                                             کاهش پیدا کرد"/>
                                                     </a>
@@ -214,7 +219,7 @@ const Lesson = () => {
                                             <div class="item-inner">
                                                 <div class="item-thumb">
                                                     <a href="#" class="img-holder d-block">
-                                                        <img src={process.env.REACT_APP_PHOTOPATH+"1.jpg"}
+                                                        <img src={photopath+"1.jpg"}
                                                             alt="تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
                                                             کاهش پیدا کرد"/>
                                                     </a>
@@ -234,7 +239,7 @@ const Lesson = () => {
                                             <div class="item-inner">
                                                 <div class="item-thumb">
                                                     <a href="#" class="img-holder d-block">
-                                                        <img src={process.env.REACT_APP_PHOTOPATH+"1.jpg"}
+                                                        <img src={photopath+"1.jpg"}
                                                             alt="تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
                                                             کاهش پیدا کرد"/>
                                                     </a>
@@ -254,7 +259,7 @@ const Lesson = () => {
                                             <div class="item-inner">
                                                 <div class="item-thumb">
                                                     <a href="#" class="img-holder d-block">
-                                                        <img src={process.env.REACT_APP_PHOTOPATH+"1.jpg"}
+                                                        <img src={photopath+"1.jpg"}
                                                             alt="تعداد بازی‌کننده‌های فورتنایت، به خاطر آپدیت اخیر
                                                             کاهش پیدا کرد"/>
                                                     </a>

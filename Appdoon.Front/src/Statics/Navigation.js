@@ -46,9 +46,14 @@ const Navigation = () => {
                                                     <span class="icon-account">
                                                         <img src="../assets/images/man.png" class="avator"/>
                                                     </span>
-                                                    <span class="title-account">پروفایل</span>
+                                                    <span class="title-account">حساب کاربری</span>
                                                     <div class="dropdown-menu">
                                                         <ul class="account-uls mb-0">
+                                                            <li class="account-item">
+                                                                <NavLink className="account-link" to="/profile">
+                                                                    پروفایل
+                                                                </NavLink>
+                                                            </li>
                                                             <li class="account-item">
                                                                 <NavLink className="account-link" to="/register">
                                                                     ثبت نام
@@ -57,6 +62,11 @@ const Navigation = () => {
                                                             <li class="account-item">
                                                                 <NavLink className="account-link" to="/login">
                                                                     ورود
+                                                                </NavLink>
+                                                            </li>
+                                                            <li class="account-item">
+                                                                <NavLink className="account-link" to="/">
+                                                                    خروج
                                                                 </NavLink>
                                                             </li>
                                                         </ul>
@@ -84,6 +94,12 @@ const Navigation = () => {
                                                 ساخت رودمپ
                                             </NavLink>
                                         </li>
+
+                                        <li id="nav-menu-item" class="menu-item">
+                                            <NavLink className="current-link-menu" to="/lessons">
+                                                مقالات
+                                            </NavLink>
+                                        </li>
                                         
                                     </ul>
                                 </div>
@@ -102,6 +118,7 @@ const Navigation = () => {
 
                                 <li><NavLink className="current-link-menu" to="/roadmaps">رودمپ‌ها</NavLink></li>
                                 <li><NavLink className="current-link-menu" to="/create_roadmap">ساخت رودمپ</NavLink></li>
+                                <li><NavLink className="current-link-menu" to="/lessons">مقالات</NavLink></li>
 
 
                             </ul>
