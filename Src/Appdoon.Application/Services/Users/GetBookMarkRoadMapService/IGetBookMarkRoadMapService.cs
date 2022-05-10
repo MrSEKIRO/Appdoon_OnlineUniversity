@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Appdoon.Domain.Entities.Users;
 using Appdoon.Application.Interfaces;
+using Appdoon.Domain.Entities.RoadMaps;
 
 namespace Appdoon.Application.Services.Users.GetBookMarkRoadMapService
 {
@@ -31,17 +32,30 @@ namespace Appdoon.Application.Services.Users.GetBookMarkRoadMapService
         {
             try
             {
-                var roadmaps = _context.Users
+                var user = _context.Users
                     .Where(r => r.Id == id)
                     .Include(r => r.BookmarkedRoadMaps)
-                    .FirstOrDefault()
-                    .BookmarkedRoadMaps
-                .Select(r => new BookMarkRoadMapDto()
-                {
-                    Title = r.Title,
-                    ImageSrc = r.ImageSrc,
-                    Id = r.Id,
-                }).ToList();
+                    .FirstOrDefault();
+
+				if(user == null)
+				{
+                    return new ResultDto<List<BookMarkRoadMapDto>>()
+                    {
+                        IsSuccess = false,
+                        Message = "کابر یافت نشد!",
+                        Data = new(),
+                    };
+				}
+
+                user.BookmarkedRoadMaps ??= new List<RoadMap>();
+
+                var roadmaps=user.BookmarkedRoadMaps
+                    .Select(r => new BookMarkRoadMapDto()
+                    {
+                        Title = r.Title,
+                        ImageSrc = r.ImageSrc,
+                        Id = r.Id,
+                    }).ToList();
 
                 return new ResultDto<List<BookMarkRoadMapDto>>()
                 {
