@@ -10,6 +10,7 @@ using System.IO;
 using Appdoon.Common.Dtos;
 using Appdoon.Application.Services.Steps.Command.CreateChildStepService;
 using Appdoon.Application.Services.Steps.Command.CreateStepService;
+using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
 
 namespace Appdoon.WebApi.Controllers
 {
@@ -21,16 +22,19 @@ namespace Appdoon.WebApi.Controllers
         private readonly ICreateCategoryService _createCategoryService;
 		private readonly ICreateStepService _createStepService;
 		private readonly ICreateChildStepService _createChildStepService;
+		private readonly ICreateLessonService _createLessonService;
 
 		private readonly IWebHostEnvironment _env;
 
         public BuildRoadMapController(ICreateRoadMapIndividualService createRoadMapService, ICreateCategoryService createCategoryService
-			, ICreateStepService createStepService, ICreateChildStepService createChildStepService, IWebHostEnvironment env)
+			, ICreateStepService createStepService, ICreateChildStepService createChildStepService,
+			ICreateLessonService createLessonService, IWebHostEnvironment env)
 		{
 			_createRoadMapService = createRoadMapService;
 			_createCategoryService = createCategoryService;
 			_createStepService = createStepService;
 			_createChildStepService = createChildStepService;
+			_createLessonService = createLessonService;
 
 			_env = env;
 		}
@@ -64,7 +68,12 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 
-
+		[HttpPost]
+		public JsonResult CreateLesson()
+		{
+			var result = _createLessonService.Execute(Request, _env.ContentRootPath);
+			return new JsonResult(result);
+		}
 	}
 
 	

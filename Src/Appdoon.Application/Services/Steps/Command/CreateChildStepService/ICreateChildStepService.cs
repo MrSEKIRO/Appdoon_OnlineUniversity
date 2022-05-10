@@ -1,5 +1,6 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Application.Validatores.ChildStepValidatore;
+using Appdoon.Application.Validatores.LinkerValidatore;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
 using System;
@@ -16,7 +17,14 @@ namespace Appdoon.Application.Services.Steps.Command.CreateChildStepService
         public string Description { get; set; }
         public string Link { get; set; }
         public int StepId { get; set; }
+        public List<LinkerDto> Linkers { get; set; }
     }
+    public class LinkerDto
+    {
+        public string LinkTitle { get; set; } = string.Empty;
+        public string LinkURL { get; set; } = string.Empty;
+    }
+
     public interface ICreateChildStepService
     {
         ResultDto Execute(RequestCreateChildStepDto childStepDto);
@@ -43,11 +51,42 @@ namespace Appdoon.Application.Services.Steps.Command.CreateChildStepService
                     };
 				}
 
+                List<Linker> linkers = new List<Linker>();
+
+                for(int i = 0; i < childStepDto.Linkers.Count; i++)
+                {
+                    Linker linker = new Linker()
+                    {
+                        Title = childStepDto.Linkers[i].LinkTitle,
+                        Link = childStepDto.Linkers[i].LinkURL
+                    };
+
+                    /*
+                    LinkerValidatore validationRulesLink = new LinkerValidatore();
+                    var resultLink = validationRulesLink.Validate();
+
+                    if (resultLink.IsValid == false)
+                    {
+                        return new ResultDto()
+                        {
+                            IsSuccess = false,
+                            Message = result.Errors[0].ErrorMessage,
+                        };
+                    }
+                    */
+
+
+                    linkers.Add(linker);
+                }
+
+
+
                 ChildStep childStep = new ChildStep()
-                { 
+                {
                     Title = childStepDto.Title,
                     Description = childStepDto.Description,
                     Link = childStepDto.Link,
+                    Linkers = linkers
                 };
 
                 var step = _context.Steps.First(step => step.Id == childStepDto.StepId);

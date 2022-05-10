@@ -27,6 +27,9 @@ using Appdoon.Application.Services.Categories.Query.GetCategoriesService;
 using Appdoon.Application.Services.Steps.Command.CreateStepService;
 using Appdoon.Application.Services.Steps.Command.CreateChildStepService;
 using Appdoon.Application.Services.Steps.Query.GetAllStepService;
+using Appdoon.Application.Services.Lessons.Query.GetLessonService;
+using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
+using Appdoon.Application.Services.Lessons.Query.GetAllLessonsService;
 
 namespace OU_API
 {
@@ -96,6 +99,15 @@ namespace OU_API
 
             //Dependency Injection for get all steps Service
             services.AddScoped<IGetAllStepService, GetAllStepService>();
+
+            //Dependency Injection for get one lesson Service
+            services.AddScoped<IGetLessonService, GetLessonService>();
+
+            //Dependency Injection for create lesson Service
+            services.AddScoped<ICreateLessonService, CreateLessonService>();
+
+            //Dependency Injection for get all lesson Service
+            services.AddScoped<IGetAllLessonsService, GetAllLessonsService>();
 
 
             // Injection for user validatore

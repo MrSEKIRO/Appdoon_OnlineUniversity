@@ -34,6 +34,7 @@ namespace Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService
 					.Include(r => r.Categories)
 					.Include(r => r.Steps)
 					.ThenInclude(s => s.ChildSteps)
+					.ThenInclude(l => l.Linkers)
 					.Select(r => new IndividualRoadMapDto()
 					{
 						Id = r.Id,
