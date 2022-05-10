@@ -30,6 +30,10 @@ using Appdoon.Application.Services.Steps.Query.GetAllStepService;
 using Appdoon.Application.Services.Lessons.Query.GetLessonService;
 using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
 using Appdoon.Application.Services.Lessons.Query.GetAllLessonsService;
+using Appdoon.Application.Services.Users.GetUserService;
+using Appdoon.Application.Services.Users.EditUserService;
+using Appdoon.Application.Services.Users.GetRoadMapService;
+using Appdoon.Application.Services.Users.GetBookMarkRoadMapService;
 
 namespace OU_API
 {
@@ -109,6 +113,17 @@ namespace OU_API
             //Dependency Injection for get all lesson Service
             services.AddScoped<IGetAllLessonsService, GetAllLessonsService>();
 
+            // 
+            services.AddScoped<IGetUserService, GetUserService>();
+
+            //Dependency Injecton Edit user info in profile page
+            services.AddScoped<IEditUserService,EditUserService>();
+
+            //
+            services.AddScoped<IGetRegisteredRoadMapService, GetRegisteredRoadMapService>();
+
+            //
+            services.AddScoped<IGetBookMarkRoadMapService, GetBookMarkRoadMapService>();
 
             // Injection for user validatore
             // Be aware of UserValidatore class in Asp.Net
