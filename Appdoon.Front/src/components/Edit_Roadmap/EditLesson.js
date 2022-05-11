@@ -1,27 +1,33 @@
 import {NavLink} from 'react-router-dom';
-import useFetch from '../../useFetch';
 import { useState } from "react";
+import useFetch from "../../useFetch";
+import { Col, Form } from "react-bootstrap";
 
-const EditStep = () => {
 
-    const {data : roadmaps, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/Index');
+
+
+const EditLesson = () => {
+
+    const [field, setField] = useState([]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        let imagesrc = "1.jpg";
+        const formData = new FormData();
+
+        if(event.target.Photo.files.length){
+            imagesrc = event.target.Photo.files[0].name;
+            formData.append("myFile",event.target.Photo.files[0]);
+        }
+
+        formData.append("Title",event.target.Title.value);
+        formData.append("Text",event.target.Text.value);
+        formData.append("PhotoFileName",imagesrc);
         
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/EditStep',{
+
+        fetch(process.env.REACT_APP_API+'BuildRoadMap/EditLesson',{
             method:"POST",
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            
-            body:JSON.stringify({
-                Title:event.target.Title.value,
-                Description:event.target.Description.value,
-                Link:event.target.Link.value,
-                RoadMapId:event.target.Roadmap.options[event.target.Roadmap.selectedIndex].value,
-            })
+            body:formData
         })
         
         .then(res=>res.json())
@@ -34,7 +40,6 @@ const EditStep = () => {
                 document.getElementById("result_message").style.color = "red";
                 document.getElementById("result_message").innerHTML = result.Message;
             }
-            
         },
         (error)=>{
             document.getElementById("result_message").style.color = "red";
@@ -66,7 +71,7 @@ const EditStep = () => {
                                                 <span class="sub-title">دسته‌بندی رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/edit_step" class="register-ds active">
+                                            <NavLink to="/edit_step" class="register-ds">
                                                 <span class="title">قدم‌</span>
                                                 <span class="sub-title">مراحل رودمپ</span>
                                             </NavLink>
@@ -75,8 +80,8 @@ const EditStep = () => {
                                                 <span class="title">محتوا‌</span>
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
-                                        
-                                            <NavLink to="/edit_lesson" class="register-ds">
+
+                                            <NavLink to="/edit_lesson" class="register-ds active">
                                                 <span class="title">مقاله</span>
                                                 <span class="sub-title">مقاله درونی</span>
                                             </NavLink>
@@ -86,7 +91,7 @@ const EditStep = () => {
                                         </div>
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
-                                                <h4>ویرایش قدم</h4>
+                                                <h4>ویرایش مقاله</h4>
                                                 <form onSubmit={handleSubmit} action="#" class="form-account text-right">
 
 
@@ -94,44 +99,19 @@ const EditStep = () => {
 
 
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">نام قدم</label>
+                                                        <label for="Title">نام مقاله</label>
                                                         <input type="text" class="number-email-input" name="Title"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">توضیحات</label>
-                                                        <textarea class="number-email-input" name="Description"/>
+                                                        <label for="Text">متن</label>
+                                                        <textarea class="number-email-input" name="Text"/>
                                                     </div>
 
                                                     <div class="form-account-title">
-                                                        <label for="email-phone">لینک</label>
-                                                        <input type="text" class="number-email-input" name="Link"/>
-                                                    </div>
-
-
-
-
-                                                    <div class="form-account-title">
-                                                        <label for="Roadmap">رودمپ‌</label>
-                                                        {roadmaps.length > 0 && (
-                                                            <select name = "Roadmap" class="form-select" aria-label="Default select example">
-                                                                <option value="default">
-                                                                    انتخاب کنید
-                                                                </option>
-                                                                {roadmaps.map((data, idx) => (
-                                                                    <option value={data.Id}>
-                                                                        {data.Title}
-                                                                    </option>
-                                                                ))}
-                                                            </select>
-                                                            )
-                                                        }
-                                                        
-                                                        {roadmaps.length == 0 &&(
-                                                                <div></div>
-                                                            )
-                                                        }
+                                                        <label for="Photo">بنر مقاله</label>
+                                                        <input class="form-control" type="File" name='Photo'/>
                                                     </div>
 
 
@@ -143,7 +123,8 @@ const EditStep = () => {
                                                         </label>
                                                         <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
                                                     </div>
-                                                    */}
+                                                    */
+                                                    }
 
 
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
@@ -151,10 +132,8 @@ const EditStep = () => {
                                                     </div>
 
                                                     <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ویرایش قدم</button>
+                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ویرایش مقاله</button>
                                                     </div>
-
-
 
 
 
@@ -186,4 +165,4 @@ const EditStep = () => {
 }
 
 
-export default EditStep;
+export default EditLesson;

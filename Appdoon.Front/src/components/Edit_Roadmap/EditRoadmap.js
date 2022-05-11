@@ -3,10 +3,83 @@ import { useState } from "react";
 import useFetch from "../../useFetch";
 import { Col, Form } from "react-bootstrap";
 
-
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 
 const EditRoadmap = () => {
+
+
+    const {id} = useParams();
+
+    const [data, setData] = useState([])
+    
+    const [newError, setNewError] = useState(null)
+
+    const url = process.env.REACT_APP_API + 'RoadMaps/GetLesson';
+
+    useEffect(() => {
+        fetch(url,{
+            
+            method : "POST",
+            headers : {"Content-Type" : "application/json"},
+            body:JSON.stringify({
+                LessonId:id
+            })
+            
+        }).then(res => {
+            
+            //console.log(res);
+            
+            if(!res.ok){
+                
+                throw Error('could not fetch!');
+            }
+            
+            return res.json();
+        })
+        .then(data => {
+            
+            //alert(data.Data.length);
+            //console.log(data);
+            //alert(data.Message);
+            setData(data.Data);
+
+            setNewError(null);
+            //alert(data.Data.Steps[0].ChildSteps.length);
+            
+        }).then(() =>{
+            
+            //setIsPending(false);
+            //console.log("New Blog added");
+            //history.push(`/timeline/${id}`);
+            
+        })
+        .catch(err => {
+            
+            if(err.name === 'AbortError'){
+                console.log('fetch aborted');
+            }
+            else{
+                setNewError(err.message);
+            }
+        })
+    }, [url]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const {data : categories, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/GetCategories');
 
@@ -91,6 +164,11 @@ const EditRoadmap = () => {
                                             <NavLink to="/edit_child_step" class="register-ds">
                                                 <span class="title">محتوا‌</span>
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
+                                            </NavLink>
+
+                                            <NavLink to="/edit_lesson" class="register-ds">
+                                                <span class="title">مقاله</span>
+                                                <span class="sub-title">مقاله درونی</span>
                                             </NavLink>
 
 

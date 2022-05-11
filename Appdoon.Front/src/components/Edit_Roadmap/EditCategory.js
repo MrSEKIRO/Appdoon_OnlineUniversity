@@ -1,7 +1,10 @@
 import {NavLink} from 'react-router-dom';
-import { useState } from "react";
+import React,{Component} from "react";
+import { useParams } from "react-router-dom";
 
 const EditCategory = () => {
+
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -73,6 +76,11 @@ const EditCategory = () => {
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
 
+                                            <NavLink to="/edit_lesson" class="register-ds">
+                                                <span class="title">مقاله</span>
+                                                <span class="sub-title">مقاله درونی</span>
+                                            </NavLink>
+
 
 
                                         </div>
@@ -83,7 +91,10 @@ const EditCategory = () => {
 
 
 
-
+                                                    <div class="form-account-title">
+                                                        <label for="email-phone">آیدی دسته</label>
+                                                        <input type="text" class="number-email-input" name="Id"/>
+                                                    </div>
 
                                                     <div class="form-account-title">
                                                         <label for="email-phone">نام دسته</label>
