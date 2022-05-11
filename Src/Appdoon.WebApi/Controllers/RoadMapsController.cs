@@ -41,7 +41,6 @@ namespace Appdoon.WebApi.Controllers
 		{
 			// ResultDto<List<RoadmapDto>>
 			var result = _getAllRoadMapService.Execute();
-
 			return new JsonResult(result);
 		}
 

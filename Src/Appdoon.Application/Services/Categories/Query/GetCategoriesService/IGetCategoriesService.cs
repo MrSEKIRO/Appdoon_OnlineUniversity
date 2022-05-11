@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.Categories.Query.GetCategoriesService
 {
+    public class CategoryDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Link { get; set; }
+    }
     public interface IGetCategoriesService
     {
         public ResultDto<List<CategoryDto>> Execute();
@@ -29,6 +35,7 @@ namespace Appdoon.Application.Services.Categories.Query.GetCategoriesService
             {
                 var categories = _context.Categories.Select(s => new CategoryDto
                 {
+                    Id = s.Id,
                     Name = s.Name,
                     Link = s.Link
                 }).ToList();
@@ -53,9 +60,5 @@ namespace Appdoon.Application.Services.Categories.Query.GetCategoriesService
         }
     }
 
-    public class CategoryDto
-    {
-        public string Name { get; set; }
-        public string Link { get; set; }
-    }
+
 }

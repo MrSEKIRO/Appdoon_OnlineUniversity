@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.Lessons.Query.GetAllLessonsService
 {
+	public class LessonDto
+	{
+		public int Id { get; set; }
+		public string Title { get; set; } = string.Empty;
+		public string Text { get; set; }
+		public string TopBannerSrc { get; set; } = string.Empty;
+	}
 	public interface IGetAllLessonsService
 	{
 		ResultDto<List<LessonDto>> Execute();
@@ -54,11 +61,5 @@ namespace Appdoon.Application.Services.Lessons.Query.GetAllLessonsService
 		}
 	}
 
-	public class LessonDto
-	{
-		public int Id { get; set; }
-		public string Title { get; set; } = string.Empty;
-		public string Text { get; set; }
-		public string TopBannerSrc { get; set; } = string.Empty;
-	}
+
 }
