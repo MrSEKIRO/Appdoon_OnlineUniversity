@@ -34,6 +34,9 @@ using Appdoon.Application.Services.Users.EditUserService;
 using Appdoon.Application.Services.Users.GetRoadMapService;
 using Appdoon.Application.Services.Users.GetBookMarkRoadMapService;
 using Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService;
+using Appdoon.Application.Services.Categories.Query.GetIndividualCategoryService;
+using Appdoon.Application.Services.Categories.Command.DeleteCategoryService;
+using Appdoon.Application.Services.Categories.Command.UpdateCategoryService;
 
 namespace OU_API
 {
@@ -90,10 +93,10 @@ namespace OU_API
             services.AddScoped<ICreateRoadMapIndividualService, CreateRoadMapIndividualService>();
 
             //Dependency Injection for create category Service
-            services.AddScoped<ICreateCategoryService, CreateCategoryService>();
+            
 
             //Dependency Injection for get category Service
-            services.AddScoped<IGetCategoriesService, GetCategoriesService>();
+            
 
             //Dependency Injection for create step Service
             services.AddScoped<ICreateStepService, CreateStepService>();
@@ -124,6 +127,37 @@ namespace OU_API
 
             //
             services.AddScoped<IGetBookMarkRoadMapService, GetBookMarkRoadMapService>();
+
+
+
+
+
+
+
+
+
+            //Dependency Injecton For Category
+            services.AddScoped<IGetIndividualCategoryService,GetIndividualCategoryService>();
+            services.AddScoped<IGetCategoriesService, GetCategoriesService>();
+            services.AddScoped<ICreateCategoryService, CreateCategoryService>();
+            services.AddScoped<IDeleteCategoryService,DeleteCategoryService>();
+            services.AddScoped<IUpdateCategoryService, UpdateCategoryService>();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             // Injection for user validatore
             // Be aware of UserValidatore class in Asp.Net

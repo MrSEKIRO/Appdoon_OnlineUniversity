@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Appdoon.WebApi.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/[controller]/[action]")]
 	[ApiController]
 	public class TeacherController : Controller
 	{
@@ -22,11 +22,10 @@ namespace Appdoon.WebApi.Controllers
 			_addLinkerService = addLinkerService;
 		}
 
-		[HttpPost]
+		[HttpGet]
 		public JsonResult AddLesson()
 		{
 			var result = _createLessonService.Execute(HttpContext.Request, _env.ContentRootPath);
-
 			return new JsonResult(result);
 		}
 

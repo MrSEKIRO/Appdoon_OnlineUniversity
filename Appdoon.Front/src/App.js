@@ -33,6 +33,7 @@ import EditProfile from './Components/User/EditProfile';
 import Lesson from './Components/Roadmap/Lesson';
 
 import Lessons from './Components/Roadmap/Lessons';
+import ListCategory from './Components/List_Roadmap/ListCategory';
 
 
 function App() {
@@ -73,6 +74,7 @@ function App() {
 
           <Route path={`/edit_roadmap`} element={<EditRoadmap/>}/>
           <Route path={`/edit_step`} element={<EditStep/>}/>
+          <Route path={`/edit_category`} element={<ListCategory/>}/>
           <Route path={`/edit_category/:id`} element={<EditCategory/>}/>
           <Route path={`/edit_child_step`} element={<EditChildStep/>}/>
           <Route path={`/edit_lesson`} element={<EditLesson/>}/>

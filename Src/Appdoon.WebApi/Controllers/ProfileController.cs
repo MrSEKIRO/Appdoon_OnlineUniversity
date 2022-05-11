@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Appdoon.WebApi.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/[controller]/[action]")]
 	[ApiController]
 	public class ProfileController : Controller
 	{
@@ -25,6 +25,7 @@ namespace Appdoon.WebApi.Controllers
 			_getRegisteredRoadMapService = getRegisteredRoadMapService;
 			_getBookMarkRoadMapService = getBookMarkRoadMapService;
 		}
+		[HttpPost]
 		public JsonResult Info(int Id)
 		{
 			var result = _getUserService.Execute(Id);
@@ -39,14 +40,14 @@ namespace Appdoon.WebApi.Controllers
 
 			return new JsonResult(result);
 		}
-
+		[HttpPost]
 		public JsonResult RegisteredRoadMaps(int Id)
 		{
 			var result = _getRegisteredRoadMapService.Execute(Id);
 
 			return new JsonResult(result);
 		}
-
+		[HttpPost]
 		public JsonResult BookMarkedRoadMaps(int Id)
 		{
 			var result = _getBookMarkRoadMapService.Execute(Id);

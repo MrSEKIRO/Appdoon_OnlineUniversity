@@ -37,14 +37,21 @@ const Step = ({ data , key , handleModalId}) => {
 
 
                 {data.Link && (
+                    
                     <a
+                    
                         href={data.Link}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
+                        
                         {data.Title}
+                        
                     </a>
+
+                    
                 )}
+                
                 <span className="circle" />
                 
             </div>
