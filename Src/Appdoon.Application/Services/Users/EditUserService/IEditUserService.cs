@@ -20,7 +20,7 @@ namespace Appdoon.Application.Services.Users.EditUserService
 		private readonly IDatabaseContext _context;
 
 		public EditUserService(IDatabaseContext context)
-		{
+		{ 
 			_context = context;
 		}
 		public ResultDto Execute(EditUserDto editUserDto)

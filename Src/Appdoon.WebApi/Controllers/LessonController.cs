@@ -1,5 +1,9 @@
-﻿using Appdoon.Application.Services.Lessons.Query.GetAllLessonsService;
+﻿using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
+using Appdoon.Application.Services.Lessons.Command.DeleteLessonService;
+using Appdoon.Application.Services.Lessons.Command.UpdateLessonService;
+using Appdoon.Application.Services.Lessons.Query.GetAllLessonsService;
 using Appdoon.Application.Services.Lessons.Query.GetLessonService;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,12 +20,24 @@ namespace Appdoon.WebApi.Controllers
     {
         private readonly IGetAllLessonsService _getAllLessonsService;
         private readonly IGetLessonService _getLessonService;
+        private readonly ICreateLessonService _createLessonService;
+        private readonly IDeleteLessonService _deleteLessonService;
+        private readonly IUpdateLessonService _updateLessonService;
+        private readonly IWebHostEnvironment _env;
 
         public LessonController(IGetAllLessonsService getAllLessonsService,
-                                IGetLessonService getLessonService)
+                                IGetLessonService getLessonService,
+                                ICreateLessonService createLessonService,
+                                IDeleteLessonService deleteLessonService,
+                                IUpdateLessonService updateLessonService,
+                                IWebHostEnvironment env)
         {
             _getAllLessonsService = getAllLessonsService;
             _getLessonService = getLessonService;
+            _createLessonService = createLessonService;
+            _deleteLessonService = deleteLessonService;
+            _updateLessonService = updateLessonService;
+            _env = env;
         }
 
         // GET: api/<LessonController>
@@ -34,29 +50,34 @@ namespace Appdoon.WebApi.Controllers
 
         // GET api/<LessonController>/5
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        public JsonResult Get(LessonIdDto id)
         {
             var result = _getLessonService.Execute(id);
-
+            return new JsonResult(result);
         }
 
         // POST api/<LessonController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public JsonResult Create()
         {
+            var result = _createLessonService.Execute(Request, _env.ContentRootPath);
+            return new JsonResult(result);
         }
 
         // PUT api/<LessonController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public JsonResult Put(int id, [FromBody] UpdateLessonDto lesson)
         {
+            var result = _updateLessonService.Execute(id, lesson);
+            return new JsonResult(result);
         }
 
         // DELETE api/<LessonController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public JsonResult Delete(int id)
         {
-
+            var result = _deleteLessonService.Execute(id);
+            return new JsonResult(result);
         }
     }
 }
