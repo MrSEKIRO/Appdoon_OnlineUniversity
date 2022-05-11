@@ -25,15 +25,22 @@ using System.IO;
 using Microsoft.Extensions.FileProviders;
 using Appdoon.Application.Services.Categories.Query.GetCategoriesService;
 using Appdoon.Application.Services.Steps.Command.CreateStepService;
-using Appdoon.Application.Services.Steps.Command.CreateChildStepService;
 using Appdoon.Application.Services.Steps.Query.GetAllStepService;
 using Appdoon.Application.Services.Lessons.Query.GetLessonService;
 using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
 using Appdoon.Application.Services.Lessons.Query.GetAllLessonsService;
+using Appdoon.Application.Services.Users.GetUserService;
+using Appdoon.Application.Services.Users.EditUserService;
+using Appdoon.Application.Services.Users.GetRoadMapService;
+using Appdoon.Application.Services.Users.GetBookMarkRoadMapService;
+using Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService;
+using Appdoon.Application.Services.Categories.Query.GetIndividualCategoryService;
+using Appdoon.Application.Services.Categories.Command.DeleteCategoryService;
+using Appdoon.Application.Services.Categories.Command.UpdateCategoryService;
 
 namespace OU_API
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -86,10 +93,10 @@ namespace OU_API
             services.AddScoped<ICreateRoadMapIndividualService, CreateRoadMapIndividualService>();
 
             //Dependency Injection for create category Service
-            services.AddScoped<ICreateCategoryService, CreateCategoryService>();
+            
 
             //Dependency Injection for get category Service
-            services.AddScoped<IGetCategoriesService, GetCategoriesService>();
+            
 
             //Dependency Injection for create step Service
             services.AddScoped<ICreateStepService, CreateStepService>();
@@ -108,6 +115,48 @@ namespace OU_API
 
             //Dependency Injection for get all lesson Service
             services.AddScoped<IGetAllLessonsService, GetAllLessonsService>();
+
+            // 
+            services.AddScoped<IGetUserService, GetUserService>();
+
+            //Dependency Injecton Edit user info in profile page
+            services.AddScoped<IEditUserService,EditUserService>();
+
+            //
+            services.AddScoped<IGetRegisteredRoadMapService, GetRegisteredRoadMapService>();
+
+            //
+            services.AddScoped<IGetBookMarkRoadMapService, GetBookMarkRoadMapService>();
+
+
+
+
+
+
+
+
+
+            //Dependency Injecton For Category
+            services.AddScoped<IGetIndividualCategoryService,GetIndividualCategoryService>();
+            services.AddScoped<IGetCategoriesService, GetCategoriesService>();
+            services.AddScoped<ICreateCategoryService, CreateCategoryService>();
+            services.AddScoped<IDeleteCategoryService,DeleteCategoryService>();
+            services.AddScoped<IUpdateCategoryService, UpdateCategoryService>();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             // Injection for user validatore

@@ -1,21 +1,60 @@
 import {NavLink} from 'react-router-dom';
-import { useState } from "react";
+import React,{Component, useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
 
 const EditCategory = () => {
 
-    const handleSubmit = (event) => {
+    const {id} = useParams();
+    const [category, setCategory] = useState(null);
+    const url = process.env.REACT_APP_API + "category/"+id;
+    const [error, setError] = useState(null);
+
+    
+
+
+    useEffect(() =>{
+        
+        fetch(url,{
+            
+            method : "Get",
+            headers : {"Content-Type" : "application/json"}
+            
+        }).then(res => {
+            
+            if(!res.ok){
+                throw Error('could not fetch!');
+            }
+            return res.json();
+        })
+        .then(data => {
+            setCategory(data.Data);
+            setError(null);
+        })
+        .catch(err => {
+            if(err.name === 'AbortError'){
+                console.log('fetch aborted');
+            }
+            else{
+                setError(err.message);
+            }
+        })
+    },[url,category]);
+    
+
+    const handleUpdate = (event) => {
         event.preventDefault();
         
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/EditCategory',{
-            method:"POST",
+        
+        fetch(url,{
+            method:"Put",
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json'
             },
             
             body:JSON.stringify({
-                Name:event.target.Name.value,
-                Link:event.target.Link.value,
+                Name:event.target.EditName.value,
+                Link:event.target.EditLink.value,
             })
         })
         
@@ -32,6 +71,32 @@ const EditCategory = () => {
             
             
             
+        },
+        (error)=>{
+            document.getElementById("result_message").style.color = "red";
+            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
+        })
+    }
+
+    const handleDelete = () => {
+        fetch(url,{
+            method:"Delete",
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+        })
+        
+        .then(res=>res.json())
+        .then((result)=>{
+            if(result.IsSuccess){
+                document.getElementById("result_message").style.color = "green";
+                document.getElementById("result_message").innerHTML = result.Message;
+            }
+            else{
+                document.getElementById("result_message").style.color = "red";
+                document.getElementById("result_message").innerHTML = result.Message;
+            }
         },
         (error)=>{
             document.getElementById("result_message").style.color = "red";
@@ -73,28 +138,41 @@ const EditCategory = () => {
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
 
+                                            <NavLink to="/edit_lesson" class="register-ds">
+                                                <span class="title">مقاله</span>
+                                                <span class="sub-title">مقاله درونی</span>
+                                            </NavLink>
+
 
 
                                         </div>
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
                                                 <h4>ویرایش دسته</h4>
-                                                <form onSubmit={handleSubmit} action="#" class="form-account text-right">
+                                                <form onSubmit={handleUpdate} action="#" class="form-account text-right">
 
 
 
+                                                    {category &&
+                                                    <div>
+                                                        <div class="form-account-title">
+                                                            <label for="Name">نام دسته</label>
+                                                            <input value={category.Name} type="text" class="number-email-input" name="Name" readonly = "true"/>
+                                                        </div>
+                                                        
 
+                                                        <div class="form-account-title">
+                                                            <label for="EditName">نام جدید دسته</label>
+                                                            <input placeholder={category.Name} type="text" class="number-email-input" name="EditName"/>
+                                                        </div>
 
-                                                    <div class="form-account-title">
-                                                        <label for="email-phone">نام دسته</label>
-                                                        <input type="text" class="number-email-input" name="Name"/>
+                                                        
+                                                        <div class="form-account-title">
+                                                            <label for="EditLink">لینک جدید</label>
+                                                            <input placeholder={category.Link} type="text-area" class="number-email-input" name="EditLink"/>
+                                                        </div>
                                                     </div>
-
-                                                    
-                                                    <div class="form-account-title">
-                                                        <label for="email-phone">لینک</label>
-                                                        <input type="text-area" class="number-email-input" name="Link"/>
-                                                    </div>
+                                                    }
 
 
                                                     {/*
@@ -116,12 +194,12 @@ const EditCategory = () => {
                                                         <button variant="primary" type="submit" class="btn btn-primary btn-login">ویرایش دسته‌</button>
                                                     </div>
 
-
-
-
-
-
                                                 </form>
+
+
+                                                <button variant="primary" onClick={() => handleDelete()} class="btn btn-primary btn-login">حذف دسته‌</button>
+
+
                                             </div>
                                         </div>
                                     </div>
