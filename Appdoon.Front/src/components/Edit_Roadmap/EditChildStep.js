@@ -87,6 +87,11 @@ const EditChildStep = () => {
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
 
+                                            <NavLink to="/edit_lesson" class="register-ds">
+                                                <span class="title">مقاله</span>
+                                                <span class="sub-title">مقاله درونی</span>
+                                            </NavLink>
+
 
 
                                         </div>
