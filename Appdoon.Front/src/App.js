@@ -21,6 +21,7 @@ import Profile from './Components/User/Profile';
 import UserRoadmaps from './Components/User/UserRoadmaps';
 import UserFavoriteRoadmaps from './Components/User/UserFavoriteRoadmaps';
 import EditRoadmap from './Components/EditRoadmap';
+import EditProfile from './Components/User/EditProfile';
 
 function App() {
 
@@ -62,6 +63,7 @@ function App() {
           <Route path={`/UserRoadmaps`} element={<UserRoadmaps/>}/>
           <Route path={`/UserFavoriteRoadmaps`} element={<UserFavoriteRoadmaps/>}/>
           <Route path={`/EditRoadmap`} element={<EditRoadmap/>}/>
+          <Route path={`/EditProfile`} element={<EditProfile/>}/>
 
           <Route path="*" element={<Home/>}/>
 

@@ -43,11 +43,6 @@ const UserFavoriteRoadmaps = () => {
                                                 رودمپ های مورد علاقه من
                                             </a>
                                         </li>
-                                        <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/EditRoadmap" class=""><i class=""></i>
-                                                 ویرایش اطلاعات
-                                            </a>    
-                                        </li>
                                     </ul>
                                 </section>
                             </div>

@@ -51,6 +51,11 @@ const EditRoadmap = () => {
                                 </section>
                             </div>
                         </div>
+
+                        <div class="col-lg-9 col-md-9 col-xs-14 pl">
+                        
+                        
+                        </div>
                     </div>
                 </div>
             </section>
