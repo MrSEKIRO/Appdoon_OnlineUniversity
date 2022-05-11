@@ -1,4 +1,4 @@
-﻿using Appdoon.Application.Services.Steps.Command.CreateChildStepService;
+﻿using Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Appdoon.Application.Validatores.ChildStepValidatore
 				.Length(3, 25).WithMessage("عنوان باید حداقل 3 و حداکثر 25 کارکتر باشد!");
 
 			RuleFor(x => x.Description)
-				.MaximumLength(300).WithMessage("توضیحات باید حداکثر 300 کاراکتر باشد!");
+				.MaximumLength(50).WithMessage("توضیحات باید حداکثر 50 کاراکتر باشد!");
 
 			RuleFor(x => x.Link)
 				.NotEmpty().WithMessage("لینک قدم را وارد کنید!");

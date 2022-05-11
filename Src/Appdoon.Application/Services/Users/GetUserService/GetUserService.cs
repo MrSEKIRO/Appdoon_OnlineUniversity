@@ -46,6 +46,17 @@ namespace Appdoon.Application.Services.Users.GetUserService
                     PhoneNumber = u.PhoneNumber,
                 }).FirstOrDefault();
 
+                // I doubt on it
+				if(user == null)
+				{
+                    return new ResultDto<GetUserDto>()
+                    {
+                        IsSuccess = false,
+                        Message = "کاربر یافت نشد!",
+                        Data = new(),
+                    };
+				}
+
                 return new ResultDto<GetUserDto>()
                 {
                     IsSuccess = true,

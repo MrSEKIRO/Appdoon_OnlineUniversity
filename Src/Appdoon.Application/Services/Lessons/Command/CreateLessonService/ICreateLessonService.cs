@@ -29,9 +29,7 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 		{
 			try
 			{
-
 				List<string> data = new List<string>();
-
 
 				foreach (var key in httpRequest.Form.Keys)
 				{
@@ -43,8 +41,6 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 				var Text = data[1];
 				var PhotoFileName = data[2];
 
-
-
 				//Uniqueness(Title)
 				if (_context.Lessons.Where(s => s.Title == Title.ToString()).Count() != 0)
 				{
@@ -54,9 +50,6 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 						Message = "این نام برای مقاله تکراری است",
 					};
 				}
-
-
-
 
 				var imageSrc = "";
 
@@ -89,8 +82,6 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 
 				_context.Lessons.Add(lesson);
 				_context.SaveChanges();
-
-
 
 				return new ResultDto()
 				{
