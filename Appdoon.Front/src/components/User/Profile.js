@@ -78,7 +78,7 @@ const Profile = () => {
                                         </tbody>
                                     </table>
                                     <div class="profile-edit-action">
-                                        <a href="#" class="link-spoiler-edit btn btn-secondary">ویرایش اطلاعات</a>
+                                        <a href="/EditRoadmap" class="link-spoiler-edit btn btn-secondary">ویرایش اطلاعات</a>
                                     </div>
                                 </div>
                             </div>
