@@ -1,5 +1,5 @@
 ﻿using Appdoon.Application.Interfaces;
-using Appdoon.Application.Services.Users.RegisterUserService;
+using Appdoon.Application.Services.Users.Command.RegisterUserService;
 using Appdoon.Application.Validatores.UserValidatore;
 using Appdoon.Common.Dtos;
 using System;
