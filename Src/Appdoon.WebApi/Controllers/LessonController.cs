@@ -66,9 +66,9 @@ namespace Appdoon.WebApi.Controllers
 
         // PUT api/<LessonController>/5
         [HttpPut("{id}")]
-        public JsonResult Put(int id, [FromBody] UpdateLessonDto lesson)
+        public JsonResult Put(int id)
         {
-            var result = _updateLessonService.Execute(id, lesson);
+            var result = _updateLessonService.Execute(id, Request, _env.ContentRootPath);
             return new JsonResult(result);
         }
 

@@ -1,12 +1,12 @@
 import {NavLink} from 'react-router-dom';
 import { useState } from "react";
-import useFetch from "../../useFetch";
+import useFetch from '../Common/useFetch';
 import { Col, Form } from "react-bootstrap";
 
 const Profile = () => {
 
-    /*const {data : userss, isLogin, error} = useFetch(process.env.REACT_APP_API+'Register');*/
 
+    
     return(
         <div class="container-main">
         <div class="d-block">
@@ -49,11 +49,6 @@ const Profile = () => {
                                                 رودمپ های مورد علاقه من
                                             </a>
                                         </li>
-                                        <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/EditRoadmap" class=""><i class=""></i>
-                                                 ویرایش اطلاعات
-                                            </a>    
-                                        </li>
                                     </ul>
                                 </section>
                             </div>
@@ -61,24 +56,39 @@ const Profile = () => {
                         <div class="col-lg-9 col-md-9 col-xs-12 pl">
                             <div class="profile-content">
                                 <div class="profile-stats">
-                                    <table class="table table-profile">
+                                <table class="table table-profile">
                                         <tbody>
                                             <tr>
                                                 <td class="w-50">
-                                                    <div class="title">نام کاربری</div>
-                                                    <div class="value">سبا رضی</div>
+                                                    <div class="title">نام کاربری  :</div>
+                                                    <div class="value">sabarzii</div>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="title">نام:</div>
+                                                    <div class="value">سبا</div>
+                                                </td>
+                                                <td>
+                                                    <div class="title">نام خانوادگی :</div>
+                                                    <div class="value">رضی</div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <div class="title">ایمیل</div>
-                                                    <div class="value">info@digismart.com</div>
+                                                    <div class="title">ایمیل :</div>
+                                                    <div class="value">razi.saba@yahoo.com</div>
+                                                </td>
+                                                <td>
+                                                    <div class="title"> شناره تلفن :</div>
+                                                    <div class="value">09356950935</div>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <div class="profile-edit-action">
-                                        <a href="#" class="link-spoiler-edit btn btn-secondary">ویرایش اطلاعات</a>
+                                        <a href="/EditProfile" class="link-spoiler-edit btn btn-secondary">ویرایش اطلاعات</a>
                                     </div>
                                 </div>
                             </div>

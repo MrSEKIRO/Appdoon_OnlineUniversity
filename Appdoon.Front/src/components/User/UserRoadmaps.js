@@ -1,6 +1,6 @@
 import {NavLink} from 'react-router-dom';
 import { useState } from "react";
-import useFetch from "../../useFetch";
+import useFetch from '../Common/useFetch';
 import { Col, Form } from "react-bootstrap";
 import RoadmapBox from '../Roadmap/RoadmapBox';
 import UserRoadmapBox from './UserRoadmapBox';
@@ -42,11 +42,6 @@ const UserRoadmaps = () => {
                                             <a href="/UserFavoriteRoadmaps" class=""><i class=""></i>
                                                 رودمپ های مورد علاقه من
                                             </a>
-                                        </li>
-                                        <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/EditRoadmap" class=""><i class=""></i>
-                                                 ویرایش اطلاعات
-                                            </a>    
                                         </li>
                                     </ul>
                                 </section>

@@ -1,16 +1,29 @@
 import {NavLink} from 'react-router-dom';
 import { useState } from "react";
-import useFetch from "../../useFetch";
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import useFetch from '../Common/useFetch';
 import { Col, Form } from "react-bootstrap";
-
+import useDelete from '../Common/useDelete';
+import useUpdate from '../Common/useUpdate';
 
 
 
 const EditLesson = () => {
 
-    const [field, setField] = useState([]);
 
-    const handleSubmit = (event) => {
+    const {id} = useParams();
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "lesson/"+id);
+    const [sensetive, setSensetive] = useState(false);
+    const {data : lesson, error} = useFetch(url,sensetive);
+
+    const HandleMessage = (resmess,colormess,id = "result_message") => {
+        document.getElementById(id).style.color = colormess;
+        document.getElementById(id).innerHTML = resmess;
+        setSensetive(!sensetive);
+    }
+    
+    const HandleUpdate = async(event) => {
         event.preventDefault();
         let imagesrc = "1.jpg";
         const formData = new FormData();
@@ -23,28 +36,15 @@ const EditLesson = () => {
         formData.append("Title",event.target.Title.value);
         formData.append("Text",event.target.Text.value);
         formData.append("PhotoFileName",imagesrc);
-        
+        const body = formData;
 
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/EditLesson',{
-            method:"POST",
-            body:formData
-        })
-        
-        .then(res=>res.json())
-        .then((result)=>{
-            if(result.IsSuccess){
-                document.getElementById("result_message").style.color = "green";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            else{
-                document.getElementById("result_message").style.color = "red";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-        },
-        (error)=>{
-            document.getElementById("result_message").style.color = "red";
-            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
-        })
+        const [resmess, colormess] = await useUpdate(url,body);
+        HandleMessage(resmess,colormess);
+    }
+
+    const HandleDelete = async() => {
+        const [resmess, colormess] = await useDelete(url);
+        HandleMessage(resmess,colormess);
     }
 
     return(
@@ -92,7 +92,7 @@ const EditLesson = () => {
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
                                                 <h4>ویرایش مقاله</h4>
-                                                <form onSubmit={handleSubmit} action="#" class="form-account text-right">
+                                                <form onSubmit={HandleUpdate} action="#" class="form-account text-right">
 
 
 
