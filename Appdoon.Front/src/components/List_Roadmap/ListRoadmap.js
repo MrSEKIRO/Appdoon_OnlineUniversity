@@ -4,12 +4,42 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import useFetch from '../Common/useFetch';
+import "../../Modular_Css/RoadmapBox.css";
+import "../../Modular_Css/ListRoadmap.css";
 
 
-const ListCategory = () => {
-    const [url, setUrl] = useState(process.env.REACT_APP_API + "category");
+const ListRoadmap = () => {
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "roadmap");
     const [sensetive, setSensetive] = useState(false);
-    const {data : categories, error} = useFetch(url,sensetive);
+    const {data : roadmaps, error} = useFetch(url,sensetive);
+
+    function stars(num){
+        let A = "";
+        for(var i = 0; i < 5-num; i++){
+            A += '<span class="fa fa-star"></span>';
+        }
+        for(var i = 0; i < num; i++){
+            A += '<span class="fa fa-star checked"></span>';
+        }
+        return A;
+    }
+
+    useEffect( ()=>{
+        if(roadmaps){
+            for(var i = 0; i < roadmaps.length; i++){
+                document.getElementById("star"+roadmaps[i].Id).innerHTML = stars(roadmaps[i].Stars);
+                let temp = "";
+                for(var j = 0; j < roadmaps[i].Categories.length; j++){
+                    temp += roadmaps[i].Categories[j].Name;
+                    if(j != roadmaps[i].Categories.length-1){
+                        temp +=", ";
+                    }
+                }
+                document.getElementById("cat"+roadmaps[i].Id).innerHTML = temp;
+            }
+        }
+
+    }, [roadmaps]);
 
     return(
         <div>
@@ -20,7 +50,7 @@ const ListCategory = () => {
                             <i class="mdi mdi-home"></i>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active" aria-current="page">دسته‌ها</li>
+                                    <li class="breadcrumb-item active" aria-current="page">رودمپ‌ها</li>
                                 </ol>
                             </nav>
                         </div>
@@ -28,41 +58,51 @@ const ListCategory = () => {
                             <div class="post-item-cart d-block order-2">
                                 <div class="content-page">
                                     <div class="cart-form">
-                                        <table style={{tableLayout:"fixed"}} class="cart table table-borderless">
+                                        <table class="cart table table-borderless">
                                             <thead>
                                                 <tr>
-                                                    <th style={{width:"20%"}} scope="col" class="product-cart-name">نام دسته</th>
-                                                    <th style={{width:"70%"}} scope="col" class="product-cart-price">لینک دسته</th>
-                                                    <th style={{textAlign:"left", width: "10%"} } scope="col" class="product-cart-Total">حذف/ویرایش</th>
+                                                    <th style={{width:"5%"}} scope="col" class="product-cart-name">شماره</th>
+                                                    <th style={{width:"20%"}} scope="col" class="product-cart-name">نام رودمپ‌ها</th>
+                                                    <th style={{width:"35%", paddingLeft:"25px"}} scope="col" class="product-cart-price">توضیحات رودمپ‌ها</th>
+                                                    <th style={{width:"29%"}} scope="col" class="product-cart-price">دسته‌های رودمپ‌ها</th>
+                                                    <th style={{textAlign:"center", width: "6%"} } scope="col" class="product-cart-Total">ویرایش</th>
+                                                    <th style={{textAlign:"center", width: "5%"} } scope="col" class="product-cart-Total">حذف</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {categories &&
-                                                    categories.map((data,idx) => (
+                                                {roadmaps &&
+                                                    roadmaps.map((data,idx) => (
                                                         <tr>
-                                                            {/*
-                                                            <th scope="row" class="product-cart-name">
+                                                            <td style={{wordWrap:"break-word" ,width:"5%"}} class="product-cart-price">
+                                                                <span>
+                                                                    {idx+1}
+                                                                </span>
+                                                            </td>
+                                                            <th scope="row" class="product-cart-name" style={{wordWrap:"break-word" ,width:"20%"}}>
                                                                 <div class="product-thumbnail-img">
-                                                                    <a href="#">
-                                                                        <img src="assets/images/slider-product/zenbook.jpg"/>
+                                                                    <a href="#!">
+                                                                        <img src={process.env.REACT_APP_PHOTOPATH+data.ImageSrc}/>
                                                                     </a>
+                                                                    {/*
                                                                     <div class="product-remove">
                                                                         <a href="#" class="remove">
                                                                             <i class="mdi mdi-close"></i>
                                                                         </a>
                                                                     </div>
+                                                                    */}
                                                                 </div>
                                                                 
                                                                 <div class="product-title">
-                                                                    <a href="#">
-                                                                        لپ تاپ 13 اینچی ایسوس مدل ZenBook S13 UX392FN - A
+                                                                    <a href="#!">
+                                                                        {data.Title}
                                                                     </a>
                                                                     
                                                                     <div class="variation">
                                                                         <div class="variant-color">
-                                                                            <span class="variant-color-title">سفید</span>
-                                                                            <div class="variant-shape"></div>
+                                                                            
+                                                                            <span class="variant-color-title" id = {`star${data.Id}`}><span className="star" ></span></span>
                                                                         </div>
+                                                                        {/*
                                                                         <div class="variant-guarantee">
                                                                             <i class="mdi mdi-check"></i>
                                                                             گارانتی ۱۸ ماهه
@@ -72,23 +112,27 @@ const ListCategory = () => {
                                                                             فروشنده :
                                                                             <span>کالا مارکت</span>
                                                                         </div>
+                                                                        */}
                                                                     </div>
                                                                 </div>
                                                                 
                                                             </th>
-                                                            */}
-                                                            <td style={{wordWrap:"break-word"}} class="product-cart-price">
+
+                                                            <td style={{wordWrap:"break-word" ,width:"35%" ,paddingLeft:"25px"}} class="product-cart-price">
                                                             <span>
-                                                                {data.Name}
+                                                                {data.Description}
                                                             </span>
                                                             </td>
-                                                            <td style={{wordWrap:"break-word"}} class="product-cart-price">
-                                                                <span>
-                                                                    {data.Link}
+                                                            <td style={{wordWrap:"break-word" ,width:"29%"}} class="product-cart-price">
+                                                                <span id = {`cat${data.Id}`}>
+                                                                    
                                                                 </span>
                                                             </td>
-                                                            <td style={{textAlign:"left"}}  class="product-cart-quantity">
-                                                                <NavLink to = {`/edit_category/${data.Id}`}><button variant="primary" class="btn btn-primary btn-login">مشاهده</button></NavLink>
+                                                            <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
+                                                                <NavLink to = {`/edit_roadmap/${data.Id}`}><button variant="primary" class="btn btn-primary">ویرایش</button></NavLink>
+                                                            </td>
+                                                            <td style={{textAlign:"center" ,width:"5%"}}  class="product-cart-quantity">
+                                                                <NavLink to = {`/edit_roadmap/${data.Id}`}><button variant="primary" class="btn btn-danger">حذف</button></NavLink>
                                                             </td>
                                                         </tr>
                                                     ))
@@ -127,4 +171,4 @@ const ListCategory = () => {
 
 }
 
-export default ListCategory;
+export default ListRoadmap;

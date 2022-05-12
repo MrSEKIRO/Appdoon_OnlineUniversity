@@ -6,10 +6,10 @@ import { NavLink } from "react-router-dom";
 import useFetch from '../Common/useFetch';
 
 
-const ListCategory = () => {
-    const [url, setUrl] = useState(process.env.REACT_APP_API + "category");
+const ListChildStep = () => {
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "childstep");
     const [sensetive, setSensetive] = useState(false);
-    const {data : categories, error} = useFetch(url,sensetive);
+    const {data : childsteps, error} = useFetch(url,sensetive);
 
     return(
         <div>
@@ -37,8 +37,8 @@ const ListCategory = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {categories &&
-                                                    categories.map((data,idx) => (
+                                                {childsteps &&
+                                                    childsteps.map((data,idx) => (
                                                         <tr>
                                                             {/*
                                                             <th scope="row" class="product-cart-name">
@@ -127,4 +127,4 @@ const ListCategory = () => {
 
 }
 
-export default ListCategory;
+export default ListChildStep;

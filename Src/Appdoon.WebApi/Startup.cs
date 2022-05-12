@@ -1,7 +1,5 @@
 using Appdoon.Application.Interfaces;
-using Appdoon.Application.Services.Categories.Command.ICreateCategoryService;
-using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualService;
-using Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService;
+using Appdoon.Application.Services.Categories.Command.CreateCategoryService;
 using Appdoon.Application.Validatores.UserValidatore;
 using Appdoon.Presistence.Contexts;
 using FluentValidation;
@@ -21,10 +19,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
-using Appdoon.Application.Services.Categories.Query.GetCategoriesService;
 using Appdoon.Application.Services.Steps.Command.CreateStepService;
 using Appdoon.Application.Services.Steps.Query.GetAllStepService;
-using Appdoon.Application.Services.Lessons.Query.GetLessonService;
 using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
 using Appdoon.Application.Services.Lessons.Query.GetAllLessonsService;
 using Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService;
@@ -42,13 +38,9 @@ using Appdoon.Application.Services.Users.Command.LoginUserService;
 using Appdoon.Application.Services.Users.Command.EditUserService;
 using Appdoon.Application.Services.Lessons.Command.DeleteLessonService;
 using Appdoon.Application.Services.Lessons.Command.UpdateLessonService;
-using Appdoon.Application.Services.RoadMaps.Command.DeleteRoadmapService;
-using Appdoon.Application.Services.RoadMaps.Command.UpdateRoadmapService;
 using Appdoon.Application.Services.ChildSteps.Query.GetIndividualChildStepService;
-using Appdoon.Application.Services.ChildSteps.Query.GetChildStepsService;
 using Appdoon.Application.Services.ChildSteps.Command.DeleteChildStepService;
 using Appdoon.Application.Services.ChildSteps.Command.UpdateChildStepService;
-using Appdoon.Application.Services.Linkers.Command.AddLinkerService;
 using Appdoon.Application.Services.Linkers.Command.DeleteLinkerService;
 using Appdoon.Application.Services.Linkers.Command.UpdateLinkerService;
 using Appdoon.Application.Services.Linkers.Query.GetAllLinkersService;
@@ -56,9 +48,19 @@ using Appdoon.Application.Services.Linkers.Query.GetIndividualLinkerService;
 using Appdoon.Application.Services.Steps.Query.GetIndividualStepService;
 using Appdoon.Application.Services.Steps.Command.DeleteStepService;
 using Appdoon.Application.Services.Steps.Command.UpdateStepService;
+using Appdoon.Application.Services.Categories.Query.GetAllCategoriesService;
+using Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService;
+using Appdoon.Application.Services.Roadmaps.Command.DeleteRoadmapService;
+using Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService;
+using Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService;
+using Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapService;
+using Appdoon.Application.Services.ChildSteps.Query.GetAllChildStepsService;
+using Appdoon.Application.Services.Linkers.Command.CreateLinkerService;
+using Appdoon.Application.Services.Lessons.Query.GetIndividualLessonService;
+
 namespace OU_API
 {
-	public class Startup
+    public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -126,14 +128,14 @@ namespace OU_API
 
             //Dependency Injecton For Category
             services.AddScoped<IGetIndividualCategoryService,GetIndividualCategoryService>();
-            services.AddScoped<IGetCategoriesService, GetCategoriesService>();
+            services.AddScoped<IGetAllCategoriesService, GetCategoriesService>();
             services.AddScoped<ICreateCategoryService, CreateCategoryService>();
             services.AddScoped<IDeleteCategoryService,DeleteCategoryService>();
             services.AddScoped<IUpdateCategoryService, UpdateCategoryService>();
 
 
             //Dependency Injecton For Lesson
-            services.AddScoped<IGetLessonService, GetLessonService>();
+            services.AddScoped<IGetIndividualLessonService, GetLessonService>();
             services.AddScoped<IGetAllLessonsService, GetAllLessonsService>();
             services.AddScoped<ICreateLessonService, CreateLessonService>();
             services.AddScoped<IDeleteLessonService, DeleteLessonService>();
@@ -141,7 +143,7 @@ namespace OU_API
 
             //Dependency Injecton For ChildStep
             services.AddScoped<IGetIndividualChildStepService, GetIndividualChildStepService>();
-            services.AddScoped<IGetChildStepsService, GetChildStepsService>();
+            services.AddScoped<IGetAllChildStepsService, GetChildStepsService>();
             services.AddScoped<ICreateChildStepService, CreateChildStepService>();
             services.AddScoped<IDeleteChildStepService, DeleteChildStepService>();
             services.AddScoped<IUpdateChildStepService, UpdateChildStepService>();
@@ -149,21 +151,21 @@ namespace OU_API
             //Dependency Injecton For Linker
             services.AddScoped<IGetIndividualLinkerService, GetIndividualLinkerService>();
             services.AddScoped<IGetAllLinkersService, GetAllLinkersService>();
-            services.AddScoped<IAddLinkerService, AddLinkerService>();
+            services.AddScoped<ICreateLinkerService, AddLinkerService>();
             services.AddScoped<IDeleteLinkerService, DeleteLinkerService>();
             services.AddScoped<IUpdateLinkerService, UpdateLinkerService>();
 
 
             //Dependency Injecton For Roadmap
-            services.AddScoped<IGetIndivdualRoadMapService, GetIndividualRoadMapService>();
-            services.AddScoped<IGetAllRoadMapService, GetAllRoadMapService>();
-            services.AddScoped<ICreateRoadMapIndividualService, CreateRoadMapIndividualService>();
+            services.AddScoped<IGetIndividualRoadmapService, GetIndividualRoadMapService>();
+            services.AddScoped<IGetAllRoadmapsService, GetAllRoadMapService>();
+            services.AddScoped<ICreateRoadmapService, CreateRoadMapIndividualService>();
             services.AddScoped<IDeleteRoadmapService, DeleteRoadmapService>();
             services.AddScoped<IUpdateRoadmapService, UpdateRoadmapService>();
 
             //Dependency Injecton For Step
             services.AddScoped<IGetIndividualStepService, GetIndividualStepService>();
-            services.AddScoped<IGetAllStepService, GetAllStepService>();
+            services.AddScoped<IGetAllStepsService, GetAllStepService>();
             services.AddScoped<ICreateStepService, CreateStepService>();
             services.AddScoped<IDeleteStepService, DeleteStepService>();
             services.AddScoped<IUpdateStepService, UpdateStepService>();

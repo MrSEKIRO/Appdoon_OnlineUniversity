@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Validatores.StepValidatore
 {
-	public class StepValidatore : AbstractValidator<RequestCreateStepDto>
+	public class StepValidatore : AbstractValidator<CreateStepDto>
 	{
 		public StepValidatore()
 		{

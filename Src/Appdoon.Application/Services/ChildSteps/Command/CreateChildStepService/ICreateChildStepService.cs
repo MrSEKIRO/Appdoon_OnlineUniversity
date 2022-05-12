@@ -11,15 +11,15 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService
 {
-	public class RequestCreateChildStepDto
+	public class CreateChildStepDto
 	{
 		public string Title { get; set; } = string.Empty;
 		public string Description { get; set; }
 		public string Link { get; set; }
 		public int StepId { get; set; }
-		public List<LinkerDto> Linkers { get; set; }
+		public List<CreateLinkerDto> Linkers { get; set; }
 	}
-	public class LinkerDto
+	public class CreateLinkerDto
 	{
 		public string LinkTitle { get; set; } = string.Empty;
 		public string LinkURL { get; set; } = string.Empty;
@@ -27,7 +27,7 @@ namespace Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService
 
 	public interface ICreateChildStepService
 	{
-		ResultDto Execute(RequestCreateChildStepDto childStepDto);
+		ResultDto Execute(CreateChildStepDto childStepDto);
 	}
 	public class CreateChildStepService : ICreateChildStepService
 	{
@@ -36,7 +36,7 @@ namespace Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService
 		{
 			_context = context;
 		}
-		public ResultDto Execute(RequestCreateChildStepDto childStepDto)
+		public ResultDto Execute(CreateChildStepDto childStepDto)
 		{
 			try
 			{

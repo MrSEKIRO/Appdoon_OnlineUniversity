@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.Linkers.Command.UpdateLinkerService
 {
-	public class UpdateLinkerDto
+	public class UpdateLinkerLinkerDto
 	{
 		public string Title { get; set; } = string.Empty;
 		public string Link { get; set; } = string.Empty;
 	}
 	public interface IUpdateLinkerService
 	{
-		ResultDto Execute(int id, UpdateLinkerDto category);
+		ResultDto Execute(int id, UpdateLinkerLinkerDto category);
 	}
 
 	public class UpdateLinkerService : IUpdateLinkerService
@@ -28,7 +28,7 @@ namespace Appdoon.Application.Services.Linkers.Command.UpdateLinkerService
 		{
 			_context = context;
 		}
-		public ResultDto Execute(int id, UpdateLinkerDto link_front)
+		public ResultDto Execute(int id, UpdateLinkerLinkerDto link_front)
 		{
 			try
 			{

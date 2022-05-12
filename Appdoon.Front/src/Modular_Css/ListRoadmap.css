@@ -1,0 +1,16 @@
+.post-item-cart .content-page .cart-form .table tbody th .product-thumbnail-img:hover .product-remove {
+    transition: 0.2s;
+    opacity: 1;
+    visibility: visible;
+}
+
+.post-item-cart .content-page .cart-form .table tbody th .product-thumbnail-img {
+    width: 30%;
+    padding: 2px 5px;
+    display: inline-block;
+    position: relative;
+}
+
+.post-item-cart .content-page .cart-form .table tbody th .product-thumbnail-img img {
+    max-width: 100%;
+}
