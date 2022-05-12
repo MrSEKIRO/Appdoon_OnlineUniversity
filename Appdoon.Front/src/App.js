@@ -72,12 +72,13 @@ function App() {
           <Route path={`/create_child_step`} element={<CreateChildStep/>}/>
           <Route path={`/create_lesson`} element={<CreateLesson/>}/>
 
-          <Route path={`/edit_roadmap`} element={<EditRoadmap/>}/>
-          <Route path={`/edit_step`} element={<EditStep/>}/>
-          <Route path={`/edit_category`} element={<ListCategory/>}/>
+          <Route path={`/edit_roadmap/:id`} element={<EditRoadmap/>}/>
+          <Route path={`/edit_step/:id`} element={<EditStep/>}/>
           <Route path={`/edit_category/:id`} element={<EditCategory/>}/>
-          <Route path={`/edit_child_step`} element={<EditChildStep/>}/>
-          <Route path={`/edit_lesson`} element={<EditLesson/>}/>
+          <Route path={`/edit_child_step/:id`} element={<EditChildStep/>}/>
+          <Route path={`/edit_lesson/:id`} element={<EditLesson/>}/>
+
+          <Route path={`/edit_category`} element={<ListCategory/>}/>
           
           
           <Route path={`/Profile`} element={<Profile/>}/>

@@ -12,6 +12,12 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 {
+	public class CreateLessonDto
+	{
+		public string Title { get; set; } = string.Empty;
+		public string TopBannerSrc { get; set; } = string.Empty;
+		public string Text { get; set; } = string.Empty;
+	}
 	public interface ICreateLessonService
 	{
 		ResultDto Execute(HttpRequest httpRequest, string currentpath);
@@ -98,12 +104,5 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 				};
 			}
 		}
-	}
-
-	public class CreateLessonDto
-	{
-		public string Title { get; set; } = string.Empty;
-		public string TopBannerSrc { get; set; } = string.Empty;
-		public string Text { get; set; } = string.Empty;
 	}
 }

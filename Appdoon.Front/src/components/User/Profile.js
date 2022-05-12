@@ -1,6 +1,6 @@
 import {NavLink} from 'react-router-dom';
 import { useState } from "react";
-import useFetch from "../../useFetch";
+import useFetch from '../Common/useFetch';
 import { Col, Form } from "react-bootstrap";
 
 const Profile = () => {

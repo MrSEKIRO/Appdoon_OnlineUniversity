@@ -33,7 +33,6 @@ const ListCategory = () => {
             setError(null);
         })
         .catch(err => {
-            alert(err);
             if(err.name === 'AbortError'){
                 console.log('fetch aborted');
             }

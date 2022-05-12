@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 
-const useFetch = (url) =>{
+const useFetch = (url,sensetive) =>{
 
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
@@ -35,7 +35,7 @@ const useFetch = (url) =>{
 
         return () => abortCont.abort();
 
-    }, [url]);
+    }, [url,sensetive]);
 
     return {data, error};
 }

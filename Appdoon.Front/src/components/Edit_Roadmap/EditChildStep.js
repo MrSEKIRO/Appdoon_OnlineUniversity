@@ -1,5 +1,5 @@
 import {NavLink} from 'react-router-dom';
-import useFetch from '../../useFetch';
+import useFetch from '../Common/useFetch';
 import { useState } from "react";
 
 const EditChildStep = () => {

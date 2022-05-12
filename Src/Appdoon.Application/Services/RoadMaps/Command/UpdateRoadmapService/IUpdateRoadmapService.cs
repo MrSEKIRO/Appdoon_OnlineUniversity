@@ -1,6 +1,6 @@
 ﻿using Appdoon.Application.Interfaces;
-using Appdoon.Application.Validatores.LessonValidatore;
 using Appdoon.Common.Dtos;
+using Appdoon.Domain.Entities.RoadMaps;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -9,24 +9,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
+namespace Appdoon.Application.Services.RoadMaps.Command.UpdateRoadmapService
 {
-	public class UpdateLessonDto
-	{
-		public string Title { get; set; }
-		public string TopBannerSrc { get; set; }
-		public string Text { get; set; }
-	}
-	public interface IUpdateLessonService
+	public interface IUpdateRoadmapService
 	{
 		ResultDto Execute(int id, HttpRequest httpRequest, string currentpath);
 	}
 
-	public class UpdateLessonService : IUpdateLessonService
+	public class UpdateRoadmapService : IUpdateRoadmapService
 	{
 		private readonly IDatabaseContext _context;
 
-		public UpdateLessonService(IDatabaseContext context)
+		public UpdateRoadmapService(IDatabaseContext context)
 		{
 			_context = context;
 		}
@@ -43,8 +37,15 @@ namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
 				}
 
 				var Title = data[0];
-				var Text = data[1];
+				var Description = data[1];
 				var PhotoFileName = data[2];
+
+				List<string> CategoriesName = new List<string>();
+
+				for (int i = 3; i < data.Count; i++)
+				{
+					CategoriesName.Add(data[i]);
+				}
 
 				var imageSrc = "";
 				var TimeNow = DateTime.Now;
@@ -65,19 +66,30 @@ namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
 					imageSrc = PhotoFileName;
 				}
 
-				var les = _context.Lessons.Where(l => l.Id == id).FirstOrDefault();
+				var road = _context.RoadMaps.Where(r => r.Id == id).FirstOrDefault();
 
-				les.UpdateTime = TimeNow;
-				les.TopBannerSrc = imageSrc;
-				les.Title = Title;
-				les.Text = Text;
+				List<Category> categories = new List<Category>();
+				if (CategoriesName.Count != 0)
+				{
+					foreach (var item in CategoriesName)
+					{
+						Category category = _context.Categories.Where(s => s.Name == item).FirstOrDefault();
+						categories.Add(category);
+					}
+				}
+
+				road.UpdateTime = TimeNow;
+				road.ImageSrc = imageSrc;
+				road.Title = Title;
+				road.Description = Description;
+				road.Categories = categories;
 
 				_context.SaveChanges();
 
 				return new ResultDto()
 				{
 					IsSuccess = true,
-					Message = "مقاله بروزرسانی شد.",
+					Message = "رودمپ بروزرسانی شد.",
 				};
 			}
 			catch (Exception e)
@@ -85,7 +97,7 @@ namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
 				return new ResultDto()
 				{
 					IsSuccess = false,
-					Message = "خطا در بروزرسانی مقاله!",
+					Message = "خطا در بروزرسانی رودمپ!",
 				};
 			}
 		}
