@@ -2,8 +2,6 @@ using Appdoon.Application.Interfaces;
 using Appdoon.Application.Services.Categories.Command.ICreateCategoryService;
 using Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualService;
 using Appdoon.Application.Services.RoadMaps.Query.GetRoadMapService;
-using Appdoon.Application.Services.Users.LoginUserService;
-using Appdoon.Application.Services.Users.RegisterUserService;
 using Appdoon.Application.Validatores.UserValidatore;
 using Appdoon.Presistence.Contexts;
 using FluentValidation;
@@ -29,14 +27,16 @@ using Appdoon.Application.Services.Steps.Query.GetAllStepService;
 using Appdoon.Application.Services.Lessons.Query.GetLessonService;
 using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
 using Appdoon.Application.Services.Lessons.Query.GetAllLessonsService;
-using Appdoon.Application.Services.Users.GetUserService;
-using Appdoon.Application.Services.Users.EditUserService;
-using Appdoon.Application.Services.Users.GetRoadMapService;
-using Appdoon.Application.Services.Users.GetBookMarkRoadMapService;
 using Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService;
 using Appdoon.Application.Services.Categories.Query.GetIndividualCategoryService;
 using Appdoon.Application.Services.Categories.Command.DeleteCategoryService;
 using Appdoon.Application.Services.Categories.Command.UpdateCategoryService;
+using Appdoon.Application.Services.Users.Command.EditUserService;
+using Appdoon.Application.Services.Users.Command.LoginUserService;
+using Appdoon.Application.Services.Users.Command.RegisterUserService;
+using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
+using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
+using Appdoon.Application.Services.Users.Query.GetUserService;
 
 namespace OU_API
 {

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appdoon.Application.Services.Users.GetRoadMapService
+namespace Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService
 {
 	public interface IGetRegisteredRoadMapService
 	{

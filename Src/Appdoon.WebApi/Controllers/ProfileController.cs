@@ -1,7 +1,7 @@
-﻿using Appdoon.Application.Services.Users.EditUserService;
-using Appdoon.Application.Services.Users.GetBookMarkRoadMapService;
-using Appdoon.Application.Services.Users.GetRoadMapService;
-using Appdoon.Application.Services.Users.GetUserService;
+﻿using Appdoon.Application.Services.Users.Command.EditUserService;
+using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
+using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
+using Appdoon.Application.Services.Users.Query.GetUserService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appdoon.WebApi.Controllers

@@ -1,4 +1,4 @@
-﻿using Appdoon.Application.Services.Users.RegisterUserService;
+﻿using Appdoon.Application.Services.Users.Command.RegisterUserService;
 using Appdoon.Domain.Entities.Users;
 using FluentValidation;
 using System;

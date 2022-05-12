@@ -7,13 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-
-using Appdoon.Application.Services.Users.LoginUserService;
+using Appdoon.Application.Services.Users.Command.LoginUserService;
 
 namespace Appdoon.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
