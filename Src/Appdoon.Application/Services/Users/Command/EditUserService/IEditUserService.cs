@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appdoon.Application.Services.Users.EditUserService
+namespace Appdoon.Application.Services.Users.Command.EditUserService
 {
 	public interface IEditUserService
 	{
@@ -20,7 +20,7 @@ namespace Appdoon.Application.Services.Users.EditUserService
 		private readonly IDatabaseContext _context;
 
 		public EditUserService(IDatabaseContext context)
-		{ 
+		{
 			_context = context;
 		}
 		public ResultDto Execute(EditUserDto editUserDto)
@@ -77,7 +77,7 @@ namespace Appdoon.Application.Services.Users.EditUserService
 				user.FirstName = editUserDto.FirstName;
 				user.LastName = editUserDto.LastName;
 				user.Password = editUserDto.Password;
-				user.PhoneNumber=editUserDto.PhoneNumber;
+				user.PhoneNumber = editUserDto.PhoneNumber;
 
 				_context.SaveChanges();
 
