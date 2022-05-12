@@ -35,7 +35,6 @@ import Lesson from './Components/Roadmap/Lesson';
 import Lessons from './Components/Roadmap/Lessons';
 import ListCategory from './Components/List_Roadmap/ListCategory';
 
-
 function App() {
 
   return (

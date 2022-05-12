@@ -5055,7 +5055,7 @@ textarea.number-email-input{
 }
 
 .post-item-profile .profile-content .profile-stats table tr .value {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     color: #281e75;
 }
@@ -8335,7 +8335,7 @@ span.show-less {
     bottom: 10px;
     left: 15px;
     display: inline-block;
-    font-size: 22px;
+    font-size: 15px;
     font-weight: 300;
     margin-top: 10px;
     color: #ffffff;
@@ -8840,6 +8840,7 @@ span.show-less {
     margin: 0 10px 40px;
     display: inline-block;
     background-color: #3b80b1;
+    border-radius: 15px;
 }
 .wrapper {
     margin: 10px 0px;
@@ -8865,7 +8866,7 @@ span.show-less {
 .add-group-border:hover .add-group {
     width: 100%;
     height: 100%;
-    border-radius: 0;
+    border-radius: 0px;
     margin: 0 auto;
     -webkit-transition: all 370ms ease;
     -moz-transition: all 370ms ease;
