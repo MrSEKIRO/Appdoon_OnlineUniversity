@@ -1,107 +1,36 @@
 import {NavLink} from 'react-router-dom';
 import React,{Component, useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
+import useDelete from '../Common/useDelete';
+import useFetch from '../Common/useFetch';
+import useUpdate from '../Common/useUpdate';
 
 const EditCategory = () => {
 
     const {id} = useParams();
-    const [category, setCategory] = useState(null);
-    const url = process.env.REACT_APP_API + "category/"+id;
-    const [error, setError] = useState(null);
-
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "category/"+id);
+    const [sensetive, setSensetive] = useState(false);
+    const {data : category, error} = useFetch(url,sensetive);
     
-
-
-    useEffect(() =>{
-        
-        fetch(url,{
-            
-            method : "Get",
-            headers : {"Content-Type" : "application/json"}
-            
-        }).then(res => {
-            
-            if(!res.ok){
-                throw Error('could not fetch!');
-            }
-            return res.json();
-        })
-        .then(data => {
-            setCategory(data.Data);
-            setError(null);
-        })
-        .catch(err => {
-            if(err.name === 'AbortError'){
-                console.log('fetch aborted');
-            }
-            else{
-                setError(err.message);
-            }
-        })
-    },[url,category]);
+    const HandleMessage = (resmess,colormess,id = "result_message") => {
+        document.getElementById(id).style.color = colormess;
+        document.getElementById(id).innerHTML = resmess;
+        setSensetive(!sensetive);
+    }
     
-
-    const handleUpdate = (event) => {
+    const HandleUpdate = async(event) => {
         event.preventDefault();
-        
-        
-        fetch(url,{
-            method:"Put",
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            
-            body:JSON.stringify({
-                Name:event.target.EditName.value,
-                Link:event.target.EditLink.value,
-            })
-        })
-        
-        .then(res=>res.json())
-        .then((result)=>{
-            if(result.IsSuccess){
-                document.getElementById("result_message").style.color = "green";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            else{
-                document.getElementById("result_message").style.color = "red";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            
-            
-            
-        },
-        (error)=>{
-            document.getElementById("result_message").style.color = "red";
-            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
-        })
+        const body = JSON.stringify({
+            Name:event.target.EditName.value,
+            Link:event.target.EditLink.value,
+        });
+        const [resmess, colormess] = await useUpdate(url,body);
+        HandleMessage(resmess,colormess);
     }
 
-    const handleDelete = () => {
-        fetch(url,{
-            method:"Delete",
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-        })
-        
-        .then(res=>res.json())
-        .then((result)=>{
-            if(result.IsSuccess){
-                document.getElementById("result_message").style.color = "green";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            else{
-                document.getElementById("result_message").style.color = "red";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-        },
-        (error)=>{
-            document.getElementById("result_message").style.color = "red";
-            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
-        })
+    const HandleDelete = async() => {
+        const [resmess, colormess] = await useDelete(url);
+        HandleMessage(resmess,colormess);
     }
 
     return(
@@ -149,7 +78,7 @@ const EditCategory = () => {
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
                                                 <h4>ویرایش دسته</h4>
-                                                <form onSubmit={handleUpdate} action="#" class="form-account text-right">
+                                                <form onSubmit={HandleUpdate} action="#" class="form-account text-right">
 
 
 
@@ -197,7 +126,7 @@ const EditCategory = () => {
                                                 </form>
 
 
-                                                <button variant="primary" onClick={() => handleDelete()} class="btn btn-primary btn-login">حذف دسته‌</button>
+                                                <button variant="primary" onClick={() => HandleDelete()} class="btn btn-primary btn-login">حذف دسته‌</button>
 
 
                                             </div>
