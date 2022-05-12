@@ -1,16 +1,15 @@
-﻿using Appdoon.Domain.Entities.RoadMaps;
-using Appdoon.Application.Interfaces;
+﻿using Appdoon.Application.Interfaces;
+using Appdoon.Application.Validatores.RoadMapValidatore;
 using Appdoon.Common.Dtos;
+using Appdoon.Domain.Entities.RoadMaps;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 
 
 namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividualService
@@ -18,16 +17,16 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 	public class RequestCreateRoadmapDto
 	{
 		public string Title { get; set; }
-        public string Description { get; set; }
+		public string Description { get; set; }
 		public string PhotoFileName { get; set; }
 		public List<int> CategoriesId { get; set; }
-    }
+	}
 
 
-    public interface ICreateRoadMapIndividualService
-    {
-        ResultDto Execute(HttpRequest httpRequest, string currentpath);
-    }
+	public interface ICreateRoadMapIndividualService
+	{
+		ResultDto Execute(HttpRequest httpRequest, string currentpath);
+	}
 	public class CreateRoadMapIndividualService : ICreateRoadMapIndividualService
 	{
 		private readonly IDatabaseContext _context;
@@ -42,12 +41,9 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 		{
 			try
 			{
-
-
 				List<string> data = new List<string>();
 
-
-				foreach (var key in httpRequest.Form.Keys)
+				foreach(var key in httpRequest.Form.Keys)
 				{
 					var val = httpRequest.Form[key];
 					data.Add(val);
@@ -59,21 +55,14 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 
 				List<string> CategoriesName = new List<string>();
 
-				for (int i = 3; i < data.Count; i++)
-                {
+				for(int i = 3; i < data.Count; i++)
+				{
 					CategoriesName.Add(data[i]);
 				}
 
-
-
-
-
-
-
-
 				//Uniqueness(Title)
-				if (_context.RoadMaps.Where(s => s.Title == Title.ToString()).Count() != 0)
-                {
+				if(_context.RoadMaps.Any(s => s.Title == Title.ToString()) == true)
+				{
 					return new ResultDto()
 					{
 						IsSuccess = false,
@@ -83,12 +72,12 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 
 				var imageSrc = "";
 
-				if (httpRequest.Form.Files.Count() != 0)
+				if(httpRequest.Form.Files.Count() != 0)
 				{
 					var postedFile = httpRequest.Form.Files[0];
 					string filename = postedFile.FileName;
 					var physicalPath = currentpath + "/Photos/" + $"({Title})" + filename;
-					using (var stream = new FileStream(physicalPath, FileMode.Create))
+					using(var stream = new FileStream(physicalPath, FileMode.Create))
 					{
 						postedFile.CopyTo(stream);
 					}
@@ -100,21 +89,20 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 					imageSrc = PhotoFileName;
 				}
 
-
-
 				List<Category> categories = new List<Category>();
-				if (CategoriesName.Count != 0)
-                {
-					foreach (var item in CategoriesName)
+				if(CategoriesName.Count != 0)
+				{
+					foreach(var item in CategoriesName)
 					{
 						Category category = _context.Categories.Where(s => s.Name == item).FirstOrDefault();
-						categories.Add(category);
+						if(category != null)
+							categories.Add(category);
 					}
 				}
 
+				//////////////////////
 
 				
-
 				var roadmap = new RoadMap()
 				{
 					Title = Title.ToString(),
@@ -123,10 +111,21 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 					Categories = categories,
 				};
 
+				// validate inputes
+				RoadMapValidatore validationRules = new RoadMapValidatore();
+				var result = validationRules.Validate(roadmap);
+
+				if(result.IsValid == false)
+				{
+					return new ResultDto()
+					{
+						IsSuccess = false,
+						Message = result.Errors[0].ErrorMessage,
+					};
+				}
+
 				_context.RoadMaps.Add(roadmap);
 				_context.SaveChanges();
-
-
 
 				return new ResultDto()
 				{
@@ -134,7 +133,7 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 					Message = "رودمپ ساخته شد",
 				};
 			}
-			catch (Exception e)
+			catch(Exception e)
 			{
 				return new ResultDto()
 				{
@@ -143,8 +142,8 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 				};
 			}
 		}
+		#region Ajax Get Image
 		/*
-
 		private static string ExtractImages(IFormFile image, IHostingEnvironment environment)
 		{
 			var uploadResult = UploadFile(image, environment);
@@ -194,6 +193,7 @@ namespace Appdoon.Application.Services.RoadMaps.Command.ICreateRoadMapIndividual
 			}
 		}
 		*/
+		#endregion
 	}
 
 	public class UploadDto

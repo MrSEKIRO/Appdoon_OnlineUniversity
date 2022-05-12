@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appdoon.Application.Services.Users.RegisterUserService
+namespace Appdoon.Application.Services.Users.Command.RegisterUserService
 {
 	public class RequestRegisterUserDto
 	{
