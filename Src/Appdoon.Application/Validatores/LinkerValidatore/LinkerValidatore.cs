@@ -1,4 +1,4 @@
-﻿using Appdoon.Application.Services.Linkers.Command.AddLinkerService;
+﻿using Appdoon.Application.Services.Linkers.Command.CreateLinkerService;
 using Appdoon.Application.Validatores.CommonValidatores;
 using FluentValidation;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Validatores.LinkerValidatore
 {
-	public class LinkerValidatore:AbstractValidator<AddLinkerDto>
+    public class LinkerValidatore:AbstractValidator<CreateLinkerLinkerDto>
 	{
 		public LinkerValidatore()
 		{

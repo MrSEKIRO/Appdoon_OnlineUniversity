@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appdoon.Application.Services.Categories.Query.GetCategoriesService
+namespace Appdoon.Application.Services.Categories.Query.GetAllCategoriesService
 {
     public class CategoryDto
     {
@@ -15,12 +15,12 @@ namespace Appdoon.Application.Services.Categories.Query.GetCategoriesService
         public string Name { get; set; }
         public string Link { get; set; }
     }
-    public interface IGetCategoriesService
+    public interface IGetAllCategoriesService
     {
         public ResultDto<List<CategoryDto>> Execute();
     }
 
-    public class GetCategoriesService : IGetCategoriesService
+    public class GetCategoriesService : IGetAllCategoriesService
     {
         private readonly IDatabaseContext _context;
 
@@ -48,7 +48,7 @@ namespace Appdoon.Application.Services.Categories.Query.GetCategoriesService
                 };
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new ResultDto<List<CategoryDto>>()
                 {

@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import useFetch from '../Common/useFetch';
 
 
-const ListCategory = () => {
+const ListLink = () => {
     const [url, setUrl] = useState(process.env.REACT_APP_API + "category");
     const [sensetive, setSensetive] = useState(false);
     const {data : categories, error} = useFetch(url,sensetive);
@@ -127,4 +127,4 @@ const ListCategory = () => {
 
 }
 
-export default ListCategory;
+export default ListLink;

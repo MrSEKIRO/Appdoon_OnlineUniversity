@@ -17,12 +17,12 @@ namespace Appdoon.Application.Services.Steps.Query.GetAllStepService
 
 		public List<ChildStep> ChildSteps { get; set; }
 	}
-	public interface IGetAllStepService
+	public interface IGetAllStepsService
     {
         ResultDto<List<StepDto>> Execute();
     }
 
-	public class GetAllStepService : IGetAllStepService
+	public class GetAllStepService : IGetAllStepsService
     {
 		private readonly IDatabaseContext _context;
 

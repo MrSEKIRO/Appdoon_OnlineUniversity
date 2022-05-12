@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appdoon.Application.Services.ChildSteps.Query.GetChildStepsService
+namespace Appdoon.Application.Services.ChildSteps.Query.GetAllChildStepsService
 {
     public class ChildStepDto
     {
@@ -19,12 +19,12 @@ namespace Appdoon.Application.Services.ChildSteps.Query.GetChildStepsService
         public List<Linker> Linkers { get; set; }
     }
 
-    public interface IGetChildStepsService
+    public interface IGetAllChildStepsService
     {
         public ResultDto<List<ChildStepDto>> Execute();
     }
 
-    public class GetChildStepsService : IGetChildStepsService
+    public class GetChildStepsService : IGetAllChildStepsService
     {
         private readonly IDatabaseContext _context;
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Validatores.ChildStepValidatore
 {
-	public class ChildStepValidatore : AbstractValidator<RequestCreateChildStepDto>
+	public class ChildStepValidatore : AbstractValidator<CreateChildStepDto>
 	{
 		public ChildStepValidatore()
 		{

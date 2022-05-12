@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.Steps.Command.CreateStepService
 {
-    public class RequestCreateStepDto
+    public class CreateStepDto
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; }
@@ -20,7 +20,7 @@ namespace Appdoon.Application.Services.Steps.Command.CreateStepService
 
     public interface ICreateStepService
     {
-        ResultDto Execute(RequestCreateStepDto StepDto);
+        ResultDto Execute(CreateStepDto StepDto);
     }
     public class CreateStepService : ICreateStepService
     {
@@ -31,7 +31,7 @@ namespace Appdoon.Application.Services.Steps.Command.CreateStepService
             _context = context;
         }
 
-        public ResultDto Execute(RequestCreateStepDto StepDto)
+        public ResultDto Execute(CreateStepDto StepDto)
         {
             try
             {

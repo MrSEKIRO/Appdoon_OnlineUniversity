@@ -2,7 +2,7 @@
 using Appdoon.Application.Services.Lessons.Command.DeleteLessonService;
 using Appdoon.Application.Services.Lessons.Command.UpdateLessonService;
 using Appdoon.Application.Services.Lessons.Query.GetAllLessonsService;
-using Appdoon.Application.Services.Lessons.Query.GetLessonService;
+using Appdoon.Application.Services.Lessons.Query.GetIndividualLessonService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,15 +18,21 @@ namespace Appdoon.WebApi.Controllers
     [ApiController]
     public class LessonController : ControllerBase
     {
+        //Get All
         private readonly IGetAllLessonsService _getAllLessonsService;
-        private readonly IGetLessonService _getLessonService;
+        //Get Individual
+        private readonly IGetIndividualLessonService _getLessonService;
+        //Create
         private readonly ICreateLessonService _createLessonService;
+        //Delete
         private readonly IDeleteLessonService _deleteLessonService;
+        //Update
         private readonly IUpdateLessonService _updateLessonService;
+
         private readonly IWebHostEnvironment _env;
 
         public LessonController(IGetAllLessonsService getAllLessonsService,
-                                IGetLessonService getLessonService,
+                                IGetIndividualLessonService getLessonService,
                                 ICreateLessonService createLessonService,
                                 IDeleteLessonService deleteLessonService,
                                 IUpdateLessonService updateLessonService,
@@ -50,7 +56,7 @@ namespace Appdoon.WebApi.Controllers
 
         // GET api/<LessonController>/5
         [HttpGet("{id}")]
-        public JsonResult Get(LessonIdDto id)
+        public JsonResult Get(int id)
         {
             var result = _getLessonService.Execute(id);
             return new JsonResult(result);
@@ -58,7 +64,7 @@ namespace Appdoon.WebApi.Controllers
 
         // POST api/<LessonController>
         [HttpPost]
-        public JsonResult Create()
+        public JsonResult Post()
         {
             var result = _createLessonService.Execute(Request, _env.ContentRootPath);
             return new JsonResult(result);

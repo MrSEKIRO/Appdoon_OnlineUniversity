@@ -1,7 +1,7 @@
-﻿using Appdoon.Application.Services.Categories.Command.DeleteCategoryService;
-using Appdoon.Application.Services.Categories.Command.ICreateCategoryService;
+﻿using Appdoon.Application.Services.Categories.Command.CreateCategoryService;
+using Appdoon.Application.Services.Categories.Command.DeleteCategoryService;
 using Appdoon.Application.Services.Categories.Command.UpdateCategoryService;
-using Appdoon.Application.Services.Categories.Query.GetCategoriesService;
+using Appdoon.Application.Services.Categories.Query.GetAllCategoriesService;
 using Appdoon.Application.Services.Categories.Query.GetIndividualCategoryService;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,7 +18,7 @@ namespace Appdoon.WebApi.Controllers
     public class CategoryController : ControllerBase
     {
         //Get All
-        private readonly IGetCategoriesService _getCategoriesService;
+        private readonly IGetAllCategoriesService _getCategoriesService;
         //Get Individual
         private readonly IGetIndividualCategoryService _getIndividualCategoryService;
         //Create
@@ -29,7 +29,7 @@ namespace Appdoon.WebApi.Controllers
         private readonly IUpdateCategoryService _updateCategoryService;
 
 
-        public CategoryController(IGetCategoriesService getCategoriesService,
+        public CategoryController(IGetAllCategoriesService getCategoriesService,
                                   IGetIndividualCategoryService getIndividualCategoryService,
                                   ICreateCategoryService createCategoryService,
                                   IDeleteCategoryService deleteCategoryService,
@@ -61,7 +61,7 @@ namespace Appdoon.WebApi.Controllers
 
         // POST api/<CategoryController>
         [HttpPost]
-        public JsonResult Create(RequestCreateCategoryDto Category)
+        public JsonResult Create(CreateCategoryDto Category)
         {
             var result = _createCategoryService.Execute(Category);
             return new JsonResult(result);

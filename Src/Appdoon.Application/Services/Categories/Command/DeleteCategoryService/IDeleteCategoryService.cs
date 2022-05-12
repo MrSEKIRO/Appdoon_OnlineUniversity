@@ -26,18 +26,15 @@ namespace Appdoon.Application.Services.Categories.Command.DeleteCategoryService
 		{
 			try
 			{
-
-				//Existence(id)
-				if (_context.Categories.Where(s => s.Id == id).Count() == 0)
-				{
+				var cat = _context.Categories.Where(s => s.Id == id).FirstOrDefault();
+				if(cat == null)
+                {
 					return new ResultDto()
 					{
 						IsSuccess = false,
 						Message = "این آیدی وجود ندارد!",
 					};
 				}
-
-				var cat = _context.Categories.Where(s => s.Id == id).FirstOrDefault();
 
 				cat.IsRemoved = true;
 				cat.RemoveTime = DateTime.Now;
@@ -46,7 +43,7 @@ namespace Appdoon.Application.Services.Categories.Command.DeleteCategoryService
 				return new ResultDto()
 				{
 					IsSuccess = true,
-					Message = "دسته حدف شد.",
+					Message = "دسته حذف شد.",
 				};
 			}
 			catch (Exception e)

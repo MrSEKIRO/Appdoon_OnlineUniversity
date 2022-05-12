@@ -15,10 +15,10 @@ namespace Appdoon.Application.Services.ChildSteps.Command.UpdateChildStepService
 		public string Description { get; set; }
 		public string Link { get; set; }
 		public int StepId { get; set; }
-		public List<LinkerDto> Linkers { get; set; }
+		public List<UpdateLinkerDto> Linkers { get; set; }
 
 	}
-	public class LinkerDto
+	public class UpdateLinkerDto
 	{
 		public string LinkTitle { get; set; } = string.Empty;
 		public string LinkURL { get; set; } = string.Empty;
