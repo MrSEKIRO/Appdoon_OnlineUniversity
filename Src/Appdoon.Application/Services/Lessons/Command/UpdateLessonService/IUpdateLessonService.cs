@@ -1,4 +1,5 @@
 ﻿using Appdoon.Application.Interfaces;
+using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
 using Appdoon.Application.Validatores.LessonValidatore;
 using Appdoon.Common.Dtos;
 using Microsoft.AspNetCore.Http;
@@ -65,12 +66,38 @@ namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
 					imageSrc = PhotoFileName;
 				}
 
-				var les = _context.Lessons.Where(l => l.Id == id).FirstOrDefault();
+				///////////////////////
 
-				les.UpdateTime = TimeNow;
-				les.TopBannerSrc = imageSrc;
-				les.Title = Title;
-				les.Text = Text;
+				var lessonDto = new UpdateLessonDto()
+				{
+					Text = Text,
+					Title = Title,
+					TopBannerSrc = imageSrc,
+				};
+
+				LessonValidatore validationRules = new LessonValidatore();
+				var result = validationRules.Validate(new CreateLessonDto()
+				{
+					Text = lessonDto.Text,
+					Title = lessonDto.Title,
+					TopBannerSrc = lessonDto.TopBannerSrc,
+				});
+
+				if(result.IsValid == false)
+				{
+					return new ResultDto()
+					{
+						IsSuccess = false,
+						Message = result.Errors[0].ErrorMessage,
+					};
+				}
+
+				var lesoon = _context.Lessons.Where(l => l.Id == id).FirstOrDefault();
+
+				lesoon.UpdateTime = TimeNow;
+				lesoon.TopBannerSrc = imageSrc;
+				lesoon.Title = Title;
+				lesoon.Text = Text;
 
 				_context.SaveChanges();
 

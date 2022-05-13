@@ -1,4 +1,5 @@
 ﻿using Appdoon.Application.Interfaces;
+using Appdoon.Application.Services.Linkers.Command.CreateLinkerService;
 using Appdoon.Application.Validatores.ChildStepValidatore;
 using Appdoon.Application.Validatores.LinkerValidatore;
 using Appdoon.Common.Dtos;
@@ -61,9 +62,13 @@ namespace Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService
 						Link = childStepDto.Linkers[i].LinkURL
 					};
 
-					/*
+					
                     LinkerValidatore validationRulesLink = new LinkerValidatore();
-                    var resultLink = validationRulesLink.Validate();
+                    var resultLink = validationRulesLink.Validate(new CreateLinkerLinkerDto()
+					{
+						Title=linker.Title,
+						Link=linker.Link,
+					});
 
                     if (resultLink.IsValid == false)
                     {
@@ -73,9 +78,7 @@ namespace Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService
                             Message = result.Errors[0].ErrorMessage,
                         };
                     }
-                    */
-
-
+                    
 					linkers.Add(linker);
 				}
 
