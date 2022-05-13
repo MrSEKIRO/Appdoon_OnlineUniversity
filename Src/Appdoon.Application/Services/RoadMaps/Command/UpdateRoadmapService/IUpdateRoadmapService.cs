@@ -1,4 +1,5 @@
 ﻿using Appdoon.Application.Interfaces;
+using Appdoon.Application.Validatores.RoadMapValidatore;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
 using Microsoft.AspNetCore.Http;
@@ -66,7 +67,11 @@ namespace Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService
                     imageSrc = PhotoFileName;
                 }
 
-                var road = _context.RoadMaps.Where(r => r.Id == id).FirstOrDefault();
+
+                //////////////////////
+
+
+                var roamap = _context.RoadMaps.Where(r => r.Id == id).FirstOrDefault();
 
                 List<Category> categories = new List<Category>();
                 if (CategoriesName.Count != 0)
@@ -78,11 +83,39 @@ namespace Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService
                     }
                 }
 
-                road.UpdateTime = TimeNow;
-                road.ImageSrc = imageSrc;
-                road.Title = Title;
-                road.Description = Description;
-                road.Categories = categories;
+                RoadMapValidatore validationRules = new RoadMapValidatore();
+                var result = validationRules.Validate(new RoadMap()
+                {
+                    Title = Title,
+                    ImageSrc = imageSrc,
+                    Description = Description,
+                });
+
+                List<string> properties = new List<string>()
+                {
+                    "Title",
+                    "ImageSrc",
+                    "Description",
+                };
+
+                var errors = result.Errors.Where(e => properties.Contains(e.PropertyName) == true)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+				if(errors.Count > 0)
+				{
+                    return new ResultDto()
+                    {
+                        IsSuccess = false,
+                        Message = errors[0],
+                    };
+				}
+
+                roamap.UpdateTime = TimeNow;
+                roamap.ImageSrc = imageSrc;
+                roamap.Title = Title;
+                roamap.Description = Description;
+                roamap.Categories = categories;
 
                 _context.SaveChanges();
 

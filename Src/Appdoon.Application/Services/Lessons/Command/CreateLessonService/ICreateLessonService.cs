@@ -63,7 +63,8 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 				{
 					var postedFile = httpRequest.Form.Files[0];
 					string filename = postedFile.FileName;
-					var physicalPath = currentpath + "/Photos/Lesson/" + $"({Title})" + filename;
+					//var physicalPath = currentpath + "/Photos/Lesson/" + $"({Title})" + filename;
+					var physicalPath = currentpath + "/Photos/Lesson/" + $"({Title}+{DateTime.Now})" + filename;
 					using (var stream = new FileStream(physicalPath, FileMode.Create))
 					{
 						postedFile.CopyTo(stream);
