@@ -75,7 +75,7 @@ namespace Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService
                         return new ResultDto()
                         {
                             IsSuccess = false,
-                            Message = result.Errors[0].ErrorMessage,
+                            Message = $":لینکر {i+1}"+result.Errors[0].ErrorMessage,
                         };
                     }
                     
