@@ -1,42 +1,36 @@
 import {NavLink} from 'react-router-dom';
 import { useState } from "react";
+import useCreate from '../Common/useCreate';
 
 const CreateCategory = () => {
+    
 
-    const handleSubmit = (event) => {
+    const [urlPost, setUrlPost] = useState(process.env.REACT_APP_API + "category");
+    const [sensetive, setSensetive] = useState(false);
+
+    const HandleMessage = (resmess,colormess,id = "result_message") => {
+        document.getElementById(id).style.color = colormess;
+        document.getElementById(id).innerHTML = resmess;
+        setSensetive(!sensetive);
+    }
+
+    const HandleCreate = async(event) => {
         event.preventDefault();
+
         
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateCategory',{
-            method:"POST",
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            
-            body:JSON.stringify({
-                Name:event.target.Name.value,
-                Link:event.target.Link.value,
-            })
+        let header = {
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        }
+
+        let body = JSON.stringify({
+            Name:event.target.Name.value,
+            Link:event.target.Link.value,
         })
-        
-        .then(res=>res.json())
-        .then((result)=>{
-            if(result.IsSuccess){
-                document.getElementById("result_message").style.color = "green";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            else{
-                document.getElementById("result_message").style.color = "red";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            
-            
-            
-        },
-        (error)=>{
-            document.getElementById("result_message").style.color = "red";
-            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
-        })
+
+
+        const [resmess, colormess] = await useCreate(urlPost,body,header);
+        HandleMessage(resmess,colormess);
     }
 
     return(
@@ -83,7 +77,7 @@ const CreateCategory = () => {
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
                                                 <h4>ساخت دسته</h4>
-                                                <form onSubmit={handleSubmit} action="#" class="form-account text-right">
+                                                <form onSubmit={HandleCreate} action="#" class="form-account text-right">
 
 
 
@@ -99,17 +93,6 @@ const CreateCategory = () => {
                                                         <label for="email-phone">لینک</label>
                                                         <input type="text-area" class="number-email-input" name="Link"/>
                                                     </div>
-
-
-                                                    {/*
-                                                    <div class="form-auth-row">
-                                                        <label for="#" class="ui-checkbox mt-1">
-                                                            <input type="checkbox" value="1" name="login" id="remember"/>
-                                                            <span class="ui-checkbox-check"></span>
-                                                        </label>
-                                                        <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
-                                                    </div>
-                                                    */}
 
 
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>

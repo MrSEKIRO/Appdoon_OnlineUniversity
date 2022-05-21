@@ -14,8 +14,6 @@ namespace Appdoon.Application.Services.Steps.Command.UpdateStepService
 		public string? Description { get; set; }
 		public string? Link { get; set; }
 
-		public int RoadMapId { get; set; }
-
 	}
 	public interface IUpdateStepService
 	{
@@ -63,7 +61,6 @@ namespace Appdoon.Application.Services.Steps.Command.UpdateStepService
 				step_back.Title = step_front.Title;
 				step_back.Description = step_front.Description;
 				step_back.Link = step_front.Link;
-				step_back.RoadMapId = step_front.RoadMapId;
 				step_back.UpdateTime = DateTime.Now;
 				_context.SaveChanges();
 

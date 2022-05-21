@@ -62,17 +62,19 @@ namespace Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService
                 }
 
                 var imageSrc = "";
+                var TimeNow = DateTime.Now;
+                var ImageName = Title + "_" + TimeNow.Ticks.ToString();
 
                 if (httpRequest.Form.Files.Count() != 0)
                 {
                     var postedFile = httpRequest.Form.Files[0];
                     string filename = postedFile.FileName;
-                    var physicalPath = currentpath + "/Photos/" + $"({Title})" + filename;
+                    var physicalPath = currentpath + "/Photos/Roadmap/" + $"({ImageName})" + filename;
                     using (var stream = new FileStream(physicalPath, FileMode.Create))
                     {
                         postedFile.CopyTo(stream);
                     }
-                    imageSrc = $"({Title})" + PhotoFileName.ToString();
+                    imageSrc = $"({ImageName})" + PhotoFileName.ToString();
                 }
                 else
                 {

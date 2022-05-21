@@ -1,50 +1,46 @@
 import {NavLink} from 'react-router-dom';
-import { useState } from "react";
 import useFetch from '../Common/useFetch';
-import { Col, Form } from "react-bootstrap";
+import { useState } from "react";
+import useCreate from '../Common/useCreate';
 
+const CreateStep = () => {
 
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "roadmap");
+    const [urlPost, setUrlPost] = useState(process.env.REACT_APP_API + "step");
+    const [sensetive, setSensetive] = useState(false);
+    const {data : roadmaps, error} = useFetch(url,sensetive);
 
+    const HandleMessage = (resmess,colormess,id = "result_message") => {
+        document.getElementById(id).style.color = colormess;
+        document.getElementById(id).innerHTML = resmess;
+        setSensetive(!sensetive);
+    }
 
-const CreateLesson = () => {
-
-    const [field, setField] = useState([]);
-
-    const handleSubmit = (event) => {
+    const HandleCreate = async(event) => {
         event.preventDefault();
-        let imagesrc = "1.jpg";
-        const formData = new FormData();
 
-        if(event.target.Photo.files.length){
-            imagesrc = event.target.Photo.files[0].name;
-            formData.append("myFile",event.target.Photo.files[0]);
+
+
+        
+        if(event.target.Roadmap.options[event.target.Roadmap.selectedIndex].value == "default"){
+            HandleMessage("یک رودمپ انتخاب کنید!","red");
+            throw "یک رودمپ انتخاب کنید!"; 
         }
 
-        formData.append("Title",event.target.Title.value);
-        formData.append("Text",event.target.Text.value);
-        formData.append("PhotoFileName",imagesrc);
-        
+        let header = {
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        }
 
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateLesson',{
-            method:"POST",
-            body:formData
+        let body = JSON.stringify({
+            Title:event.target.Title.value,
+            Description:event.target.Description.value,
+            Link:event.target.Link.value,
+            RoadMapId:event.target.Roadmap.options[event.target.Roadmap.selectedIndex].value,
         })
         
-        .then(res=>res.json())
-        .then((result)=>{
-            if(result.IsSuccess){
-                document.getElementById("result_message").style.color = "green";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            else{
-                document.getElementById("result_message").style.color = "red";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-        },
-        (error)=>{
-            document.getElementById("result_message").style.color = "red";
-            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
-        })
+        const [resmess, colormess] = await useCreate(urlPost,body,header);
+        HandleMessage(resmess,colormess);
     }
 
     return(
@@ -71,7 +67,7 @@ const CreateLesson = () => {
                                                 <span class="sub-title">دسته‌بندی رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/create_step" class="register-ds">
+                                            <NavLink to="/create_step" class="register-ds active">
                                                 <span class="title">قدم‌</span>
                                                 <span class="sub-title">مراحل رودمپ</span>
                                             </NavLink>
@@ -80,51 +76,62 @@ const CreateLesson = () => {
                                                 <span class="title">محتوا‌</span>
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
-
-                                            <NavLink to="/create_lesson" class="register-ds active">
+                                            <NavLink to="/create_lesson" class="register-ds">
                                                 <span class="title">مقاله</span>
                                                 <span class="sub-title">مقاله درونی</span>
                                             </NavLink>
 
 
-
                                         </div>
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
-                                                <h4>ساخت مقاله</h4>
-                                                <form onSubmit={handleSubmit} action="#" class="form-account text-right">
+                                                <h4>ساخت قدم</h4>
+                                                <form onSubmit={HandleCreate} action="#" class="form-account text-right">
 
 
 
 
 
                                                     <div class="form-account-title">
-                                                        <label for="Title">نام مقاله</label>
+                                                        <label for="email-phone">نام قدم</label>
                                                         <input type="text" class="number-email-input" name="Title"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
-                                                        <label for="Text">متن</label>
-                                                        <textarea class="number-email-input" name="Text"/>
+                                                        <label for="email-phone">توضیحات</label>
+                                                        <textarea class="number-email-input" name="Description"/>
                                                     </div>
 
                                                     <div class="form-account-title">
-                                                        <label for="Photo">بنر مقاله</label>
-                                                        <input class="form-control" type="File" name='Photo'/>
+                                                        <label for="email-phone">لینک</label>
+                                                        <input type="text" class="number-email-input" name="Link"/>
                                                     </div>
 
 
-                                                    {/*
-                                                    <div class="form-auth-row">
-                                                        <label for="#" class="ui-checkbox mt-1">
-                                                            <input type="checkbox" value="1" name="login" id="remember"/>
-                                                            <span class="ui-checkbox-check"></span>
-                                                        </label>
-                                                        <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
+
+
+                                                    <div class="form-account-title">
+                                                        <label for="Roadmap">رودمپ‌</label>
+                                                        {roadmaps.length > 0 && (
+                                                            <select name = "Roadmap" class="form-select" aria-label="Default select example">
+                                                                <option value="default">
+                                                                    انتخاب کنید
+                                                                </option>
+                                                                {roadmaps.map((data, idx) => (
+                                                                    <option value={data.Id}>
+                                                                        {data.Title}
+                                                                    </option>
+                                                                ))}
+                                                            </select>
+                                                            )
+                                                        }
+                                                        
+                                                        {roadmaps.length == 0 &&(
+                                                                <div></div>
+                                                            )
+                                                        }
                                                     </div>
-                                                    */
-                                                    }
 
 
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
@@ -132,8 +139,10 @@ const CreateLesson = () => {
                                                     </div>
 
                                                     <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ساخت مقاله</button>
+                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ساخت قدم</button>
                                                     </div>
+
+
 
 
 
@@ -165,4 +174,4 @@ const CreateLesson = () => {
 }
 
 
-export default CreateLesson;
+export default CreateStep;

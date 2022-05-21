@@ -14,7 +14,7 @@ const Lesson = () => {
     
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
-    const url = process.env.REACT_APP_API + 'RoadMaps/GetLesson';
+    const url = process.env.REACT_APP_API + 'lesson/' + id;
 
     useEffect(() => {
 
@@ -23,11 +23,8 @@ const Lesson = () => {
 
         fetch(url,{
             
-            method : "POST",
+            method : "GET",
             headers : {"Content-Type" : "application/json"},
-            body:JSON.stringify({
-                LessonId:id
-            })
             
         }).then(res => {
             

@@ -1,56 +1,86 @@
 import {NavLink} from 'react-router-dom';
 import useFetch from '../Common/useFetch';
 import { useState } from "react";
+import useCreate from '../Common/useCreate';
 
-const EditChildStep = () => {
+const CreateChildStep = () => {
 
-    const {data : step, error1} = useFetch(process.env.REACT_APP_API+'RoadMaps/GetSteps');
-    const {data : roadmaps, error2} = useFetch(process.env.REACT_APP_API+'RoadMaps/Index');
+    const [urlStep, setUrlStep] = useState(process.env.REACT_APP_API + "step");
+    const [urlRoadmap, setUrlRoadmap] = useState(process.env.REACT_APP_API + "roadmap");
+    const [urlPost, setUrlPost] = useState(process.env.REACT_APP_API + "childstep");
+    const [sensetive, setSensetive] = useState(false);
+    const {data : step, errorStep} = useFetch(urlStep,sensetive);
+    const {data : roadmaps, errorRoadmaps} = useFetch(urlRoadmap,sensetive);
 
     const [selectedRoadmapId, setSelectedRoadmapId] = useState(-1);
 
-    const handleSubmit = (event) => {
+    const HandleMessage = (resmess,colormess,id = "result_message") => {
+        document.getElementById(id).style.color = colormess;
+        document.getElementById(id).innerHTML = resmess;
+        setSensetive(!sensetive);
+    }
+
+    const HandleCreate = async(event) => {
         event.preventDefault();
-        
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/EditChildStep',{
-            method:"POST",
-            headers:{
-                'Accept':'application/json',
-                'Content-Type':'application/json'
-            },
-            
-            body:JSON.stringify({
-                Title:event.target.Title.value,
-                Description:event.target.Description.value,
-                Link:event.target.Link.value,
-                StepId:event.target.Step.options[event.target.Step.selectedIndex].value,
-            })
+
+        if(event.target.Roadmap.options[event.target.Roadmap.selectedIndex].value == "default"){
+            HandleMessage("یک رودمپ انتخاب کنید!","red");
+            throw "یک رودمپ انتخاب کنید!"; 
+        }
+
+        if(event.target.Step.options[event.target.Step.selectedIndex].value == "default"){
+            HandleMessage("یک قدم انتخاب کنید!","red");
+            throw "یک قدم انتخاب کنید!"; 
+        }
+
+        let header = {
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        }
+
+        let body = JSON.stringify({
+            Title:event.target.Title.value,
+            Description:event.target.Description.value,
+            Link:event.target.Link.value,
+            StepId:event.target.Step.options[event.target.Step.selectedIndex].value,
+            Linkers:inputFields
         })
         
-        .then(res=>res.json())
-        .then((result)=>{
-            if(result.IsSuccess){
-                document.getElementById("result_message").style.color = "green";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            else{
-                document.getElementById("result_message").style.color = "red";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            
-            
-            
-        },
-        (error)=>{
-            document.getElementById("result_message").style.color = "red";
-            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
-        })
+        const [resmess, colormess] = await useCreate(urlPost,body,header);
+        HandleMessage(resmess,colormess);
+
     }
 
     const handleChange = (event) =>{
         event.preventDefault();
         setSelectedRoadmapId(event.target.options[event.target.selectedIndex].value);
-        //document.getElementById("SelectStepId").contentWindow.location.reload(true);
+    }
+
+
+
+    const [inputFields, setInputFields] = useState([
+        { LinkTitle: '', LinkURL: '' }
+    ]);
+
+    const handleFormChange = (index, event) => {
+        //alert(event.target.name)
+        let linkdata = [...inputFields];
+        linkdata[index][event.target.name] = event.target.value;
+        setInputFields(linkdata);
+    }
+
+    const addFields = () => {
+        let newfield = { LinkTitle: '', LinkURL: '' }
+    
+        setInputFields([...inputFields, newfield])
+    }
+
+    const removeFields = () => {
+        if(inputFields.length > 1){
+            let linkdata = [...inputFields];
+            linkdata.splice(inputFields.length-1, 1)
+            setInputFields(linkdata)
+        }
     }
 
     return(
@@ -67,27 +97,26 @@ const EditChildStep = () => {
 
                                             
                                             
-                                            <NavLink to="/edit_roadmap" class="login-ds">
+                                            <NavLink to="/create_roadmap" class="login-ds">
                                                 <span class="title">رودمپ</span>
                                                 <span class="sub-title">قالب رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/edit_category" class="register-ds">
+                                            <NavLink to="/create_category" class="register-ds">
                                                 <span class="title">دسته‌</span>
                                                 <span class="sub-title">دسته‌بندی رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/edit_step" class="register-ds">
+                                            <NavLink to="/create_step" class="register-ds">
                                                 <span class="title">قدم‌</span>
                                                 <span class="sub-title">مراحل رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/edit_child_step" class="register-ds active">
+                                            <NavLink to="/create_child_step" class="register-ds active">
                                                 <span class="title">محتوا‌</span>
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
-
-                                            <NavLink to="/edit_lesson" class="register-ds">
+                                            <NavLink to="/create_lesson" class="register-ds">
                                                 <span class="title">مقاله</span>
                                                 <span class="sub-title">مقاله درونی</span>
                                             </NavLink>
@@ -97,8 +126,8 @@ const EditChildStep = () => {
                                         </div>
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
-                                                <h4>ویرایش محتوا</h4>
-                                                <form onSubmit={handleSubmit} action="#" class="form-account text-right">
+                                                <h4>ساخت محتوا</h4>
+                                                <form onSubmit={HandleCreate} action="#" class="form-account text-right">
 
 
 
@@ -116,9 +145,13 @@ const EditChildStep = () => {
                                                     </div>
 
                                                     <div class="form-account-title">
-                                                        <label for="Link">لینک</label>
+                                                        <label for="Link">لینک اصلی محتوا</label>
                                                         <input type="text" class="number-email-input" name="Link"/>
                                                     </div>
+
+
+
+
 
 
                                                     <div class="form-account-title">
@@ -166,7 +199,47 @@ const EditChildStep = () => {
                                                         }
                                                     </div>
 
+                                                    <div class="form-account-title">
+                                                        <p style={{fontSize:"15px"}}>لینک‌های محتوا</p>
+                                                    </div>
+                                                    
+                                                    <div style={{display:"flex", textAlign:"center"}}>
+                                                        <div style={{flex:"50%"}} class="form-account-title">
+                                                            <label for="LinkTitle">عنوان لینک</label>
+                                                        </div>
 
+                                                        <div style={{flex:"50%"}} class="form-account-title">
+                                                            <label for="LinkURL">URL لینک</label>
+                                                        </div>
+                                                    </div>
+
+                                                    {inputFields.map((input, index) => {
+                                                    return (
+                                                        <div style={{display:"flex", textAlign:"center"}}  key={index}>
+                                                            <div style={{flex:"50%"}} class="form-account-title">
+                                                                
+                                                                <input style={{width:"95%"}}
+                                                                class="number-email-input"
+                                                                name='LinkTitle'
+                                                                onChange={event => handleFormChange(index, event)}/>
+                                                            </div>
+
+                                                            <div style={{flex:"50%"}} class="form-account-title">
+                                                                
+                                                                <input style={{width:"95%"}}
+                                                                class="number-email-input"
+                                                                name='LinkURL'
+                                                                onChange={event => handleFormChange(index, event)}/>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                    })}
+                                                    <div class="form-row-account">
+                                                        <div>
+                                                            <a style={{width:"20%" , marginLeft:"10px" ,color:"black"}} class="btn btn-primary btn-login" onClick={addFields}>لینک بیشتر</a>
+                                                            <a style={{width:"20%" ,color:"black"}} class="btn btn-primary btn-login" onClick={() => removeFields()}>حذف لینک</a>
+                                                        </div>
+                                                    </div>
                                                     {/*
                                                     <div class="form-auth-row">
                                                         <label for="#" class="ui-checkbox mt-1">
@@ -178,12 +251,14 @@ const EditChildStep = () => {
                                                     */}
 
 
+
+
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
                                                         <p style={{fontSize : "14px"}} id="result_message"></p>
                                                     </div>
 
                                                     <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ویرایش محتوا</button>
+                                                        <button name='submit' variant="primary" type="submit" class="btn btn-primary btn-login">ساخت محتوا</button>
                                                     </div>
 
 
@@ -218,4 +293,4 @@ const EditChildStep = () => {
 }
 
 
-export default EditChildStep;
+export default CreateChildStep;

@@ -49,16 +49,17 @@ namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
 
 				var imageSrc = "";
 				var TimeNow = DateTime.Now;
+				var ImageName = Title + "_" + TimeNow.Ticks.ToString();
 				if (httpRequest.Form.Files.Count() != 0)
 				{
 					var postedFile = httpRequest.Form.Files[0];
 					string filename = postedFile.FileName;
-					var physicalPath = currentpath + "/Photos/Lesson/" + $"({Title}+{TimeNow})" + filename;
+					var physicalPath = currentpath + "/Photos/Lesson/" + $"({ImageName})" + filename;
 					using (var stream = new FileStream(physicalPath, FileMode.Create))
 					{
 						postedFile.CopyTo(stream);
 					}
-					imageSrc = $"({Title}+{TimeNow})" + PhotoFileName.ToString();
+					imageSrc = $"({ImageName})" + PhotoFileName.ToString();
 				}
 				else
 				{
@@ -66,38 +67,14 @@ namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
 					imageSrc = PhotoFileName;
 				}
 
-				///////////////////////
-
-				var lessonDto = new UpdateLessonDto()
+				
+				les.UpdateTime = TimeNow;
+				if (imageSrc != "1.jpg")
 				{
-					Text = Text,
-					Title = Title,
-					TopBannerSrc = imageSrc,
-				};
-
-				LessonValidatore validationRules = new LessonValidatore();
-				var result = validationRules.Validate(new CreateLessonDto()
-				{
-					Text = lessonDto.Text,
-					Title = lessonDto.Title,
-					TopBannerSrc = lessonDto.TopBannerSrc,
-				});
-
-				if(result.IsValid == false)
-				{
-					return new ResultDto()
-					{
-						IsSuccess = false,
-						Message = result.Errors[0].ErrorMessage,
-					};
+					les.TopBannerSrc = imageSrc;
 				}
-
-				var lesoon = _context.Lessons.Where(l => l.Id == id).FirstOrDefault();
-
-				lesoon.UpdateTime = TimeNow;
-				lesoon.TopBannerSrc = imageSrc;
-				lesoon.Title = Title;
-				lesoon.Text = Text;
+				les.Title = Title;
+				les.Text = Text;			
 
 				_context.SaveChanges();
 

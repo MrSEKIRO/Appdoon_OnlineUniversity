@@ -1,6 +1,7 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Appdoon.Application.Services.Linkers.Query.GetAllLinkersService
 		public string Title { get; set; } = string.Empty;
 		public string Link { get; set; }
 		public int ChildStepId { get; set; }
+		public string ChildStepTitle { get; set; }
 	}
 	public interface IGetAllLinkersService
 	{
@@ -33,13 +35,14 @@ namespace Appdoon.Application.Services.Linkers.Query.GetAllLinkersService
 		{
 			try
 			{
-				var links = _context.Linkers
+				var links = _context.Linkers.Include(r => r.ChildSteps)
 					.Select(r => new LinkDto()
 					{
 						Id = r.Id,
 						Title = r.Title,
 						Link = r.Link,
-						ChildStepId = r.ChildSteps.FirstOrDefault().Id
+						ChildStepId = r.ChildSteps.FirstOrDefault().Id,
+						ChildStepTitle = r.ChildSteps.FirstOrDefault().Title
 					}).ToList();
 
 				return new ResultDto<List<LinkDto>>()

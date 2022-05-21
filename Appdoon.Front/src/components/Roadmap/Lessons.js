@@ -9,7 +9,7 @@ import RoadmapBox from "./RoadmapBox";
 
 
 const Lessons = () =>{
-    const {data : lessons, isLogin, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/GetAllLessons');
+    const {data : lessons, isLogin, error} = useFetch(process.env.REACT_APP_API+'lesson');
     //alert(roadmaps.Data.length);
 
     const photopath = process.env.REACT_APP_PHOTOPATH + "lesson/"

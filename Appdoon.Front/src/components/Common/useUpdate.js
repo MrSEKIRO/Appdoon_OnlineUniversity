@@ -1,14 +1,10 @@
-const useUpdate = async(url,body) => {
+const useUpdate = async(url,body,headers) => {
     let message = "";
     let color = "";
     
     await fetch(url,{
-        method:"Put",
-        headers:{
-            'Accept':'application/json',
-            'Content-Type':'application/json'
-        },
-        
+        method:"PUT",
+        headers:headers,
         body:body
     })
     .then(res=>res.json())

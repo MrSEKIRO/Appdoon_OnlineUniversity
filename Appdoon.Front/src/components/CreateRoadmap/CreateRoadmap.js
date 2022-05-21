@@ -2,19 +2,60 @@ import {NavLink} from 'react-router-dom';
 import { useState } from "react";
 import useFetch from '../Common/useFetch';
 import { Col, Form } from "react-bootstrap";
+import { useEffect } from 'react';
 
+import Select from 'react-select';
+import $ from 'jquery';
+import useCreate from '../Common/useCreate';
 
 
 
 const CreateRoadmap = () => {
 
-    const {data : categories, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/GetCategories');
 
-    const [field, setField] = useState([]);
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "category");
+    const [urlPost, setUrlPost] = useState(process.env.REACT_APP_API + "roadmap");
+    const [sensetive, setSensetive] = useState(false);
+
+    const HandleMessage = (resmess,colormess,id = "result_message") => {
+        document.getElementById(id).style.color = colormess;
+        document.getElementById(id).innerHTML = resmess;
+        setSensetive(!sensetive);
+    }
+
+    const {data : categories, error} = useFetch(url,sensetive);
+
+
+    const customStyleForTestsList = {
+        menuList:(provided) => ({
+            ...provided,
+            maxHeight:"200px",
+        }),
+    };
+
+    const [options, setOptions] = useState([]);
+
+    const [selectedOptions,setSelectedOptions] = useState([]);
+
+    const handleChange = (selectedOptions) => {
+        setSelectedOptions(selectedOptions);
+    };
+
+    useEffect(()=> {
+        if(categories){
+            const tempOptions = [];
+            for(var i = 0; i < categories.length; i++){
+                tempOptions.push({value: categories[i].Name, label:categories[i].Name});
+            }
+            setOptions(tempOptions);
+        }
+    },[categories])
 
     
-    const handleSubmit = (event) => {
+    const HandleCreate = async(event) => {
         event.preventDefault();
+
+        
         let imagesrc = "1.jpg";
         const formData = new FormData();
 
@@ -22,41 +63,43 @@ const CreateRoadmap = () => {
             imagesrc = event.target.Photo.files[0].name;
             formData.append("myFile",event.target.Photo.files[0]);
         }
+        
 
         formData.append("Title",event.target.Title.value);
         formData.append("Description",event.target.Description.value);
         formData.append("PhotoFileName",imagesrc);
 
         let i = 0;
-        for (var option of event.target.Categories.options)
+
+        
+        for (var option of selectedOptions)
         {
             i++;
-            if (option.selected) {
-                formData.append("CategoriesId"+i,option.value);
-            }
+            formData.append("CategoriesId"+i,option.value);
         }
+
         
 
-        fetch(process.env.REACT_APP_API+'BuildRoadMap/CreateRoadMap',{
-            method:"POST",
-            body:formData
-        })
-        
-        .then(res=>res.json())
-        .then((result)=>{
-            if(result.IsSuccess){
-                document.getElementById("result_message").style.color = "green";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            else{
-                document.getElementById("result_message").style.color = "red";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-        },
-        (error)=>{
-            document.getElementById("result_message").style.color = "red";
-            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
-        })
+        let body = formData;
+
+        const [resmess, colormess] = await useCreate(urlPost,body);
+        HandleMessage(resmess,colormess);
+
+    }
+
+    const handleClick = () =>{
+        document.getElementById("Photo").click();
+    }
+
+    const handlePhotoChange = (event) =>{
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#PreviewPhoto')
+                .attr('src', e.target.result)
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
     }
 
     return(
@@ -103,7 +146,7 @@ const CreateRoadmap = () => {
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
                                                 <h4>ساخت رودمپ</h4>
-                                                <form onSubmit={handleSubmit} action="#" class="form-account text-right">
+                                                <form onSubmit={HandleCreate} action="#" class="form-account text-right">
 
 
 
@@ -120,45 +163,41 @@ const CreateRoadmap = () => {
                                                         <textarea class="number-email-input" name="Description"/>
                                                     </div>
 
-                                                    <div class="form-account-title">
-                                                        <label for="Photo">تصویر رودمپ</label>
-                                                        <input class="form-control" type="File" name='Photo'/>
+
+                                                    <div style={{textAlign:"right", width:"100%" ,marginBottom:"50px"}} class="form-account-title">
+                                                        
+                                                        <label style={{float:"right"}} for="Photo">تصویر رودمپ</label>
+                                                        
+                                                        <input id="Photo" name='Photo' onChange={handlePhotoChange} class="form-control" type="File" hidden="hidden" />
+                                                        
+                                                        <br/>
+                                                        <button type="button" class="btn btn-primary" onClick={handleClick}>آپلود تصویر</button>
+                                                        <img id="PreviewPhoto" class="img-thumbnail" src={process.env.REACT_APP_PHOTOPATH+"roadmap/"+"1.jpg"} style={{float:"left" , width:"100px"}}/>
                                                     </div>
 
                                                     <div class="form-account-title">
                                                         <label for="Categories">دسته‌بندی‌ها</label>
-                                                        {categories.length > 0 && (
-                                                            <Form.Label>My multiselect</Form.Label>,
-                                                            <Form.Control name='Categories' as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
-                                                            {categories.map((data, idx) => (
-                                                                <option value={data.Name}>
-                                                                    {data.Name}
-                                                                </option>
-                                                            ))}
-                                                            </Form.Control>
+                                                            {categories && (
+                                                                <Select 
+                                                                    menuPlacement="top"
+                                                                    placeholder="دسته‌ها را انتخاب کنید ..."
+                                                                    isMulti={true}
+                                                                    value={selectedOptions}
+                                                                    onChange={handleChange}
+                                                                    options={options}
+                                                                    styles={customStyleForTestsList}
+                                                                />
 
-                
 
-                                                            )
-                                                        }
-                                                        
-                                                        {categories.length == 0 &&(
-                                                                <div></div>
-                                                            )
-                                                        }
+                                                                )
+                                                            }
+                                                            
+                                                            {categories && 
+                                                                (
+                                                                    <div></div>
+                                                                )
+                                                            }
                                                     </div>
-
-
-                                                    {/*
-                                                    <div class="form-auth-row">
-                                                        <label for="#" class="ui-checkbox mt-1">
-                                                            <input type="checkbox" value="1" name="login" id="remember"/>
-                                                            <span class="ui-checkbox-check"></span>
-                                                        </label>
-                                                        <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
-                                                    </div>
-                                                    */
-                                                    }
 
 
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>

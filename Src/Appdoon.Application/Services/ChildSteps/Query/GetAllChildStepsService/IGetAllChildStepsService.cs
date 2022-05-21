@@ -1,6 +1,7 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Appdoon.Application.Services.ChildSteps.Query.GetAllChildStepsService
         public string Description { get; set; }
         public string Link { get; set; }
         public int StepId { get; set; }
+        public string StepTitle { get; set; }
         public List<Linker> Linkers { get; set; }
     }
 
@@ -37,14 +39,15 @@ namespace Appdoon.Application.Services.ChildSteps.Query.GetAllChildStepsService
         {
             try
             {
-                var childsteps = _context.ChildSteps.Select(s => new ChildStepDto
+                var childsteps = _context.ChildSteps.Include(s => s.Step).Select(s => new ChildStepDto
                 {
                     Id = s.Id,
                     Title = s.Title,
                     Description = s.Description,
                     Link = s.Link,
                     StepId = s.StepId,
-                    Linkers = s.Linkers
+                    Linkers = s.Linkers,
+                    StepTitle = s.Step.Title
                 }).ToList();
 
                 return new ResultDto<List<ChildStepDto>>()

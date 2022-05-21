@@ -3,6 +3,7 @@ using Appdoon.Application.Validatores.RoadMapValidatore;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,16 +51,18 @@ namespace Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService
 
                 var imageSrc = "";
                 var TimeNow = DateTime.Now;
+                var ImageName = Title+"_"+TimeNow.Ticks.ToString();
+
                 if (httpRequest.Form.Files.Count() != 0)
                 {
                     var postedFile = httpRequest.Form.Files[0];
                     string filename = postedFile.FileName;
-                    var physicalPath = currentpath + "/Photos/Lesson/" + $"({Title}+{TimeNow})" + filename;
+                    var physicalPath = currentpath + "/Photos/Roadmap/" + $"({ImageName})" + filename;
                     using (var stream = new FileStream(physicalPath, FileMode.Create))
                     {
                         postedFile.CopyTo(stream);
                     }
-                    imageSrc = $"({Title}+{TimeNow})" + PhotoFileName.ToString();
+                    imageSrc = $"({ImageName})" + PhotoFileName.ToString();
                 }
                 else
                 {
@@ -67,11 +70,7 @@ namespace Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService
                     imageSrc = PhotoFileName;
                 }
 
-
-                //////////////////////
-
-
-                var roamap = _context.RoadMaps.Where(r => r.Id == id).FirstOrDefault();
+                var road = _context.RoadMaps.Include(r => r.Categories).Where(r => r.Id == id).FirstOrDefault();
 
                 List<Category> categories = new List<Category>();
                 if (CategoriesName.Count != 0)
@@ -83,39 +82,18 @@ namespace Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService
                     }
                 }
 
-                RoadMapValidatore validationRules = new RoadMapValidatore();
-                var result = validationRules.Validate(new RoadMap()
+                road.UpdateTime = TimeNow;
+
+
+                if(imageSrc != "1.jpg")
                 {
-                    Title = Title,
-                    ImageSrc = imageSrc,
-                    Description = Description,
-                });
+                    road.ImageSrc = imageSrc;
+                }
+                road.Title = Title;
+                road.Description = Description;
 
-                List<string> properties = new List<string>()
-                {
-                    "Title",
-                    "ImageSrc",
-                    "Description",
-                };
 
-                var errors = result.Errors.Where(e => properties.Contains(e.PropertyName) == true)
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
-
-				if(errors.Count > 0)
-				{
-                    return new ResultDto()
-                    {
-                        IsSuccess = false,
-                        Message = errors[0],
-                    };
-				}
-
-                roamap.UpdateTime = TimeNow;
-                roamap.ImageSrc = imageSrc;
-                roamap.Title = Title;
-                roamap.Description = Description;
-                roamap.Categories = categories;
+                road.Categories = categories;
 
                 _context.SaveChanges();
 
