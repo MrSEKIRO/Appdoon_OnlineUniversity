@@ -1,4 +1,4 @@
-﻿using Appdoon.Application.Services.Users.RegisterUserService;
+﻿using Appdoon.Application.Services.Users.Command.RegisterUserService;
 using Appdoon.Domain.Entities.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Appdoon.WebApi.Controllers
 {
 
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     [ApiController]
     public class RegisterController : ControllerBase
     {

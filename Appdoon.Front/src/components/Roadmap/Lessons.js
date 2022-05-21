@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import { NavLink } from "react-router-dom";
-import useFetch from "../../useFetch";
+import useFetch from '../Common/useFetch';
 import RoadmapBox from "./RoadmapBox";
 
 //componentDidMount() {
@@ -9,7 +9,7 @@ import RoadmapBox from "./RoadmapBox";
 
 
 const Lessons = () =>{
-    const {data : lessons, isLogin, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/GetAllLessons');
+    const {data : lessons, isLogin, error} = useFetch(process.env.REACT_APP_API+'lesson');
     //alert(roadmaps.Data.length);
 
     const photopath = process.env.REACT_APP_PHOTOPATH + "lesson/"

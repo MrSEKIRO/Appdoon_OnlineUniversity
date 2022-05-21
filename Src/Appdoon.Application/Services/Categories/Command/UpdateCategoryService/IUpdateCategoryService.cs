@@ -1,4 +1,5 @@
 ﻿using Appdoon.Application.Interfaces;
+using Appdoon.Application.Services.Categories.Command.CreateCategoryService;
 using Appdoon.Application.Validatores.CategoryValidatore;
 using Appdoon.Common.Dtos;
 using System;
@@ -13,7 +14,6 @@ namespace Appdoon.Application.Services.Categories.Command.UpdateCategoryService
 	{
 		public string Name { get; set; }
 		public string Link { get; set; }
-
 	}
 	public interface IUpdateCategoryService
 	{
@@ -34,9 +34,14 @@ namespace Appdoon.Application.Services.Categories.Command.UpdateCategoryService
 			{
 
 				// check validation rules
-				UpdateCategoryValidatore validationRules = new UpdateCategoryValidatore();
-				var result = validationRules.Validate(category);
-				if (result.IsValid == false)
+				CategoryValidatore validationRules = new CategoryValidatore();
+				var result = validationRules.Validate(new CreateCategoryDto()
+				{
+					Link = category.Link,
+					Name = category.Name
+				});
+
+                if (result.IsValid == false)
 				{
 					return new ResultDto()
 					{

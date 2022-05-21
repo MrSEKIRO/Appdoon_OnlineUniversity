@@ -1,4 +1,5 @@
-﻿using Appdoon.Application.Services.Linkers.Command.AddLinkerService;
+﻿using Appdoon.Application.Services.Linkers.Command.CreateLinkerService;
+using Appdoon.Application.Validatores.CommonValidatores;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Validatores.LinkerValidatore
 {
-	public class LinkerValidatore:AbstractValidator<AddLinkerDto>
+    public class LinkerValidatore:AbstractValidator<CreateLinkerLinkerDto>
 	{
 		public LinkerValidatore()
 		{
@@ -16,7 +17,8 @@ namespace Appdoon.Application.Validatores.LinkerValidatore
 				.NotEmpty().WithMessage("لطفا عنوان را وارد کنید!");
 
 			RuleFor(l => l.Link)
-				.NotEmpty().WithMessage("لطفا لینک را وارد کنید!");
+				.NotEmpty().WithMessage("لطفا لینک را وارد کنید!")
+				.Must(link => CommonValidatore.IsValidLink(link)==true).WithMessage("فرمت لینک اشتباه است!");
 
 			//RuleFor(l=>l.ChildStepId)
 			//	.NotEmpty().WithMessage("");

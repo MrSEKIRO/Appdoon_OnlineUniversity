@@ -1,4 +1,5 @@
 ﻿using Appdoon.Application.Interfaces;
+using Appdoon.Application.Services.Linkers.Command.CreateLinkerService;
 using Appdoon.Application.Validatores.ChildStepValidatore;
 using Appdoon.Application.Validatores.LinkerValidatore;
 using Appdoon.Common.Dtos;
@@ -11,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService
 {
-	public class RequestCreateChildStepDto
+	public class CreateChildStepDto
 	{
 		public string Title { get; set; } = string.Empty;
 		public string Description { get; set; }
 		public string Link { get; set; }
 		public int StepId { get; set; }
-		public List<LinkerDto> Linkers { get; set; }
+		public List<CreateLinkerDto> Linkers { get; set; }
 	}
-	public class LinkerDto
+	public class CreateLinkerDto
 	{
 		public string LinkTitle { get; set; } = string.Empty;
 		public string LinkURL { get; set; } = string.Empty;
@@ -27,7 +28,7 @@ namespace Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService
 
 	public interface ICreateChildStepService
 	{
-		ResultDto Execute(RequestCreateChildStepDto childStepDto);
+		ResultDto Execute(CreateChildStepDto childStepDto);
 	}
 	public class CreateChildStepService : ICreateChildStepService
 	{
@@ -36,7 +37,7 @@ namespace Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService
 		{
 			_context = context;
 		}
-		public ResultDto Execute(RequestCreateChildStepDto childStepDto)
+		public ResultDto Execute(CreateChildStepDto childStepDto)
 		{
 			try
 			{
@@ -61,21 +62,23 @@ namespace Appdoon.Application.Services.ChildSteps.Command.CreateChildStepService
 						Link = childStepDto.Linkers[i].LinkURL
 					};
 
-					/*
+					
                     LinkerValidatore validationRulesLink = new LinkerValidatore();
-                    var resultLink = validationRulesLink.Validate();
+                    var resultLink = validationRulesLink.Validate(new CreateLinkerLinkerDto()
+					{
+						Title=linker.Title,
+						Link=linker.Link,
+					});
 
                     if (resultLink.IsValid == false)
                     {
                         return new ResultDto()
                         {
                             IsSuccess = false,
-                            Message = result.Errors[0].ErrorMessage,
+                            Message = $":لینکر {i+1}"+result.Errors[0].ErrorMessage,
                         };
                     }
-                    */
-
-
+                    
 					linkers.Add(linker);
 				}
 

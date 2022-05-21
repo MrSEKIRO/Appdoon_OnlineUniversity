@@ -22,37 +22,5 @@ namespace Appdoon.Application.Validatores.LessonValidatore
 			RuleFor(l => l.Text)
 				.NotEmpty().WithMessage("لطفا متن را وارد کنید!");
 		}
-
-
-		public bool IsValidLink(string link)
-        {
-			Uri uriResult;
-			bool result = Uri.TryCreate(link, UriKind.Absolute, out uriResult)
-				&& (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-			return result;
-		}
-	}
-	public class UpdateLessonValidatore : AbstractValidator<UpdateLessonDto>
-	{
-		public UpdateLessonValidatore()
-		{
-			RuleFor(l => l.Title)
-				.NotEmpty().WithMessage("لطفا عنوان را وارد کنید!");
-
-			RuleFor(l => l.TopBannerSrc)
-				.NotEmpty().WithMessage("لطفا لینک را وارد کنید!");
-
-			RuleFor(l => l.Text)
-				.NotEmpty().WithMessage("لطفا متن را وارد کنید!");
-		}
-
-
-		public bool IsValidLink(string link)
-		{
-			Uri uriResult;
-			bool result = Uri.TryCreate(link, UriKind.Absolute, out uriResult)
-				&& (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-			return result;
-		}
 	}
 }

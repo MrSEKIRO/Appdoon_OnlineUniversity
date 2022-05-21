@@ -1,21 +1,21 @@
 ﻿using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
-using Appdoon.Application.Services.Linkers.Command.AddLinkerService;
+using Appdoon.Application.Services.Linkers.Command.CreateLinkerService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appdoon.WebApi.Controllers
 {
-	[Route("api/[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
 	[ApiController]
 	public class TeacherController : Controller
 	{
 		private readonly IWebHostEnvironment _env;
 		private readonly ICreateLessonService _createLessonService;
-		private readonly IAddLinkerService _addLinkerService;
+		private readonly ICreateLinkerService _addLinkerService;
 
 		public TeacherController(IWebHostEnvironment env,
 			ICreateLessonService createLessonService,
-			IAddLinkerService addLinkerService)
+			ICreateLinkerService addLinkerService)
 		{
 			_env = env;
 			_createLessonService = createLessonService;

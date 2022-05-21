@@ -22,7 +22,7 @@ const Roadmap = () => {
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
     const [isLogin, setIsLogin] = useState(true)
-    const url = process.env.REACT_APP_API + 'RoadMaps/IndividualRoadMap';
+    const url = process.env.REACT_APP_API + 'roadmap/'+id;
 
 
 
@@ -31,16 +31,10 @@ const Roadmap = () => {
 
     useEffect(() => {
 
-    
-    
-
         fetch(url,{
             
-            method : "POST",
+            method : "GET",
             headers : {"Content-Type" : "application/json"},
-            body:JSON.stringify({
-                RoadMapId:id
-            })
             
         }).then(res => {
             

@@ -12,6 +12,7 @@ import "../../Modular_Css/RoadmapBox.css"
 
 
 const RoadmapBox = ({ data:roadmap }) => {
+    const [photoPath, setPhotoPath] = useState(process.env.REACT_APP_PHOTOPATH+"Roadmap/");
 
     let catResult = "";
     for (var i = 0; i < roadmap.Categories.length; i++) {
@@ -47,7 +48,7 @@ const RoadmapBox = ({ data:roadmap }) => {
                 <Link to= {`/roadmap/${roadmap.Id}`} >
 
                     <div class="post-thumbnail" >
-                        <img src={process.env.REACT_APP_PHOTOPATH+roadmap.ImageSrc} alt={roadmap.Description}/>
+                        <img src={photoPath+roadmap.ImageSrc} alt={roadmap.Description}/>
                     </div>
 
                     
@@ -63,10 +64,6 @@ const RoadmapBox = ({ data:roadmap }) => {
                         </span>
 
                         <span className="star" id = {roadmap.Id}>
-                        </span>
-
-                        <span className="edit" id = {roadmap.Id}>
-                            <button variant="primary" class="btn btn-primary btn-login">ویرایش</button>
                         </span>
 
 

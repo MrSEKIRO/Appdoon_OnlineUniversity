@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.Steps.Command.CreateStepService
 {
-    public class RequestCreateStepDto
+    public class CreateStepDto
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; }
@@ -20,7 +20,7 @@ namespace Appdoon.Application.Services.Steps.Command.CreateStepService
 
     public interface ICreateStepService
     {
-        ResultDto Execute(RequestCreateStepDto StepDto);
+        ResultDto Execute(CreateStepDto StepDto);
     }
     public class CreateStepService : ICreateStepService
     {
@@ -31,10 +31,11 @@ namespace Appdoon.Application.Services.Steps.Command.CreateStepService
             _context = context;
         }
 
-        public ResultDto Execute(RequestCreateStepDto StepDto)
+        public ResultDto Execute(CreateStepDto StepDto)
         {
             try
             {
+                // validate step
                 StepValidatore validationRules = new StepValidatore();
                 var result = validationRules.Validate(StepDto);
 				if(result.IsValid == false)
@@ -56,12 +57,10 @@ namespace Appdoon.Application.Services.Steps.Command.CreateStepService
 
                 var roadmap = _context.RoadMaps.First(roadmap => roadmap.Id == StepDto.RoadMapId);
 
-                // trash
-                if(roadmap.Steps==null)
-                    roadmap.Steps = new List<Step>();
+                // trash?????
+                roadmap.Steps ??= new List<Step>();
 
                 roadmap.Steps.Add(step);
-
                 _context.SaveChanges();
 
                 return new ResultDto()
