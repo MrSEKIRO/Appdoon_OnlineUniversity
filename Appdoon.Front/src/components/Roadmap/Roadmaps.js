@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import useFetch from '../Common/useFetch';
 import RoadmapBox from "./RoadmapBox";
+import { useState } from "react";
 
 //componentDidMount() {
 //    document.title = "رودمپ‌ها"; 
@@ -8,7 +9,8 @@ import RoadmapBox from "./RoadmapBox";
 
 
 const Roadmaps = () =>{
-    const {data : roadmaps, isLogin, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/Index');
+    const {data : roadmaps, isLogin, error} = useFetch(process.env.REACT_APP_API+'roadmap');
+    
     //alert(roadmaps.Data.length);
     return(
         <div>
@@ -81,69 +83,6 @@ const Roadmaps = () =>{
                                     
                                 </div>)
                             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                {/*
-
-                                {roadmaps.length > 0 && (
-                                    <div>
-                                        {roadmaps.map((data, idx) => (
-                                            <div>
-                                                
-
-
-                                                <div class="col-12 col-md-4 col-lg-4 col-xl-5 items-1 pr">
-
-
-                                                    <RoadmapBox data={data} key={idx} />
-                                                
-                                                    
-                                                </div>
-                
-                
-                
-                
-                                                <div class="col-12 col-md-4 col-lg-4 col-xl-4 items-2 pr">
-                                                    <RoadmapBox data={data} key={idx} />
-                                                </div>
-                
-                
-                
-                
-                
-                
-                                                <div class="col-12 col-md-4 col-lg-4 col-xl-3 items-3 pr">
-                                                    <RoadmapBox data={data} key={idx} />
-                                                </div>
-                                            
-                                            </div>
-
-
-                                        ))}
-                                    </div>
-                                    )
-                                }
-                    
-                                {roadmaps.length == 0 && (
-                                    <div>
-                                        .رودمپی وحود ندارد
-                                    </div>)
-                                }
-
-                                */}
 
 
 

@@ -74,7 +74,7 @@ namespace Appdoon.WebApi.Controllers
 
         // PUT api/<RoadmapController>/5
         [HttpPut("{id}")]
-        public JsonResult Put(int id, [FromBody] string value)
+        public JsonResult Put(int id)
         {
             var result = _updateRoadmapService.Execute(id, Request, _env.ContentRootPath);
             return new JsonResult(result);

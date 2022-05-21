@@ -1,6 +1,7 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,13 @@ namespace Appdoon.Application.Services.Steps.Query.GetAllStepService
 		public int Id { get; set; }
 		public int RoadMapId { get; set; }
 		public string Title { get; set; } = string.Empty;
+		public string Link { get; set; } = string.Empty;
+		public string Description { get; set; } = string.Empty;
+
+
+		public string RoadmapTitle { get; set; }
+		public string RoadmapImageSrc { get; set; }
+		public int RoadmapStars { get; set; }
 
 		public List<ChildStep> ChildSteps { get; set; }
 	}
@@ -37,12 +45,19 @@ namespace Appdoon.Application.Services.Steps.Query.GetAllStepService
 			try
 			{
 				var steps = _context.Steps
-					.Select(r => new StepDto()
+					.Include(r => r.RoadMap)
+					.Select(s => new StepDto()
 					{
-						Id = r.Id,
-						Title = r.Title,
-						RoadMapId = r.RoadMapId,
-						ChildSteps = r.ChildSteps
+						Id = s.Id,
+						Title = s.Title,
+						RoadMapId = s.RoadMapId,
+						ChildSteps = s.ChildSteps,
+						Link = s.Link,
+						RoadmapTitle = s.RoadMap.Title,
+						RoadmapImageSrc = s.RoadMap.ImageSrc,
+						RoadmapStars = s.RoadMap.Stars,
+						Description = s.Description
+
 					}).ToList();
 
 				return new ResultDto<List<StepDto>>()

@@ -40,6 +40,9 @@ namespace Appdoon.Presistence.Contexts
 			modelBuilder.Entity<Step>().HasQueryFilter(u => u.IsRemoved == false);
 			modelBuilder.Entity<ChildStep>().HasQueryFilter(u => u.IsRemoved == false);
 
+			modelBuilder.Entity<Linker>().HasQueryFilter(u => u.IsRemoved == false);
+			modelBuilder.Entity<Lesson>().HasQueryFilter(u => u.IsRemoved == false);
+
 			// Registerd RoadMaps for User
 			modelBuilder.Entity<User>()
 				.HasMany<RoadMap>(u => u.SignedRoadMaps)

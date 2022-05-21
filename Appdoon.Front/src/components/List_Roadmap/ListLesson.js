@@ -5,90 +5,174 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import useFetch from '../Common/useFetch';
 
+import DeleteLessonModal from "../Modals/Delete/DeleteLessonModal";
+import EditLessonModal from "../Modals/Edit/EditLessonModal";
 
 const ListLesson = () => {
-    const [url, setUrl] = useState(process.env.REACT_APP_API + "category");
+    
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "lesson");
     const [sensetive, setSensetive] = useState(false);
-    const {data : categories, error} = useFetch(url,sensetive);
+    const {data : lessons, error} = useFetch(url,sensetive);
+    const [photoPath, setPhotoPath] = useState(process.env.REACT_APP_PHOTOPATH+"lesson/");
+
+
+    const[id, setId] = useState(0);
+    const {data : lesson, setData} = useFetch(url+"/"+id,sensetive);
+
+    const HandleId = ((id) => {
+        setId(id);
+        setSensetive(!sensetive);
+    })
+
+    useEffect( ()=>{
+
+    }, [lessons]);
+
+    const clear = () =>{
+        document.getElementById("Title").value = null;
+        document.getElementById("Text").value = null;
+        document.getElementById("Photo").value = null;
+        document.getElementById("result_message_edit").innerHTML = null;
+        document.getElementById("result_message_delete").innerHTML = null;
+
+        document.getElementById("PreviewPhoto").src = process.env.REACT_APP_PHOTOPATH+"lesson/"+lesson.TopBannerSrc;
+    }
 
     return(
         <div>
+            {<EditLessonModal lesson = {lesson} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<DeleteLessonModal lesson = {lesson} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             <div class="container-main">
+                
                 <div class="d-block">
                     <div class="main-row">
+                        <div class="info-page-faq">
+                            <div id="content-bottom">
+                                <div class="content-bottom-title">
+                                    <h2 class="box-rounded-headline"> <span>ویرایش</span> / <span>حذف</span> </h2>
+
+                                    <div class="transparency-border">
+                                        <NavLink  class="Liknkk" to="/edit_roadmap">
+                                            <div class="transparency"></div>
+                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
+                                            <h3>رودمپ‌ها</h3>
+                                        </NavLink>
+                                    </div>
+
+
+                                    <div class="transparency-border">
+                                        <NavLink to="/edit_step">
+                                            <div class="transparency"></div>
+                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
+                                            <h3>قدم‌ها</h3>
+                                        </NavLink>
+                                    </div>
+
+
+                                    <div class="transparency-border">
+                                        <NavLink to="/edit_child_step">
+                                            <div class="transparency"></div>
+                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
+                                            <h3>محتوا‌ها</h3>
+                                        </NavLink>
+                                    </div>
+
+
+                                    <div class="transparency-border activebox">
+                                        <NavLink class="Liknkk" to="/edit_lesson">
+                                            <div class="transparency"></div>
+                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
+                                            <h3>درس‌ها</h3>
+                                        </NavLink>
+                                    </div>
+
+
+                                    <div class="transparency-border">
+                                        <NavLink class="Liknkk" to="/edit_category">
+                                            <div class="transparency"></div>
+                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
+                                            <h3>دسته‌ها</h3>
+                                        </NavLink>
+                                    </div>
+
+
+                                    <div class="transparency-border">
+                                        <NavLink to="/edit_link">
+                                            <div class="transparency"></div>
+                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
+                                            <h3>لینک‌ها</h3>
+                                        </NavLink>
+                                    </div>
+                                    
+
+                                </div>
+                            </div>
+                        </div>
                         <div id="breadcrumb">
                             <i class="mdi mdi-home"></i>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active" aria-current="page">دسته‌ها</li>
+                                    <li class="breadcrumb-item active" aria-current="page">درس‌ها</li>
                                 </ol>
                             </nav>
                         </div>
                         <section class="cart-home">
                             <div class="post-item-cart d-block order-2">
+                                
                                 <div class="content-page">
                                     <div class="cart-form">
-                                        <table style={{tableLayout:"fixed"}} class="cart table table-borderless">
+                                        
+                                        <table class="cart table table-borderless">
                                             <thead>
                                                 <tr>
-                                                    <th style={{width:"20%"}} scope="col" class="product-cart-name">نام دسته</th>
-                                                    <th style={{width:"70%"}} scope="col" class="product-cart-price">لینک دسته</th>
-                                                    <th style={{textAlign:"left", width: "10%"} } scope="col" class="product-cart-Total">حذف/ویرایش</th>
+                                                    <th style={{width:"5%"}} scope="col" class="product-cart-name">شماره</th>
+                                                    <th style={{width:"20%"}} scope="col" class="product-cart-name">نام درس‌ها</th>
+                                                    <th style={{width:"64%", paddingLeft:"25px"}} scope="col" class="product-cart-price">متن درس‌ها</th>
+                                                    <th style={{textAlign:"center", width: "6%"} } scope="col" class="product-cart-Total">ویرایش</th>
+                                                    <th style={{textAlign:"center", width: "5%"} } scope="col" class="product-cart-Total">حذف</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {categories &&
-                                                    categories.map((data,idx) => (
+                                                {lessons &&
+                                                    lessons.map((data,idx) => (
                                                         <tr>
-                                                            {/*
-                                                            <th scope="row" class="product-cart-name">
+                                                            <td style={{wordWrap:"break-word" ,width:"5%"}} class="product-cart-price">
+                                                                <span>
+                                                                    {idx+1}
+                                                                </span>
+                                                            </td>
+                                                            <th scope="row" class="product-cart-name" style={{wordWrap:"break-word" ,width:"20%"}}>
                                                                 <div class="product-thumbnail-img">
-                                                                    <a href="#">
-                                                                        <img src="assets/images/slider-product/zenbook.jpg"/>
+                                                                    <a href="#!">
+                                                                        <img src={photoPath+data.TopBannerSrc}/>
                                                                     </a>
-                                                                    <div class="product-remove">
-                                                                        <a href="#" class="remove">
-                                                                            <i class="mdi mdi-close"></i>
-                                                                        </a>
-                                                                    </div>
                                                                 </div>
                                                                 
                                                                 <div class="product-title">
-                                                                    <a href="#">
-                                                                        لپ تاپ 13 اینچی ایسوس مدل ZenBook S13 UX392FN - A
+                                                                    <a href="#!">
+                                                                        {data.Title}
                                                                     </a>
                                                                     
                                                                     <div class="variation">
                                                                         <div class="variant-color">
-                                                                            <span class="variant-color-title">سفید</span>
-                                                                            <div class="variant-shape"></div>
-                                                                        </div>
-                                                                        <div class="variant-guarantee">
-                                                                            <i class="mdi mdi-check"></i>
-                                                                            گارانتی ۱۸ ماهه
-                                                                        </div>
-                                                                        <div class="seller">
-                                                                            <i class="mdi mdi-storefront"></i>
-                                                                            فروشنده :
-                                                                            <span>کالا مارکت</span>
+                                                                        
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 
                                                             </th>
-                                                            */}
-                                                            <td style={{wordWrap:"break-word"}} class="product-cart-price">
+
+                                                            <td style={{wordWrap:"break-word" ,width:"64%" ,paddingLeft:"25px"}} class="product-cart-price">
                                                             <span>
-                                                                {data.Name}
+                                                                {data.Text}
                                                             </span>
                                                             </td>
-                                                            <td style={{wordWrap:"break-word"}} class="product-cart-price">
-                                                                <span>
-                                                                    {data.Link}
-                                                                </span>
+
+                                                            <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
+                                                                <button href="#!" data-toggle="modal" data-target="#editModal" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
                                                             </td>
-                                                            <td style={{textAlign:"left"}}  class="product-cart-quantity">
-                                                                <NavLink to = {`/edit_category/${data.Id}`}><button variant="primary" class="btn btn-primary btn-login">مشاهده</button></NavLink>
+                                                            <td style={{textAlign:"center" ,width:"5%"}}  class="product-cart-quantity">
+                                                                <button href="#!" data-toggle="modal" data-target="#deleteModal" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
                                                             </td>
                                                         </tr>
                                                     ))
@@ -100,7 +184,10 @@ const ListLesson = () => {
                             </div>
                         </section>
                     </div>
+                    
                 </div>
+                
+                
             </div>
 
             
@@ -122,9 +209,10 @@ const ListLesson = () => {
                 </div>
             </div>
             */}
+
+            
         </div>
     );
-
 }
 
 export default ListLesson;

@@ -8,8 +8,8 @@ const Step = ({ data , key , handleModalId}) => {
 
     const handleModal = (childStep) => {
         handleModalId(data.Id,childStep);
-        
     }
+    
     return(
         <div className="timeline-item">
             <div className="timeline-item-content">

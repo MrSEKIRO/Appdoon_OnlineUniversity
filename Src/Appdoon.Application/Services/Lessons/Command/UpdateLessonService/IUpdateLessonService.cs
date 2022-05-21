@@ -48,16 +48,17 @@ namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
 
 				var imageSrc = "";
 				var TimeNow = DateTime.Now;
+				var ImageName = Title + "_" + TimeNow.Ticks.ToString();
 				if (httpRequest.Form.Files.Count() != 0)
 				{
 					var postedFile = httpRequest.Form.Files[0];
 					string filename = postedFile.FileName;
-					var physicalPath = currentpath + "/Photos/Lesson/" + $"({Title}+{TimeNow})" + filename;
+					var physicalPath = currentpath + "/Photos/Lesson/" + $"({ImageName})" + filename;
 					using (var stream = new FileStream(physicalPath, FileMode.Create))
 					{
 						postedFile.CopyTo(stream);
 					}
-					imageSrc = $"({Title}+{TimeNow})" + PhotoFileName.ToString();
+					imageSrc = $"({ImageName})" + PhotoFileName.ToString();
 				}
 				else
 				{
@@ -68,7 +69,10 @@ namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
 				var les = _context.Lessons.Where(l => l.Id == id).FirstOrDefault();
 
 				les.UpdateTime = TimeNow;
-				les.TopBannerSrc = imageSrc;
+				if (imageSrc != "1.jpg")
+				{
+					les.TopBannerSrc = imageSrc;
+				}
 				les.Title = Title;
 				les.Text = Text;
 

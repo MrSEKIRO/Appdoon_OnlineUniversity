@@ -2,6 +2,7 @@
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,16 +50,18 @@ namespace Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService
 
                 var imageSrc = "";
                 var TimeNow = DateTime.Now;
+                var ImageName = Title+"_"+TimeNow.Ticks.ToString();
+
                 if (httpRequest.Form.Files.Count() != 0)
                 {
                     var postedFile = httpRequest.Form.Files[0];
                     string filename = postedFile.FileName;
-                    var physicalPath = currentpath + "/Photos/Lesson/" + $"({Title}+{TimeNow})" + filename;
+                    var physicalPath = currentpath + "/Photos/Roadmap/" + $"({ImageName})" + filename;
                     using (var stream = new FileStream(physicalPath, FileMode.Create))
                     {
                         postedFile.CopyTo(stream);
                     }
-                    imageSrc = $"({Title}+{TimeNow})" + PhotoFileName.ToString();
+                    imageSrc = $"({ImageName})" + PhotoFileName.ToString();
                 }
                 else
                 {
@@ -66,7 +69,7 @@ namespace Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService
                     imageSrc = PhotoFileName;
                 }
 
-                var road = _context.RoadMaps.Where(r => r.Id == id).FirstOrDefault();
+                var road = _context.RoadMaps.Include(r => r.Categories).Where(r => r.Id == id).FirstOrDefault();
 
                 List<Category> categories = new List<Category>();
                 if (CategoriesName.Count != 0)
@@ -79,9 +82,16 @@ namespace Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService
                 }
 
                 road.UpdateTime = TimeNow;
-                road.ImageSrc = imageSrc;
+
+
+                if(imageSrc != "1.jpg")
+                {
+                    road.ImageSrc = imageSrc;
+                }
                 road.Title = Title;
                 road.Description = Description;
+
+
                 road.Categories = categories;
 
                 _context.SaveChanges();

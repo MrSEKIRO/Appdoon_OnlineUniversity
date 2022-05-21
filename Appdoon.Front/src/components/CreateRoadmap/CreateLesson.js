@@ -1,30 +1,27 @@
 import {NavLink} from 'react-router-dom';
 import { useState } from "react";
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import useFetch from '../Common/useFetch';
 import { Col, Form } from "react-bootstrap";
-import useDelete from '../Common/useDelete';
-import useUpdate from '../Common/useUpdate';
+import useCreate from '../Common/useCreate';
+import $ from 'jquery'
+
+const CreateLesson = () => {
 
 
-
-const EditLesson = () => {
-
-
-    const {id} = useParams();
-    const [url, setUrl] = useState(process.env.REACT_APP_API + "lesson/"+id);
+    const [urlPost, setUrlPost] = useState(process.env.REACT_APP_API + "lesson");
     const [sensetive, setSensetive] = useState(false);
-    const {data : lesson, error} = useFetch(url,sensetive);
 
     const HandleMessage = (resmess,colormess,id = "result_message") => {
         document.getElementById(id).style.color = colormess;
         document.getElementById(id).innerHTML = resmess;
         setSensetive(!sensetive);
     }
-    
-    const HandleUpdate = async(event) => {
+
+    const HandleCreate = async(event) => {
         event.preventDefault();
+
+
+
         let imagesrc = "1.jpg";
         const formData = new FormData();
 
@@ -36,15 +33,26 @@ const EditLesson = () => {
         formData.append("Title",event.target.Title.value);
         formData.append("Text",event.target.Text.value);
         formData.append("PhotoFileName",imagesrc);
-        const body = formData;
+        
+        let body = formData;
 
-        const [resmess, colormess] = await useUpdate(url,body);
+        const [resmess, colormess] = await useCreate(urlPost,body);
         HandleMessage(resmess,colormess);
     }
 
-    const HandleDelete = async() => {
-        const [resmess, colormess] = await useDelete(url);
-        HandleMessage(resmess,colormess);
+    const handleClick = () =>{
+        document.getElementById("Photo").click();
+    }
+
+    const handlePhotoChange = (event) =>{
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#PreviewPhoto')
+                .attr('src', e.target.result)
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
     }
 
     return(
@@ -61,27 +69,27 @@ const EditLesson = () => {
 
                                             
                                             
-                                            <NavLink to="/edit_roadmap" class="login-ds">
+                                            <NavLink to="/create_roadmap" class="login-ds">
                                                 <span class="title">رودمپ</span>
                                                 <span class="sub-title">قالب رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/edit_category" class="register-ds">
+                                            <NavLink to="/create_category" class="register-ds">
                                                 <span class="title">دسته‌</span>
                                                 <span class="sub-title">دسته‌بندی رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/edit_step" class="register-ds">
+                                            <NavLink to="/create_step" class="register-ds">
                                                 <span class="title">قدم‌</span>
                                                 <span class="sub-title">مراحل رودمپ</span>
                                             </NavLink>
 
-                                            <NavLink to="/edit_child_step" class="register-ds">
+                                            <NavLink to="/create_child_step" class="register-ds">
                                                 <span class="title">محتوا‌</span>
                                                 <span class="sub-title">محتوا‌ قدم‌ها</span>
                                             </NavLink>
 
-                                            <NavLink to="/edit_lesson" class="register-ds active">
+                                            <NavLink to="/create_lesson" class="register-ds active">
                                                 <span class="title">مقاله</span>
                                                 <span class="sub-title">مقاله درونی</span>
                                             </NavLink>
@@ -91,8 +99,8 @@ const EditLesson = () => {
                                         </div>
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
-                                                <h4>ویرایش مقاله</h4>
-                                                <form onSubmit={HandleUpdate} action="#" class="form-account text-right">
+                                                <h4>ساخت مقاله</h4>
+                                                <form onSubmit={HandleCreate} action="#" class="form-account text-right">
 
 
 
@@ -109,22 +117,17 @@ const EditLesson = () => {
                                                         <textarea class="number-email-input" name="Text"/>
                                                     </div>
 
-                                                    <div class="form-account-title">
-                                                        <label for="Photo">بنر مقاله</label>
-                                                        <input class="form-control" type="File" name='Photo'/>
+                                                    <div style={{textAlign:"right", width:"100%" ,marginBottom:"50px"}} class="form-account-title">
+                                                        
+                                                        <label style={{float:"right"}} for="Photo">بنر مقاله</label>
+                                                        
+                                                        <input id="Photo" name='Photo' onChange={handlePhotoChange} class="form-control" type="File" hidden="hidden" />
+                                                        
+                                                        <br/>
+                                                        <button type="button" class="btn btn-primary" onClick={handleClick}>آپلود تصویر</button>
+                                                        <img id="PreviewPhoto" class="img-thumbnail" src={process.env.REACT_APP_PHOTOPATH+"lesson/"+"1.jpg"} style={{float:"left" , width:"100px"}}/>
                                                     </div>
 
-
-                                                    {/*
-                                                    <div class="form-auth-row">
-                                                        <label for="#" class="ui-checkbox mt-1">
-                                                            <input type="checkbox" value="1" name="login" id="remember"/>
-                                                            <span class="ui-checkbox-check"></span>
-                                                        </label>
-                                                        <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
-                                                    </div>
-                                                    */
-                                                    }
 
 
                                                     <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
@@ -132,7 +135,7 @@ const EditLesson = () => {
                                                     </div>
 
                                                     <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ویرایش مقاله</button>
+                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ساخت مقاله</button>
                                                     </div>
 
 
@@ -165,4 +168,4 @@ const EditLesson = () => {
 }
 
 
-export default EditLesson;
+export default CreateLesson;

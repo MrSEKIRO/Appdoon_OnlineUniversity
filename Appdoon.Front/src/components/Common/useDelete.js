@@ -4,11 +4,7 @@ const useDelete = async(url) => {
     let color = "";
 
     await fetch(url,{
-        method:"Delete",
-        headers:{
-            'Accept':'application/json',
-            'Content-Type':'application/json'
-        },
+        method:"Delete"
     })
     .then(res=>res.json())
     .then((result)=>{
