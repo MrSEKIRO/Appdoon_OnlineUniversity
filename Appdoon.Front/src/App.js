@@ -35,6 +35,8 @@ import Lesson from './Components/Roadmap/Lesson';
 import Lessons from './Components/Roadmap/Lessons';
 import ListCategory from './Components/List_Roadmap/ListCategory';
 
+import TeacherProfile from './Components/Teacher/TeacherProfile';
+
 function App() {
 
   return (
@@ -87,8 +89,10 @@ function App() {
           <Route path={`/lessons`} element={<Lessons/>}/>
           <Route path={`/lesson/:id`} element={<Lesson/>}/>
 
+          <Route path={`/TeacherProfile`} element={<TeacherProfile/>}/>
 
           <Route path="*" element={<Home/>}/>
+
 
 
         </Routes>

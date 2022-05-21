@@ -30,6 +30,7 @@ namespace Appdoon.Application.Services.Users.GetUserService
         public GetUserService(IDatabaseContext context)
         {
             _context = context;
+
         }
         public ResultDto<GetUserDto> Execute(int id)
         {
