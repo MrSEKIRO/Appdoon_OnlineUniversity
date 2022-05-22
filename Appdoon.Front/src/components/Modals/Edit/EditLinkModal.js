@@ -17,11 +17,11 @@ import chroma from 'chroma-js';
 
 import { StylesConfig } from 'react-select';
 
-function EditLinkModal({ link, sensetive, setSensetive }) {
+function EditLinkModal({ id ,link, sensetive, setSensetive }) {
 
     const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "linker/");
 
-    const HandleMessage = (resmess,colormess,id = "result_message_edit") => {
+    const HandleMessage = (resmess,colormess,id = "result_message_edit_link") => {
         document.getElementById(id).style.color = colormess;
         document.getElementById(id).innerHTML = resmess;
         setSensetive(!sensetive);
@@ -69,7 +69,7 @@ function EditLinkModal({ link, sensetive, setSensetive }) {
 
 
     return (
-        <div style={{top: "1%"}} dir="rtl" class="modal fade" id="editModal" role="dialog">
+        <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
             <div style={{marginBottom:"50px", maxWidth: "550px"}} class="modal-dialog">
             
                 <div class="modal-content">
@@ -88,17 +88,17 @@ function EditLinkModal({ link, sensetive, setSensetive }) {
                                                     <div  class="account-box">
                                                         <div  class="Login-to-account mt-4">
                                                             <div style={{marginTop:"-20px", marginBottom:"40px"}} class="account-box-content">
-                                                                <form onSubmit={HandleUpdate} id="editform" action="#" class="form-account text-right">
+                                                                <form onSubmit={HandleUpdate} id="editformlink" action="#" class="form-account text-right">
 
                                                                     <div class="form-account-title">
                                                                         <label for="Title">نام لینک</label>
-                                                                        <input id="Title" placeholder={link.Title} type="text" class="number-email-input" name="Title"/>
+                                                                        <input dir='auto' id="TitleLink" placeholder={link.Title} type="text" class="number-email-input" name="Title"/>
                                                                     </div>
 
                                                                     
                                                                     <div class="form-account-title">
                                                                         <label for="Link">لینک</label>
-                                                                        <textarea id="Link" placeholder={link.Link} class="number-email-input" name="Link"/>
+                                                                        <textarea dir='auto' id="LinkLink" placeholder={link.Link} class="number-email-input" name="Link"/>
                                                                     </div>
 
 
@@ -121,8 +121,8 @@ function EditLinkModal({ link, sensetive, setSensetive }) {
                     </div>
                     <div class="modal-footer">
                         <div style={{width:"100%"}}>
-                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit"></p>
-                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editform">ویرایش لینک</button>
+                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit_link"></p>
+                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editformlink">ویرایش لینک</button>
                         </div>
                     </div>
                 </div>

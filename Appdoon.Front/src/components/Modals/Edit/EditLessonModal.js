@@ -17,11 +17,11 @@ import chroma from 'chroma-js';
 
 import { StylesConfig } from 'react-select';
 
-function EditLessonModal({ lesson, sensetive, setSensetive }) {
+function EditLessonModal({ id, lesson, sensetive, setSensetive }) {
 
     const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "lesson/");
 
-    const HandleMessage = (resmess,colormess,id = "result_message_edit") => {
+    const HandleMessage = (resmess,colormess,id = "result_message_edit_lesson") => {
         document.getElementById(id).style.color = colormess;
         document.getElementById(id).innerHTML = resmess;
         setSensetive(!sensetive);
@@ -75,14 +75,14 @@ function EditLessonModal({ lesson, sensetive, setSensetive }) {
 
 
     const handleClick = () =>{
-        document.getElementById("Photo").click();
+        document.getElementById("PhotoLesson").click();
     }
 
     const handlePhotoChange = (event) =>{
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            $('#PreviewPhoto')
+            $('#PreviewPhotoLesson')
                 .attr('src', e.target.result)
         };
 
@@ -91,7 +91,7 @@ function EditLessonModal({ lesson, sensetive, setSensetive }) {
 
       
     return (
-        <div style={{top: "1%"}} dir="rtl" class="modal fade" id="editModal" role="dialog">
+        <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
             <div style={{marginBottom:"50px", maxWidth: "550px"}} class="modal-dialog">
             
                 <div class="modal-content">
@@ -110,28 +110,28 @@ function EditLessonModal({ lesson, sensetive, setSensetive }) {
                                                     <div  class="account-box">
                                                         <div  class="Login-to-account mt-4">
                                                             <div style={{marginTop:"-20px", marginBottom:"40px"}} class="account-box-content">
-                                                                <form onSubmit={HandleUpdate} id="editform" action="#" class="form-account text-right">
+                                                                <form onSubmit={HandleUpdate} id="editformlesson" action="#" class="form-account text-right">
 
                                                                     <div class="form-account-title">
                                                                         <label for="Title">نام درس</label>
-                                                                        <input id="Title" placeholder={lesson.Title} type="text" class="number-email-input" name="Title"/>
+                                                                        <input dir='auto' id="TitleLesson" placeholder={lesson.Title} type="text" class="number-email-input" name="Title"/>
                                                                     </div>
 
                                                                     
                                                                     <div class="form-account-title">
                                                                         <label for="Text">متن</label>
-                                                                        <textarea id="Text" placeholder={lesson.Text} class="number-email-input" name="Text"/>
+                                                                        <textarea dir='auto' id="TextLesson" placeholder={lesson.Text} class="number-email-input" name="Text"/>
                                                                     </div>
 
                                                                     <div style={{textAlign:"right", width:"100%" ,marginBottom:"50px"}} class="form-account-title">
                                                                         
                                                                         <label style={{float:"right"}} for="Photo">تصویر درس</label>
                                                                         
-                                                                        <input id="Photo" name='Photo' onChange={handlePhotoChange} class="form-control" type="File" hidden="hidden" />
+                                                                        <input dir='auto' id="PhotoLesson" name='Photo' onChange={handlePhotoChange} class="form-control" type="File" hidden="hidden" />
                                                                         
                                                                         <br/>
                                                                         <button type="button" class="btn btn-primary" onClick={handleClick}>آپلود تصویر</button>
-                                                                        <img id="PreviewPhoto" class="img-thumbnail" src={process.env.REACT_APP_PHOTOPATH+"lesson/"+lesson.TopBannerSrc} style={{float:"left" , width:"100px"}}/>
+                                                                        <img id="PreviewPhotoLesson" class="img-thumbnail" src={process.env.REACT_APP_PHOTOPATH+"lesson/"+lesson.TopBannerSrc} style={{float:"left" , width:"100px"}}/>
                                                                     </div>
 
 
@@ -155,8 +155,8 @@ function EditLessonModal({ lesson, sensetive, setSensetive }) {
                     </div>
                     <div class="modal-footer">
                         <div style={{width:"100%"}}>
-                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit"></p>
-                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editform">ویرایش درس</button>
+                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit_lesson"></p>
+                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editformlesson">ویرایش درس</button>
                         </div>
                     </div>
                 </div>

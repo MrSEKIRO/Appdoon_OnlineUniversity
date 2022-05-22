@@ -28,16 +28,17 @@ const ListLink = () => {
     }, [linkers]);
 
     const clear = () =>{
-        document.getElementById("Title").value = null;
-        document.getElementById("Link").value = null;
-        document.getElementById("result_message_edit").innerHTML = null;
-        document.getElementById("result_message_delete").innerHTML = null;
+        document.getElementById("TitleLink").value = null;
+        document.getElementById("LinkLink").value = null;
+        document.getElementById("result_message_edit_link").innerHTML = null;
+        document.getElementById("result_message_delete_link").innerHTML = null;
+
     }
 
     return(
         <div>
-            {<EditLinkModal link = {link} sensetive = {sensetive} setSensetive = {setSensetive}/>}
-            {<DeleteLinkModal link = {link} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<EditLinkModal id={"editModalLink"} link = {link} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<DeleteLinkModal id={"deleteModalLink"} link = {link} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             <div class="container-main">
                 
                 <div class="d-block">
@@ -160,10 +161,10 @@ const ListLink = () => {
                                                             </td>
 
                                                             <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#editModal" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#editModalLink" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
                                                             </td>
                                                             <td style={{textAlign:"center" ,width:"5%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#deleteModal" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#deleteModalLink" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
                                                             </td>
                                                         </tr>
                                                     ))

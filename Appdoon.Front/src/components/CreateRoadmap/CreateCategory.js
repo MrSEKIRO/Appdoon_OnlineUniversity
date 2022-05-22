@@ -85,13 +85,13 @@ const CreateCategory = () => {
 
                                                     <div class="form-account-title">
                                                         <label for="email-phone">نام دسته</label>
-                                                        <input type="text" class="number-email-input" name="Name"/>
+                                                        <input dir='auto' type="text" class="number-email-input" name="Name"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
                                                         <label for="email-phone">لینک</label>
-                                                        <input type="text-area" class="number-email-input" name="Link"/>
+                                                        <input dir='auto' type="text-area" class="number-email-input" name="Link"/>
                                                     </div>
 
 

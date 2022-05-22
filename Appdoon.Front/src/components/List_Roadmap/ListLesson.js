@@ -29,19 +29,19 @@ const ListLesson = () => {
     }, [lessons]);
 
     const clear = () =>{
-        document.getElementById("Title").value = null;
-        document.getElementById("Text").value = null;
-        document.getElementById("Photo").value = null;
-        document.getElementById("result_message_edit").innerHTML = null;
-        document.getElementById("result_message_delete").innerHTML = null;
+        document.getElementById("TitleLesson").value = null;
+        document.getElementById("TextLesson").value = null;
+        document.getElementById("PhotoLesson").value = null;
+        document.getElementById("result_message_edit_lesson").innerHTML = null;
+        document.getElementById("result_message_delete_lesson").innerHTML = null;
 
-        document.getElementById("PreviewPhoto").src = process.env.REACT_APP_PHOTOPATH+"lesson/"+lesson.TopBannerSrc;
+        document.getElementById("PreviewPhotoLesson").src = process.env.REACT_APP_PHOTOPATH+"lesson/"+lesson.TopBannerSrc;
     }
 
     return(
         <div>
-            {<EditLessonModal lesson = {lesson} sensetive = {sensetive} setSensetive = {setSensetive}/>}
-            {<DeleteLessonModal lesson = {lesson} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<EditLessonModal id={"editModalLesson"} lesson = {lesson} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<DeleteLessonModal id={"deleteModalLesson"} lesson = {lesson} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             <div class="container-main">
                 
                 <div class="d-block">
@@ -169,10 +169,10 @@ const ListLesson = () => {
                                                             </td>
 
                                                             <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#editModal" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#editModalLesson" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
                                                             </td>
                                                             <td style={{textAlign:"center" ,width:"5%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#deleteModal" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#deleteModalLesson" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
                                                             </td>
                                                         </tr>
                                                     ))

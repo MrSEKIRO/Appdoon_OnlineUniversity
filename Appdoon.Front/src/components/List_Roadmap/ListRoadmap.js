@@ -55,23 +55,22 @@ const ListRoadmap = () => {
                 document.getElementById("cat"+roadmaps[i].Id).innerHTML = temp;
             }
         }
-
     }, [roadmaps]);
 
     const clear = () =>{
-        document.getElementById("Title").value = null;
-        document.getElementById("Description").value = null;
-        document.getElementById("Photo").value = null;
-        document.getElementById("result_message_edit").innerHTML = null;
-        document.getElementById("result_message_delete").innerHTML = null;
+        document.getElementById("TitleRoadmap").value = null;
+        document.getElementById("DescriptionRoadmap").value = null;
+        document.getElementById("PhotoRoadmap").value = null;
+        document.getElementById("result_message_edit_roadmap").innerHTML = null;
+        document.getElementById("result_message_delete_roadmap").innerHTML = null;
 
-        document.getElementById("PreviewPhoto").src = process.env.REACT_APP_PHOTOPATH+"roadmap/"+roadmap.ImageSrc;
+        document.getElementById("PreviewPhotoRoadmap").src = process.env.REACT_APP_PHOTOPATH+"roadmap/"+roadmap.ImageSrc;
     }
 
     return(
         <div>
-            {<EditRoadmapModal roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
-            {<DeleteRoadmapModal roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<EditRoadmapModal id={"editModalRoadmap"} roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<DeleteRoadmapModal id={"deleteModalRoadmap"} roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             <div class="container-main">
                 
                 <div class="d-block">
@@ -225,10 +224,10 @@ const ListRoadmap = () => {
                                                                 </span>
                                                             </td>
                                                             <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#editModal" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#editModalRoadmap" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
                                                             </td>
                                                             <td style={{textAlign:"center" ,width:"5%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#deleteModal" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#deleteModalRoadmap" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
                                                             </td>
                                                         </tr>
                                                     ))
