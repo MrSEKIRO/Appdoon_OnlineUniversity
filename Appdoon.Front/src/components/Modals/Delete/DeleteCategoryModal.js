@@ -12,11 +12,11 @@ import useUpdate from '../../Common/useUpdate';
 import "../../../Modular_Css/EditRoadmapModal.css";
 
 
-function DeleteCategoryModal({ category , sensetive ,setSensetive}) {
+function DeleteCategoryModal({ id, category , sensetive ,setSensetive}) {
 
     const [url, setUrl] = useState(process.env.REACT_APP_API + "category/");
 
-    const HandleMessage = (resmess,colormess,id = "result_message_delete") => {
+    const HandleMessage = (resmess,colormess,id = "result_message_delete_category") => {
         document.getElementById(id).style.color = colormess;
         document.getElementById(id).innerHTML = resmess;
         setSensetive(!sensetive);
@@ -29,7 +29,7 @@ function DeleteCategoryModal({ category , sensetive ,setSensetive}) {
 
 
     return (
-        <div style={{top: "1%"}} dir="rtl" class="modal fade" id="deleteModal" role="dialog">
+        <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
             <div style={{marginBottom:"50px", maxWidth: "550px"}} class="modal-dialog">
             
                 <div class="modal-content">
@@ -43,7 +43,7 @@ function DeleteCategoryModal({ category , sensetive ,setSensetive}) {
                     </div>
                     <div class="modal-footer">
                         <div style={{width:"100%"}}>
-                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_delete"></p>
+                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_delete_category"></p>
                             <button style={{float:"left"}} type="button" class="btn btn-danger" onClick={() => HandleDelete()}>حذف دسته</button>
                         </div>
                     </div>

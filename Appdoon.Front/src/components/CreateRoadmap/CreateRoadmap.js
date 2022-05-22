@@ -154,13 +154,13 @@ const CreateRoadmap = () => {
 
                                                     <div class="form-account-title">
                                                         <label for="Title">نام رودمپ</label>
-                                                        <input type="text" class="number-email-input" name="Title"/>
+                                                        <input dir='auto' type="text" class="number-email-input" name="Title"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
                                                         <label for="Description">توضیحات</label>
-                                                        <textarea class="number-email-input" name="Description"/>
+                                                        <textarea dir='auto' class="number-email-input" name="Description"/>
                                                     </div>
 
 
@@ -168,7 +168,7 @@ const CreateRoadmap = () => {
                                                         
                                                         <label style={{float:"right"}} for="Photo">تصویر رودمپ</label>
                                                         
-                                                        <input id="Photo" name='Photo' onChange={handlePhotoChange} class="form-control" type="File" hidden="hidden" />
+                                                        <input dir='auto' id="Photo" name='Photo' onChange={handlePhotoChange} class="form-control" type="File" hidden="hidden" />
                                                         
                                                         <br/>
                                                         <button type="button" class="btn btn-primary" onClick={handleClick}>آپلود تصویر</button>

@@ -94,18 +94,18 @@ const CreateStep = () => {
 
                                                     <div class="form-account-title">
                                                         <label for="email-phone">نام قدم</label>
-                                                        <input type="text" class="number-email-input" name="Title"/>
+                                                        <input dir='auto' type="text" class="number-email-input" name="Title"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
                                                         <label for="email-phone">توضیحات</label>
-                                                        <textarea class="number-email-input" name="Description"/>
+                                                        <textarea dir='auto' class="number-email-input" name="Description"/>
                                                     </div>
 
                                                     <div class="form-account-title">
                                                         <label for="email-phone">لینک</label>
-                                                        <input type="text" class="number-email-input" name="Link"/>
+                                                        <input dir='auto' type="text" class="number-email-input" name="Link"/>
                                                     </div>
 
 

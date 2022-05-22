@@ -205,6 +205,13 @@ h1 {
     font-size: 12px;
 }
 
+.timeline-item-content .edit_delete {
+    margin-bottom: -30px;
+    display:flex;
+    left: 5px;
+    align-self:center;
+}
+
 
 
 .timeline-item-content .circle {

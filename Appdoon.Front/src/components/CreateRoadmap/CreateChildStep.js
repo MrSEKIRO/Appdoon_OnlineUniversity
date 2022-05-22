@@ -71,7 +71,6 @@ const CreateChildStep = () => {
 
     const addFields = () => {
         let newfield = { LinkTitle: '', LinkURL: '' }
-    
         setInputFields([...inputFields, newfield])
     }
 
@@ -135,18 +134,18 @@ const CreateChildStep = () => {
 
                                                     <div class="form-account-title">
                                                         <label for="Title">نام محتوا</label>
-                                                        <input type="text" class="number-email-input" name="Title"/>
+                                                        <input dir='auto' type="text" class="number-email-input" name="Title"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
                                                         <label for="Description">توضیحات</label>
-                                                        <textarea class="number-email-input" name="Description"/>
+                                                        <textarea dir='auto' class="number-email-input" name="Description"/>
                                                     </div>
 
                                                     <div class="form-account-title">
                                                         <label for="Link">لینک اصلی محتوا</label>
-                                                        <input type="text" class="number-email-input" name="Link"/>
+                                                        <input dir='auto' type="text" class="number-email-input" name="Link"/>
                                                     </div>
 
 
@@ -218,7 +217,7 @@ const CreateChildStep = () => {
                                                         <div style={{display:"flex", textAlign:"center"}}  key={index}>
                                                             <div style={{flex:"50%"}} class="form-account-title">
                                                                 
-                                                                <input style={{width:"95%"}}
+                                                                <input dir='auto' style={{width:"95%"}}
                                                                 class="number-email-input"
                                                                 name='LinkTitle'
                                                                 onChange={event => handleFormChange(index, event)}/>
@@ -226,7 +225,7 @@ const CreateChildStep = () => {
 
                                                             <div style={{flex:"50%"}} class="form-account-title">
                                                                 
-                                                                <input style={{width:"95%"}}
+                                                                <input dir='auto' style={{width:"95%"}}
                                                                 class="number-email-input"
                                                                 name='LinkURL'
                                                                 onChange={event => handleFormChange(index, event)}/>
@@ -240,15 +239,6 @@ const CreateChildStep = () => {
                                                             <a style={{width:"20%" ,color:"black"}} class="btn btn-primary btn-login" onClick={() => removeFields()}>حذف لینک</a>
                                                         </div>
                                                     </div>
-                                                    {/*
-                                                    <div class="form-auth-row">
-                                                        <label for="#" class="ui-checkbox mt-1">
-                                                            <input type="checkbox" value="1" name="login" id="remember"/>
-                                                            <span class="ui-checkbox-check"></span>
-                                                        </label>
-                                                        <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
-                                                    </div>
-                                                    */}
 
 
 

@@ -73,16 +73,16 @@ const Login = () => {
 
 
 
-                                                    <div class="form-account-title">
+                                                    <div  class="form-account-title">
                                                         <label for="email-phone">ایمیل / نام کاربری</label>
-                                                        <input type="text" class="number-email-input" name="Email_Username"/>
+                                                        <input dir="auto" type="text" class="number-email-input" name="Email_Username"/>
                                                     </div>
 
                                                     
                                                     <div class="form-account-title">
                                                         <label for="password">رمز عبور</label>
                                                         <a href="#" class="account-link-password">رمز خود را فراموش کرده ام</a>
-                                                        <input type="password" class="password-input" name="Password"/>
+                                                        <input dir="auto" type="password" class="password-input" name="Password"/>
                                                     </div>
 
 
