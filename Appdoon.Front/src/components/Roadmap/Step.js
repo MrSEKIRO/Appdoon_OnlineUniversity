@@ -4,18 +4,15 @@ import { useState } from "react";
 
 
 
-const Step = ({ data , key , handleModalId}) => {
-
-    const handleModal = (childStep) => {
-        handleModalId(data.Id,childStep);
-    }
+const Step = ({ data , key , setChildStep}) => {
     
     return(
         <div className="timeline-item">
             <div className="timeline-item-content">
-                <span className="tag">
-                    {data.Title}
-                </span>
+                    <span className="tag">
+                        {data.Title}
+                    </span>
+
                 <p dir="rtl">{data.Description}</p>
                 <br/>
 
@@ -25,9 +22,11 @@ const Step = ({ data , key , handleModalId}) => {
                     <ol dir="rtl"  style = {{marginRight: "20px"}}>
                         {
                             data.ChildSteps.map((childstep, idx) => (
-                                <li dir="rtl">
-                                    <a href="#!" data-toggle="modal" data-target="#myModal" onClick={() => {handleModal(childstep)}}>{childstep.Title}</a>
-                                </li>
+                                <div className="zoom">
+                                    <li dir="rtl">
+                                        <a href="#!" data-toggle="modal" data-target="#myModal" onClick={() => {setChildStep(childstep)}}>{childstep.Title}</a>
+                                    </li>
+                                </div>
                             ))
                             
                         }
@@ -37,17 +36,18 @@ const Step = ({ data , key , handleModalId}) => {
 
 
                 {data.Link && (
-                    
-                    <a
-                    
-                        href={data.Link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        
-                        {data.Title}
-                        
-                    </a>
+                    <div className="bilbilak zoom">
+                        <a
+                            href={data.Link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            {data.Title}
+                            
+                        </a>
+
+                    </div>
+
 
                     
                 )}

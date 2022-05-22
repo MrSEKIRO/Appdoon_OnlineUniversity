@@ -7,27 +7,23 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 import ChildStepModal from '../Modals/ChildStepModal';
 import { useState } from "react";
-
+import EditRoadmapModal from "../Modals/Edit/EditRoadmapModal";
+import DeleteRoadmapModal from "../Modals/Delete/DeleteRoadmapModal";
 
 const Roadmap = () => {
-    
-
-    //e.preventDefault();
-
-    //setIsPending(true);
-
 
     const {id} = useParams();
+    
     
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
     const [isLogin, setIsLogin] = useState(true)
     const url = process.env.REACT_APP_API + 'roadmap/'+id;
+    const [sensetive, setSensetive] = useState(false);
+    
+    const[childStep, setChildStep] = useState(0);
 
 
-
-    const [stepId, setStepId] = useState(0);
-    const [childStep, setChildStep] = useState(0);
 
     useEffect(() => {
 
@@ -75,31 +71,43 @@ const Roadmap = () => {
                 setIsLogin(false);
             }
         })
-    }, [url]);
+    }, [url,sensetive]);
 
-    const handleModal = (stepId, childStep) =>{
-        setStepId(stepId);
-        setChildStep(childStep);
+
+    const clear = () =>{
+        document.getElementById("Title").value = null;
+        document.getElementById("Description").value = null;
+        document.getElementById("Photo").value = null;
+        document.getElementById("result_message_edit").innerHTML = null;
+        document.getElementById("result_message_delete").innerHTML = null;
+        document.getElementById("PreviewPhoto").src = process.env.REACT_APP_PHOTOPATH+"roadmap/"+data.ImageSrc;
     }
     
     return(
 
         <div>
-            
+            {<EditRoadmapModal roadmap = {data} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<DeleteRoadmapModal roadmap = {data} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<ChildStepModal childStep={childStep}/>}
+            <div style={{float:"left" , marginTop:"20px", marginLeft:"20px"}}>
+
+                <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#editModal" variant="primary" class="btn btn-primary" onClick={() => {clear();}}>ویرایش</button>
+                <button href="#!" data-toggle="modal" data-target="#deleteModal" variant="primary" class="btn btn-danger" onClick={() => {clear();}}>حذف</button>
+            </div>
             {data && data.Id > 0 && (
                 
                 <div className='timelineBody'>
                     
                    
                     <h1 dir="rtl">رودمپ {data.Title}</h1>
-                    <p  dir="rtl" style={{color:"white"}}>{data.Description}</p>
+                    <p  dir="rtl" style={{color:"black"}}>{data.Description}</p>
                     <div class="timeline-container">
                         
                         {data.Steps.map((step, idx) => (
-                            <Step data={step} key={idx} handleModalId={handleModal}/>
+                            <Step data={step} key={idx} setChildStep={setChildStep}/>
                         ))}
                     </div>
-                    {stepId && <ChildStepModal setStepId={setStepId} childStep={childStep} setChildStep={setChildStep}/>}
+                    
                 </div>
                 )
             }

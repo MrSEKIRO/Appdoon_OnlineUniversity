@@ -1,7 +1,7 @@
 import React from "react";
 import "../../Modular_Css/ChildStepModal.css";
 
-function ChildStepModal({ setStepId, childStep, setChildStep }) {
+function ChildStepModal({childStep}) {
   return (
 
 
@@ -10,7 +10,7 @@ function ChildStepModal({ setStepId, childStep, setChildStep }) {
       
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" onClick={() => {setStepId(0); setChildStep(0);}}>&times;</button>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">{childStep.Title}</h4>
           </div>
           <div class="modal-body">
