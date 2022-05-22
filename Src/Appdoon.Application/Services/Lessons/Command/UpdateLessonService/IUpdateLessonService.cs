@@ -67,6 +67,8 @@ namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
 					imageSrc = PhotoFileName;
 				}
 
+				var les = _context.Lessons.Where(r => r.Id == id).FirstOrDefault();
+
 				
 				les.UpdateTime = TimeNow;
 				if (imageSrc != "1.jpg")
