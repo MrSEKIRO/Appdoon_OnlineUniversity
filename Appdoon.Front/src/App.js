@@ -13,11 +13,11 @@ import Roadmaps from "./Components/Roadmap/Roadmaps";
 import Roadmap from './Components/Roadmap/Roadmap';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
-import CreateRoadmap from './Components/BuildRoadmap/CreateRoadmap';
-import CreateCategory from './Components/BuildRoadmap/CreateCategory';
-import CreateStep from './Components/BuildRoadmap/CreateStep';
-import CreateChildStep from './Components/BuildRoadmap/CreateChildStep';
-import CreateLesson from './Components/BuildRoadmap/CreateLesson';
+import CreateRoadmap from './Components/CreateRoadmap/CreateRoadmap';
+import CreateCategory from './Components/CreateRoadmap/CreateCategory';
+import CreateStep from './Components/CreateRoadmap/CreateStep';
+import CreateChildStep from './Components/CreateRoadmap/CreateChildStep';
+import CreateLesson from './Components/CreateRoadmap/CreateLesson';
 
 
 import Profile from './Components/User/Profile';
@@ -86,8 +86,8 @@ function App() {
           <Route path={`/lessons`} element={<Lessons/>}/>
           <Route path={`/lesson/:id`} element={<Lesson/>}/>
 
-
           <Route path="*" element={<Home/>}/>
+
 
 
         </Routes>

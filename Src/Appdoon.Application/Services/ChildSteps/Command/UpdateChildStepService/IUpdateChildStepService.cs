@@ -1,6 +1,7 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,13 @@ namespace Appdoon.Application.Services.ChildSteps.Command.UpdateChildStepService
 		public string Description { get; set; }
 		public string Link { get; set; }
 		public int StepId { get; set; }
+		public List<UpdateLinkerDto> Linkers { get; set; }
 
+	}
+	public class UpdateLinkerDto
+	{
+		public string LinkTitle { get; set; } = string.Empty;
+		public string LinkURL { get; set; } = string.Empty;
 	}
 	public interface IUpdateChildStepService
 	{
@@ -50,7 +57,7 @@ namespace Appdoon.Application.Services.ChildSteps.Command.UpdateChildStepService
 
 
 
-				var child_step_back = _context.ChildSteps.Where(s => s.Id == id).FirstOrDefault();
+				var child_step_back = _context.ChildSteps.Include(c => c.Linkers).Where(s => s.Id == id).FirstOrDefault();
 				if (child_step_back == null)
 				{
 					return new ResultDto()
@@ -61,10 +68,18 @@ namespace Appdoon.Application.Services.ChildSteps.Command.UpdateChildStepService
 				}
 
 
+				
 
 				child_step_back.Title = child_step_front.Title;
 				child_step_back.Description = child_step_front.Description;
 				child_step_back.Link = child_step_front.Link;
+
+				for(int i = 0; i < child_step_back.Linkers.Count; i++)
+                {
+					child_step_back.Linkers[i].Title = child_step_front.Linkers[i].LinkTitle;
+					child_step_back.Linkers[i].Link = child_step_front.Linkers[i].LinkURL;
+				}
+
 				child_step_back.UpdateTime = DateTime.Now;
 
 

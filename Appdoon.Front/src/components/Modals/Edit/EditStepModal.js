@@ -17,11 +17,11 @@ import chroma from 'chroma-js';
 
 import { StylesConfig } from 'react-select';
 
-function EditStepModal({ step, sensetive, setSensetive }) {
+function EditStepModal({ id, step, sensetive, setSensetive }) {
 
     const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "step/");
 
-    const HandleMessage = (resmess,colormess,id = "result_message_edit") => {
+    const HandleMessage = (resmess,colormess,id = "result_message_edit_step") => {
         document.getElementById(id).style.color = colormess;
         document.getElementById(id).innerHTML = resmess;
         setSensetive(!sensetive);
@@ -30,7 +30,7 @@ function EditStepModal({ step, sensetive, setSensetive }) {
     const HandleUpdate = async(event) => {
         event.preventDefault();
         
-
+        
         let headers = {
             'Accept':'application/json',
             'Content-Type':'application/json'
@@ -78,7 +78,7 @@ function EditStepModal({ step, sensetive, setSensetive }) {
 
       
     return (
-        <div style={{top: "1%"}} dir="rtl" class="modal fade" id="editModal" role="dialog">
+        <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
             <div style={{marginBottom:"50px", maxWidth: "550px"}} class="modal-dialog">
             
                 <div class="modal-content">
@@ -97,23 +97,23 @@ function EditStepModal({ step, sensetive, setSensetive }) {
                                                     <div  class="account-box">
                                                         <div  class="Login-to-account mt-4">
                                                             <div style={{marginTop:"-20px", marginBottom:"40px"}} class="account-box-content">
-                                                                <form onSubmit={HandleUpdate} id="editform" action="#" class="form-account text-right">
+                                                                <form onSubmit={HandleUpdate} id="editformstep" action="#" class="form-account text-right">
 
                                                                     <div class="form-account-title">
                                                                         <label for="Title">نام قدم</label>
-                                                                        <input id="Title" placeholder={step.Title} type="text" class="number-email-input" name="Title"/>
+                                                                        <input dir='auto' id="TitleStep" placeholder={step.Title} type="text" class="number-email-input" name="Title"/>
                                                                     </div>
 
                                                                     
                                                                     <div class="form-account-title">
                                                                         <label for="Description">توضیحات</label>
-                                                                        <textarea id="Description" placeholder={step.Description} class="number-email-input" name="Description"/>
+                                                                        <textarea dir='auto' id="DescriptionStep" placeholder={step.Description} class="number-email-input" name="Description"/>
                                                                     </div>
 
 
                                                                     <div class="form-account-title">
                                                                         <label for="Link">لینک</label>
-                                                                        <input id="Link" placeholder={step.Link} class="number-email-input" name="Link"/>
+                                                                        <input dir='auto' id="LinkStep" placeholder={step.Link} class="number-email-input" name="Link"/>
                                                                     </div>
 
 
@@ -134,8 +134,8 @@ function EditStepModal({ step, sensetive, setSensetive }) {
                     </div>
                     <div class="modal-footer">
                         <div style={{width:"100%"}}>
-                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit"></p>
-                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editform">ویرایش قدم</button>
+                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit_step"></p>
+                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editformstep">ویرایش قدم</button>
                         </div>
                     </div>
                 </div>

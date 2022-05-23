@@ -17,11 +17,11 @@ import chroma from 'chroma-js';
 
 import { StylesConfig } from 'react-select';
 
-function EditCategoryModal({ category, sensetive, setSensetive }) {
+function EditCategoryModal({ id, category, sensetive, setSensetive }) {
 
     const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "category/");
 
-    const HandleMessage = (resmess,colormess,id = "result_message_edit") => {
+    const HandleMessage = (resmess,colormess,id = "result_message_edit_category") => {
         document.getElementById(id).style.color = colormess;
         document.getElementById(id).innerHTML = resmess;
         setSensetive(!sensetive);
@@ -67,7 +67,7 @@ function EditCategoryModal({ category, sensetive, setSensetive }) {
     },[category])
       
     return (
-        <div style={{top: "1%"}} dir="rtl" class="modal fade" id="editModal" role="dialog">
+        <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
             <div style={{marginBottom:"50px", maxWidth: "550px"}} class="modal-dialog">
             
                 <div class="modal-content">
@@ -86,17 +86,17 @@ function EditCategoryModal({ category, sensetive, setSensetive }) {
                                                     <div  class="account-box">
                                                         <div  class="Login-to-account mt-4">
                                                             <div style={{marginTop:"-20px", marginBottom:"40px"}} class="account-box-content">
-                                                                <form onSubmit={HandleUpdate} id="editform" action="#" class="form-account text-right">
+                                                                <form onSubmit={HandleUpdate} id="editformcategory" action="#" class="form-account text-right">
 
                                                                     <div class="form-account-title">
                                                                         <label for="Name">نام دسته</label>
-                                                                        <input id="Name" placeholder={category.Name} type="text" class="number-email-input" name="Name"/>
+                                                                        <input dir='auto' id="NameCategory" placeholder={category.Name} type="text" class="number-email-input" name="Name"/>
                                                                     </div>
 
                                                                     
                                                                     <div class="form-account-title">
                                                                         <label for="Link">لینک دسته</label>
-                                                                        <input id="Link" placeholder={category.Link} class="number-email-input" name="Link"/>
+                                                                        <input dir='auto' id="LinkCategory" placeholder={category.Link} class="number-email-input" name="Link"/>
                                                                     </div>
 
 
@@ -119,8 +119,8 @@ function EditCategoryModal({ category, sensetive, setSensetive }) {
                     </div>
                     <div class="modal-footer">
                         <div style={{width:"100%"}}>
-                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit"></p>
-                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editform">ویرایش دسته</button>
+                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit_category"></p>
+                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editformcategory">ویرایش دسته</button>
                         </div>
                     </div>
                 </div>
