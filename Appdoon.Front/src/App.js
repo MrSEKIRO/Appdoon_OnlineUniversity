@@ -35,8 +35,6 @@ import ListStep from './Components/List_Roadmap/ListStep';
 import ListLesson from './Components/List_Roadmap/ListLesson';
 import ListLink from './Components/List_Roadmap/ListLink';
 
-import TeacherProfile from './Components/Teacher/TeacherProfile';
-
 function App() {
 
   return (
@@ -87,8 +85,6 @@ function App() {
 
           <Route path={`/lessons`} element={<Lessons/>}/>
           <Route path={`/lesson/:id`} element={<Lesson/>}/>
-
-          <Route path={`/TeacherProfile`} element={<TeacherProfile/>}/>
 
           <Route path="*" element={<Home/>}/>
 
