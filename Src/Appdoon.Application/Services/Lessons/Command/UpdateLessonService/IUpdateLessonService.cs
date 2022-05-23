@@ -66,13 +66,11 @@ namespace Appdoon.Application.Services.Lessons.Command.UpdateLessonService
 					PhotoFileName = "1.jpg";
 					imageSrc = PhotoFileName;
 				}
-
-				var les = _context.Lessons.Where(r => r.Id == id).FirstOrDefault();
-
-				
+				var les = _context.Lessons.Where(l => l.Id == id).FirstOrDefault();
 				les.UpdateTime = TimeNow;
 				if (imageSrc != "1.jpg")
 				{
+        
 					les.TopBannerSrc = imageSrc;
 				}
 				les.Title = Title;
