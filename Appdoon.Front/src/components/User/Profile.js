@@ -49,6 +49,11 @@ const Profile = () => {
                                                 رودمپ های مورد علاقه من
                                             </a>
                                         </li>
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <a href="EditProfile" class=""><i class=""></i>
+                                                ویرایش اطلاعات      
+                                            </a>
+                                        </li>
                                     </ul>
                                 </section>
                             </div>
@@ -87,9 +92,7 @@ const Profile = () => {
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="profile-edit-action">
-                                        <a href="/EditProfile" class="link-spoiler-edit btn btn-secondary">ویرایش اطلاعات</a>
-                                    </div>
+                                  
                                 </div>
                             </div>
                         </div>

@@ -1,22 +1,39 @@
+import {NavLink} from 'react-router-dom';
+import { useState } from "react";
+import useFetch from '../Common/useFetch';
+import { Col, Form } from "react-bootstrap";
 import React,{Component} from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import useFetch from '../Common/useFetch';
+import "../../Modular_Css/RoadmapBox.css";
+import "../../Modular_Css/ListRoadmap.css";
+import EditRoadmapModal from "../Modals/Edit/EditRoadmapModal";
+import DeleteRoadmapModal from "../Modals/Delete/DeleteRoadmapModal";
+import $ from "jquery";
 
-import DeleteChildStepModal from "../Modals/Delete/DeleteChildStepModal";
-import EditChildStepModal from "../Modals/Edit/EditChildStepModal";
+const TeacherEditRoadmap = () => {
 
-const ListChildStep = () => {
-    
-    const [url, setUrl] = useState(process.env.REACT_APP_API + "childstep");
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "roadmap");
     const [sensetive, setSensetive] = useState(false);
-    const {data : childsteps, error} = useFetch(url,sensetive);
+    const {data : roadmaps, error} = useFetch(url,sensetive);
+    const [photoPath, setPhotoPath] = useState(process.env.REACT_APP_PHOTOPATH+"Roadmap/");
+
+    
+
+    function stars(num){
+        let A = "";
+        for(var i = 0; i < 5-num; i++){
+            A += '<span class="fa fa-star"></span>';
+        }
+        for(var i = 0; i < num; i++){
+            A += '<span class="fa fa-star checked"></span>';
+        }
+        return A;
+    }
 
 
     const[id, setId] = useState(0);
-    const {data : childstep, setData} = useFetch(url+"/"+id,sensetive);
+    const {data : roadmap, setData} = useFetch(url+"/"+id,sensetive);
 
     const HandleId = ((id) => {
         setId(id);
@@ -24,16 +41,30 @@ const ListChildStep = () => {
     })
 
     useEffect( ()=>{
+        if(roadmaps){
+            for(var i = 0; i < roadmaps.length; i++){
+                document.getElementById("star"+roadmaps[i].Id).innerHTML = stars(roadmaps[i].Stars);
+                let temp = "";
+                for(var j = 0; j < roadmaps[i].Categories.length; j++){
+                    temp += roadmaps[i].Categories[j].Name;
+                    if(j != roadmaps[i].Categories.length-1){
+                        temp +=", ";
+                    }
+                }
+                document.getElementById("cat"+roadmaps[i].Id).innerHTML = temp;
+            }
+        }
 
-
-    }, [childsteps]);
+    }, [roadmaps]);
 
     const clear = () =>{
         document.getElementById("Title").value = null;
         document.getElementById("Description").value = null;
-        document.getElementById("Link").value = null;
+        document.getElementById("Photo").value = null;
         document.getElementById("result_message_edit").innerHTML = null;
         document.getElementById("result_message_delete").innerHTML = null;
+
+        document.getElementById("PreviewPhoto").src = process.env.REACT_APP_PHOTOPATH+"roadmap/"+roadmap.ImageSrc;
     }
 
     return(
@@ -65,12 +96,17 @@ const ListChildStep = () => {
                                             </a>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/TeacherEditRoadmap" class=""><i class=""></i>
+                                            <a href="/create_roadmap" class=""><i class=""></i>
+                                            ساخت رودمپ
+                                            </a>
+                                        </li>
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <a href="/TeacherRoadmaps" class="active"><i class=""></i>
                                                 ویرایش رودمپ
                                             </a>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="TeacherProfileEdit" class="active"><i class=""></i>
+                                            <a href="TeacherProfileEdit" class=""><i class=""></i>
                                                 ویرایش اطلاعات      
                                             </a>
                                         </li>
@@ -79,10 +115,9 @@ const ListChildStep = () => {
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-9 col-xs-12 pl">
-
-        <div>
-            {<EditChildStepModal childstep = {childstep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
-            {<DeleteChildStepModal childstep = {childstep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+                        <div>
+            {<EditRoadmapModal roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<DeleteRoadmapModal roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             <div class="container-main">
                 
                 <div class="d-block">
@@ -90,9 +125,9 @@ const ListChildStep = () => {
                         <div class="info-page-faq">
                             <div id="content-bottom">
                                 <div class="content-bottom-title">
-                                    <h2 class="box-rounded-headline"> <span>ویرایش</span> / <span>حذف</span> </h2>
-
-                                    <div class="transparency-border">
+                                    
+                                    
+                                    <div class="transparency-border activebox">
                                         <NavLink  class="Liknkk" to="/edit_roadmap">
                                             <div class="transparency"></div>
                                             <img src="assets/images/page-faq/transparency.png" alt="fag"/>
@@ -110,7 +145,7 @@ const ListChildStep = () => {
                                     </div>
 
 
-                                    <div class="transparency-border activebox">
+                                    <div class="transparency-border">
                                         <NavLink to="/edit_child_step">
                                             <div class="transparency"></div>
                                             <img src="assets/images/page-faq/transparency.png" alt="fag"/>
@@ -153,7 +188,7 @@ const ListChildStep = () => {
                             <i class="mdi mdi-home"></i>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item active" aria-current="page">محتوا‌ها</li>
+                                    <li class="breadcrumb-item active" aria-current="page">رودمپ‌ها</li>
                                 </ol>
                             </nav>
                         </div>
@@ -167,49 +202,72 @@ const ListChildStep = () => {
                                             <thead>
                                                 <tr>
                                                     <th style={{width:"5%"}} scope="col" class="product-cart-name">شماره</th>
-                                                    <th style={{width:"15%"}} scope="col" class="product-cart-name">استفاده شده در قدم</th>
-                                                    <th style={{width:"15%"}} scope="col" class="product-cart-name">نام محتوا‌ها</th>
-                                                    <th style={{width:"34%", paddingLeft:"25px"}} scope="col" class="product-cart-price">توضیحات محتوا‌ها</th>
-                                                    <th style={{width:"20%"}} scope="col" class="product-cart-price">لینک‌ محتوا‌ها</th>
+                                                    <th style={{width:"20%"}} scope="col" class="product-cart-name">نام رودمپ‌ها</th>
+                                                    <th style={{width:"35%", paddingLeft:"25px"}} scope="col" class="product-cart-price">توضیحات رودمپ‌ها</th>
+                                                    <th style={{width:"29%"}} scope="col" class="product-cart-price">دسته‌های رودمپ‌ها</th>
                                                     <th style={{textAlign:"center", width: "6%"} } scope="col" class="product-cart-Total">ویرایش</th>
                                                     <th style={{textAlign:"center", width: "5%"} } scope="col" class="product-cart-Total">حذف</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {childsteps &&
-                                                    childsteps.map((data,idx) => (
+                                                {roadmaps &&
+                                                    roadmaps.map((data,idx) => (
                                                         <tr>
                                                             <td style={{wordWrap:"break-word" ,width:"5%"}} class="product-cart-price">
                                                                 <span>
                                                                     {idx+1}
                                                                 </span>
                                                             </td>
+                                                            <th scope="row" class="product-cart-name" style={{wordWrap:"break-word" ,width:"20%"}}>
+                                                                <div class="product-thumbnail-img">
+                                                                    <a href="#!">
+                                                                        <img src={photoPath+data.ImageSrc}/>
+                                                                    </a>
+                                                                    {/*
+                                                                    <div class="product-remove">
+                                                                        <a href="#" class="remove">
+                                                                            <i class="mdi mdi-close"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    */}
+                                                                </div>
+                                                                
+                                                                <div class="product-title">
+                                                                    <a href="#!">
+                                                                        {data.Title}
+                                                                    </a>
+                                                                    
+                                                                    <div class="variation">
+                                                                        <div class="variant-color">
+                                                                            
+                                                                            <span class="variant-color-title" id = {`star${data.Id}`}><span className="star" ></span></span>
+                                                                        </div>
+                                                                        {/*
+                                                                        <div class="variant-guarantee">
+                                                                            <i class="mdi mdi-check"></i>
+                                                                            گارانتی ۱۸ ماهه
+                                                                        </div>
+                                                                        <div class="seller">
+                                                                            <i class="mdi mdi-storefront"></i>
+                                                                            فروشنده :
+                                                                            <span>کالا مارکت</span>
+                                                                        </div>
+                                                                        */}
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </th>
 
-                                                            <td style={{wordWrap:"break-word" ,width:"15%" ,paddingLeft:"25px"}} class="product-cart-price">
+                                                            <td style={{wordWrap:"break-word" ,width:"35%" ,paddingLeft:"25px"}} class="product-cart-price">
                                                             <span>
-                                                                {data.StepTitle}
+                                                                {data.Description}
                                                             </span>
                                                             </td>
-
-
-                                                            <td style={{wordWrap:"break-word" ,width:"15%" ,paddingLeft:"25px"}} class="product-cart-price">
-                                                            <span>
-                                                                {data.Title}
-                                                            </span>
-                                                            </td>
-
-                                                            <td style={{wordWrap:"break-word" ,width:"34%"}} class="product-cart-price">
-                                                                <span>
-                                                                    {data.Description}
+                                                            <td style={{wordWrap:"break-word" ,width:"29%"}} class="product-cart-price">
+                                                                <span id = {`cat${data.Id}`}>
+                                                                    
                                                                 </span>
                                                             </td>
-
-                                                            <td style={{textAlign:"left", wordWrap:"break-word" ,width:"20%", maxWidth:"150px"}} class="product-cart-price">
-                                                                <span dir="ltr">
-                                                                    {data.Link.length > 45 ? (data.Link.substr(0,45)+"...") : data.Link}
-                                                                </span>
-                                                            </td>
-
                                                             <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
                                                                 <button href="#!" data-toggle="modal" data-target="#editModal" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
                                                             </td>
@@ -254,15 +312,14 @@ const ListChildStep = () => {
 
             
         </div>
-        
-        </div>
+                        </div> 
                     </div>
                 </div>
             </section>
         </div>
     </div>
-   
-    );
-}
+        );
 
-export default ListChildStep;
+    }
+    
+    export default TeacherEditRoadmap;
