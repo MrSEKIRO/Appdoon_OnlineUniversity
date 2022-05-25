@@ -5,8 +5,7 @@
 }
 
 .timelineBody {
-	background-image: linear-gradient(135deg, #0d2b58 0%, #580a35 100%);
-
+    
     direction: ltr;
     
     width: 100%;
@@ -21,12 +20,11 @@
 
 	min-height: 100vh;
 	font-family: 'Lato', sans-serif;
-    
 }
 
 .timelineBody h1
 {
-    color: #fff;
+    color: #000;
 }
 
 h1 {
@@ -52,7 +50,7 @@ h1 {
 
 
 .timeline-container::after {
-    background-color: #f1eff782;
+    background-color: rgb(101, 31, 255, 0.5);
     content: '';
     position: absolute;
     /* */
@@ -79,9 +77,9 @@ h1 {
     padding-left: 30px;
 }
 .timeline-item-content {
-    box-shadow: 0 0 8px rgba(1000, 1000, 1000, 100);
+    box-shadow: 0 0 16px #651fff;
     border-radius: 10px;
-    background-color:  #966078;
+    background-color:  #b700ff;
     display: flex;	
     perspective: 100vw;
     transform-style: preserve-3d;
@@ -170,7 +168,7 @@ h1 {
 .butten_Edit:hover {
     background: rgb(171, 171, 184);
   }
-.timeline-container :hover
+.zoom :hover
 {
     transform: scale(1.02);
 }
@@ -186,23 +184,36 @@ h1 {
 }
 
 .timeline-item-content a {
-	color: rgb(78, 18, 18);
+	color: rgb(0, 0, 0);
 	text-decoration: none;
     font-size: 14px;
     font-weight: bold;
     align-self: flex-start;
 }
 
-.timeline-item-content a::after {
+.timeline-item-content .bilbilak {
+    display:flex;
+    left: 5px;
+    align-self: flex-start;
+}   
+
+.timeline-item-content .bilbilak a::after {
     content: ' ►';
     font-size: 12px;
+}
+
+.timeline-item-content .edit_delete {
+    margin-bottom: -30px;
+    display:flex;
+    left: 5px;
+    align-self:center;
 }
 
 
 
 .timeline-item-content .circle {
-    background-color: rgb(255, 255, 255);
-    border: 3px solid #956a68;
+    background-color: #651fff;
+    border: 3px solid #111111;
     border-radius: 50%;
     position: absolute;
     top: calc(50% - 10px);

@@ -12,11 +12,11 @@ import useUpdate from '../../Common/useUpdate';
 import "../../../Modular_Css/EditRoadmapModal.css";
 
 
-function DeleteStepModal({ step , sensetive ,setSensetive}) {
+function DeleteStepModal({ id, step , sensetive ,setSensetive}) {
 
     const [url, setUrl] = useState(process.env.REACT_APP_API + "step/");
 
-    const HandleMessage = (resmess,colormess,id = "result_message_delete") => {
+    const HandleMessage = (resmess,colormess,id = "result_message_delete_step") => {
         document.getElementById(id).style.color = colormess;
         document.getElementById(id).innerHTML = resmess;
         setSensetive(!sensetive);
@@ -29,7 +29,7 @@ function DeleteStepModal({ step , sensetive ,setSensetive}) {
 
 
     return (
-        <div style={{top: "1%"}} dir="rtl" class="modal fade" id="deleteModal" role="dialog">
+        <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
             <div style={{marginBottom:"50px", maxWidth: "550px"}} class="modal-dialog">
             
                 <div class="modal-content">
@@ -43,7 +43,7 @@ function DeleteStepModal({ step , sensetive ,setSensetive}) {
                     </div>
                     <div class="modal-footer">
                         <div style={{width:"100%"}}>
-                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_delete"></p>
+                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_delete_step"></p>
                             <button style={{float:"left"}} type="button" class="btn btn-danger" onClick={() => HandleDelete()}>حذف قدم</button>
                         </div>
                     </div>

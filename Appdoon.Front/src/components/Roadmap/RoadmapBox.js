@@ -48,7 +48,7 @@ const RoadmapBox = ({ data:roadmap }) => {
                 <Link to= {`/roadmap/${roadmap.Id}`} >
 
                     <div class="post-thumbnail" >
-                        <img src={photoPath+roadmap.ImageSrc} alt={roadmap.Description}/>
+                        <img width={"100%"} height={"300px"} style={{ objectFit: "cover"}} src={photoPath+roadmap.ImageSrc} alt={roadmap.Description}/>
                     </div>
 
                     

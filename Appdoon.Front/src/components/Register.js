@@ -77,17 +77,17 @@ const Register = () => {
 
                                                     <div className="form-account-title">
                                                         <label for="email-phone">ایمیل</label>
-                                                        <input type="text" className="number-email-input" name="Email"/>
+                                                        <input dir="auto" type="text" className="number-email-input" name="Email"/>
                                                     </div>
 
                                                     <div className="form-account-title">
                                                         <label for="email-phone">نام کاربری</label>
-                                                        <input type="text" className="number-email-input" name="Username"/>
+                                                        <input dir="auto" type="text" className="number-email-input" name="Username"/>
                                                     </div>
 
                                                     <div className="form-account-title">
                                                         <label for="password">رمز عبور</label>
-                                                        <input type="password" className="password-input" name="Password"/>
+                                                        <input dir="auto" type="password" className="password-input" name="Password"/>
                                                     </div>
 
 

@@ -48,11 +48,11 @@ const ListStep = () => {
     }, [steps]);
 
     const clear = () =>{
-        document.getElementById("Title").value = null;
-        document.getElementById("Description").value = null;
-        document.getElementById("Link").value = null;
-        document.getElementById("result_message_edit").innerHTML = null;
-        document.getElementById("result_message_delete").innerHTML = null;
+        document.getElementById("TitleStep").value = null;
+        document.getElementById("DescriptionStep").value = null;
+        document.getElementById("LinkStep").value = null;
+        document.getElementById("result_message_edit_step").innerHTML = null;
+        document.getElementById("result_message_delete_step").innerHTML = null;
     }
 
     return(
@@ -102,8 +102,8 @@ const ListStep = () => {
 
 
         <div>
-            {<EditStepModal step = {step} sensetive = {sensetive} setSensetive = {setSensetive}/>}
-            {<DeleteStepModal step = {step} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<EditStepModal id={"editModalStep"} step = {step} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<DeleteStepModal id={"deleteModalStep"} step = {step} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             <div class="container-main">
                 
                 <div class="d-block">
@@ -244,10 +244,10 @@ const ListStep = () => {
                                                                 </span>
                                                             </td>
                                                             <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#editModal" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#editModalStep" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
                                                             </td>
                                                             <td style={{textAlign:"center" ,width:"5%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#deleteModal" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#deleteModalStep" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
                                                             </td>
                                                         </tr>
                                                     ))

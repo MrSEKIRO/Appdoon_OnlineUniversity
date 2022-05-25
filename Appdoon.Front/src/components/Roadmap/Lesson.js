@@ -3,7 +3,10 @@ import "../../Modular_Css/RoadmapStyle.css";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
+import useFetch from "../Common/useFetch";
 
+import DeleteLessonModal from "../Modals/Delete/DeleteLessonModal";
+import EditLessonModal from "../Modals/Edit/EditLessonModal";
 
 
 const Lesson = () => {
@@ -11,73 +14,40 @@ const Lesson = () => {
 
 
     const {id} = useParams();
-    
-    const [data, setData] = useState([])
-    const [error, setError] = useState(null)
-    const url = process.env.REACT_APP_API + 'lesson/' + id;
+    const [sensetive, setSensetive] = useState(false);
+    const [url, setUrl] = useState(process.env.REACT_APP_API + 'lesson/'+id);
+    const {data : lesson} = useFetch(url,sensetive);
+    const photopath = process.env.REACT_APP_PHOTOPATH + "lesson/";
 
-    useEffect(() => {
+    const clear = () =>{
+        document.getElementById("TitleLesson").value = null;
+        document.getElementById("TextLesson").value = null;
+        document.getElementById("PhotoLesson").value = null;
+        document.getElementById("result_message_edit_lesson").innerHTML = null;
+        document.getElementById("result_message_delete_lesson").innerHTML = null;
 
-    
-    
-
-        fetch(url,{
-            
-            method : "GET",
-            headers : {"Content-Type" : "application/json"},
-            
-        }).then(res => {
-            
-            //console.log(res);
-            
-            if(!res.ok){
-                
-                throw Error('could not fetch!');
-            }
-            
-            return res.json();
-        })
-        .then(data => {
-            
-            //alert(data.Data.length);
-            //console.log(data);
-            //alert(data.Message);
-            setData(data.Data);
-
-            setError(null);
-            //alert(data.Data.Steps[0].ChildSteps.length);
-            
-        }).then(() =>{
-            
-            //setIsPending(false);
-            //console.log("New Blog added");
-            //history.push(`/timeline/${id}`);
-            
-        })
-        .catch(err => {
-            
-            if(err.name === 'AbortError'){
-                console.log('fetch aborted');
-            }
-            else{
-                setError(err.message);
-            }
-        })
-    }, [url]);
-
-
-    const photopath = process.env.REACT_APP_PHOTOPATH + "lesson/"
-
+        document.getElementById("PreviewPhotoLesson").src = process.env.REACT_APP_PHOTOPATH+"lesson/"+lesson.TopBannerSrc;
+    }
 
     return(
         <div>
+            {<EditLessonModal id={"editModalLesson"} lesson = {lesson} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<DeleteLessonModal id={"deleteModalLesson"} lesson = {lesson} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             <main class="main-row mb-2 mt-2 d-block">
                 <div class="container-main">
                     <div class="d-block">
                         <div class="col-lg-9 col-md-8 col-xs-12 pr mt-3">
-                            {data && data.Id > 0 &&
+
+                            {lesson && lesson.Id > 0 &&
                                 <section class="blog-home">
+                                    
                                     <article class="post-item">
+                                        <div style={{float:"left" , marginTop:"-5px", marginLeft:"5px", marginBottom:"10px"}}>
+
+                                            <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#editModalLesson" variant="primary" class="btn btn-primary" onClick={() => {clear();}}>ویرایش</button>
+                                            <button href="#!" data-toggle="modal" data-target="#deleteModalLesson" variant="primary" class="btn btn-danger" onClick={() => {clear();}}>حذف</button>
+
+                                        </div>
                                         <header class="entry-header mb-3">
                                             <div class="post-meta date">
                                                 <i class="mdi mdi-calendar-month"></i>1399/02/14
@@ -97,16 +67,16 @@ const Lesson = () => {
                                             </div>
                                         </header>
                                         <div class="post-thumbnail">
-                                            <img src={photopath+data.TopBannerSrc} alt={data.Title}/>
+                                            <img src={photopath+lesson.TopBannerSrc} alt={lesson.Title}/>
                                         </div>
                                         <div class="title">
                                             <a href="#">
-                                                <h1 class="title-tag">{data.Title}</h1>
+                                                <h1 class="title-tag">{lesson.Title}</h1>
                                             </a>
                                         </div>
                                         <div class="content-blog">
                                             <p>
-                                                {data.Text}
+                                                {lesson.Text}
                                             </p>
                                         </div>
                                     </article>
@@ -146,20 +116,20 @@ const Lesson = () => {
                                                                 <br/>
                                                                 <div class="form-row-title mb-2"> نام شما (اجباری)</div>
                                                                 <div class="form-row">
-                                                                    <input class="input-ui pr-2" type="text"
+                                                                    <input dir='auto' class="input-ui pr-2" type="text"
                                                                         placeholder=" نام خود را بنویسید"/>
                                                                 </div>
                                                                 <br/>
                                                                 <div class="form-row-title mb-2">عنوان نظر شما (اجباری)</div>
                                                                 <div class="form-row">
-                                                                    <input class="input-ui pr-2" type="text"
+                                                                    <input dir='auto' class="input-ui pr-2" type="text"
                                                                         placeholder="عنوان نظر خود را بنویسید"/>
                                                                 </div>
                                                             </div>
                                                             <div class="col-12 mt-5">
                                                                 <div class="form-row-title mb-2">متن نظر شما (اجباری)</div>
                                                                 <div class="form-row">
-                                                                    <textarea class="input-ui pr-2 pt-2" rows="5"
+                                                                    <textarea dir='auto' class="input-ui pr-2 pt-2" rows="5"
                                                                         placeholder="متن خود را بنویسید"
                                                                         style={{height:"120px"}}></textarea>
                                                                 </div>
@@ -180,7 +150,7 @@ const Lesson = () => {
                                     </div>
                                 </section>
                             }
-                            {data && data.Id == 0 &&
+                            {lesson && lesson.Id == 0 &&
                                 <h1>این مقاله موجود نمی‌باشد!</h1>
                             }
                         </div>

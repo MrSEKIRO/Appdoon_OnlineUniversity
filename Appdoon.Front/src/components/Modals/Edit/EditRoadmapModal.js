@@ -17,7 +17,7 @@ import chroma from 'chroma-js';
 
 import { StylesConfig } from 'react-select';
 
-function EditRoadmapModal({ roadmap, sensetive, setSensetive }) {
+function EditRoadmapModal({ id, roadmap, sensetive, setSensetive }) {
 
     const [url, setUrl] = useState(process.env.REACT_APP_API + "category");
     const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "roadmap/");
@@ -25,7 +25,7 @@ function EditRoadmapModal({ roadmap, sensetive, setSensetive }) {
 
     const [boxPhotoPath, setBoxPhotoPath] = useState("");
 
-    const HandleMessage = (resmess,colormess,id = "result_message_edit") => {
+    const HandleMessage = (resmess,colormess,id = "result_message_edit_roadmap") => {
         document.getElementById(id).style.color = colormess;
         document.getElementById(id).innerHTML = resmess;
         setSensetive(!sensetive);
@@ -98,18 +98,18 @@ function EditRoadmapModal({ roadmap, sensetive, setSensetive }) {
             setOptions(tempOptions);
             setSelectedOptions(tempSelectedOptions);
         }
-    },[roadmap,categories])
+    },[roadmap,categories,sensetive])
 
 
     const handleClick = () =>{
-        document.getElementById("Photo").click();
+        document.getElementById("PhotoRoadmap").click();
     }
 
     const handlePhotoChange = (event) =>{
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            $('#PreviewPhoto')
+            $('#PreviewPhotoRoadmap')
                 .attr('src', e.target.result)
         };
 
@@ -125,7 +125,7 @@ function EditRoadmapModal({ roadmap, sensetive, setSensetive }) {
     };
       
     return (
-        <div style={{top: "1%"}} dir="rtl" class="modal fade" id="editModal" role="dialog">
+        <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
             <div style={{marginBottom:"50px", maxWidth: "550px"}} class="modal-dialog">
             
                 <div class="modal-content">
@@ -144,28 +144,28 @@ function EditRoadmapModal({ roadmap, sensetive, setSensetive }) {
                                                     <div  class="account-box">
                                                         <div  class="Login-to-account mt-4">
                                                             <div style={{marginTop:"-20px", marginBottom:"40px"}} class="account-box-content">
-                                                                <form onSubmit={HandleUpdate} id="editform" action="#" class="form-account text-right">
+                                                                <form onSubmit={HandleUpdate} id="editformroadmap" action="#" class="form-account text-right">
 
                                                                     <div class="form-account-title">
                                                                         <label for="Title">نام رودمپ</label>
-                                                                        <input id="Title" placeholder={roadmap.Title} type="text" class="number-email-input" name="Title"/>
+                                                                        <input dir='auto' id="TitleRoadmap" placeholder={roadmap.Title} type="text" class="number-email-input" name="Title"/>
                                                                     </div>
 
                                                                     
                                                                     <div class="form-account-title">
                                                                         <label for="Description">توضیحات</label>
-                                                                        <textarea id="Description" placeholder={roadmap.Description} class="number-email-input" name="Description"/>
+                                                                        <textarea dir='auto' id="DescriptionRoadmap" placeholder={roadmap.Description} class="number-email-input" name="Description"/>
                                                                     </div>
 
                                                                     <div style={{textAlign:"right", width:"100%" ,marginBottom:"50px"}} class="form-account-title">
                                                                         
                                                                         <label style={{float:"right"}} for="Photo">تصویر رودمپ</label>
                                                                         
-                                                                        <input id="Photo" name='Photo' onChange={handlePhotoChange} class="form-control" type="File" hidden="hidden" />
+                                                                        <input dir='auto' id="PhotoRoadmap" name='Photo' onChange={handlePhotoChange} class="form-control" type="File" hidden="hidden" />
                                                                         
                                                                         <br/>
                                                                         <button type="button" class="btn btn-primary" onClick={handleClick}>آپلود تصویر</button>
-                                                                        <img id="PreviewPhoto" class="img-thumbnail" src={process.env.REACT_APP_PHOTOPATH+"roadmap/"+roadmap.ImageSrc} style={{float:"left" , width:"100px"}}/>
+                                                                        <img id="PreviewPhotoRoadmap" class="img-thumbnail" src={process.env.REACT_APP_PHOTOPATH+"roadmap/"+roadmap.ImageSrc} style={{float:"left" , width:"100px"}}/>
                                                                     </div>
 
                                                                     <div style={{marginBottom:"0px"}} class="form-account-title">
@@ -197,18 +197,6 @@ function EditRoadmapModal({ roadmap, sensetive, setSensetive }) {
                                                                     </div>
 
 
-                                                                    {/*
-                                                                    <div class="form-auth-row">
-                                                                        <label for="#" class="ui-checkbox mt-1">
-                                                                            <input type="checkbox" value="1" name="login" id="remember"/>
-                                                                            <span class="ui-checkbox-check"></span>
-                                                                        </label>
-                                                                        <label for="remember" class="remember-me mr-0">مرا به خاطر بسپار</label>
-                                                                    </div>
-                                                                    */
-                                                                    }
-
-
 
 
                                                                 </form>
@@ -228,8 +216,8 @@ function EditRoadmapModal({ roadmap, sensetive, setSensetive }) {
                     </div>
                     <div class="modal-footer">
                         <div style={{width:"100%"}}>
-                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit"></p>
-                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editform">ویرایش رودمپ</button>
+                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit_roadmap"></p>
+                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editformroadmap">ویرایش رودمپ</button>
                         </div>
                     </div>
                 </div>

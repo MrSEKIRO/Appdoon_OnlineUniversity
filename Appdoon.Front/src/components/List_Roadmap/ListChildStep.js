@@ -29,11 +29,16 @@ const ListChildStep = () => {
     }, [childsteps]);
 
     const clear = () =>{
-        document.getElementById("Title").value = null;
-        document.getElementById("Description").value = null;
-        document.getElementById("Link").value = null;
-        document.getElementById("result_message_edit").innerHTML = null;
-        document.getElementById("result_message_delete").innerHTML = null;
+        document.getElementById("TitleChildStep").value = null;
+        document.getElementById("DescriptionChildStep").value = null;
+        document.getElementById("LinkChildStep").value = null;
+        document.getElementById("result_message_edit_childstep").innerHTML = null;
+        document.getElementById("result_message_delete_childstep").innerHTML = null;
+
+        for(let i = 0; i < document.getElementsByName("LinkTitle").length; i++){
+            document.getElementsByName("LinkTitle")[i].value = null;
+            document.getElementsByName("LinkURL")[i].value = null;
+        }
     }
 
     return(
@@ -81,8 +86,8 @@ const ListChildStep = () => {
                         <div class="col-lg-9 col-md-9 col-xs-12 pl">
 
         <div>
-            {<EditChildStepModal childstep = {childstep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
-            {<DeleteChildStepModal childstep = {childstep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<EditChildStepModal id={"editModalChildStep"} childstep = {childstep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<DeleteChildStepModal id={"deleteModalChildStep"} childstep = {childstep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             <div class="container-main">
                 
                 <div class="d-block">
@@ -211,10 +216,10 @@ const ListChildStep = () => {
                                                             </td>
 
                                                             <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#editModal" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#editModalChildStep" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
                                                             </td>
                                                             <td style={{textAlign:"center" ,width:"5%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#deleteModal" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#deleteModalChildStep" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
                                                             </td>
                                                         </tr>
                                                     ))

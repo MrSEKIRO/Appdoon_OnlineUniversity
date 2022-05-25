@@ -55,62 +55,21 @@ const ListRoadmap = () => {
                 document.getElementById("cat"+roadmaps[i].Id).innerHTML = temp;
             }
         }
-
     }, [roadmaps]);
 
     const clear = () =>{
-        document.getElementById("Title").value = null;
-        document.getElementById("Description").value = null;
-        document.getElementById("Photo").value = null;
-        document.getElementById("result_message_edit").innerHTML = null;
-        document.getElementById("result_message_delete").innerHTML = null;
+        document.getElementById("TitleRoadmap").value = null;
+        document.getElementById("DescriptionRoadmap").value = null;
+        document.getElementById("PhotoRoadmap").value = null;
+        document.getElementById("result_message_edit_roadmap").innerHTML = null;
+        document.getElementById("result_message_delete_roadmap").innerHTML = null;
 
-        document.getElementById("PreviewPhoto").src = process.env.REACT_APP_PHOTOPATH+"roadmap/"+roadmap.ImageSrc;
+        document.getElementById("PreviewPhotoRoadmap").src = process.env.REACT_APP_PHOTOPATH+"roadmap/"+roadmap.ImageSrc;
     }
 
-    return( <div class="container-main">
-    <div class="d-block">
-        <section class="profile-home">
-            <div class="col-lg">
-                <div class="post-item-profile order-1 d-block">
-                    <div class="col-lg-3 col-md-3 col-xs-12 pr">
-                        <div class="sidebar-profile sidebar-navigation">
-                            <section class="profile-box">
-                                <header class="profile-box-header-inline">
-                                    <div class="profile-avatar user-avatar profile-img">
-                                        <img src = "assets/images/man.png"></img>
-                                    </div>
-                                </header>
-                            </section>
-                            <section class="profile-box">
-                                <ul class="profile-account-navs">
-                                    <li class="profile-account-nav-item navigation-link-dashboard">
-                                        <a href="/TeacherProfile" class=""><i class="mdi mdi-account-outline"></i>
-                                            پروفایل
-                                        </a>
-                                    </li>
-                                    
-                                    <li class="profile-account-nav-item navigation-link-dashboard">
-                                        <a href="/TeacherRoadmaps" class=""><i class=""></i>
-                                             رودمپ های من
-                                        </a>
-                                    </li>
-                                    <li class="profile-account-nav-item navigation-link-dashboard">
-                                        <a href="/TeacherRoadmaps" class="active"><i class=""></i>
-                                            ویرایش رودمپ
-                                        </a>
-                                    </li>
-                                    <li class="profile-account-nav-item navigation-link-dashboard">
-                                        <a href="TeacherProfileEdit" class=""><i class=""></i>
-                                            ویرایش اطلاعات      
-                                        </a>
-                                    </li>
-                                </ul>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-xs-12 pl">
-                    <div>
+
+    return(
+        <div>
         {<EditRoadmapModal roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
         {<DeleteRoadmapModal roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
         <div class="container-main">
@@ -263,17 +222,23 @@ const ListRoadmap = () => {
                                                                 
                                                             </span>
                                                         </td>
-                                                        <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
-                                                            <button href="#!" data-toggle="modal" data-target="#editModal" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
-                                                        </td>
-                                                        <td style={{textAlign:"center" ,width:"5%"}}  class="product-cart-quantity">
-                                                            <button href="#!" data-toggle="modal" data-target="#deleteModal" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
-                                                        </td>
+                                                        <td style={{wordWrap:"break-word" ,width:"29%"}} class="product-cart-price">
+                                                                <span id = {`cat${data.Id}`}>
+                                                                    
+                                                                </span>
+                                                            </td>
+                                                            <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
+                                                                <button href="#!" data-toggle="modal" data-target="#editModalRoadmap" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
+                                                            </td>
+                                                            <td style={{textAlign:"center" ,width:"5%"}}  class="product-cart-quantity">
+                                                                <button href="#!" data-toggle="modal" data-target="#deleteModalRoadmap" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
+                                                            </td>
                                                     </tr>
                                                 ))
                                             }
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                         </div>
@@ -282,8 +247,6 @@ const ListRoadmap = () => {
                 
             </div>
             
-            
-        </div>
 
         
         {/*
@@ -307,12 +270,7 @@ const ListRoadmap = () => {
 
         
     </div>
-                    </div> 
-                </div>
-            </div>
-        </section>
     </div>
-</div>
     );
 
 }
