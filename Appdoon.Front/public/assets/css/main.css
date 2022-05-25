@@ -4521,7 +4521,7 @@ span.shipping-destination {
 
 .page-account-box {
     width: 100%;
-    margin-top: 70px;
+    margin-top: 0px;
 }
 
 .page-account-box .ds-userlogin a.account-box-logo {
@@ -4920,7 +4920,12 @@ textarea.number-email-input{
     overflow: hidden;
     background: #281e75;
 }
-
+.post-item-profile .sidebar-profile .profile-box2 {
+    margin-bottom: 420px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #281e75;
+}
 .post-item-profile .sidebar-profile .profile-box .profile-box-header-inline {
     height: auto;
     margin: 0 0 40px;
@@ -8817,7 +8822,6 @@ span.show-less {
     box-shadow: 0 12px 12px 0 hsl(0deg 0% 71% / 11%);
     padding-bottom: 20px;
     margin-bottom: 20px;
-    margin-top: 20px;
 }
 
 #content-bottom {

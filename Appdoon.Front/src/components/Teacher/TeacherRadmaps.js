@@ -2,10 +2,9 @@ import {NavLink} from 'react-router-dom';
 import { useState } from "react";
 import useFetch from '../Common/useFetch';
 import { Col, Form } from "react-bootstrap";
-import RoadmapBox from '../Roadmap/RoadmapBox';
-import UserRoadmapBox from './UserRoadmapBox';
+import TeacherRoadmapBox from './TeacherRoadmapBox';
 
-const UserFavoriteRoadmaps = () => {
+const TeacherRoadmaps = () => {
 
     const {data : roadmaps, isLogin, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/Index');
 
@@ -28,36 +27,42 @@ const UserFavoriteRoadmaps = () => {
                                 <section class="profile-box">
                                     <ul class="profile-account-navs">
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/Profile" class=""><i class="mdi mdi-account-outline"></i>
+                                            <a href="/TeacherProfile" class=""><i class="mdi mdi-account-outline"></i>
                                                 پروفایل
                                             </a>
                                         </li>
                                         
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/UserRoadmaps" class=""><i class=""></i>
-                                                لیست رودمپ های من
+                                            <a href="/TeacherRoadmaps" class="active"><i class=""></i>
+                                                 رودمپ های من
                                             </a>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/UserFavoriteRoadmaps" class="active"><i class="active"></i>
-                                                رودمپ های مورد علاقه من
+                                            <a href="/create_roadmap" class=""><i class=""></i>
+                                            ساخت رودمپ
                                             </a>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="EditProfile" class=""><i class=""></i>
-                                                ویرایش اطلاعات      
+                                            <a href="/TeacherEditRoadmap" class=""><i class=""></i>
+                                                ویرایش رودمپ
                                             </a>
                                         </li>
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <a href="/TeacherProfileEdit" class=""><i class=""></i>
+                                                ویرایش اطلاعات
+                                            </a>
+                                        </li>
+                               
                                     </ul>
                                 </section>
                             </div>
                         </div>
-                        
-
+                    
             <div class="col-lg-9 col-md-9 col-xs-14 pl">
 
+            <div class = "heightB">
             <main class="heightB">
-                <div class="heightB">
+            <div class="heightB">
                     <div class="heightB">
                         <section class="heightB">
 
@@ -65,7 +70,7 @@ const UserFavoriteRoadmaps = () => {
                                 <div class="heightB">
                                     {roadmaps.map((data, idx) => (
                                             
-                                            <UserRoadmapBox data={data} key={idx} />
+                                            <TeacherRoadmapBox data={data} key={idx} />
                                     ))}
                                 </div>
                                 )
@@ -77,13 +82,12 @@ const UserFavoriteRoadmaps = () => {
                                 </div>)
                             }
 
-
-
                         </section>
 
                     </div>
                 </div>
             </main>
+            </div>
 
  </div>
 
@@ -97,4 +101,4 @@ const UserFavoriteRoadmaps = () => {
 
 }
 
-export default UserFavoriteRoadmaps;
+export default TeacherRoadmaps;
