@@ -65,7 +65,7 @@ namespace Appdoon.Common.HashFunctions
 		/// <returns>Is supported?</returns>
 		public static bool IsHashSupported(string hashString)
 		{
-			return hashString.Contains("$MYHASH$V1$");
+			return hashString.Contains("$ArshiaHASH$V1$");
 		}
 
 		/// <summary>
@@ -79,11 +79,11 @@ namespace Appdoon.Common.HashFunctions
 			// Check hash
 			if (!IsHashSupported(hashedPassword))
 			{
-				throw new NotSupportedException("The hashtype is not supported");
+				return false;
 			}
 
 			// Extract iteration and Base64 string
-			var splittedHashString = hashedPassword.Replace("$MYHASH$V1$", "").Split('$');
+			var splittedHashString = hashedPassword.Replace("$ArshiaHASH$V1$", "").Split('$');
 			var iterations = int.Parse(splittedHashString[0]);
 			var base64Hash = splittedHashString[1];
 

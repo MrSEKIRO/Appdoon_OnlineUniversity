@@ -1,4 +1,5 @@
 ﻿using Appdoon.Application.Services.Users.Command.RegisterUserService;
+using Appdoon.Common.UserRoles;
 using Appdoon.Domain.Entities.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -38,11 +39,11 @@ namespace Appdoon.WebApi.Controllers
 			{
 				var claims = new List<Claim>()
 				{
-					// we don`t set Id in cookies for now
-					//new Claim(ClaimTypes.NameIdentifier,result.Data.Id.ToString()),
+					// Set ID,Email,Name
+					new Claim(ClaimTypes.NameIdentifier,result.Data.ToString()),
 					new Claim(ClaimTypes.Email,user.Email),
 					new Claim(ClaimTypes.Name, user.FirstName+" "+user.LastName),
-					//new Claim(ClaimTypes.Role,UserRoles.Costumer.ToString()),
+					new Claim(ClaimTypes.Role,UserRole.User.ToString()),
 				};
 
 				var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
