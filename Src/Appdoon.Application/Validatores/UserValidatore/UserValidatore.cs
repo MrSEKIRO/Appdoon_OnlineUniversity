@@ -1,4 +1,5 @@
 ﻿using Appdoon.Application.Services.Users.Command.RegisterUserService;
+using Appdoon.Common.CommonRegex;
 using Appdoon.Domain.Entities.Users;
 using FluentValidation;
 using System;
@@ -18,7 +19,8 @@ namespace Appdoon.Application.Validatores.UserValidatore
 				.EmailAddress().WithMessage("ایمیل ورودی صحیح نمی باشد!");
 
 			RuleFor(u => u.Password)
-				.NotEmpty().WithMessage("لطفا رمز خود را وارد کنید!");
+				.NotEmpty().WithMessage("لطفا رمز خود را وارد کنید!")
+				.Must(password => CommonRegex.isValidPassword(password)).WithMessage("فرمت پسورد صحیح نیست!");
 
 			// check repass be same as password
 			RuleFor(u => u.RePassword)
@@ -27,7 +29,8 @@ namespace Appdoon.Application.Validatores.UserValidatore
 
 			RuleFor(u => u.Username)
 				.NotEmpty().WithMessage("نام کاربری را وارد کنید!")
-				.Length(3, 20).WithMessage("نام کاربری باید حداقل 3 و حداکثر 20 کاراکتر باشد!");
+				.Length(3, 20).WithMessage("نام کاربری باید حداقل 3 و حداکثر 20 کاراکتر باشد!")
+				.Must(username => CommonRegex.isValidUsername(username) == true).WithMessage("فرمت نام کاربری صحیح نیست!");
 
 			RuleFor(u => u.FirstName)
 				.NotEmpty().WithMessage("اسم خود را وارد کنید!")
