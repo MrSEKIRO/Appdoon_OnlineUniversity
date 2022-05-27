@@ -1,6 +1,7 @@
 ﻿using Appdoon.Application.Services.Users.Command.LoginUserService;
 using Appdoon.Application.Services.Users.Command.RegisterUserService;
 using Appdoon.Common.Dtos;
+using Appdoon.Common.UserRoles;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +11,7 @@ using System.Security.Claims;
 
 namespace Appdoon.WebApi.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/[controller]/[action]")]
 	[ApiController]
 	public class AuthenticationController : ControllerBase
 	{
@@ -23,66 +24,65 @@ namespace Appdoon.WebApi.Controllers
 			_loginUserService = loginUserService;
 		}
 
-		//[HttpPost]
-		//public JsonResult Register(RequestRegisterUserDto user)
-		//{
-		//	// use new regiser user service
-		//	var result = _registerUserService.Execute(user);
+		[HttpPost]
+		public JsonResult Login(LoginUserDto user)
+		{
+			var result = _loginUserService.Execute(user);
 
-		//	if(result.IsSuccess == true)
-		//	{
-		//		var claims = new List<Claim>()
-		//		{
-		//			// we don`t set Id in cookies for now
-		//			//new Claim(ClaimTypes.NameIdentifier,result.Data.Id.ToString()),
-		//			new Claim(ClaimTypes.Email,user.Email),
-		//			new Claim(ClaimTypes.Name, user.FirstName+" "+user.LastName),
-		//			//new Claim(ClaimTypes.Role,UserRoles.Costumer.ToString()),
-		//		};
+			if(result.IsSuccess == true)
+			{
+				var claims = new List<Claim>()
+				{
+					new Claim(ClaimTypes.NameIdentifier,result.Data.Id.ToString()),
+					new Claim(ClaimTypes.Email,user.Email),
+					new Claim(ClaimTypes.Name,result.Data.Fullname),
+					new Claim(ClaimTypes.Role,UserRole.User.ToString()),
+				};
 
-		//		var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-		//		var principal = new ClaimsPrincipal(identity);
-		//		var properties = new AuthenticationProperties()
-		//		{
-		//			IsPersistent = true,
-		//		};
+				var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+				var principal = new ClaimsPrincipal(identity);
 
-		//		HttpContext.SignInAsync(principal, properties);
-		//	}
+				// Remember me check box
+				bool Remember = true;
+				var properties = new AuthenticationProperties()
+				{
+					IsPersistent = Remember,
+				};
 
-		//	return new JsonResult(result);
-		//}
+				HttpContext.SignInAsync(principal, properties);
+			}
+			return new JsonResult(result);
+		}
 
-		//[HttpPost]
-		//public JsonResult Login(User user)
-		//{
-		//	var result = _loginUserService.Execute(user);
+		[HttpPost]
+		public JsonResult Register(RequestRegisterUserDto user)
+		{
+			// use new regiser user service
+			var result = _registerUserService.Execute(user);
 
-		//	if(result.IsSuccess == true)
-		//	{
-		//		var claims = new List<Claim>()
-		//		{
-		//			// we don`t set Id in cookies for now
-		//			//new Claim(ClaimTypes.NameIdentifier,result.Data.Id.ToString()),
-		//			new Claim(ClaimTypes.Email,user.Email),
-		//			new Claim(ClaimTypes.Name, user.FirstName+" "+user.LastName),
-		//			//new Claim(ClaimTypes.Role,UserRoles.Costumer.ToString()),
-		//		};
+			if(result.IsSuccess == true)
+			{
+				var claims = new List<Claim>()
+				{
+					// Set ID,Email,Name
+					new Claim(ClaimTypes.NameIdentifier,result.Data.ToString()),
+					new Claim(ClaimTypes.Email,user.Email),
+					new Claim(ClaimTypes.Name, user.FirstName+" "+user.LastName),
+					new Claim(ClaimTypes.Role,UserRole.User.ToString()),
+				};
 
-		//		var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-		//		var principal = new ClaimsPrincipal(identity);
+				var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+				var principal = new ClaimsPrincipal(identity);
+				var properties = new AuthenticationProperties()
+				{
+					IsPersistent = true,
+				};
 
-		//		// Remember me check box
-		//		bool Remember = true;
-		//		var properties = new AuthenticationProperties()
-		//		{
-		//			IsPersistent = Remember,
-		//		};
+				HttpContext.SignInAsync(principal, properties);
+			}
 
-		//		HttpContext.SignInAsync(principal, properties);
-		//	}
-		//	return new JsonResult(result);
-		//}
+			return new JsonResult(result);
+		}
 
 		[HttpGet]
 		public JsonResult UserSignOut()
