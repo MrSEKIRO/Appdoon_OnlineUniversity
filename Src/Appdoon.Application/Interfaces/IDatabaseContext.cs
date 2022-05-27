@@ -1,4 +1,5 @@
-﻿using Appdoon.Domain.Entities.RoadMaps;
+﻿using Appdoon.Domain.Entities.Progress;
+using Appdoon.Domain.Entities.RoadMaps;
 using Appdoon.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,6 +21,8 @@ namespace Appdoon.Application.Interfaces
 		DbSet<ChildStep> ChildSteps { get; set; }
 		DbSet<Linker> Linkers { get; set; }
 		DbSet<Lesson> Lessons { get; set; }
+		DbSet<StepProgress> StepProgresses { get; set; }
+		DbSet<ChildStepProgress> ChildStepProgresses { get; set; }
 		int SaveChanges(bool acceptAllChangesOnSuccess);
 		int SaveChanges();
 

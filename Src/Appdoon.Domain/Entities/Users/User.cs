@@ -1,5 +1,6 @@
 ﻿using Appdoon.Common.UserRoles;
 using Appdoon.Domain.Commons;
+using Appdoon.Domain.Entities.Progress;
 using Appdoon.Domain.Entities.RoadMaps;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,8 @@ namespace Appdoon.Domain.Entities.Users
 		public List<RoadMap>? SignedRoadMaps { get; set; }
 		public List<RoadMap>? BookmarkedRoadMaps { get; set; }
 		public List<RoadMap>? CreatedRoadMaps { get; set; }
+
+		public List<StepProgress>? StepProgresses { get; set; }
+		public List<ChildStepProgress>? ChildStepProgresses { get; set; }
 	}
 }
