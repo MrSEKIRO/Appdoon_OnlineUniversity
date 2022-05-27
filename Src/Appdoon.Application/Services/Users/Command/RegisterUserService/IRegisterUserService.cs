@@ -25,7 +25,7 @@ namespace Appdoon.Application.Services.Users.Command.RegisterUserService
 	}
 	public interface IRegisterUserService
 	{
-		ResultDto Execute(RequestRegisterUserDto user);
+		ResultDto<int> Execute(RequestRegisterUserDto user);
 	}
 
 	public class RegisterUserService : IRegisterUserService
@@ -37,10 +37,11 @@ namespace Appdoon.Application.Services.Users.Command.RegisterUserService
 			_context = context;
 		}
 
-		public ResultDto Execute(RequestRegisterUserDto user)
+		public ResultDto<int> Execute(RequestRegisterUserDto user)
 		{
 			try
 			{
+				#region ArmanRegex
 				//Regex
 				/*
                 if (!CommonRegex.isValidEmail(user.Email))
@@ -70,40 +71,53 @@ namespace Appdoon.Application.Services.Users.Command.RegisterUserService
                     };
                 }
                 */
+				#endregion
+
 				UserValidatore validations = new UserValidatore();
 				var validationResullt = validations.Validate(user);
 
-				if(validationResullt.IsValid == false)
+				List<string> properties = new List<string>()
 				{
-					return new ResultDto()
+					"Email",
+					"Username",
+					"Password",
+				};
+
+				var errors = validationResullt.Errors
+					.Where(e => properties.Contains(e.PropertyName))
+					.ToList();
+
+				if(errors.Count > 0)
+				{
+					return new ResultDto<int>()
 					{
 						IsSuccess = false,
-						Message = validationResullt.Errors.First().ErrorMessage,
+						Message = errors[0].ErrorMessage,
+						Data = 0,
 					};
 				}
 
-
-				/// use any instead
 				//Uniqueness(Email/Username)
-				var matchesEmail = _context.Users.Where(p => p.Email == user.Email);
+				var duplicatedEmail = _context.Users.Any(p => p.Email == user.Email);
 
-				if(matchesEmail.Count() != 0)
+				if(duplicatedEmail == true)
 				{
-					return new ResultDto()
+					return new ResultDto<int>()
 					{
 						IsSuccess = false,
 						Message = "ایمیل تکراری است!",
+						Data = 0,
 					};
 				}
 
-				/// use any here too
-				var matchesUsername = _context.Users.Where(p => p.Username == user.Username);
-				if(matchesUsername.Count() != 0)
+				var duplicatedUsername = _context.Users.Any(p => p.Username == user.Username);
+				if(duplicatedUsername == true)
 				{
-					return new ResultDto()
+					return new ResultDto<int>()
 					{
 						IsSuccess = false,
 						Message = "نام کاربری تکراری است!",
+						Data = 0,
 					};
 				}
 
@@ -119,22 +133,23 @@ namespace Appdoon.Application.Services.Users.Command.RegisterUserService
 				newUser.FirstName = user.FirstName;
 				newUser.LastName = user.LastName;
 
-
 				_context.Users.Add(newUser);
 				_context.SaveChanges();
 
-				return new ResultDto()
+				return new ResultDto<int>()
 				{
 					IsSuccess = true,
 					Message = "ثبت نام با موفقیت انجام شد.",
+					Data = newUser.Id,
 				};
 			}
 			catch(Exception e)
 			{
-				return new ResultDto()
+				return new ResultDto<int>()
 				{
 					IsSuccess = false,
-					Message = e.Message,
+					Message = "خطا در ثبت نام!",
+					Data = 0,
 				};
 			}
 		}

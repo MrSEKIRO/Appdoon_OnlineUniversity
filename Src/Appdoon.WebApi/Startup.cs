@@ -77,9 +77,10 @@ namespace OU_API
         public void ConfigureServices(IServiceCollection services)
         {
             //Enable CORS
+            // i add allow credentials
             services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             });
 
 
@@ -102,6 +103,7 @@ namespace OU_API
                 // Set correct path
                 options.LoginPath = new PathString("/Login/Login");
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
+                options.Cookie.Name = "Appdoon_Auth";
             });
 
             // Just Admins can use this side
