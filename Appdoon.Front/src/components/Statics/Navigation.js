@@ -107,6 +107,16 @@ const Navigation = () => {
                                             </NavLink>
                                         </li>
                                         
+                                        <li id="nav-menu-item" class="menu-item">
+                                            <NavLink className="current-link-menu" to="/TeacherProfile">
+                                              پروفایل معلم 
+                                            </NavLink>
+                                        </li>
+                                        <li id="nav-menu-item" class="menu-item">
+                                            <NavLink className="current-link-menu" to="/Profile">
+                                              پروفایل یوزر 
+                                            </NavLink>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

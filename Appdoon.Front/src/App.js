@@ -35,6 +35,11 @@ import ListStep from './Components/List_Roadmap/ListStep';
 import ListLesson from './Components/List_Roadmap/ListLesson';
 import ListLink from './Components/List_Roadmap/ListLink';
 
+import TeacherProfile from './Components/Teacher/TeacherProfile';
+import TeacherProfileEdit from './Components/Teacher/TeacherProfileEdit';
+import TeacherEditRoadmap from './Components/Teacher/TeacherEditRoadmap';
+import TeacherRoadmaps from './Components/Teacher/TeacherRadmaps';
+
 function App() {
 
   return (
@@ -85,6 +90,12 @@ function App() {
 
           <Route path={`/lessons`} element={<Lessons/>}/>
           <Route path={`/lesson/:id`} element={<Lesson/>}/>
+
+          <Route path={`/TeacherProfile`} element={<TeacherProfile/>}/>
+          <Route path={`/TeacherProfileEdit`} element={<TeacherProfileEdit/>}/>
+          <Route path={`/TeacherRoadmaps`} element={<TeacherRoadmaps/>}/>
+          <Route path={`/TeacherEditRoadmap`} element={<TeacherEditRoadmap/>}/>
+
 
           <Route path="*" element={<Home/>}/>
 

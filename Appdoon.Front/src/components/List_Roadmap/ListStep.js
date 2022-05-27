@@ -56,6 +56,51 @@ const ListStep = () => {
     }
 
     return(
+        
+        <div class="container-main">
+        <div class="d-block">
+            <section class="profile-home">
+                <div class="col-lg">
+                    <div class="post-item-profile order-1 d-block">
+                        <div class="col-lg-3 col-md-3 col-xs-12 pr">
+                            <div class="sidebar-profile sidebar-navigation">
+                                <section class="profile-box">
+                                    <header class="profile-box-header-inline">
+                                        <div class="profile-avatar user-avatar profile-img">
+                                            <img src = "assets/images/man.png"></img>
+                                        </div>
+                                    </header>
+                                </section>
+                                <section class="profile-box">
+                                    <ul class="profile-account-navs">
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <a href="/TeacherProfile" class=""><i class="mdi mdi-account-outline"></i>
+                                                پروفایل
+                                            </a>
+                                        </li>
+                                        
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <a href="/TeacherRoadmaps" class=""><i class=""></i>
+                                                 رودمپ های من
+                                            </a>
+                                        </li>
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <a href="/TeacherEditRoadmap" class=""><i class=""></i>
+                                                ویرایش رودمپ
+                                            </a>
+                                        </li>
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <a href="TeacherProfileEdit" class="active"><i class=""></i>
+                                                ویرایش اطلاعات      
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-xs-12 pl">
+
+
         <div>
             {<EditStepModal id={"editModalStep"} step = {step} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             {<DeleteStepModal id={"deleteModalStep"} step = {step} sensetive = {sensetive} setSensetive = {setSensetive}/>}
@@ -242,6 +287,14 @@ const ListStep = () => {
 
             
         </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+   
     );
 }
 

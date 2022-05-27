@@ -1,6 +1,6 @@
 import {NavLink} from 'react-router-dom';
 import { useState } from "react";
-import useFetch from "../../useFetch";
+import useFetch from '../Common/useFetch';
 import { Col, Form } from "react-bootstrap";
 
 const TeacherProfile = () => {
@@ -8,6 +8,7 @@ const TeacherProfile = () => {
 
     
     return(
+        
         <div class="container-main">
         <div class="d-block">
             <section class="profile-home">
@@ -34,23 +35,35 @@ const TeacherProfile = () => {
                                 <section class="profile-box">
                                     <ul class="profile-account-navs">
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/Profile" class="active"><i class="mdi mdi-account-outline"></i>
+                                            <a href="/TeacherProfile" class="active"><i class="mdi mdi-account-outline"></i>
                                                 پروفایل
                                             </a>
                                         </li>
                                         
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/UserRoadmaps" class=""><i class=""></i>
-                                                لیست رودمپ های من
+                                            <a href="/TeacherRoadmaps" class=""><i class=""></i>
+                                                 رودمپ های من
                                             </a>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/UserFavoriteRoadmaps" class=""><i class=""></i>
-                                                رودمپ های مورد علاقه من
+                                            <a href="/create_roadmap" class=""><i class=""></i>
+                                            ساخت رودمپ
                                             </a>
                                         </li>
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <a href="/TeacherEditRoadmap" class=""><i class=""></i>
+                                                ویرایش رودمپ
+                                            </a>
+                                        </li>
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <a href="/TeacherProfileEdit" class=""><i class=""></i>
+                                                ویرایش اطلاعات
+                                            </a>
+                                        </li>
+                                        
                                     </ul>
                                 </section>
+                                
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-9 col-xs-12 pl">
@@ -87,9 +100,6 @@ const TeacherProfile = () => {
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="profile-edit-action">
-                                        <a href="/EditProfile" class="link-spoiler-edit btn btn-secondary">ویرایش اطلاعات</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
