@@ -2,10 +2,13 @@
 using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetUserService;
+using Appdoon.Common.UserRoles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appdoon.WebApi.Controllers
 {
+	[Authorize(policy: "Profile")]
 	[Route("api/[controller]/[action]")]
 	[ApiController]
 	public class ProfileController : Controller
