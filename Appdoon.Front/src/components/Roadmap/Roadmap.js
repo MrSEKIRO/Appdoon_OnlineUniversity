@@ -17,6 +17,10 @@ import DeleteStepModal from "../Modals/Delete/DeleteStepModal";
 import EditChildStepModal from "../Modals/Edit/EditChildStepModal";
 import DeleteChildStepModal from "../Modals/Delete/DeleteChildStepModal";
 
+import CreateRoadmapModal from "../Modals/Create/CreateRoadmapModal";
+import CreateStepModal from "../Modals/Create/CreateStepModal";
+import CreateChildStepModal from "../Modals/Create/CreateChildStepModal";
+
 const Roadmap = () => {
 
     const {id} = useParams();
@@ -24,7 +28,7 @@ const Roadmap = () => {
     
     const [sensetive, setSensetive] = useState(false);
 
-    const [url, setUrl] = useState(process.env.REACT_APP_API + 'roadmap/'+id);
+    const [url, setUrl] = useState(process.env.REACT_APP_API + 'roadmap/Get/'+id);
 
     const {data : roadmap} = useFetch(url,sensetive);
 
@@ -34,7 +38,7 @@ const Roadmap = () => {
     const [idStep, setIdStep] = useState(0);
     const [idChildStep, setIdChildStep] = useState(0);
 
-
+    
     
     
     const [photoPath, setPhotoPath] = useState(process.env.REACT_APP_PHOTOPATH+"Roadmap/");
@@ -43,8 +47,8 @@ const Roadmap = () => {
     const {data : step} = useFetch(urlStep+idStep,sensetive);
 
     const clear = () =>{
-        document.getElementById("TitleRoadmap").value = null;
-        document.getElementById("DescriptionRoadmap").value = null;
+        document.getElementById("TitleRoadmap").value = roadmap.Title;
+        document.getElementById("DescriptionRoadmap").value = roadmap.Description;
         document.getElementById("PhotoRoadmap").value = null;
         document.getElementById("result_message_edit_roadmap").innerHTML = null;
         document.getElementById("result_message_delete_roadmap").innerHTML = null;
@@ -52,10 +56,32 @@ const Roadmap = () => {
         setSensetive(!sensetive);
     }
 
+    const clearStep = () =>{
+        document.getElementById("CreateTitleStep").value = null;
+        document.getElementById("CreateDescriptionStep").value = null;
+        document.getElementById("CreateLinkStep").value = null;
+        document.getElementById("result_message_create_step").innerHTML = null;
+        setSensetive(!sensetive);
+    }
+
+    const [inputFields, setInputFields] = useState([]);
+    const [editInputFields, setEditInputFields] = useState([]);
     
     return(
 
         <div>
+
+
+
+
+
+
+
+
+
+
+
+            {<ChildStepModal inputFields={editInputFields} setInputFields={setEditInputFields} childStep={childStep} setIdChildStep={setIdChildStep}/>}
             
             {<EditRoadmapModal id={"editModalRoadmap"} roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             {<DeleteRoadmapModal id={"deleteModalRoadmap"} roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
@@ -63,18 +89,16 @@ const Roadmap = () => {
             {<EditStepModal id={"editModalStep"+idStep} step = {step} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             {<DeleteStepModal id={"deleteModalStep"+idStep} step = {step} sensetive = {sensetive} setSensetive = {setSensetive}/>}
 
-            {<ChildStepModal childStep={childStep} setIdChildStep={setIdChildStep}/>}
-
-            {<EditChildStepModal id={"editModalChildStep"+idChildStep} childstep = {childStep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<EditChildStepModal id={"editModalChildStep"+idChildStep} inputFields={editInputFields} setInputFields={setEditInputFields} childstep = {childStep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             {<DeleteChildStepModal id={"deleteModalChildStep"+idChildStep} childstep = {childStep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
 
-            
-            
+            {<CreateStepModal id={"createModalStep"} roadmapId={roadmap.Id} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {<CreateChildStepModal id={"createModalChildStep"+idStep} inputFields = {inputFields} setInputFields={setInputFields} stepId={idStep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             <div style={{float:"left" , marginTop:"20px", marginLeft:"20px"}}>
 
-                <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#editModalLesson" variant="success" class="btn btn-success" onClick={() => {}}>افزودن قدم</button>
-                <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#editModalRoadmap" variant="primary" class="btn btn-primary" onClick={() => {clear();}}>ویرایش</button>
-                <button href="#!" data-toggle="modal" data-target="#deleteModalRoadmap" variant="primary" class="btn btn-danger" onClick={() => {clear();}}>حذف</button>
+                <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#createModalStep" variant="success" class="btn btn-success" onClick={() => {clearStep();}}><i class="far fa-plus-square"></i></button>
+                <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#editModalRoadmap" variant="primary" class="btn btn-primary" onClick={() => {clear();}}><i class="far fa-edit"></i></button>
+                <button href="#!" data-toggle="modal" data-target="#deleteModalRoadmap" variant="primary" class="btn btn-danger" onClick={() => {clear();}}><i class="far fa-trash-alt"></i></button>
                 
             </div>
             {roadmap && roadmap.Id > 0 && (
@@ -83,11 +107,11 @@ const Roadmap = () => {
                     
                    
                     <h1 dir="rtl">رودمپ {roadmap.Title}</h1>
-                    <p  dir="rtl" style={{color:"black"}}>{roadmap.Description}</p>
+                    <p  dir="rtl">{roadmap.Description}</p>
                     <div class="timeline-container">
                         
                         {roadmap.Steps.map((step, idx) => (
-                            <Step step={step} key={idx} setIdChildStep={setIdChildStep} setIdStep={setIdStep}/>
+                            <Step setInputFields={setInputFields} step={step} key={idx} setIdChildStep={setIdChildStep} setIdStep={setIdStep}/>
                         ))}
                     </div>
                     

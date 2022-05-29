@@ -1,5 +1,6 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.Dtos;
+using Appdoon.Common.Pagination;
 using Appdoon.Domain.Entities.RoadMaps;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,15 @@ namespace Appdoon.Application.Services.Lessons.Query.GetAllLessonsService
 		public string Text { get; set; }
 		public string TopBannerSrc { get; set; } = string.Empty;
 	}
+
+	public class AllLessonsDto
+	{
+		public List<LessonDto> Lessons { get; set; }
+		public int RowCount { get; set; }
+	}
 	public interface IGetAllLessonsService
 	{
-		ResultDto<List<LessonDto>> Execute();
+		ResultDto<AllLessonsDto> Execute(int page_number, int page_size);
 	}
 
 	public class GetAllLessonsService : IGetAllLessonsService
@@ -29,10 +36,11 @@ namespace Appdoon.Application.Services.Lessons.Query.GetAllLessonsService
 		{
 			_context = context;
 		}
-		public ResultDto<List<LessonDto>> Execute()
+		public ResultDto<AllLessonsDto> Execute(int page_number, int page_size)
 		{
 			try
 			{
+				int rowCount = 0;
 				var lessons = _context.Lessons
 					.Select(r => new LessonDto()
 					{
@@ -40,22 +48,28 @@ namespace Appdoon.Application.Services.Lessons.Query.GetAllLessonsService
 						Title = r.Title,
 						TopBannerSrc = r.TopBannerSrc,
 						Text = r.Text,
-					}).ToList();
+					}).ToPaged(page_number, page_size,out rowCount)
+					.ToList();
 
-				return new ResultDto<List<LessonDto>>()
+				AllLessonsDto allLessonsDto = new AllLessonsDto();
+				allLessonsDto.Lessons = lessons;
+				allLessonsDto.RowCount = rowCount;
+
+
+				return new ResultDto<AllLessonsDto>()
 				{
 					IsSuccess = true,
 					Message = "مقالات ارسال شد",
-					Data = lessons,
+					Data = allLessonsDto,
 				};
 			}
 			catch (Exception e)
 			{
-				return new ResultDto<List<LessonDto>>()
+				return new ResultDto<AllLessonsDto>()
 				{
 					IsSuccess = false,
 					Message = "ارسال ناموفق!",
-					Data = new List<LessonDto>(),
+					Data = new AllLessonsDto(),
 				};
 			}
 		}

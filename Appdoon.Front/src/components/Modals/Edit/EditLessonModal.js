@@ -19,7 +19,7 @@ import { StylesConfig } from 'react-select';
 
 function EditLessonModal({ id, lesson, sensetive, setSensetive }) {
 
-    const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "lesson/");
+    const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "lesson/put/");
 
     const HandleMessage = (resmess,colormess,id = "result_message_edit_lesson") => {
         document.getElementById(id).style.color = colormess;
@@ -88,8 +88,7 @@ function EditLessonModal({ id, lesson, sensetive, setSensetive }) {
 
         reader.readAsDataURL(event.target.files[0]);
     }
-
-      
+    
     return (
         <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
             <div style={{marginBottom:"50px", maxWidth: "550px"}} class="modal-dialog">
@@ -101,7 +100,7 @@ function EditLessonModal({ id, lesson, sensetive, setSensetive }) {
                     </div>
                     <div style={{overflowY: "scroll", maxHeight:"500px"}} class="modal-body">
                         <div>
-                            <div style={{marginTop:"-110px"}} class="container">
+                            <div style={{marginTop:"-40px"}} class="container">
                                 <div class="row">
                                     <div  class="col-lg">
                                         <section  class="page-account-box">
@@ -114,13 +113,13 @@ function EditLessonModal({ id, lesson, sensetive, setSensetive }) {
 
                                                                     <div class="form-account-title">
                                                                         <label for="Title">نام درس</label>
-                                                                        <input dir='auto' id="TitleLesson" placeholder={lesson.Title} type="text" class="number-email-input" name="Title"/>
+                                                                        <input dir='auto' id="TitleLesson" type="text" class="number-email-input" name="Title"/>
                                                                     </div>
 
                                                                     
                                                                     <div class="form-account-title">
                                                                         <label for="Text">متن</label>
-                                                                        <textarea dir='auto' id="TextLesson" placeholder={lesson.Text} class="number-email-input" name="Text"/>
+                                                                        <textarea dir='auto' id="TextLesson" class="number-email-input" name="Text"/>
                                                                     </div>
 
                                                                     <div style={{textAlign:"right", width:"100%" ,marginBottom:"50px"}} class="form-account-title">

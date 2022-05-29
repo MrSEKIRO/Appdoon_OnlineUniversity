@@ -19,7 +19,7 @@ import { StylesConfig } from 'react-select';
 
 function EditCategoryModal({ id, category, sensetive, setSensetive }) {
 
-    const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "category/");
+    const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "category/put/");
 
     const HandleMessage = (resmess,colormess,id = "result_message_edit_category") => {
         document.getElementById(id).style.color = colormess;
@@ -63,7 +63,8 @@ function EditCategoryModal({ id, category, sensetive, setSensetive }) {
 
 
     useEffect(()=> {
-
+        document.getElementById("NameCategory").value = category.Name;
+        document.getElementById("LinkCategory").value = category.Link;
     },[category])
       
     return (
@@ -77,7 +78,7 @@ function EditCategoryModal({ id, category, sensetive, setSensetive }) {
                     </div>
                     <div style={{overflowY: "scroll", maxHeight:"500px"}} class="modal-body">
                         <div>
-                            <div style={{marginTop:"-110px"}} class="container">
+                            <div style={{marginTop:"-40px"}} class="container">
                                 <div class="row">
                                     <div  class="col-lg">
                                         <section  class="page-account-box">
@@ -90,13 +91,13 @@ function EditCategoryModal({ id, category, sensetive, setSensetive }) {
 
                                                                     <div class="form-account-title">
                                                                         <label for="Name">نام دسته</label>
-                                                                        <input dir='auto' id="NameCategory" placeholder={category.Name} type="text" class="number-email-input" name="Name"/>
+                                                                        <input dir='auto' id="NameCategory" type="text" class="number-email-input" name="Name"/>
                                                                     </div>
 
                                                                     
                                                                     <div class="form-account-title">
                                                                         <label for="Link">لینک دسته</label>
-                                                                        <input dir='auto' id="LinkCategory" placeholder={category.Link} class="number-email-input" name="Link"/>
+                                                                        <input dir='auto' id="LinkCategory" class="number-email-input" name="Link"/>
                                                                     </div>
 
 

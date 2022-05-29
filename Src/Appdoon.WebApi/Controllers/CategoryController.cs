@@ -3,6 +3,7 @@ using Appdoon.Application.Services.Categories.Command.DeleteCategoryService;
 using Appdoon.Application.Services.Categories.Command.UpdateCategoryService;
 using Appdoon.Application.Services.Categories.Query.GetAllCategoriesService;
 using Appdoon.Application.Services.Categories.Query.GetIndividualCategoryService;
+using Appdoon.Application.Services.Categories.Query.SearchCategoriesService;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Appdoon.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
@@ -27,27 +28,30 @@ namespace Appdoon.WebApi.Controllers
         private readonly IDeleteCategoryService _deleteCategoryService;
         //Update
         private readonly IUpdateCategoryService _updateCategoryService;
+        //Search
+        private readonly ISearchCategoriesService _searchCategoriesService;
 
 
         public CategoryController(IGetAllCategoriesService getCategoriesService,
                                   IGetIndividualCategoryService getIndividualCategoryService,
                                   ICreateCategoryService createCategoryService,
                                   IDeleteCategoryService deleteCategoryService,
-                                  IUpdateCategoryService updateCategoryService)
+                                  IUpdateCategoryService updateCategoryService,
+                                  ISearchCategoriesService searchCategoriesService)
         {
             _getCategoriesService = getCategoriesService;
             _getIndividualCategoryService = getIndividualCategoryService;
             _createCategoryService = createCategoryService;
             _deleteCategoryService = deleteCategoryService;
             _updateCategoryService = updateCategoryService;
+            _searchCategoriesService = searchCategoriesService;
         }
-
 
         // GET: api/<CategoryController>
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult Get(int page_number, int page_size)
         {
-            var result = _getCategoriesService.Execute();
+            var result = _getCategoriesService.Execute(page_number,page_size);
             return new JsonResult(result);
         }
 
@@ -61,7 +65,7 @@ namespace Appdoon.WebApi.Controllers
 
         // POST api/<CategoryController>
         [HttpPost]
-        public JsonResult Create(CreateCategoryDto Category)
+        public JsonResult Post(CreateCategoryDto Category)
         {
             var result = _createCategoryService.Execute(Category);
             return new JsonResult(result);
@@ -81,6 +85,13 @@ namespace Appdoon.WebApi.Controllers
         {
             var result = _deleteCategoryService.Execute(id);
             return new JsonResult(result); 
+        }
+
+        [HttpGet]
+        public JsonResult Search(string searched_text, int page_number, int page_size)
+        {
+            var result = _searchCategoriesService.Execute(searched_text, page_number, page_size);
+            return new JsonResult(result);
         }
     }
 }

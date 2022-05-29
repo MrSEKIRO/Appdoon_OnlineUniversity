@@ -1,5 +1,6 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.Dtos;
+using Appdoon.Common.Pagination;
 using Appdoon.Domain.Entities.RoadMaps;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,14 @@ namespace Appdoon.Application.Services.Categories.Query.GetAllCategoriesService
         public string Name { get; set; }
         public string Link { get; set; }
     }
+    public class AllCategoriesDto
+    {
+        public List<CategoryDto> Categories { get; set; }
+        public int RowCount { get; set; }
+    }
     public interface IGetAllCategoriesService
     {
-        public ResultDto<List<CategoryDto>> Execute();
+        public ResultDto<AllCategoriesDto> Execute(int page_number, int page_size);
     }
 
     public class GetCategoriesService : IGetAllCategoriesService
@@ -29,32 +35,37 @@ namespace Appdoon.Application.Services.Categories.Query.GetAllCategoriesService
             _context = databaseContext;
         }
 
-        public ResultDto<List<CategoryDto>> Execute()
+        public ResultDto<AllCategoriesDto> Execute(int page_number, int page_size)
         {
             try
             {
+                int rowCount = 0;
                 var categories = _context.Categories.Select(s => new CategoryDto
                 {
                     Id = s.Id,
                     Name = s.Name,
                     Link = s.Link
-                }).ToList();
+                }).ToPaged(page_number, page_size, out rowCount)
+                .ToList();
+                AllCategoriesDto allCategoriesDto = new AllCategoriesDto();
+                allCategoriesDto.Categories = categories;
+                allCategoriesDto.RowCount = rowCount;
 
-                return new ResultDto<List<CategoryDto>>()
+                return new ResultDto<AllCategoriesDto>()
                 {
                     IsSuccess = true,
                     Message = "دسته‌بندی‌ها ارسال شدند.",
-                    Data = categories
+                    Data = allCategoriesDto
                 };
 
             }
             catch (Exception e)
             {
-                return new ResultDto<List<CategoryDto>>()
+                return new ResultDto<AllCategoriesDto>()
                 {
                     IsSuccess = false,
                     Message = "ارسال ناموفق دسته‌بندی‌ها!",
-                    Data = new List<CategoryDto>()
+                    Data = new AllCategoriesDto()
                 };
             }
         }

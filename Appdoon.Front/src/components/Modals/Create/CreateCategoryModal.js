@@ -16,12 +16,13 @@ import "../../../Modular_Css/EditRoadmapModal.css";
 import chroma from 'chroma-js';
 
 import { StylesConfig } from 'react-select';
+import useCreate from "../../Common/useCreate";
 
-function EditLinkModal({ id ,link, sensetive, setSensetive }) {
+function CreateCategoryModal({ id, sensetive, setSensetive }) {
 
-    const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "linker/");
+    const [urlpost, setUrlPost] = useState(process.env.REACT_APP_API + "category/post/");
 
-    const HandleMessage = (resmess,colormess,id = "result_message_edit_link") => {
+    const HandleMessage = (resmess,colormess,id = "result_message_create_category") => {
         document.getElementById(id).style.color = colormess;
         document.getElementById(id).innerHTML = resmess;
         setSensetive(!sensetive);
@@ -34,39 +35,15 @@ function EditLinkModal({ id ,link, sensetive, setSensetive }) {
             'Accept':'application/json',
             'Content-Type':'application/json'
         }
-
-        let temptitle = "";
-        let templink = "";
-
-        if(event.target.Title.value == ""){
-            temptitle = link.Title
-        }
-        else{
-            temptitle = event.target.Title.value;
-        }
-
-        if(event.target.Link.value == ""){
-            templink = link.Link
-        }
-        else{
-            templink = event.target.Link.value;
-        }
         
         let body = JSON.stringify({
-            Title:temptitle,
-            Link:templink,
+            Name:event.target.Name.value,
+            Link:event.target.Link.value,
         });
 
-        const [resmess, colormess] = await useUpdate(urlput+link.Id,body,headers);
+        const [resmess, colormess] = await useCreate(urlpost,body,headers);
         HandleMessage(resmess,colormess);
     }
-
-
-    useEffect(()=> {
-
-
-    },[link])
-
 
     return (
         <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
@@ -75,11 +52,11 @@ function EditLinkModal({ id ,link, sensetive, setSensetive }) {
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">ویرایش لینک : {link.Title}</h4>
+                        <h4 class="modal-title">ساخت دسته</h4>
                     </div>
                     <div style={{overflowY: "scroll", maxHeight:"500px"}} class="modal-body">
                         <div>
-                            <div style={{marginTop:"-110px"}} class="container">
+                            <div style={{marginTop:"-50px"}} class="container">
                                 <div class="row">
                                     <div  class="col-lg">
                                         <section  class="page-account-box">
@@ -88,17 +65,17 @@ function EditLinkModal({ id ,link, sensetive, setSensetive }) {
                                                     <div  class="account-box">
                                                         <div  class="Login-to-account mt-4">
                                                             <div style={{marginTop:"-20px", marginBottom:"40px"}} class="account-box-content">
-                                                                <form onSubmit={HandleUpdate} id="editformlink" action="#" class="form-account text-right">
+                                                                <form onSubmit={HandleUpdate} id="createformcategory" action="#" class="form-account text-right">
 
                                                                     <div class="form-account-title">
-                                                                        <label for="Title">نام لینک</label>
-                                                                        <input dir='auto' id="TitleLink" placeholder={link.Title} type="text" class="number-email-input" name="Title"/>
+                                                                        <label for="Name">نام دسته</label>
+                                                                        <input dir='auto' id="CreateNameCategory" type="text" class="number-email-input" name="Name"/>
                                                                     </div>
 
                                                                     
                                                                     <div class="form-account-title">
-                                                                        <label for="Link">لینک</label>
-                                                                        <textarea dir='auto' id="LinkLink" placeholder={link.Link} class="number-email-input" name="Link"/>
+                                                                        <label for="Link">لینک دسته</label>
+                                                                        <input dir='auto' id="CreateLinkCategory" class="number-email-input" name="Link"/>
                                                                     </div>
 
 
@@ -121,8 +98,8 @@ function EditLinkModal({ id ,link, sensetive, setSensetive }) {
                     </div>
                     <div class="modal-footer">
                         <div style={{width:"100%"}}>
-                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_edit_link"></p>
-                            <button style={{float:"left"}} type="submit" class="btn btn-primary" form="editformlink">ویرایش لینک</button>
+                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_create_category"></p>
+                            <button style={{float:"left"}} type="submit" class="btn btn-success" form="createformcategory">ساخت دسته</button>
                         </div>
                     </div>
                 </div>
@@ -132,4 +109,4 @@ function EditLinkModal({ id ,link, sensetive, setSensetive }) {
     );
 }
 
-export default EditLinkModal;
+export default CreateCategoryModal;

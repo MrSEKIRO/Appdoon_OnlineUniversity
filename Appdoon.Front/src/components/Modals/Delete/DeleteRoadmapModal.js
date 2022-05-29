@@ -14,7 +14,7 @@ import "../../../Modular_Css/EditRoadmapModal.css";
 
 function DeleteRoadmapModal({ id, roadmap , sensetive ,setSensetive}) {
 
-    const [url, setUrl] = useState(process.env.REACT_APP_API + "roadmap/");
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "roadmap/delete/");
 
     const HandleMessage = (resmess,colormess,id = "result_message_delete_roadmap") => {
         document.getElementById(id).style.color = colormess;

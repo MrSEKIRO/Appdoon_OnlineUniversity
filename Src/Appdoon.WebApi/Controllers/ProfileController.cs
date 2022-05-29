@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Appdoon.WebApi.Controllers
 {
+	[Authorize(policy : "User")]
 	[Authorize(policy: "Profile")]
 	[Route("api/[controller]/[action]")]
 	[ApiController]
@@ -32,7 +33,6 @@ namespace Appdoon.WebApi.Controllers
 		public JsonResult Info(int Id)
 		{
 			var result = _getUserService.Execute(Id);
-
 			return new JsonResult(result);
 		}
 

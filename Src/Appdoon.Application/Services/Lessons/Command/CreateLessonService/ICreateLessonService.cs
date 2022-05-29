@@ -47,29 +47,20 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 				var Text = data[1];
 				var PhotoFileName = data[2];
 
-				//Uniqueness(Title)
-				if (_context.Lessons.Where(s => s.Title == Title.ToString()).Count() != 0)
-				{
-					return new ResultDto()
-					{
-						IsSuccess = false,
-						Message = "این نام برای مقاله تکراری است",
-					};
-				}
 
 				var imageSrc = "";
-
+				var TimeNow = DateTime.Now;
+				var ImageName = Title + "_" + TimeNow.Ticks.ToString();
 				if (httpRequest.Form.Files.Count() != 0)
 				{
 					var postedFile = httpRequest.Form.Files[0];
 					string filename = postedFile.FileName;
-					//var physicalPath = currentpath + "/Photos/Lesson/" + $"({Title})" + filename;
-					var physicalPath = currentpath + "/Photos/Lesson/" + $"({Title}+{DateTime.Now})" + filename;
+					var physicalPath = currentpath + "/Photos/Lesson/" + $"({ImageName})" + filename;
 					using (var stream = new FileStream(physicalPath, FileMode.Create))
 					{
 						postedFile.CopyTo(stream);
 					}
-					imageSrc = $"({Title})" + PhotoFileName.ToString();
+					imageSrc = $"({ImageName})" + PhotoFileName.ToString();
 				}
 				else
 				{

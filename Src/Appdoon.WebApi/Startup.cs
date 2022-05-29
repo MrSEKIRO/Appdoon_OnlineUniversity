@@ -61,6 +61,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using Appdoon.Common.UserRoles;
+using Appdoon.Application.Services.RoadMaps.Query.FilterRoadmapsService;
+using Appdoon.Application.Services.RoadMaps.Query.SearchRoadmapsService;
+using Appdoon.Application.Services.Lessons.Query.SearchLessonsService;
+using Appdoon.Application.Services.Categories.Query.SearchCategoriesService;
 
 namespace OU_API
 {
@@ -109,6 +113,8 @@ namespace OU_API
             // Authorization policies
             services.AddAuthorization(options =>
             {
+                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, UserRole.Admin.ToString()));
+                options.AddPolicy("User", policy => policy.RequireClaim(ClaimTypes.Role, UserRole.User.ToString(), UserRole.Teacher.ToString(), UserRole.Admin.ToString()));
                 options.AddPolicy("Profile", policy => policy.RequireClaim(ClaimTypes.Role, UserRole.User.ToString(), UserRole.Teacher.ToString(), UserRole.Admin.ToString()));
                 options.AddPolicy("Teacher", policy => policy.RequireClaim(ClaimTypes.Role, UserRole.Teacher.ToString(),UserRole.Admin.ToString()));
                 options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, UserRole.Admin.ToString()));
@@ -160,6 +166,7 @@ namespace OU_API
             services.AddScoped<ICreateCategoryService, CreateCategoryService>();
             services.AddScoped<IDeleteCategoryService,DeleteCategoryService>();
             services.AddScoped<IUpdateCategoryService, UpdateCategoryService>();
+            services.AddScoped<ISearchCategoriesService, SearchCategoriesService>();
 
 
             //Dependency Injecton For Lesson
@@ -168,6 +175,7 @@ namespace OU_API
             services.AddScoped<ICreateLessonService, CreateLessonService>();
             services.AddScoped<IDeleteLessonService, DeleteLessonService>();
             services.AddScoped<IUpdateLessonService, UpdateLessonService>();
+            services.AddScoped<ISearchLessonsService, SearchLessonsService>();
 
             //Dependency Injecton For ChildStep
             services.AddScoped<IGetIndividualChildStepService, GetIndividualChildStepService>();
@@ -190,6 +198,8 @@ namespace OU_API
             services.AddScoped<ICreateRoadmapService, CreateRoadMapIndividualService>();
             services.AddScoped<IDeleteRoadmapService, DeleteRoadmapService>();
             services.AddScoped<IUpdateRoadmapService, UpdateRoadmapService>();
+            services.AddScoped<IFilterRoadmapsService, FilterRoadmapsService>();
+            services.AddScoped<ISearchRoadmapsService, SearchRoadmapsService>();
 
             //Dependency Injecton For Step
             services.AddScoped<IGetIndividualStepService, GetIndividualStepService>();

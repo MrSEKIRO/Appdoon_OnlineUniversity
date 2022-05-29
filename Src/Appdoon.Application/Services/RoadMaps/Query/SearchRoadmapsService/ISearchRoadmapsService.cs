@@ -7,12 +7,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Appdoon.Common.Pagination;
 
 namespace Appdoon.Application.Services.RoadMaps.Query.SearchRoadmapsService
 {
+    public class RoadMapDto
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; }
+        public string ImageSrc { get; set; } = string.Empty;
+        public int Stars { get; set; }
+        public List<Category> Categories { get; set; }
+    }
+    public class AllRoadmapsDto
+    {
+        public List<RoadMapDto> Roadmaps { get; set; }
+        public int RowCount { get; set; }
+    }
     public interface ISearchRoadmapsService
     {
-        ResultDto<List<SearchRoadMapsDto>> Execute(string name);
+        ResultDto<AllRoadmapsDto> Execute(string searched_text, int page_number, int page_size);
     }
     public class SearchRoadmapsService : ISearchRoadmapsService
     {
@@ -22,39 +37,45 @@ namespace Appdoon.Application.Services.RoadMaps.Query.SearchRoadmapsService
             _context = context;
         }
 
-        public ResultDto<List<SearchRoadMapsDto>> Execute(string name)
+        public ResultDto<AllRoadmapsDto> Execute(string searched_text, int page_number, int page_size)
         {
             try
             {
+                int rowCount = 0;
                 var roadmaps = _context.RoadMaps
-                    .Where(r => r.Title.Contains(name))
-                    .Select(r => new SearchRoadMapsDto()
+                    .Where(r => r.Title.Contains(searched_text))
+                    .Include(r => r.Categories)
+                    .Select(r => new RoadMapDto()
                     {
                         Id = r.Id,
+                        Description = r.Description,
+                        ImageSrc = r.ImageSrc,
+                        Stars = r.Stars,
                         Title = r.Title,
-                    }).ToList();
+                        Categories = r.Categories,
+                    }).ToPaged(page_number, page_size, out rowCount)
+                    .ToList();
 
-                return new ResultDto<List<SearchRoadMapsDto>>()
+                AllRoadmapsDto allRoadmapsDto = new AllRoadmapsDto();
+                allRoadmapsDto.Roadmaps = roadmaps;
+                allRoadmapsDto.RowCount = rowCount;
+
+                return new ResultDto<AllRoadmapsDto>()
                 {
                     IsSuccess = true,
                     Message = "رودمپ ها پیدا و ارسال شد",
-                    Data = roadmaps,
+                    Data = allRoadmapsDto,
                 };
             }
             catch (Exception)
             {
-                return new ResultDto<List<SearchRoadMapsDto>>()
+                return new ResultDto<AllRoadmapsDto>()
                 {
                     IsSuccess = false,
                     Message = "جستجو ناموفق!",
-                    Data = new List<SearchRoadMapsDto>(),
+                    Data = new AllRoadmapsDto(),
                 };
             }
         }
-    }
-    public class SearchRoadMapsDto
-    {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
     }
 }

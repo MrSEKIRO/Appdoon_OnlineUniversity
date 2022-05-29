@@ -75,7 +75,22 @@ function EditStepModal({ id, step, sensetive, setSensetive }) {
 
     },[step])
 
-
+    const findPlaceHolderDirection = (text) => {
+        if(!text){
+            return "rtl";
+        }
+        if(text.length == 0){
+            return "rtl";
+        }
+        else{
+            if(text.charCodeAt(0) >= 1000){
+                return "rtl";
+            }
+            else{
+                return "ltr";
+            }
+        }
+    }
       
     return (
         <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
@@ -88,7 +103,7 @@ function EditStepModal({ id, step, sensetive, setSensetive }) {
                     </div>
                     <div style={{overflowY: "scroll", maxHeight:"500px"}} class="modal-body">
                         <div>
-                            <div style={{marginTop:"-110px"}} class="container">
+                            <div style={{marginTop:"-40px"}} class="container">
                                 <div class="row">
                                     <div  class="col-lg">
                                         <section  class="page-account-box">
@@ -101,19 +116,19 @@ function EditStepModal({ id, step, sensetive, setSensetive }) {
 
                                                                     <div class="form-account-title">
                                                                         <label for="Title">نام قدم</label>
-                                                                        <input dir='auto' id="TitleStep" placeholder={step.Title} type="text" class="number-email-input" name="Title"/>
+                                                                        <input dir='auto' id="TitleStep" type="text" class="number-email-input" name="Title"/>
                                                                     </div>
 
                                                                     
                                                                     <div class="form-account-title">
                                                                         <label for="Description">توضیحات</label>
-                                                                        <textarea dir='auto' id="DescriptionStep" placeholder={step.Description} class="number-email-input" name="Description"/>
+                                                                        <textarea dir='auto' id="DescriptionStep" class="number-email-input" name="Description"/>
                                                                     </div>
 
 
                                                                     <div class="form-account-title">
                                                                         <label for="Link">لینک</label>
-                                                                        <input dir='auto' id="LinkStep" placeholder={step.Link} class="number-email-input" name="Link"/>
+                                                                        <input dir='auto' id="LinkStep" class="number-email-input" name="Link"/>
                                                                     </div>
 
 

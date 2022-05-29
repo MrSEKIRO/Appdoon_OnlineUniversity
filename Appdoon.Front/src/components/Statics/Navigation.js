@@ -90,20 +90,14 @@ const Navigation = () => {
                                         </li>
 
                                         <li id="nav-menu-item" class="menu-item">
-                                            <NavLink className="current-link-menu" to="/create_roadmap">
-                                                ساخت رودمپ
-                                            </NavLink>
-                                        </li>
-
-                                        <li id="nav-menu-item" class="menu-item">
                                             <NavLink className="current-link-menu" to="/lessons">
                                                 مقالات
                                             </NavLink>
                                         </li>
 
                                         <li id="nav-menu-item" class="menu-item">
-                                            <NavLink className="current-link-menu" to="/edit_roadmap">
-                                                ویرایش رودمپ
+                                            <NavLink className="current-link-menu" to="/categories">
+                                              دسته‌ها
                                             </NavLink>
                                         </li>
                                         
