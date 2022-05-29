@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Appdoon.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class LessonController : ControllerBase
     {
@@ -53,9 +53,9 @@ namespace Appdoon.WebApi.Controllers
 
         // GET: api/<LessonController>
         [HttpGet]
-        public JsonResult Get()
+        public JsonResult Get(int page_number, int page_size)
         {
-            var result = _getAllLessonsService.Execute();
+            var result = _getAllLessonsService.Execute(page_number, page_size);
             return new JsonResult(result);
         }
 
@@ -92,10 +92,10 @@ namespace Appdoon.WebApi.Controllers
         }
 
         // GET api/<LessonController>
-        [HttpGet("{name}")]
-        public JsonResult Search(string name)
+        [HttpGet]
+        public JsonResult Search(string searched_text, int page_number, int page_size)
         {
-            var result = _searchLessonsService.Execute(name);
+            var result = _searchLessonsService.Execute(searched_text, page_number, page_size);
             return new JsonResult(result);
         }
     }

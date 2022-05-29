@@ -74,11 +74,17 @@ namespace Appdoon.Application.Services.ChildSteps.Command.UpdateChildStepService
 				child_step_back.Description = child_step_front.Description;
 				child_step_back.Link = child_step_front.Link;
 
-				for(int i = 0; i < child_step_back.Linkers.Count; i++)
+
+				List<Linker> links = new List<Linker>();
+
+				for(int i = 0; i < child_step_front.Linkers.Count; i++)
                 {
-					child_step_back.Linkers[i].Title = child_step_front.Linkers[i].LinkTitle;
-					child_step_back.Linkers[i].Link = child_step_front.Linkers[i].LinkURL;
+					links.Add(new Linker());
+					links[i].Title = child_step_front.Linkers[i].LinkTitle;
+					links[i].Link = child_step_front.Linkers[i].LinkURL;
 				}
+
+				child_step_back.Linkers = links;
 
 				child_step_back.UpdateTime = DateTime.Now;
 

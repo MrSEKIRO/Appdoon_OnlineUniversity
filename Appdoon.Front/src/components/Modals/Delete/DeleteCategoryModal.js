@@ -14,7 +14,7 @@ import "../../../Modular_Css/EditRoadmapModal.css";
 
 function DeleteCategoryModal({ id, category , sensetive ,setSensetive}) {
 
-    const [url, setUrl] = useState(process.env.REACT_APP_API + "category/");
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "category/delete/");
 
     const HandleMessage = (resmess,colormess,id = "result_message_delete_category") => {
         document.getElementById(id).style.color = colormess;

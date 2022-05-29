@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import useFetch from '../Common/useFetch';
+import useFetch from '../Components/Common/useFetch';
 
-import DeleteChildStepModal from "../Modals/Delete/DeleteChildStepModal";
-import EditChildStepModal from "../Modals/Edit/EditChildStepModal";
+import DeleteChildStepModal from "../Components/Modals/Delete/DeleteChildStepModal";
+import EditChildStepModal from "../Components/Modals/Edit/EditChildStepModal";
 
 const ListChildStep = () => {
     

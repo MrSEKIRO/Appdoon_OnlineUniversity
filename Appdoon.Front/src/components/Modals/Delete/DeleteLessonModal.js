@@ -14,7 +14,7 @@ import "../../../Modular_Css/EditRoadmapModal.css";
 
 function DeleteLessonModal({ id, lesson , sensetive ,setSensetive}) {
 
-    const [url, setUrl] = useState(process.env.REACT_APP_API + "lesson/");
+    const [url, setUrl] = useState(process.env.REACT_APP_API + "lesson/delete/");
 
     const HandleMessage = (resmess,colormess,id = "result_message_delete_lesson") => {
         document.getElementById(id).style.color = colormess;

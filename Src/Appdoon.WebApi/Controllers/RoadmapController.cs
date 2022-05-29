@@ -17,7 +17,7 @@ using Appdoon.Domain.Entities.RoadMaps;
 
 namespace Appdoon.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class RoadmapController : ControllerBase
     {
@@ -36,7 +36,6 @@ namespace Appdoon.WebApi.Controllers
         private readonly ISearchRoadmapsService _searchRoadmapsService;
         //filter
         private readonly IFilterRoadmapsService _filterRoadmapsService;
-        
         private readonly IWebHostEnvironment _env;
 
 
@@ -60,10 +59,10 @@ namespace Appdoon.WebApi.Controllers
         }
 
         // GET: api/<RoadmapController>
-        [HttpGet]
-        public JsonResult Get()
+        [HttpGet] 
+        public JsonResult Get(int page_number, int page_size)
         {
-            var result = _getAllRoadmapsService.Execute();
+            var result = _getAllRoadmapsService.Execute(page_number,page_size);
             return new JsonResult(result);
         }
 
@@ -100,18 +99,18 @@ namespace Appdoon.WebApi.Controllers
         }
 
         // GET api/<RoadmapController>
-        [HttpGet("{name}")]
-        public JsonResult Search(string name)
+        [HttpGet]
+        public JsonResult Search(string searched_text, int page_number, int page_size)
         {
-            var result = _searchRoadmapsService.Execute(name);
+            var result = _searchRoadmapsService.Execute(searched_text,page_number,page_size);
             return new JsonResult(result);
         }
 
         // GET api/<RoadmapController>
-        [HttpGet("{categoriesId}")]
-        public JsonResult Filter(List<int> categoriesId)
+        [HttpPost]
+        public JsonResult Filter(FilterDto fliterDto)
         {
-            var result = _filterRoadmapsService.Execute(categoriesId);
+            var result = _filterRoadmapsService.Execute(fliterDto);
             return new JsonResult(result);
         }
     }

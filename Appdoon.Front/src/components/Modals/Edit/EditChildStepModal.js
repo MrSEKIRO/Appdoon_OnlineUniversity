@@ -1,23 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-
 import { useState } from "react";
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import useFetch from '../../Common/useFetch';
-import { Col, Form } from "react-bootstrap";
-import useDelete from '../../Common/useDelete';
 import useUpdate from '../../Common/useUpdate';
-import $ from 'jquery';
-import Select from 'react-select';
 
 import "../../../Modular_Css/EditRoadmapModal.css";
 
-import chroma from 'chroma-js';
-
-import { StylesConfig } from 'react-select';
-
-function EditChildStepModal({ id, childstep, sensetive, setSensetive }) {
+function EditChildStepModal({ id, inputFields, setInputFields, childstep, sensetive, setSensetive }) {
 
     const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "childstep/");
 
@@ -66,47 +53,11 @@ function EditChildStepModal({ id, childstep, sensetive, setSensetive }) {
 
             if(event.target.LinkTitle.length){
                 for(let i = 0; i < event.target.LinkTitle.length; i++){
-                
-                    let linktitletemp = "";
-                    let linkurltemp = "";
-        
-                    if(event.target.LinkTitle[i].value == ""){
-                        linktitletemp = childstep.Linkers[i].Title
-                    }
-                    else{
-                        linktitletemp = event.target.LinkTitle[i].value;
-                    }
-        
-                    if( event.target.LinkURL[i].value == ""){
-                        linkurltemp = childstep.Linkers[i].Link
-                    }
-                    else{
-                        linkurltemp =  event.target.LinkURL[i].value;
-                    }
-        
-                    links.push({LinkTitle: linktitletemp, LinkURL: linkurltemp});
+                    links.push({LinkTitle: event.target.LinkTitle[i].value, LinkURL: event.target.LinkURL[i].value});
                 }
             }
             else{//we have one link in this situation
-                let linktitletemp = "";
-                let linkurltemp = "";
-    
-                if(event.target.LinkTitle.value == ""){
-                    
-                    linktitletemp = childstep.Linkers[0].Title;
-                }
-                else{
-                    linktitletemp = event.target.LinkTitle.value;
-                }
-    
-                if( event.target.LinkURL.value == ""){
-                    linkurltemp = childstep.Linkers[0].Link;
-                }
-                else{
-                    linkurltemp =  event.target.LinkURL.value;
-                }
-    
-                links.push({LinkTitle: linktitletemp, LinkURL: linkurltemp});
+                links.push({LinkTitle:  event.target.LinkTitle.value, LinkURL: event.target.LinkURL.value});
             }
         }
         
@@ -120,9 +71,27 @@ function EditChildStepModal({ id, childstep, sensetive, setSensetive }) {
         const [resmess, colormess] = await useUpdate(urlput+childstep.Id,body,headers);
         HandleMessage(resmess,colormess);
     }
-    
 
-      
+    const handleFormChange = (index, event) => {
+        //alert(event.target.name)
+        let linkdata = [...inputFields];
+        linkdata[index][event.target.name] = event.target.value;
+        setInputFields(linkdata);
+    }
+
+    const addFields = () => {
+        let newfield = { LinkTitle: '', LinkURL: '' }
+        setInputFields([...inputFields, newfield])
+    }
+
+    const removeFields = () => {
+        if(inputFields.length > 0){
+            let linkdata = [...inputFields];
+            linkdata.splice(inputFields.length-1, 1)
+            setInputFields(linkdata)
+        }
+    }
+    
     return (
         <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
             <div style={{marginBottom:"50px", maxWidth: "550px"}} class="modal-dialog">
@@ -134,7 +103,7 @@ function EditChildStepModal({ id, childstep, sensetive, setSensetive }) {
                     </div>
                     <div style={{overflowY: "scroll", maxHeight:"500px"}} class="modal-body">
                         <div>
-                            <div style={{marginTop:"-110px"}} class="container">
+                            <div style={{marginTop:"-40px"}} class="container">
                                 <div class="row">
                                     <div  class="col-lg">
                                         <section  class="page-account-box">
@@ -147,19 +116,19 @@ function EditChildStepModal({ id, childstep, sensetive, setSensetive }) {
 
                                                                     <div class="form-account-title">
                                                                         <label for="Title">نام محتوا</label>
-                                                                        <input dir='auto' id="TitleChildStep" placeholder={childstep.Title} type="text" class="number-email-input" name="Title"/>
+                                                                        <input dir='auto' id="TitleChildStep" type="text" class="number-email-input" name="Title"/>
                                                                     </div>
 
                                                                     
                                                                     <div class="form-account-title">
                                                                         <label for="Description">توضیحات</label>
-                                                                        <textarea dir='auto' id="DescriptionChildStep" placeholder={childstep.Description} class="number-email-input" name="Description"/>
+                                                                        <textarea dir='auto' id="DescriptionChildStep" class="number-email-input" name="Description"/>
                                                                     </div>
 
 
                                                                     <div class="form-account-title">
                                                                         <label for="Link">لینک</label>
-                                                                        <input dir='auto' id="LinkChildStep" placeholder={childstep.Link} class="number-email-input" name="Link"/>
+                                                                        <input dir='auto' id="LinkChildStep" class="number-email-input" name="Link"/>
                                                                     </div>
 
                                                                     <div class="form-account-title">
@@ -178,27 +147,33 @@ function EditChildStepModal({ id, childstep, sensetive, setSensetive }) {
                                                                         </div>
                                                                     </div>
 
-                                                                    {childstep.Linkers && childstep.Linkers.map((input, index) => {
+                                                                    {inputFields && inputFields.map((input, index) => {
                                                                     return (
                                                                         <div style={{display:"flex", textAlign:"center"}}  key={index}>
                                                                             <div style={{flex:"50%"}} class="form-account-title">
                                                                                 
                                                                                 <input dir='auto' style={{width:"95%"}}
                                                                                 class="number-email-input"
-                                                                                name='LinkTitle' placeholder={input.Title}
-                                                                                />
+                                                                                name='LinkTitle'
+                                                                                onChange={event => handleFormChange(index, event)}/>
                                                                             </div>
 
                                                                             <div style={{flex:"50%"}} class="form-account-title">
                                                                                 
                                                                                 <input dir='auto' style={{width:"95%"}}
                                                                                 class="number-email-input"
-                                                                                name='LinkURL' placeholder={input.Link}
-                                                                                />
+                                                                                name='LinkURL'
+                                                                                onChange={event => handleFormChange(index, event)}/>
                                                                             </div>
                                                                         </div>
                                                                     )
                                                                     })}
+                                                                    <div class="form-row-account">
+                                                                        <div>
+                                                                            <a style={{width:"25%" , marginLeft:"10px" ,color:"black"}} class="btn btn-primary btn-login" onClick={addFields}>لینک بیشتر</a>
+                                                                            <a style={{width:"25%" ,color:"black"}} class="btn btn-primary btn-login" onClick={() => removeFields()}>حذف لینک</a>
+                                                                        </div>
+                                                                    </div>
 
 
                                                                 </form>

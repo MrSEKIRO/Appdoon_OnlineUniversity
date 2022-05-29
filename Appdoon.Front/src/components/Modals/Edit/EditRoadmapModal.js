@@ -19,9 +19,24 @@ import { StylesConfig } from 'react-select';
 
 function EditRoadmapModal({ id, roadmap, sensetive, setSensetive }) {
 
-    const [url, setUrl] = useState(process.env.REACT_APP_API + "category");
-    const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "roadmap/");
-    const {data : categories, error} = useFetch(url,sensetive);
+
+    //Categories
+    const [urlCategories, setUrlCategories] = useState(process.env.REACT_APP_API + "category/get");
+    const [pageSizeCategories, setPageSize] = useState(9999);
+    const [pageNumberCategories, setPageNumber] = useState(1);
+    const [query_string_categories, set_query_string_categories] = useState(`${urlCategories}?page_number=${pageNumberCategories}&page_size=${pageSizeCategories}`)
+    const {data} = useFetch(query_string_categories,sensetive);
+    const [categories, setCategories] = useState(data.Categories);
+    const [rowCount, setRowCount] = useState(data.RowCount);
+    useEffect(()=>{
+        setCategories(data.Categories);
+        setRowCount(data.RowCount)
+    },[data])
+
+
+    
+
+    const [urlput, setUrlPost] = useState(process.env.REACT_APP_API + "roadmap/put/");
 
     const [boxPhotoPath, setBoxPhotoPath] = useState("");
 
@@ -123,6 +138,23 @@ function EditRoadmapModal({ id, roadmap, sensetive, setSensetive }) {
             
         }),
     };
+
+    const findPlaceHolderDirection = (text) => {
+        if(!text){
+            return "rtl";
+        }
+        if(text.length == 0){
+            return "rtl";
+        }
+        else{
+            if(text.charCodeAt(0) >= 1000){
+                return "rtl";
+            }
+            else{
+                return "ltr";
+            }
+        }
+    }
       
     return (
         <div style={{top: "1%"}} dir="rtl" class="modal fade" id={id} role="dialog">
@@ -135,7 +167,7 @@ function EditRoadmapModal({ id, roadmap, sensetive, setSensetive }) {
                     </div>
                     <div style={{overflowY: "scroll", height:"500px"}} class="modal-body">
                         <div>
-                            <div style={{marginTop:"-110px"}} class="container">
+                            <div style={{marginTop:"-40px"}} class="container">
                                 <div class="row">
                                     <div  class="col-lg">
                                         <section  class="page-account-box">
@@ -148,13 +180,13 @@ function EditRoadmapModal({ id, roadmap, sensetive, setSensetive }) {
 
                                                                     <div class="form-account-title">
                                                                         <label for="Title">نام رودمپ</label>
-                                                                        <input dir='auto' id="TitleRoadmap" placeholder={roadmap.Title} type="text" class="number-email-input" name="Title"/>
+                                                                        <input dir='auto' id="TitleRoadmap" type="text" class="number-email-input" name="Title"/>
                                                                     </div>
 
                                                                     
-                                                                    <div class="form-account-title">
+                                                                    <div  class="form-account-title">
                                                                         <label for="Description">توضیحات</label>
-                                                                        <textarea dir='auto' id="DescriptionRoadmap" placeholder={roadmap.Description} class="number-email-input" name="Description"/>
+                                                                        <textarea dir='auto' id="DescriptionRoadmap" class="number-email-input" name="Description"/>
                                                                     </div>
 
                                                                     <div style={{textAlign:"right", width:"100%" ,marginBottom:"50px"}} class="form-account-title">
@@ -174,6 +206,7 @@ function EditRoadmapModal({ id, roadmap, sensetive, setSensetive }) {
 
                                                                         {categories && (
                                                                             <Select 
+                                                                                className="reactselect"
                                                                                 menuPlacement="top"
                                                                                 placeholder="دسته‌ها را انتخاب کنید ..."
                                                                                 isMulti={true}

@@ -1,8 +1,11 @@
-import React,{Component} from "react";
+import React,{Component, useEffect} from "react";
 import useFetch from '../Common/useFetch';
 import RoadmapBox from "./RoadmapBox";
 import { useState } from "react";
 import "../../Modular_Css/SearchBox.css"
+import CreateRoadmapModal from "../Modals/Create/CreateRoadmapModal";
+import Select from 'react-select';
+import Pagination from "../Pagination";
 
 //componentDidMount() {
 //    document.title = "رودمپ‌ها"; 
@@ -10,32 +13,331 @@ import "../../Modular_Css/SearchBox.css"
 
 
 const Roadmaps = () =>{
-    const {data : roadmaps, isLogin, error} = useFetch(process.env.REACT_APP_API+'roadmap');
+    const [sensetive, setSensetive] = useState(false);
+
+
+    //Roadmaps
+    const [urlGet, setUrlGet] = useState(process.env.REACT_APP_API + "roadmap/get");
+    const [pageSize, setPageSize] = useState(9);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [query_string_roadmaps, set_query_string_roadmaps] = useState(`${urlGet}?page_number=${pageNumber}&page_size=${pageSize}`)
+    const {data} = useFetch(query_string_roadmaps,sensetive);
+    const [roadmaps, setRoadmaps] = useState(null);
+    const [rowCount, setRowCount] = useState(null);
+    const [allPagesNumber, setAllPagesNumber] = useState(0);
+    useEffect(()=>{
+        //alert(data.Roadmaps)
+        if(filterSelectedOptions.length != 0){
+            let headers = {
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            }
+
+            let catsId = [];
+
+
+            for(var i = 0; i < filterSelectedOptions.length; i++){
+                catsId.push(filterSelectedOptions[i].value)
+            }
+
+            let body = JSON.stringify({
+                CategoriesId:catsId,
+                PageNumber:pageNumber,
+                PageSize:pageSize
+            });
+
+            fetch(urlFilter,{
+                method:"POST",
+                headers:headers,
+                body:body
+            })
+            .then(res=>res.json())
+            .then((result)=>{
+                if(result.IsSuccess){
+                    setRoadmaps(result.Data.Roadmaps);
+                    setRowCount(result.Data.RowCount)
+                }
+                else{
+                    
+                }
+            })
+            .catch(error => {
+                
+            })
+        }
+        else{
+            setRoadmaps(data.Roadmaps);
+            setRowCount(data.RowCount);
+        }
+    },[data])
+
+    useEffect(()=>{
+        let new_all_pages_number = Math.max(Math.ceil(rowCount/pageSize),1);
+        if(new_all_pages_number){
+            setAllPagesNumber(new_all_pages_number);
+            handlePageNumber(Math.min(pageNumber,new_all_pages_number))
+        }
+        //alert(allPagesNumber)
+    },[pageSize,rowCount])
+
+    //Search Roadmap
+    const [urlSearch, setUrlSearch] = useState(process.env.REACT_APP_API+'roadmap/search/');
+    const handleSearch = () => {
+        setFilterSelectedOptions([]);
+        if(document.getElementById("search_box_info").value == ""){
+            document.getElementById("search_box_info").dir = "rtl";
+            setPageNumber(1);
+            set_query_string_roadmaps(`${urlGet}?page_number=${1}&page_size=${pageSize}`);
+        }
+        else{
+            document.getElementById("search_box_info").dir = "auto";
+            //Query String
+            
+            let searched_text = document.getElementById("search_box_info").value;
+            setPageNumber(1);
+            const query_string_search = `${urlSearch}?searched_text=${searched_text}&page_number=${1}&page_size=${pageSize}`
+            set_query_string_roadmaps(query_string_search);
+
+        }
+    }
+
+    //Pagination Roadmap
+    const handlePageNumber = (page_number) =>{
+        if(document.getElementById("search_box_info").value != ""){
+            setPageNumber(page_number);
+            let searched_text = document.getElementById("search_box_info").value;
+            set_query_string_roadmaps(`${urlSearch}?searched_text=${searched_text}&page_number=${page_number}&page_size=${pageSize}`);
+        }
+        else if(filterSelectedOptions.length != 0){
+            setPageNumber(page_number);
+
+            let headers = {
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            }
+
+            let catsId = [];
+
+
+            for(var i = 0; i < filterSelectedOptions.length; i++){
+                catsId.push(filterSelectedOptions[i].value)
+            }
+
+            let body = JSON.stringify({
+                CategoriesId:catsId,
+                PageNumber:page_number,
+                PageSize:pageSize
+            });
+
+            fetch(urlFilter,{
+                method:"POST",
+                headers:headers,
+                body:body
+            })
+            .then(res=>res.json())
+            .then((result)=>{
+                if(result.IsSuccess){
+                    setRoadmaps(result.Data.Roadmaps);
+                    setRowCount(result.Data.RowCount)
+                }
+                else{
+                    
+                }
+            })
+            .catch(error => {
+                
+            })
+        }
+        else{
+            setPageNumber(page_number);
+            set_query_string_roadmaps(`${urlGet}?page_number=${page_number}&page_size=${pageSize}`);
+        }
+    }
+
+
+    //Categories
+    const [urlCategories, setUrlCategories] = useState(process.env.REACT_APP_API + "category/get");
+    const [pageSizeCategories, setPageSizeCategories] = useState(9999);
+    const [pageNumberCategories, setPageNumberCategories] = useState(1);
+    const [query_string_categories, set_query_string_categories] = useState(`${urlCategories}?page_number=${pageNumberCategories}&page_size=${pageSizeCategories}`)
+    const {data : cats} = useFetch(query_string_categories,sensetive);
+    const [categories, setCategories] = useState(null);
+    const [rowCountCats, setRowCountCats] = useState(null);
+    useEffect(()=>{
+        setCategories(cats.Categories);
+        setRowCountCats(cats.RowCount)
+    },[cats])
+
+
+
     
-    //alert(roadmaps.Data.length);
+    
+
+
+
+    const [photoPath, setPhotoPath] = useState(process.env.REACT_APP_PHOTOPATH+"Roadmap/");
+
+    const [selectedOptions,setSelectedOptions] = useState([]);
+
+    const clear = () =>{
+        document.getElementById("TitleRoadmap").value = null;
+        document.getElementById("DescriptionRoadmap").value = null;
+        document.getElementById("PhotoRoadmap").value = null;
+        document.getElementById("result_message_create_roadmap").innerHTML = null;
+        document.getElementById("PreviewPhotoRoadmap").src = photoPath+"1.jpg";
+        setSelectedOptions([]);
+    }
+
+
+    const [filterSelectedOptions,setFilterSelectedOptions] = useState([]);
+
+    const [options, setOptions] = useState([]);
+
+    const handleChange = (selectedOptions) => {
+        setFilterSelectedOptions(selectedOptions);
+        handleFilter(selectedOptions);
+    };
+
+    const [urlFilter, setUrlFilter] = useState(process.env.REACT_APP_API+'roadmap/filter/');
+    const handleFilter = (selectedOptions) => {
+        document.getElementById("search_box_info").value = "";
+        document.getElementById("search_box_info").dir = "rtl";
+        if(selectedOptions.length == 0){
+            setPageNumber(1);
+            set_query_string_roadmaps(`${urlGet}?page_number=${1}&page_size=${pageSize}`);
+            setRoadmaps(data.Roadmaps);
+            setRowCount(data.RowCount);
+        }
+        else{
+            setPageNumber(1);
+            
+            let headers = {
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            }
+
+            let catsId = [];
+
+
+            for(var i = 0; i < selectedOptions.length; i++){
+                catsId.push(selectedOptions[i].value)
+            }
+
+            let body = JSON.stringify({
+                CategoriesId:catsId,
+                PageNumber:1,
+                PageSize:pageSize
+            });
+
+            fetch(urlFilter,{
+                method:"POST",
+                headers:headers,
+                body:body
+            })
+            .then(res=>res.json())
+            .then((result)=>{
+                if(result.IsSuccess){
+                    setRoadmaps(result.Data.Roadmaps);
+                    setRowCount(result.Data.RowCount)
+                }
+                else{
+                    
+                }
+            })
+            .catch(error => {
+                
+            })
+        }
+    }
+
+    useEffect(()=> {
+        if(categories){
+            const tempOptions = [];
+            for(var i = 0; i < categories.length; i++){
+                tempOptions.push({value: categories[i].Id, label:categories[i].Name});
+            }
+            setOptions(tempOptions);
+        }
+    },[categories,sensetive])
+
+
+
+    const customStyleForTestsList = {
+
+        container:(provided) => ({
+            ...provided,
+            minWidth:"300px",
+        }),
+
+        menuList:(provided) => ({
+            ...provided,
+            maxHeight:"200px",
+        }),
+        menu:(provided) => ({
+            ...provided,
+            zIndex: "9999",
+        }),
+        
+    };
+    
     return(
         <div>
+
+            {<CreateRoadmapModal id={"createModalRoadmap"} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             <div class="nav-categories-overlay"></div>
             <div class="overlay-search-box"></div>
 
 
 
             <main class="main-row mb-2 mt-2">
+                <div style={{marginTop:"-10px", marginBottom:"60px"}}>
+                    <h1>رودمپ‌ها</h1>
+                </div>
+
                 <div class="container-main">
                     <div class="d-block">
-                        <div style={{float:"left" , marginTop:"-5px", marginLeft:"10px", marginBottom:"10px"}}>
-                            <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#editModalLesson" variant="success" class="btn btn-success" onClick={() => {}}>افزودن رودمپ‌</button>
-                        </div>
-                        <section class="content-widget">
-                            <div style={{width:"25%", margin:"-10px 20px 20px 0px"}}>
-                                <form class="example" action="action_page.php">
-                                    <input type="text" placeholder="جستجو ..." name="search"/>
-                                    <button type="submit"><i class="fa fa-search"></i></button>
-                                </form>
+                        <div style={{marginTop:"-23px", marginBottom:"20px"}}>
+
+
+                            <div style={{float:"left" , marginTop:"0px", marginLeft:"10px", marginBottom:"10px"}}>
+                                <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#createModalRoadmap" variant="success" class="btn btn-success" onClick={() => {clear();}}>افزودن رودمپ‌</button>
                             </div>
+
+                            <div style={{width:"80%", marginRight:"20px"}} class="input-group rounded">
+                                    <input style={{maxWidth:"300px"}} id="search_box_info" dir="rtl" onChange={handleSearch} type="search" class="form-control rounded" placeholder="جستجو کنید ..." aria-label="Search" aria-describedby="search-addon" />
+                                    
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    {categories && (
+                                        <Select 
+                                            menuPlacement="bottom"
+                                            placeholder="دسته‌ها را انتخاب کنید ..."
+                                            isMulti={true}
+                                            value={filterSelectedOptions}
+                                            onChange={handleChange}
+                                            options={options}
+                                            styles={customStyleForTestsList}
+                                        />
+                                        )
+                                    }
+
+                                    
+                            </div>
+
+                            <div style={{display:"flex", width:"25%"}}>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <section class="content-widget">
+
                             
 
-                            {roadmaps.length > 0 && (
+                            {roadmaps && roadmaps.length > 0 && (
                                 <div class="col-12 col-md-4 col-lg-4 col-xl-4 items-1 pr">
                                     {roadmaps.map((data, idx) => (
                                             idx%3 == 0 &&
@@ -45,7 +347,7 @@ const Roadmaps = () =>{
                                 )
                             }
                 
-                            {roadmaps.length == 0 && (
+                            {roadmaps && roadmaps.length == 0 && (
                                 <div>
                                     
                                 </div>)
@@ -54,7 +356,7 @@ const Roadmaps = () =>{
 
 
 
-                            {roadmaps.length > 0 && (
+                            {roadmaps && roadmaps.length > 0 && (
                                 <div class="col-12 col-md-4 col-lg-4 col-xl-4 items-2 pr">
                                     {roadmaps.map((data, idx) => (
                                             idx%3==1 &&
@@ -65,14 +367,14 @@ const Roadmaps = () =>{
                                 )
                             }
                 
-                            {roadmaps.length == 0 && (
+                            {roadmaps && roadmaps.length == 0 && (
                                 <div>
                                     
                                 </div>)
                             }
 
 
-                            {roadmaps.length > 0 && (
+                            {roadmaps && roadmaps.length > 0 && (
                                 <div class="col-12 col-md-4 col-lg-4 col-xl-4 items-3 pr">
                                     {roadmaps.map((data, idx) => (
                                             idx%3==2 &&
@@ -82,7 +384,7 @@ const Roadmaps = () =>{
                                 )
                             }
                 
-                            {roadmaps.length == 0 && (
+                            {roadmaps && roadmaps.length == 0 && (
                                 <div>
                                     
                                 </div>)
@@ -94,42 +396,13 @@ const Roadmaps = () =>{
 
 
                         </section>
-
+                        <Pagination handlePageNumber={handlePageNumber} pageNumber={pageNumber} allPagesNumber={allPagesNumber}/>
                     </div>
                 </div>
             </main>
 
-            <div class="pagination-product pr-3 pl-3 pr">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">«</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link active" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">...</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">8</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">»</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+
+            
 
 
             <div class="progress-wrap">
@@ -155,7 +428,7 @@ const Roadmaps = () =>{
 
 
         </div>
-        );
+    );
 }
 export default Roadmaps;
 

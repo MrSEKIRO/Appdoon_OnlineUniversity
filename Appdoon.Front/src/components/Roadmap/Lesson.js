@@ -15,18 +15,18 @@ const Lesson = () => {
 
     const {id} = useParams();
     const [sensetive, setSensetive] = useState(false);
-    const [url, setUrl] = useState(process.env.REACT_APP_API + 'lesson/'+id);
+    const [url, setUrl] = useState(process.env.REACT_APP_API + 'lesson/get/'+id);
     const {data : lesson} = useFetch(url,sensetive);
     const photopath = process.env.REACT_APP_PHOTOPATH + "lesson/";
 
     const clear = () =>{
-        document.getElementById("TitleLesson").value = null;
-        document.getElementById("TextLesson").value = null;
+        document.getElementById("TitleLesson").value = lesson.Title;
+        document.getElementById("TextLesson").value = lesson.Text;
         document.getElementById("PhotoLesson").value = null;
         document.getElementById("result_message_edit_lesson").innerHTML = null;
         document.getElementById("result_message_delete_lesson").innerHTML = null;
 
-        document.getElementById("PreviewPhotoLesson").src = process.env.REACT_APP_PHOTOPATH+"lesson/"+lesson.TopBannerSrc;
+        document.getElementById("PreviewPhotoLesson").src = photopath+lesson.TopBannerSrc;
     }
 
     return(
@@ -44,8 +44,8 @@ const Lesson = () => {
                                     <article class="post-item">
                                         <div style={{float:"left" , marginTop:"-5px", marginLeft:"5px", marginBottom:"10px"}}>
 
-                                            <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#editModalLesson" variant="primary" class="btn btn-primary" onClick={() => {clear();}}>ویرایش</button>
-                                            <button href="#!" data-toggle="modal" data-target="#deleteModalLesson" variant="primary" class="btn btn-danger" onClick={() => {clear();}}>حذف</button>
+                                            <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#editModalLesson" variant="primary" class="btn btn-primary" onClick={() => {clear();}}><i class="far fa-edit"></i></button>
+                                            <button href="#!" data-toggle="modal" data-target="#deleteModalLesson" variant="primary" class="btn btn-danger" onClick={() => {clear();}}><i class="far fa-trash-alt"></i></button>
 
                                         </div>
                                         <header class="entry-header mb-3">

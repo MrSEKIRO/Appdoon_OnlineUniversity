@@ -1,5 +1,6 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.Dtos;
+using Appdoon.Common.Pagination;
 using Appdoon.Domain.Entities.RoadMaps;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,9 +11,23 @@ using System.Threading.Tasks;
 
 namespace Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService
 {
+    public class RoadMapDto
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; }
+        public string ImageSrc { get; set; } = string.Empty;
+        public int Stars { get; set; }
+        public List<Category> Categories { get; set; }
+    }
+    public class AllRoadmapsDto
+    {
+        public List<RoadMapDto> Roadmaps { get; set; }
+        public int RowCount { get; set; }
+    }
     public interface IGetAllRoadmapsService
     {
-        ResultDto<List<RoadMapDto>> Execute();
+        ResultDto<AllRoadmapsDto> Execute(int page_number, int page_size);
     }
 
     public class GetAllRoadMapService : IGetAllRoadmapsService
@@ -23,10 +38,12 @@ namespace Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService
         {
             _context = context;
         }
-        public ResultDto<List<RoadMapDto>> Execute()
+        public ResultDto<AllRoadmapsDto> Execute(int page_number, int page_size)
         {
             try
             {
+                int rowCount = 0;
+
                 var roadmaps = _context.RoadMaps
                     .Include(r => r.Categories)
                     .Select(r => new RoadMapDto()
@@ -37,34 +54,32 @@ namespace Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService
                         Stars = r.Stars,
                         Title = r.Title,
                         Categories = r.Categories,
-                    }).ToList();
 
-                return new ResultDto<List<RoadMapDto>>()
+                    }).ToPaged(page_number, page_size, out rowCount)
+                    .ToList();
+
+                AllRoadmapsDto allRoadmapsDto = new AllRoadmapsDto();
+                allRoadmapsDto.Roadmaps = roadmaps;
+                allRoadmapsDto.RowCount = rowCount;
+
+                return new ResultDto<AllRoadmapsDto>()
                 {
                     IsSuccess = true,
                     Message = "رودمپ ها ارسال شد",
-                    Data = roadmaps,
+                    Data = allRoadmapsDto,
                 };
             }
             catch (Exception e)
             {
-                return new ResultDto<List<RoadMapDto>>()
+                return new ResultDto<AllRoadmapsDto>()
                 {
                     IsSuccess = false,
                     Message = "ارسال ناموفق!",
-                    Data = new List<RoadMapDto>(),
+                    Data = new AllRoadmapsDto(),
                 };
             }
         }
     }
 
-    public class RoadMapDto
-    {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Description { get; set; }
-        public string ImageSrc { get; set; } = string.Empty;
-        public int Stars { get; set; }
-        public List<Category> Categories { get; set; }
-    }
+
 }

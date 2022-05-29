@@ -327,6 +327,10 @@ header.header-main {
     cursor: pointer;
 }
 
+.account-box .reactselect{
+    line-height: 20px;
+}
+
 .account-box span.icon-account {
     width: 43px;
     height: 43px;
@@ -4914,14 +4918,9 @@ textarea.number-email-input{
     margin-bottom: 20px;
     border-radius: 20px;
     overflow: hidden;
-    background: #281e75;
+    background: #fbfbfb;
 }
-.post-item-profile .sidebar-profile .profile-box2 {
-    margin-bottom: 420px;
-    border-radius: 20px;
-    overflow: hidden;
-    background: #281e75;
-}
+
 .post-item-profile .sidebar-profile .profile-box .profile-box-header-inline {
     height: auto;
     margin: 0 0 40px;
@@ -4933,7 +4932,7 @@ textarea.number-email-input{
     height: 70px;
     margin: 20px auto;
     overflow: hidden;
-    padding: 10px;
+    padding: 0px;
     border: 1px solid #281e75;
     border-radius: 50px;
     text-align: center;
@@ -5013,7 +5012,7 @@ textarea.number-email-input{
     font-size: 13px;
     border-radius: 20px;
     padding: 8px 15px;
-    color: rgb(249, 245, 245);
+    color: #666;
     font-weight: 500;
 }
 
@@ -5023,13 +5022,13 @@ textarea.number-email-input{
 }
 
 .post-item-profile .sidebar-profile .profile-box ul.profile-account-navs li.profile-account-nav-item a:hover {
-    background: rgb(29, 15, 81);
+    background: #eee;
     transition: 0.2s;
 }
 
 .post-item-profile .sidebar-profile .profile-box ul.profile-account-navs li.profile-account-nav-item a.active {
     background-color: #dffcff !important;
-    color: #603bb6 !important;
+    color: #651fff !important;
 }
 
 .post-item-profile .profile-content {
@@ -5051,14 +5050,13 @@ textarea.number-email-input{
 }
 
 .post-item-profile .profile-content .profile-stats table tr .title {
-    font-size: 17px;
+    font-size: 12px;
     color: #999999;
 }
 
 .post-item-profile .profile-content .profile-stats table tr .value {
-    font-size: 20px;
-    font-weight: bold;
-    color: #281e75;
+    font-size: 14px;
+    color: #666666;
 }
 
 .post-item-profile .profile-content .profile-stats .profile-edit-action {

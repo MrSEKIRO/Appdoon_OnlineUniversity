@@ -7,150 +7,116 @@ import useFetch from '../Common/useFetch';
 
 import DeleteCategoryModal from "../Modals/Delete/DeleteCategoryModal";
 import EditCategoryModal from "../Modals/Edit/EditCategoryModal";
+import CreateCategoryModal from "../Modals/Create/CreateCategoryModal";
+import Pagination from "../Pagination";
 
+import '../../Modular_Css/SearchBox.css'
 
 const ListCategory = () => {
-    
-    const [url, setUrl] = useState(process.env.REACT_APP_API + "category");
-    const [sensetive, setSensetive] = useState(false);
-    const {data : categories, error} = useFetch(url,sensetive);
 
+    const [sensetive, setSensetive] = useState(false);
+    const [urlGet, setUrlGet] = useState(process.env.REACT_APP_API + "category/get");
+    const [pageSize, setPageSize] = useState(10);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [query_string_categories, set_query_string_categories] = useState(`${urlGet}?page_number=${pageNumber}&page_size=${pageSize}`)
+    const {data} = useFetch(query_string_categories,sensetive);
+    const [categories, setCategories] = useState(null);
+    const [rowCount, setRowCount] = useState(null);
+    const [allPagesNumber, setAllPagesNumber] = useState(0)
+    const [urlSearch, setUrlSearch] = useState(process.env.REACT_APP_API+'category/search');
+
+    const handleSearch = () => {
+        if(document.getElementById("search_box_info").value == ""){
+            document.getElementById("search_box_info").dir = "rtl";
+            setPageNumber(1);
+            set_query_string_categories(`${urlGet}?page_number=${1}&page_size=${pageSize}`);
+        }
+        else{
+            document.getElementById("search_box_info").dir = "auto";
+            //Query String
+            
+            let searched_text = document.getElementById("search_box_info").value;
+            setPageNumber(1);
+            const query_string_search = `${urlSearch}?searched_text=${searched_text}&page_number=${1}&page_size=${pageSize}`
+            set_query_string_categories(query_string_search);
+
+        }
+    }
+
+    useEffect(()=>{
+        let new_all_pages_number = Math.max(Math.ceil(rowCount/pageSize),1);
+        if(new_all_pages_number){
+            setAllPagesNumber(new_all_pages_number);
+            handlePageNumber(Math.min(pageNumber,new_all_pages_number))
+        }
+        //alert(allPagesNumber)
+    },[pageSize,rowCount])
+
+    useEffect(()=>{
+        setCategories(data.Categories);
+        setRowCount(data.RowCount)
+    },[data])
+
+    const handlePageNumber = (page_number) =>{
+        if(document.getElementById("search_box_info").value != ""){
+            setPageNumber(page_number);
+            let searched_text = document.getElementById("search_box_info").value;
+            set_query_string_categories(`${urlSearch}?searched_text=${searched_text}&page_number=${page_number}&page_size=${pageSize}`);
+        }
+        else{
+            setPageNumber(page_number);
+            set_query_string_categories(`${urlGet}?page_number=${page_number}&page_size=${pageSize}`);
+        }
+    }
 
 
     const[id, setId] = useState(0);
-    const {data : category, setData} = useFetch(url+"/"+id,sensetive);
+    const {data : category} = useFetch(urlGet+"/"+id,sensetive);
 
     const HandleId = ((id) => {
         setId(id);
         setSensetive(!sensetive);
     })
 
-    useEffect( ()=>{
-
-    }, [categories]);
-
     const clear = () =>{
-        document.getElementById("NameCategory").value = null;
-        document.getElementById("LinkCategory").value = null;
+
         document.getElementById("result_message_edit_category").innerHTML = null;
         document.getElementById("result_message_delete_category").innerHTML = null;
     }
+    const clearCreate = () =>{
+        document.getElementById("CreateNameCategory").value = null;
+        document.getElementById("CreateLinkCategory").value = null;
+        document.getElementById("result_message_create_category").innerHTML = null;
+    }
 
     return(
-        
-        <div class="container-main">
-        <div class="d-block">
-            <section class="profile-home">
-                <div class="col-lg">
-                    <div class="post-item-profile order-1 d-block">
-                        <div class="col-lg-3 col-md-3 col-xs-12 pr">
-                            <div class="sidebar-profile sidebar-navigation">
-                                <section class="profile-box">
-                                    <header class="profile-box-header-inline">
-                                        <div class="profile-avatar user-avatar profile-img">
-                                            <img src = "assets/images/man.png"></img>
-                                        </div>
-                                    </header>
-                                </section>
-                                <section class="profile-box">
-                                    <ul class="profile-account-navs">
-                                        <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/TeacherProfile" class=""><i class="mdi mdi-account-outline"></i>
-                                                پروفایل
-                                            </a>
-                                        </li>
-                                        
-                                        <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/TeacherRoadmaps" class=""><i class=""></i>
-                                                 رودمپ های من
-                                            </a>
-                                        </li>
-                                        <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/TeacherEditRoadmap" class=""><i class=""></i>
-                                                ویرایش رودمپ
-                                            </a>
-                                        </li>
-                                        <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="TeacherProfileEdit" class="active"><i class=""></i>
-                                                ویرایش اطلاعات      
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </section>
-                            </div>
-                        </div>
-                        <div class="col-lg-9 col-md-9 col-xs-12 pl">
-
         <div>
-            {<EditCategoryModal id={"editModalCategory"} category = {category} sensetive = {sensetive} setSensetive = {setSensetive}/>}
-            {<DeleteCategoryModal id={"deleteModalCategory"} category = {category} sensetive = {sensetive} setSensetive = {setSensetive}/>}
-            <div class="container-main">
-                
+                {<EditCategoryModal id={"editModalCategory"} category = {category} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+                {<DeleteCategoryModal id={"deleteModalCategory"} category = {category} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+                {<CreateCategoryModal id={"createModalCategory"} sensetive = {sensetive} setSensetive = {setSensetive}/>}
                 <div class="d-block">
+
+                    <div class="container-main">
+
                     <div class="main-row">
-                        <div class="info-page-faq">
-                            <div id="content-bottom">
-                                <div class="content-bottom-title">
-                                    <h2 class="box-rounded-headline"> <span>ویرایش</span> / <span>حذف</span> </h2>
-
-                                    <div class="transparency-border">
-                                        <NavLink  class="Liknkk" to="/edit_roadmap">
-                                            <div class="transparency"></div>
-                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
-                                            <h3>رودمپ‌ها</h3>
-                                        </NavLink>
-                                    </div>
-
-
-                                    <div class="transparency-border">
-                                        <NavLink to="/edit_step">
-                                            <div class="transparency"></div>
-                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
-                                            <h3>قدم‌ها</h3>
-                                        </NavLink>
-                                    </div>
-
-
-                                    <div class="transparency-border">
-                                        <NavLink to="/edit_child_step">
-                                            <div class="transparency"></div>
-                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
-                                            <h3>محتوا‌ها</h3>
-                                        </NavLink>
-                                    </div>
-
-
-                                    <div class="transparency-border">
-                                        <NavLink class="Liknkk" to="/edit_lesson">
-                                            <div class="transparency"></div>
-                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
-                                            <h3>درس‌ها</h3>
-                                        </NavLink>
-                                    </div>
-
-
-                                    <div class="transparency-border activebox">
-                                        <NavLink class="Liknkk" to="/edit_category">
-                                            <div class="transparency"></div>
-                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
-                                            <h3>دسته‌ها</h3>
-                                        </NavLink>
-                                    </div>
-
-
-                                    <div class="transparency-border">
-                                        <NavLink to="/edit_link">
-                                            <div class="transparency"></div>
-                                            <img src="assets/images/page-faq/transparency.png" alt="fag"/>
-                                            <h3>لینک‌ها</h3>
-                                        </NavLink>
-                                    </div>
-                                    
-
-                                </div>
-                            </div>
+                        <div style={{marginTop:"0px", marginBottom:"50px"}}>
+                            <h1>دسته‌بندی‌ها</h1>
                         </div>
-                        <div id="breadcrumb">
+                        
+
+                        <div style={{marginTop:"-15px", marginBottom:"20px"}}>
+                            <div style={{float:"left" , marginTop:"0px", marginLeft:"10px", marginBottom:"10px"}}>
+                                <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#createModalCategory" variant="success" class="btn btn-success" onClick={() => {clearCreate();}}>افزودن دسته</button>
+                            </div>
+
+                            <div style={{width:"25%", marginRight:"20px"}} class="input-group rounded">
+                                <input id="search_box_info" onChange={handleSearch} type="search" class="form-control rounded" placeholder="جستجو کنید ..." aria-label="Search" aria-describedby="search-addon" />
+                            </div>
+                            
+                        </div>
+
+
+                        <div style={{marginTop:"-20px",marginBottom:"-20px"}} id="breadcrumb">
                             <i class="mdi mdi-home"></i>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -158,6 +124,7 @@ const ListCategory = () => {
                                 </ol>
                             </nav>
                         </div>
+
                         <section class="cart-home">
                             <div class="post-item-cart d-block order-2">
                                 
@@ -196,10 +163,10 @@ const ListCategory = () => {
                                                                 </span>
                                                             </td>
                                                             <td style={{textAlign:"center" ,width:"6%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#editModalCategory" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}>ویرایش</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#editModalCategory" variant="primary" class="btn btn-primary" onClick={() => {HandleId(data.Id); clear();}}><i class="far fa-edit"></i></button>
                                                             </td>
                                                             <td style={{textAlign:"center" ,width:"5%"}}  class="product-cart-quantity">
-                                                                <button href="#!" data-toggle="modal" data-target="#deleteModalCategory" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}>حذف</button>
+                                                                <button href="#!" data-toggle="modal" data-target="#deleteModalCategory" variant="primary" class="btn btn-danger" onClick={() => {HandleId(data.Id); clear();}}><i class="far fa-trash-alt"></i></button>
                                                             </td>
                                                         </tr>
                                                     ))
@@ -210,12 +177,16 @@ const ListCategory = () => {
                                 </div>
                             </div>
                         </section>
+                        <Pagination handlePageNumber={handlePageNumber} pageNumber={pageNumber} allPagesNumber={allPagesNumber}/>
                     </div>
                     
                 </div>
                 
                 
             </div>
+
+            
+
 
             
             {/*
@@ -239,14 +210,6 @@ const ListCategory = () => {
 
             
         </div>
-        
-        </div>
-        </div>
-    </div>
-</section>
-</div>
-</div>
-
     );
 }
 
