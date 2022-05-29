@@ -44,7 +44,7 @@ namespace Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapServic
                             Id = s.Id,
                             Title = s.Title,
                             Description = s.Description,
-                            IsDone = s.IsDone,
+                            //IsDone = s.IsDone,
                             Link = s.Link,
                             IsRemoved = s.IsRemoved,
                             InsertTime = s.InsertTime,
