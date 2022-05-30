@@ -29,6 +29,8 @@ import TeacherProfileEdit from './Components/Teacher/TeacherProfileEdit';
 import TeacherEditRoadmap from './Components/Teacher/TeacherEditRoadmap';
 import TeacherRoadmaps from './Components/Teacher/TeacherRadmaps';
 
+import NotFound from './NotFound';
+
 function App() {
 
   return (
@@ -75,7 +77,7 @@ function App() {
           <Route path={`/TeacherEditRoadmap`} element={<TeacherEditRoadmap/>}/>
 
 
-          <Route path="*" element={<Home/>}/>
+          <Route path="*" element={<NotFound/>}/>
 
 
 

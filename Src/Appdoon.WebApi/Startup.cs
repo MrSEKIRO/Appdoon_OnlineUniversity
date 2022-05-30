@@ -106,8 +106,9 @@ namespace OU_API
             {
                 // Set correct path
                 options.LoginPath = new PathString("/Login");
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(500.0);
                 options.Cookie.Name = "Appdoon_Auth";
+                options.Cookie.HttpOnly = false;
             });
 
             // Authorization policies
