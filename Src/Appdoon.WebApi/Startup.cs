@@ -105,7 +105,7 @@ namespace OU_API
             }).AddCookie(options =>
             {
                 // Set correct path
-                options.LoginPath = new PathString("/Login");
+                options.LoginPath = new PathString("/Authentication/Login");
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
                 options.Cookie.Name = "Appdoon_Auth";
             });
@@ -113,7 +113,6 @@ namespace OU_API
             // Authorization policies
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, UserRole.Admin.ToString()));
                 options.AddPolicy("User", policy => policy.RequireClaim(ClaimTypes.Role, UserRole.User.ToString(), UserRole.Teacher.ToString(), UserRole.Admin.ToString()));
                 options.AddPolicy("Profile", policy => policy.RequireClaim(ClaimTypes.Role, UserRole.User.ToString(), UserRole.Teacher.ToString(), UserRole.Admin.ToString()));
                 options.AddPolicy("Teacher", policy => policy.RequireClaim(ClaimTypes.Role, UserRole.Teacher.ToString(),UserRole.Admin.ToString()));
