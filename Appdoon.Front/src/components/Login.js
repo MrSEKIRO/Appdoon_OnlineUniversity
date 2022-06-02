@@ -1,25 +1,54 @@
 import React,{Component} from "react";
 import {NavLink} from 'react-router-dom';
+import $ from 'jquery';
 
 const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+
+        /*
+        $.ajax({
+            contentType: 'application/x-www-form-urlencoded',
+            dataType: 'json',
+            type: "POST",
+            url: process.env.REACT_APP_API+'authentication/login',
+            data: {
+                'Email': event.target.Email_Username.value,
+                'Password': event.target.Password.value
+            },
+            success: function(result)
+            {
+                if(result.IsSuccess){
+                    document.getElementById("result_message").style.color = "green";
+                    document.getElementById("result_message").innerHTML = result.Message;
+                }
+                else{
+                    document.getElementById("result_message").style.color = "red";
+                    document.getElementById("result_message").innerHTML = result.Message;
+                }
+            },
+            error: function(request, status, error)
+            {
+                document.getElementById("result_message").style.color = "red";
+                document.getElementById("result_message").innerHTML = request.responseText;
+            }
+        })
+
+        */
         
-        fetch(process.env.REACT_APP_API+'login',{
+
+        fetch(process.env.REACT_APP_API+'authentication/login',{
             method:"POST",
             headers:{
-                'Accept':'application/json',
                 'Content-Type':'application/json'
             },
             
             body:JSON.stringify({
                 Email:event.target.Email_Username.value,
-                Username:event.target.Email_Username.value,
                 Password:event.target.Password.value
-
-
-            })
+            }),
         })
         
         .then(res=>res.json())

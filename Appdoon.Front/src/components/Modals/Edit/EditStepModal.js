@@ -35,36 +35,10 @@ function EditStepModal({ id, step, sensetive, setSensetive }) {
             'Accept':'application/json',
             'Content-Type':'application/json'
         }
-
-        let temptitle = "";
-        let tempdescription = "";
-        let templink = "";
-
-        if(event.target.Title.value == ""){
-            temptitle = step.Title
-        }
-        else{
-            temptitle = event.target.Title.value;
-        }
-
-        if(event.target.Description.value == ""){
-            tempdescription = step.Description
-        }
-        else{
-            tempdescription = event.target.Description.value;
-        }
-
-        if(event.target.Link.value == ""){
-            templink = step.Link
-        }
-        else{
-            templink = event.target.Link.value;
-        }
-        
         let body = JSON.stringify({
-            Title:temptitle,
-            Description:tempdescription,
-            Link:templink,
+            Title:event.target.Title.value,
+            Description:event.target.Description.value,
+            Link:event.target.Link.value,
         });
 
         const [resmess, colormess] = await useUpdate(urlput+step.Id,body,headers);

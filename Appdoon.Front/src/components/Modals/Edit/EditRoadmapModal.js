@@ -59,21 +59,9 @@ function EditRoadmapModal({ id, roadmap, sensetive, setSensetive }) {
             formData.append("myFile",event.target.Photo.files[0]);
         }
 
-        if(event.target.Title.value == ""){
-            formData.append("Title",roadmap.Title);
-        }
-        else{
-            formData.append("Title",event.target.Title.value);
-        }
 
-        if(event.target.Description.value == ""){
-            formData.append("Description",roadmap.Description);
-        }
-        else{
-            formData.append("Description",event.target.Description.value);
-        }
-
-
+        formData.append("Title",event.target.Title.value);
+        formData.append("Description",event.target.Description.value);
         formData.append("PhotoFileName",imagesrc);
 
         
