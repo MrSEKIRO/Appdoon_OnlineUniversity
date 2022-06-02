@@ -2,74 +2,48 @@ import React,{Component} from "react";
 import {NavLink} from 'react-router-dom';
 import $ from 'jquery';
 
+
 const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-
-        /*
-        $.ajax({
-            contentType: 'application/x-www-form-urlencoded',
-            dataType: 'json',
-            type: "POST",
-            url: process.env.REACT_APP_API+'authentication/login',
-            data: {
-                'Email': event.target.Email_Username.value,
-                'Password': event.target.Password.value
+        fetch(process.env.REACT_APP_API + 'Authentication/Login', {
+            method: "POST",
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
             },
-            success: function(result)
-            {
-                if(result.IsSuccess){
+
+            body: JSON.stringify({
+                Email: event.target.Email_Username.value,
+                Username: event.target.Email_Username.value,
+                Password: event.target.Password.value
+
+
+            })
+        })
+
+            .then(res => res.json())
+            .then((result) => {
+                if (result.IsSuccess) {
                     document.getElementById("result_message").style.color = "green";
                     document.getElementById("result_message").innerHTML = result.Message;
                 }
-                else{
+                else {
                     document.getElementById("result_message").style.color = "red";
                     document.getElementById("result_message").innerHTML = result.Message;
                 }
             },
-            error: function(request, status, error)
-            {
-                document.getElementById("result_message").style.color = "red";
-                document.getElementById("result_message").innerHTML = request.responseText;
-            }
-        })
-
-        */
-        
-
-        fetch(process.env.REACT_APP_API+'authentication/login',{
-            method:"POST",
-            headers:{
-                'Content-Type':'application/json'
-            },
-            
-            body:JSON.stringify({
-                Email:event.target.Email_Username.value,
-                Password:event.target.Password.value
-            }),
-        })
-        
-        .then(res=>res.json())
-        .then((result)=>{
-            if(result.IsSuccess){
-                document.getElementById("result_message").style.color = "green";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-            else{
-                document.getElementById("result_message").style.color = "red";
-                document.getElementById("result_message").innerHTML = result.Message;
-            }
-        },
-        (error)=>{
-            document.getElementById("result_message").style.color = "red";
-            document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
-        })
+                (error) => {
+                    document.getElementById("result_message").style.color = "red";
+                    document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
+                })
     }
 
 
-    return(
+    return (
         <div>
             <div class="container">
                 <div class="row">
@@ -79,7 +53,7 @@ const Login = () => {
                                 <div class="ds-userlogin">
                                     <a href="#" class="account-box-logo">digismart</a>
                                     <div class="account-box">
-                                        
+
                                         <div class="account-box-headline">
                                             <NavLink to="/login" class="login-ds active">
                                                 <span class="title">ورود</span>
@@ -102,16 +76,16 @@ const Login = () => {
 
 
 
-                                                    <div  class="form-account-title">
+                                                    <div class="form-account-title">
                                                         <label for="email-phone">ایمیل / نام کاربری</label>
-                                                        <input dir="auto" type="text" class="number-email-input" name="Email_Username"/>
+                                                        <input dir="auto" type="text" class="number-email-input" name="Email_Username" />
                                                     </div>
 
-                                                    
+
                                                     <div class="form-account-title">
                                                         <label for="password">رمز عبور</label>
                                                         <a href="#" class="account-link-password">رمز خود را فراموش کرده ام</a>
-                                                        <input dir="auto" type="password" class="password-input" name="Password"/>
+                                                        <input dir="auto" type="password" class="password-input" name="Password" />
                                                     </div>
 
 
@@ -126,17 +100,17 @@ const Login = () => {
                                                     */}
 
 
-                                                    <div style={{marginTop : "-20px", marginBottom : "-20px"}}>
-                                                        <p style={{fontSize : "14px"}} id="result_message"></p>
+                                                    <div style={{ marginTop: "-20px", marginBottom: "-20px" }}>
+                                                        <p style={{ fontSize: "14px" }} id="result_message"></p>
                                                     </div>
-                                                        <div class="form-row-account">
-                                                            <button variant="primary" type="submit" class="btn btn-primary btn-login" onClick="window.location.href='http://localhost:3000/Profile';">ورود</button>
-                                                        </div>
-                                                    </form>
+                                                    <div class="form-row-account">
+                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login" onClick="window.location.href='http://localhost:3000/Profile';">ورود</button>
+                                                    </div>
+                                                </form>
 
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -147,17 +121,17 @@ const Login = () => {
 
             <div class="progress-wrap">
                 <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                    <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+                    <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
                 </svg>
             </div>
 
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <br />
+            <br />
+            <br />
+            <br />
 
         </div>
-        
+
     );
 }
 
