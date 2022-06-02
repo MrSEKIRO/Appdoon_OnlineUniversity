@@ -35,7 +35,7 @@ namespace Appdoon.WebApi.Controllers
 				{
 					new Claim(ClaimTypes.NameIdentifier,result.Data.Id.ToString()),
 					new Claim(ClaimTypes.Email,user.Email),
-					new Claim(ClaimTypes.Name,result.Data.Fullname),
+					new Claim(ClaimTypes.Name,result.Data.Username),
 					new Claim(ClaimTypes.Role,UserRole.User.ToString()),
 				};
 

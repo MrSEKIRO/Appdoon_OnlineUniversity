@@ -34,27 +34,9 @@ function EditCategoryModal({ id, category, sensetive, setSensetive }) {
             'Accept':'application/json',
             'Content-Type':'application/json'
         }
-
-        let tempname = "";
-        let templink = "";
-
-        if(event.target.Name.value == ""){
-            tempname = category.Name
-        }
-        else{
-            tempname = event.target.Name.value;
-        }
-
-        if(event.target.Link.value == ""){
-            templink = category.Link
-        }
-        else{
-            templink = event.target.Link.value;
-        }
-        
         let body = JSON.stringify({
-            Name:tempname,
-            Link:templink,
+            Name:event.target.Name.value,
+            Link:event.target.Link.value,
         });
 
         const [resmess, colormess] = await useUpdate(urlput+category.Id,body,headers);

@@ -21,7 +21,7 @@ namespace Appdoon.Application.Services.Users.Command.LoginUserService
 	public class UserLoginInfoDto
 	{
 		public int Id { get; set; }
-		public string Fullname { get; set; }
+		public string Username { get; set; }
 	}
 
 	public class LoginUserService : ILoginUserService
@@ -102,7 +102,7 @@ namespace Appdoon.Application.Services.Users.Command.LoginUserService
 						Data = new UserLoginInfoDto()
 						{
 							Id = userWithUsername.Id,
-							Fullname = userWithUsername.FirstName + " " + userWithUsername.LastName,
+							Username = userWithUsername.Username,
 						},
 					};
 				}
@@ -237,7 +237,7 @@ namespace Appdoon.Application.Services.Users.Command.LoginUserService
 					Data = new UserLoginInfoDto()
 					{
 						Id = user.Id,
-						Fullname = user.FirstName + " " + user.LastName,
+						Username = user.Username,
 					},
 				};
 			}

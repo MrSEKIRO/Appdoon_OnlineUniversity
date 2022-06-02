@@ -1,5 +1,7 @@
-import React, { Component } from "react";
-import { NavLink } from 'react-router-dom';
+import React,{Component} from "react";
+import {NavLink} from 'react-router-dom';
+import $ from 'jquery';
+
 
 const Login = () => {
 

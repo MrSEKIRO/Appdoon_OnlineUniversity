@@ -63,7 +63,9 @@ const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep}) => {
                     <div dir="rtl" style = {{marginRight: "20px"}}>
                         {
                             step.ChildSteps.map((childstep, idx) => (
-                                <div className="zoom">
+
+
+                                <div className="bilbilak zoom">
                                     {ChildDOne == 1 &&
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>}
                                     {ChildDOne == 1 && <a style={{color:"rgb(255, 255, 255, 0.7)"}} href="#!" data-toggle="modal" data-target="#myModal" onClick={() => {setIdChildStep(childstep.Id)}}>{childstep.Title}</a>}
@@ -74,9 +76,13 @@ const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep}) => {
                                     </li>}
                            
                                 </div>
+
+
                             ))
                         }
                     </div>
+
+
                 </div>
 
 

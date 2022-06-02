@@ -21,31 +21,6 @@ function EditChildStepModal({ id, inputFields, setInputFields, childstep, senset
             'Accept':'application/json',
             'Content-Type':'application/json'
         }
-
-        let temptitle = "";
-        let tempdescription = "";
-        let templink = "";
-
-        if(event.target.Title.value == ""){
-            temptitle = childstep.Title
-        }
-        else{
-            temptitle = event.target.Title.value;
-        }
-
-        if(event.target.Description.value == ""){
-            tempdescription = childstep.Description
-        }
-        else{
-            tempdescription = event.target.Description.value;
-        }
-
-        if(event.target.Link.value == ""){
-            templink = childstep.Link
-        }
-        else{
-            templink = event.target.Link.value;
-        }
         
         let links = [];
 
@@ -62,9 +37,9 @@ function EditChildStepModal({ id, inputFields, setInputFields, childstep, senset
         }
         
         let body = JSON.stringify({
-            Title:temptitle,
-            Description:tempdescription,
-            Link:templink,
+            Title:event.target.Title.value,
+            Description:event.target.Description.value,
+            Link:event.target.Link.value,
             Linkers:links
         });
 
