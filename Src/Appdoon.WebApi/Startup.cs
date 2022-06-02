@@ -154,7 +154,6 @@ namespace OU_API
 			});
 
 
-
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
