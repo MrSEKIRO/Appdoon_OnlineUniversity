@@ -5,10 +5,11 @@ using Appdoon.Application.Services.Users.Query.GetUserService;
 using Appdoon.Common.UserRoles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Appdoon.WebApi.Controllers
 {
-	[Authorize(policy : "User")]
+	//[Authorize(policy : "User")]
 	[Authorize(policy: "Profile")]
 	[Route("api/[controller]/[action]")]
 	[ApiController]
@@ -18,6 +19,7 @@ namespace Appdoon.WebApi.Controllers
 		private readonly IEditUserService _editUserService;
 		private readonly IGetRegisteredRoadMapService _getRegisteredRoadMapService;
 		private readonly IGetBookMarkRoadMapService _getBookMarkRoadMapService;
+
 
 		public ProfileController(IGetUserService getUserService,
 			IEditUserService editUserService,
@@ -30,8 +32,17 @@ namespace Appdoon.WebApi.Controllers
 			_getBookMarkRoadMapService = getBookMarkRoadMapService;
 		}
 		[HttpPost]
-		public JsonResult Info(int Id)
+		public JsonResult Info()
 		{
+			var IdStr = HttpContext.User.Identities
+				.FirstOrDefault()
+				.Claims
+				//.Where(c => c.Type == "NameIdentifier")
+				.FirstOrDefault()
+				.Value;
+
+			int Id = int.Parse(IdStr);
+
 			var result = _getUserService.Execute(Id);
 			return new JsonResult(result);
 		}
@@ -44,15 +55,33 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 		[HttpPost]
-		public JsonResult RegisteredRoadMaps(int Id)
+		public JsonResult RegisteredRoadMaps()
 		{
+			var IdStr = HttpContext.User.Identities
+				.FirstOrDefault()
+				.Claims
+				//.Where(c => c.Type == "NameIdentifier")
+				.FirstOrDefault()
+				.Value;
+
+			int Id = int.Parse(IdStr);
+
 			var result = _getRegisteredRoadMapService.Execute(Id);
 
 			return new JsonResult(result);
 		}
 		[HttpPost]
-		public JsonResult BookMarkedRoadMaps(int Id)
+		public JsonResult BookMarkedRoadMaps()
 		{
+			var IdStr = HttpContext.User.Identities
+				.FirstOrDefault()
+				.Claims
+				//.Where(c => c.Type == "NameIdentifier")
+				.FirstOrDefault()
+				.Value;
+
+			int Id = int.Parse(IdStr);
+
 			var result = _getBookMarkRoadMapService.Execute(Id);
 
 			return new JsonResult(result);
