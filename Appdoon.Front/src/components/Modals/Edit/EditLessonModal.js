@@ -42,21 +42,9 @@ function EditLessonModal({ id, lesson, sensetive, setSensetive }) {
 
         
 
-        if(event.target.Title.value == ""){
-            formData.append("Title",lesson.Title);
-        }
-        else{
-            formData.append("Title",event.target.Title.value);
-        }
 
-        if(event.target.Text.value == ""){
-            formData.append("Text",lesson.Text);
-        }
-        else{
-            formData.append("Text",event.target.Text.value);
-        }
-
-
+        formData.append("Title",event.target.Title.value);
+        formData.append("Text",event.target.Text.value);
         formData.append("PhotoFileName",imagesrc);
 
         

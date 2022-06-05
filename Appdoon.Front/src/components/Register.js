@@ -6,7 +6,7 @@ const Register = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetch(process.env.REACT_APP_API+'register',{
+        fetch(process.env.REACT_APP_API+'authentication/register',{
             method:"POST",
             headers:{
                 'Accept':'application/json',

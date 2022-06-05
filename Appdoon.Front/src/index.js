@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { CookiesProvider } from "react-cookie";
+
+const rootElement = document.getElementById("root");
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <CookiesProvider>
+      <App />
+  </CookiesProvider>,
+  rootElement
 );
 
 // If you want to start measuring performance in your app, pass a function

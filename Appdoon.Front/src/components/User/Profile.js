@@ -1,13 +1,26 @@
 import {NavLink} from 'react-router-dom';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from '../Common/useFetch';
 import { Col, Form } from "react-bootstrap";
+import { useCookies } from "react-cookie";
+import { useNavigate } from 'react-router-dom';
+
+
 
 const Profile = () => {
+    const [cookies, setCookie] = useCookies(['Appdoon_Auth']);
+    const navigate = useNavigate();
 
+    useEffect(()=>{
+        console.log(cookies)
+        if(!cookies.Appdoon_Auth){
+            navigate('/NotFound')
+        }
+    },[cookies])
 
     
     return(
+        cookies.Appdoon_Auth &&
         <div class="container-main">
         <div class="d-block">
             <section class="profile-home">
