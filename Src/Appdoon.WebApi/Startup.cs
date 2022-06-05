@@ -38,6 +38,7 @@ using Appdoon.Application.Services.Users.Command.LoginUserService;
 using Appdoon.Application.Services.Users.Command.RegisterUserService;
 using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
+using Appdoon.Application.Services.Users.Query.GetUserFromCookieService;
 using Appdoon.Application.Services.Users.Query.GetUserService;
 using Appdoon.Application.Validatores.UserValidatore;
 using Appdoon.Common.UserRoles;
@@ -137,9 +138,9 @@ namespace OU_API
 			{
 				// Set correct path
 				options.LoginPath = new PathString("/Authentication/Login");
-				options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(500.0);
 				options.Cookie.Name = "Appdoon_Auth";
-
+				options.Cookie.HttpOnly = false;
 				//new 
 				options.Cookie.SameSite=Microsoft.AspNetCore.Http.SameSiteMode.None;
 			});
@@ -239,6 +240,9 @@ namespace OU_API
 			services.AddScoped<ICreateStepService, CreateStepService>();
 			services.AddScoped<IDeleteStepService, DeleteStepService>();
 			services.AddScoped<IUpdateStepService, UpdateStepService>();
+
+			//Dependency Injecton For Profile
+			services.AddScoped<IGetUserFromCookieService, GetUserFromCookieService>();
 
 
 
