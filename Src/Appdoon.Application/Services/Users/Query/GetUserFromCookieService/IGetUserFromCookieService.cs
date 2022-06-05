@@ -13,7 +13,7 @@ namespace Appdoon.Application.Services.Users.Query.GetUserFromCookieService
 		ResultDto<UserCookieDto> Execute(HttpContext httpContext);
 	}
 
-	public class UserFromCookieService : IGetUserFromCookieService
+	public class GetUserFromCookieService : IGetUserFromCookieService
 	{
 		public ResultDto<UserCookieDto> Execute(HttpContext httpContext)
 		{
