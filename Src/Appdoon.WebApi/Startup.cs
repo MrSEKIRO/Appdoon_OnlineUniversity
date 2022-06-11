@@ -40,6 +40,7 @@ using Appdoon.Application.Services.Users.Command.LoginUserService;
 using Appdoon.Application.Services.Users.Command.RegisterUserService;
 using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
+using Appdoon.Application.Services.Users.Query.GetUserFromCookieService;
 using Appdoon.Application.Services.Users.Query.GetUserService;
 using Appdoon.Application.Validatores.UserValidatore;
 using Appdoon.Common.UserRoles;
@@ -130,7 +131,7 @@ namespace OU_API
 				options.LoginPath = new PathString("/api/Authentication/Login");
 				options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
 				options.Cookie.Name = "Appdoon_Auth";
-
+				options.Cookie.HttpOnly = false;
 				//new 
 				options.Cookie.SameSite=Microsoft.AspNetCore.Http.SameSiteMode.None;
 			});
@@ -233,6 +234,9 @@ namespace OU_API
 
 			// right service for getting roadmaps of user
 			services.AddScoped<IGetUserRoadmapService, GetUserRoadmapService>();
+      
+			//Dependency Injecton For Profile
+			services.AddScoped<IGetUserFromCookieService, GetUserFromCookieService>();
 
 			// register roadmap
 			services.AddScoped<IRegisterRoadmapService, RegisterRoadmapService>();

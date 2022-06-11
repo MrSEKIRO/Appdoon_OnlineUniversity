@@ -8,11 +8,16 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Profile = () => {
+    const [sensetive, setSensetive] = useState(false);
+    const [url, setUrl] = useState(process.env.REACT_APP_API + 'profile/');
+
     const [cookies, setCookie] = useCookies(['Appdoon_Auth']);
     const navigate = useNavigate();
 
+    const {data : info} = useFetch(url+'InfoFromCookie',sensetive);
+
     useEffect(()=>{
-        console.log(cookies)
+        alert(info.Email)
         if(!cookies.Appdoon_Auth){
             navigate('/NotFound')
         }
@@ -86,7 +91,7 @@ const Profile = () => {
                                             <tr>
                                                 <td>
                                                     <div class="title">نام:</div>
-                                                    <div class="value">سبا</div>
+                                                    <div class="value"></div>
                                                 </td>
                                                 <td>
                                                     <div class="title">نام خانوادگی :</div>

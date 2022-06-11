@@ -98,7 +98,48 @@ h1 {
     text-align: right;
 }
 
+.hi1
+{
+    border: #651fff;
+    border-radius: 13px;
+    box-shadow: 1px 1px 1px 1px rgb(22, 12, 138) ;
+    width: 26px;
+    height: 26px;
+    background-color: rgba(246, 244, 249, 0.842);
+    margin-left: 4px;
+}
 
+.hi3
+{
+    border: rgb(22, 12, 138);
+    border-radius: 13px;
+    box-shadow: 1px 1px 1px 1px rgb(22, 12, 138) ;
+    width: 26px;
+    height: 26px;
+    background-color: rgba(246, 244, 249, 0.842);
+    margin-left: 4px;
+}
+.hi2
+{
+    border: #651fff;
+    border-radius: 13px;
+    box-shadow: 1px 1px 1px 1px rgb(22, 12, 138) ;
+    width: 23px;
+    height: 23px;
+    background-color:rgba(246, 244, 249, 0.842);
+    margin-left: 4px;
+}
+
+.hi4
+{
+    border: rgb(22, 12, 138);
+    box-shadow: 1px 1px 1px 1px rgb(22, 12, 138) ;
+    border-radius: 13px;
+    width: 23px;
+    height: 23px;
+    background-color: rgba(246, 244, 249, 0.842);
+    margin-left: 4px;
+}
 
 .timeline-item-content::after {
     content: ' ';

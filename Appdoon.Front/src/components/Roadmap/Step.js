@@ -1,24 +1,31 @@
 //import "../../assets/css/timeline/style.css";
-import { useState } from "react";
-
-
-function Isdone(){
-    const done = 1;
-    if(done == 1)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-const AllDone = Isdone();
-const ChildDOne = Isdone();
+import { event } from "jquery";
+import { useEffect, useState } from "react";
 
 
 const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep}) => {
-    
+
+
+    const [doneState, changeState] = useState([{toggled: false}]);
+
+
+    function toggleingactive (index){
+        const arrCopy = doneState;
+
+        arrCopy[index].toggled = !arrCopy[index].toggled;
+        console.log(doneState);
+        changeState([...doneState , arrCopy]);
+        //changeState(arrCopy);
+    }
+
+    useEffect(() => {
+        changeState([{toggled: false}]);
+        for(var i = 0; i < step.ChildSteps.length; i++){
+            changeState(doneState => [...doneState, {toggled: false}])
+        }
+    },[step])
+
+
 
     const clear = () =>{
         document.getElementById("TitleStep").value = step.Title;
@@ -36,7 +43,6 @@ const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep}) => {
         setInputFields([]);
     }
 
-    
 
     return(
         
@@ -44,45 +50,49 @@ const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep}) => {
             <div className="timeline-item-content">
 
                 <span className="tag">
-                   {step.Title}&nbsp;
+                   {step.Title}
+                    
+                    <button className={doneState && doneState.at(0).toggled ? "hi1" : "hi3"} onClick={() => toggleingactive(0)}>
+                        {doneState && doneState.at(0).toggled &&
+                            <svg xmlns="http://www.w3.org/2000/svg"  height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                        }
+                        {doneState && !doneState.at(0).toggled &&
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
+                        }
+                    </button>
 
-                   {AllDone==1 &&
-                   
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
-                        <path d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/>
-                    </svg>
-                   }
                 </span>
                 <p dir="rtl">{step.Description}</p>
                    
                 <br/>
 
                 <div>
-                    {step.ChildSteps.length > 0 && <h4 style={{color:"rgb(255, 255, 255, 0.9)"}} dir="rtl">مراحل این قدم:</h4>}
+                    {step.ChildSteps.length > 0 &&  <h4 style={{color:"rgb(255, 255, 255, 0.9)"}} dir="rtl">مراحل این قدم:</h4>}
                     
                     <div dir="rtl" style = {{marginRight: "20px"}}>
                         {
                             step.ChildSteps.map((childstep, idx) => (
-
-
-                                <div className="bilbilak zoom">
-                                    {ChildDOne == 1 &&
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>}
-                                    {ChildDOne == 1 && <a style={{color:"rgb(255, 255, 255, 0.7)"}} href="#!" data-toggle="modal" data-target="#myModal" onClick={() => {setIdChildStep(childstep.Id)}}>{childstep.Title}</a>}
+                                
+                                <div className="zoom">
                                     
-                                    {ChildDOne == 0 &&
-                                        <li dir="rtl">
-                                        <a href="#!" data-toggle="modal" data-target="#myModal" onClick={() => {setIdChildStep(childstep.Id)}}>{childstep.Title}</a>
-                                    </li>}
-                           
+                                    <ul>
+                                        <li>
+                                        <button className={doneState && doneState[idx+1] && doneState[idx+1].toggled ? "hi2" : "hi4"} onClick={() => toggleingactive(idx+1)}>
+                                        {doneState && doneState[idx+1] && doneState[idx+1].toggled &&
+                                            <svg xmlns="http://www.w3.org/2000/svg"  height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                                        }
+                                        {doneState && doneState[idx+1] && !doneState[idx+1].toggled &&
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
+                                        }
+                                        </button>
+                                            <a href="#!" marginTop="0" data-toggle="modal" data-target="#myModal" onClick={() => {setIdChildStep(childstep.Id)}}>{childstep.Title}</a>
+                                        </li>
+                                    </ul>
+
                                 </div>
-
-
                             ))
                         }
                     </div>
-
-
                 </div>
 
 
