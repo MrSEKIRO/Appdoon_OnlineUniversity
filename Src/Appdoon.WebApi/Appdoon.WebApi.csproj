@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Photos\Roadmap\**" />
+    <Content Remove="Photos\Roadmap\**" />
+    <EmbeddedResource Remove="Photos\Roadmap\**" />
+    <None Remove="Photos\Roadmap\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.13" />
@@ -23,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Photos\Lesson\" />
-    <Folder Include="Photos\Roadmap\" />
   </ItemGroup>
 
 </Project>

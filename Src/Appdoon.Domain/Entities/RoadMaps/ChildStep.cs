@@ -11,8 +11,8 @@ namespace Appdoon.Domain.Entities.RoadMaps
 		public string? Link { get; set; }
 		public bool IsRequired { get; set; } = true;
 
-		public Step Step { get; set; } = new();
-		public int StepId { get; set; }
+		public Step? Step { get; set; }
+		public int? StepId { get; set; }
 
 		public List<Linker>? Linkers { get; set; }
 

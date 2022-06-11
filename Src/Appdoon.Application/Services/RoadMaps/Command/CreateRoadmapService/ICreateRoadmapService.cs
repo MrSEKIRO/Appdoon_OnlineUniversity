@@ -70,7 +70,17 @@ namespace Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService
                 {
                     var postedFile = httpRequest.Form.Files[0];
                     string filename = postedFile.FileName;
+
+                    // create Photoes\Roadmap\ folder
+                    string folder = @$"Photos\Roadmap\";
+                    var uploadFolder = Path.Combine(currentpath, folder);
+					if(Directory.Exists(uploadFolder) == false)
+					{
+                        Directory.CreateDirectory(uploadFolder);
+					}
+
                     var physicalPath = currentpath + "/Photos/Roadmap/" + $"({ImageName})" + filename;
+
                     using (var stream = new FileStream(physicalPath, FileMode.Create))
                     {
                         postedFile.CopyTo(stream);

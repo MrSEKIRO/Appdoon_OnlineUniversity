@@ -55,6 +55,15 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 				{
 					var postedFile = httpRequest.Form.Files[0];
 					string filename = postedFile.FileName;
+
+					// create Photoes\Lesson\ folder
+					string folder = @$"Photos\Lesson\";
+					var uploadFolder = Path.Combine(currentpath, folder);
+					if(Directory.Exists(uploadFolder) == false)
+					{
+						Directory.CreateDirectory(uploadFolder);
+					}
+
 					var physicalPath = currentpath + "/Photos/Lesson/" + $"({ImageName})" + filename;
 					using (var stream = new FileStream(physicalPath, FileMode.Create))
 					{
