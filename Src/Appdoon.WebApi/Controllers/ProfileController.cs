@@ -9,8 +9,7 @@ using System.Linq;
 
 namespace Appdoon.WebApi.Controllers
 {
-	//[Authorize(policy : "User")]
-	[Authorize(policy: "Profile")]
+	[Authorize(policy: "User")]
 	[Route("api/[controller]/[action]")]
 	[ApiController]
 	public class ProfileController : Controller
@@ -34,14 +33,18 @@ namespace Appdoon.WebApi.Controllers
 		[HttpPost]
 		public JsonResult Info()
 		{
-			var IdStr = HttpContext.User.Identities
+			var IdClaim = HttpContext.User.Identities
 				.FirstOrDefault()
 				.Claims
 				//.Where(c => c.Type == "NameIdentifier")
-				.FirstOrDefault()
-				.Value;
+				.FirstOrDefault();
 
-			int Id = int.Parse(IdStr);
+			//if(IdClaim == null)
+			//{
+			//	return Unauthorized();
+			//}
+
+			int Id = int.Parse(IdClaim.Value);
 
 			var result = _getUserService.Execute(Id);
 			return new JsonResult(result);

@@ -12,6 +12,7 @@ namespace Appdoon.Domain.Entities.Progress
 	public class ChildStepProgress : BaseEntity
 	{
 		public bool IsDone { get; set; } = false;
+		//public bool IsRequired { get; set; } = true;
 
 		public ChildStep ChildStep { get; set; } = new();
 		public int ChildStepId { get; set; }

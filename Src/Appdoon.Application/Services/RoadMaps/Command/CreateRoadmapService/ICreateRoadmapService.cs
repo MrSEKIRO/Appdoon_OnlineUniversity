@@ -64,7 +64,8 @@ namespace Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService
                 var imageSrc = "";
                 var TimeNow = DateTime.Now;
                 var ImageName = Title + "_" + TimeNow.Ticks.ToString();
-
+                // we should check create those file is 
+                // they not exist !!!!!!
                 if (httpRequest.Form.Files.Count() != 0)
                 {
                     var postedFile = httpRequest.Form.Files[0];

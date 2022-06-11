@@ -26,7 +26,9 @@ using Appdoon.Application.Services.Roadmaps.Command.DeleteRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService;
 using Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapService;
+using Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.FilterRoadmapsService;
+using Appdoon.Application.Services.RoadMaps.Query.GetUserRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.SearchRoadmapsService;
 using Appdoon.Application.Services.Steps.Command.CreateStepService;
 using Appdoon.Application.Services.Steps.Command.DeleteStepService;
@@ -85,17 +87,6 @@ namespace OU_API
 				c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 			});
 
-			//services.AddCors(options =>
-			//{
-			//    options.AddPolicy("MyMyAllowCredentialsPolicy",
-			//        policy =>
-			//        {
-			//            policy.WithOrigins("http://localhost3000")
-			//                   .AllowAnyMethod()
-			//                   .AllowAnyHeader()
-			//                   .AllowCredentials();
-			//        });
-			//});
 
 			services.AddCors(options =>
 				options.AddPolicy("Dev", builder =>
@@ -136,7 +127,7 @@ namespace OU_API
 			}).AddCookie(options =>
 			{
 				// Set correct path
-				options.LoginPath = new PathString("/Authentication/Login");
+				options.LoginPath = new PathString("/api/Authentication/Login");
 				options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
 				options.Cookie.Name = "Appdoon_Auth";
 
@@ -240,8 +231,11 @@ namespace OU_API
 			services.AddScoped<IDeleteStepService, DeleteStepService>();
 			services.AddScoped<IUpdateStepService, UpdateStepService>();
 
+			// right service for getting roadmaps of user
+			services.AddScoped<IGetUserRoadmapService, GetUserRoadmapService>();
 
-
+			// register roadmap
+			services.AddScoped<IRegisterRoadmapService, RegisterRoadmapService>();
 
 
 

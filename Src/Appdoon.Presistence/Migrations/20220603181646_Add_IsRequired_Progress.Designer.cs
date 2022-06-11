@@ -4,14 +4,16 @@ using Appdoon.Presistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Appdoon.Presistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220603181646_Add_IsRequired_Progress")]
+    partial class Add_IsRequired_Progress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +38,9 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRequired")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("RemoveTime")
@@ -70,6 +75,9 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRequired")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("RemoveTime")
@@ -138,9 +146,6 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsRequired")
                         .HasColumnType("bit");
 
                     b.Property<string>("Link")
@@ -292,16 +297,13 @@ namespace Appdoon.Presistence.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsRequired")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("RemoveTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("RoadMapId")
+                    b.Property<int>("RoadMapId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -349,21 +351,21 @@ namespace Appdoon.Presistence.Migrations
                         new
                         {
                             Id = 1,
-                            InsertTime = new DateTime(2022, 6, 11, 17, 21, 26, 153, DateTimeKind.Local).AddTicks(4048),
+                            InsertTime = new DateTime(2022, 6, 3, 22, 46, 45, 494, DateTimeKind.Local).AddTicks(3477),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            InsertTime = new DateTime(2022, 6, 11, 17, 21, 26, 162, DateTimeKind.Local).AddTicks(1821),
+                            InsertTime = new DateTime(2022, 6, 3, 22, 46, 45, 498, DateTimeKind.Local).AddTicks(4053),
                             IsRemoved = false,
                             Name = "Teacher"
                         },
                         new
                         {
                             Id = 3,
-                            InsertTime = new DateTime(2022, 6, 11, 17, 21, 26, 162, DateTimeKind.Local).AddTicks(2204),
+                            InsertTime = new DateTime(2022, 6, 3, 22, 46, 45, 498, DateTimeKind.Local).AddTicks(4437),
                             IsRemoved = false,
                             Name = "User"
                         });
@@ -552,7 +554,9 @@ namespace Appdoon.Presistence.Migrations
                 {
                     b.HasOne("Appdoon.Domain.Entities.RoadMaps.RoadMap", "RoadMap")
                         .WithMany("Steps")
-                        .HasForeignKey("RoadMapId");
+                        .HasForeignKey("RoadMapId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("RoadMap");
                 });

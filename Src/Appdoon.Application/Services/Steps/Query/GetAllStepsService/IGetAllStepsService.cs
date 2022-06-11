@@ -50,7 +50,7 @@ namespace Appdoon.Application.Services.Steps.Query.GetAllStepService
 					{
 						Id = s.Id,
 						Title = s.Title,
-						RoadMapId = s.RoadMapId,
+						RoadMapId = (int)s.RoadMapId,
 						ChildSteps = s.ChildSteps,
 						Link = s.Link,
 						RoadmapTitle = s.RoadMap.Title,

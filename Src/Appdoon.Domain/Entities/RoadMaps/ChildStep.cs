@@ -9,13 +9,13 @@ namespace Appdoon.Domain.Entities.RoadMaps
 		public string Title { get; set; } = string.Empty;
 		public string? Description { get; set; }
 		public string? Link { get; set; }
-		//public bool IsDone { get; set; } = false;
+		public bool IsRequired { get; set; } = true;
 
 		public Step Step { get; set; } = new();
 		public int StepId { get; set; }
 
 		public List<Linker>? Linkers { get; set; }
 
-		public List<ChildStepProgress>? ChildStepProgresses { get; set; }
+		public List<ChildStepProgress> ChildStepProgresses { get; set; } = new();
 	}
 }

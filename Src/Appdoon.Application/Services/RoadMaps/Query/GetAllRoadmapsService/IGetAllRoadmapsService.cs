@@ -38,7 +38,7 @@ namespace Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService
         {
             _context = context;
         }
-        public ResultDto<AllRoadmapsDto> Execute(int page_number, int page_size)
+        public ResultDto<AllRoadmapsDto> Execute(int PageNumber, int PageSize)
         {
             try
             {
@@ -55,12 +55,15 @@ namespace Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService
                         Title = r.Title,
                         Categories = r.Categories,
 
-                    }).ToPaged(page_number, page_size, out rowCount)
+                    })
+                    .ToPaged(PageNumber, PageSize, out rowCount)
                     .ToList();
 
-                AllRoadmapsDto allRoadmapsDto = new AllRoadmapsDto();
-                allRoadmapsDto.Roadmaps = roadmaps;
-                allRoadmapsDto.RowCount = rowCount;
+                AllRoadmapsDto allRoadmapsDto = new AllRoadmapsDto()
+                {
+                    Roadmaps = roadmaps,
+                    RowCount = rowCount,
+                };
 
                 return new ResultDto<AllRoadmapsDto>()
                 {

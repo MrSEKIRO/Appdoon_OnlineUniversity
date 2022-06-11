@@ -23,7 +23,7 @@ namespace Appdoon.Domain.Entities.Users
 		public List<RoadMap>? BookmarkedRoadMaps { get; set; }
 		public List<RoadMap>? CreatedRoadMaps { get; set; }
 
-		public List<StepProgress>? StepProgresses { get; set; }
-		public List<ChildStepProgress>? ChildStepProgresses { get; set; }
+		public List<StepProgress> StepProgresses { get; set; } = new();
+		public List<ChildStepProgress> ChildStepProgresses { get; set; } = new();
 	}
 }
