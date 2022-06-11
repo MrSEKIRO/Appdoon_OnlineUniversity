@@ -45,7 +45,7 @@ namespace Appdoon.Application.Services.ChildSteps.Query.GetAllChildStepsService
                     Title = s.Title,
                     Description = s.Description,
                     Link = s.Link,
-                    StepId = s.StepId,
+                    StepId = (int)s.StepId,
                     Linkers = s.Linkers,
                     StepTitle = s.Step.Title
                 }).ToList();

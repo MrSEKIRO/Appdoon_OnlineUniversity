@@ -97,12 +97,14 @@ namespace Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService
 					
 					user.StepProgresses.Add(stepProgress);
 					stepProgress.Step = step;
+					_context.SaveChanges();
 					foreach(var childStep in step.ChildSteps)
 					{
 						var childStepProgress = new ChildStepProgress();
 
 						user.ChildStepProgresses.Add(childStepProgress);
 						childStepProgress.ChildStep = childStep;
+						_context.SaveChanges();
 
 					}
 				}
