@@ -111,6 +111,11 @@ const Navigation = () => {
                                               پروفایل یوزر 
                                             </NavLink>
                                         </li>
+                                        <li id="nav-menu-item" class="menu-item">
+                                            <NavLink className="current-link-menu" to="/All_Questions">
+                                              صفحه تمرینات
+                                            </NavLink>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

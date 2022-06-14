@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+.NextStep{
+    background-color: #009e00;
+    color:#fff;
+    padding: 10px 30px;
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.NextStep:hover{
+    background-color: green;
+}
+.NextStep[disabled]{
+    display: none;
+}
+
+.finalPage{
+    text-align: center;
+}
+.finalPage h1{
+    text-align: center;
+    margin: 15px 0;
+    font-size: 25px;
+    font-weight: bold;
+    color: #008416;
+    text-transform: none;
+    text-shadow: none;
+    font-family: 'Lato', sans-serif;
+    font-weight: 800;
+
+}
+.Answers{
+    list-style: none;
+    margin: 25px;
+    padding: 0;
+}
+.Answers li{
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #651fff;
+    width: 30%;
+    margin-right:0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: right;
+    color :rgb(244, 237, 237);
+    border-left: 8px solid #191649;
+
+}
+.Answers li:hover{
+    cursor: pointer;
+    background-color: #a2a2a2;
+}
+.Answers .correct,
+.Answers .correct:hover {
+    background-color: #1db900;
+    border-left: 8px solid #0f6300;
+}
+.Answers .incorrect,
+.Answers .incorrect:hover {
+    background-color: #ec0000;
+    border-left: 8px solid #FF3B3B;
+    color: #fff;
+}
+.Answers[disabled] {
+    pointer-events: none;
+    opacity: 0.7;
+}
+.container2
+{
+    width: 50%;
+}
+.Content h6
+{
+    font-family: 'Lato', sans-serif;
+    margin-top: 10px;
+    margin-right: 25px;
+    font-size: 20px;
+    text-align: right;
+    color: #17063d;
+}
