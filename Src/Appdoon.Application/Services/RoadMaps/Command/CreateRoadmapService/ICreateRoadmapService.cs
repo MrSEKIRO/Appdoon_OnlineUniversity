@@ -64,12 +64,23 @@ namespace Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService
                 var imageSrc = "";
                 var TimeNow = DateTime.Now;
                 var ImageName = Title + "_" + TimeNow.Ticks.ToString();
-
+                // we should check create those file is 
+                // they not exist !!!!!!
                 if (httpRequest.Form.Files.Count() != 0)
                 {
                     var postedFile = httpRequest.Form.Files[0];
                     string filename = postedFile.FileName;
+
+                    // create Photoes\Roadmap\ folder
+                    string folder = @$"Photos\Roadmap\";
+                    var uploadFolder = Path.Combine(currentpath, folder);
+					if(Directory.Exists(uploadFolder) == false)
+					{
+                        Directory.CreateDirectory(uploadFolder);
+					}
+
                     var physicalPath = currentpath + "/Photos/Roadmap/" + $"({ImageName})" + filename;
+
                     using (var stream = new FileStream(physicalPath, FileMode.Create))
                     {
                         postedFile.CopyTo(stream);

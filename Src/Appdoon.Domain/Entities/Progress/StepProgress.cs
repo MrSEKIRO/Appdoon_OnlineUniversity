@@ -12,11 +12,12 @@ namespace Appdoon.Domain.Entities.Progress
 	public class StepProgress : BaseEntity
 	{
 		public bool IsDone { get; set; } = false;
+		//public bool IsRequired { get; set; } = true;
 
 		public Step Step { get; set; } = new();
 		public int StepId { get; set; }
 
-		public User User { get; set; } = new();
+		public User User { get; set; }
 		public int UserId { get; set; }
 
 	}

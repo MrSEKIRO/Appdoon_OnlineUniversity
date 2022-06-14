@@ -39,7 +39,7 @@ namespace Appdoon.Application.Services.Steps.Query.GetIndividualStepService
 						Title = r.Title,
 						Description = r.Description,
 						Link = r.Link,
-						RoadMapId = r.RoadMapId
+						RoadMapId = (int)r.RoadMapId
 					}).FirstOrDefault();
 
 				if (step == null)

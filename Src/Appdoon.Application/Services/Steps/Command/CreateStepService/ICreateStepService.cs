@@ -1,6 +1,7 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Application.Validatores.StepValidatore;
 using Appdoon.Common.Dtos;
+using Appdoon.Domain.Entities.Progress;
 using Appdoon.Domain.Entities.RoadMaps;
 using System;
 using System.Collections.Generic;

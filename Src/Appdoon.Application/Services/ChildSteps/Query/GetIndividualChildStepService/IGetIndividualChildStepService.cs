@@ -40,7 +40,7 @@ namespace Appdoon.Application.Services.ChildSteps.Query.GetIndividualChildStepSe
 						Id = r.Id,
 						Title = r.Title,
 						Description = r.Description,
-						StepId = r.StepId,
+						StepId = (int)r.StepId,
 						Link = r.Link,
 						Linkers = r.Linkers
 					}).FirstOrDefault();
