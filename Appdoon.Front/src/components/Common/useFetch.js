@@ -10,7 +10,7 @@ const useFetch = (url,sensetive) =>{
     useEffect(() => {
         const abortCont = new AbortController();
 
-        fetch(url, {signal : abortCont.signal })
+        fetch(url, {credentials:"include" , signal : abortCont.signal })
             .then(res => {
                 if(!res.ok){
                     throw Error('could not fetch!');
