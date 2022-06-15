@@ -4,8 +4,10 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Photos folder
-Src/Appdoon.WebApi/Photos/*.*
+Src/Appdoon.WebApi/Photos/*
 !Src/Appdoon.WebApi/Photos/1.jpg
+!Src/Appdoon.WebApi/Photos/*/1.jpg
+!Src/Appdoon.WebApi/Photos/*/1.jpg
 
 # User-specific files
 *.rsuser
