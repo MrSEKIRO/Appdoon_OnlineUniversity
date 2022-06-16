@@ -35,10 +35,16 @@ using Appdoon.Application.Services.Steps.Command.DeleteStepService;
 using Appdoon.Application.Services.Steps.Command.UpdateStepService;
 using Appdoon.Application.Services.Steps.Query.GetAllStepService;
 using Appdoon.Application.Services.Steps.Query.GetIndividualStepService;
+
+using Appdoon.Application.Services.Users.Command.CheckUserResetPasswordLinkService;
+
 using Appdoon.Application.Services.Users.Command.EditPasswordService;
+
 using Appdoon.Application.Services.Users.Command.EditUserService;
+using Appdoon.Application.Services.Users.Command.ForgetPasswordUserService;
 using Appdoon.Application.Services.Users.Command.LoginUserService;
 using Appdoon.Application.Services.Users.Command.RegisterUserService;
+using Appdoon.Application.Services.Users.Command.ResetPasswordService;
 using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetUserFromCookieService;
@@ -234,11 +240,14 @@ namespace OU_API
             //Dependency Injecton For Profile
             services.AddScoped<IGetUserFromCookieService, GetUserFromCookieService>();
 
+
+            //forget and reset password
+            services.AddScoped<IForgetPasswordUserService, ForgetPasswordUserService>();
+            services.AddScoped<ICheckUserResetPasswordLinkService, CheckUserResetPasswordLinkService>();
+            services.AddScoped<IResetPasswordService, ResetPasswordService>();
+
             // register roadmap
             services.AddScoped<IRegisterRoadmapService, RegisterRoadmapService>();
-
-
-
 
 
 

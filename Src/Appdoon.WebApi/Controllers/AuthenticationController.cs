@@ -1,5 +1,8 @@
-﻿using Appdoon.Application.Services.Users.Command.LoginUserService;
+﻿using Appdoon.Application.Services.Users.Command.CheckUserResetPasswordLinkService;
+using Appdoon.Application.Services.Users.Command.ForgetPasswordUserService;
+using Appdoon.Application.Services.Users.Command.LoginUserService;
 using Appdoon.Application.Services.Users.Command.RegisterUserService;
+using Appdoon.Application.Services.Users.Command.ResetPasswordService;
 using Appdoon.Common.Dtos;
 using Appdoon.Common.UserRoles;
 using Microsoft.AspNetCore.Authentication;
@@ -8,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Appdoon.WebApi.Controllers
 {
@@ -17,11 +21,21 @@ namespace Appdoon.WebApi.Controllers
 	{
 		private readonly IRegisterUserService _registerUserService;
 		private readonly ILoginUserService _loginUserService;
+        private readonly IForgetPasswordUserService _forgetPasswordUserService;
+        private readonly IResetPasswordService _resetPasswordService;
+        private readonly ICheckUserResetPasswordLinkService _checkUserResetPasswordLinkService;
 
-		public AuthenticationController(IRegisterUserService registerUserService, ILoginUserService loginUserService)
+        public AuthenticationController(IRegisterUserService registerUserService,
+			ILoginUserService loginUserService,
+			IForgetPasswordUserService forgetPasswordUserService,
+			IResetPasswordService resetPasswordService,
+			ICheckUserResetPasswordLinkService checkUserResetPasswordLinkService)
 		{
 			_registerUserService = registerUserService;
 			_loginUserService = loginUserService;
+			_forgetPasswordUserService = forgetPasswordUserService;
+			_resetPasswordService = resetPasswordService;
+			_checkUserResetPasswordLinkService = checkUserResetPasswordLinkService;
 		}
 
 		[HttpPost]
@@ -94,6 +108,24 @@ namespace Appdoon.WebApi.Controllers
 				IsSuccess = true,
 				Message = "خروج موفق!",
 			});
+		}
+		[HttpPost]
+		public async Task<JsonResult> ForgetPassword(UserEmailOptions userEmailOptions)
+        {
+			var result = await _forgetPasswordUserService.Execute(userEmailOptions);
+			return new JsonResult(result);
+        }
+		[HttpPost]
+		public async Task<JsonResult> ResetPassword(string password, string repeatPassword, int userId)
+        {
+			var result = await _resetPasswordService.Execute(password, repeatPassword, userId);
+			return new JsonResult(result);
+        }
+		[HttpGet]
+		public async Task<JsonResult> CheckLink(int userId, string token)
+        {
+			var result = await _checkUserResetPasswordLinkService.Execute(userId, token);
+			return new JsonResult(result);
 		}
 	}
 }
