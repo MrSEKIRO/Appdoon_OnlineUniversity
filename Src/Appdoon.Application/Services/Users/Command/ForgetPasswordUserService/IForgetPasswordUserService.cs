@@ -105,7 +105,7 @@ namespace Appdoon.Application.Services.Users.Command.ForgetPasswordUserService
 
                 return new ResultDto()
                 {
-                    Message = "ایمیل با موفقیت ارسال شد",
+                    Message = "ایمیل با موفقیت ارسال شد.",
                     IsSuccess = true,
                 };
             }

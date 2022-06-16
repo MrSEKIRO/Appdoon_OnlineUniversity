@@ -8,7 +8,7 @@ const Navigation = () => {
     const [cookies, setCookie] = useCookies(['Appdoon_Auth']);
     return(
         <div>
-            {<Exit id={"myModal"}/>}
+            {<Exit id={"ExitModal"}/>}
             <div class="nav-categories-overlay"></div>
             <div class="overlay-search-box"></div>
             <header class="header-main">
@@ -80,7 +80,7 @@ const Navigation = () => {
                                                             </li>
                                                             <li class="account-item">
                                                                 {cookies.Appdoon_Auth &&
-                                                                    <NavLink data-toggle="modal" data-target="#myModal" className="account-link" to="#!">
+                                                                    <NavLink data-toggle="modal" data-target="#ExitModal" className="account-link" to="#!">
                                                                         خروج
                                                                     </NavLink>
                                                                 }

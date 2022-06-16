@@ -20,7 +20,7 @@ namespace Appdoon.WebApi.Controllers
 		private readonly IEditUserService _editUserService;
 		private readonly IGetRegisteredRoadMapService _getRegisteredRoadMapService;
 		private readonly IGetBookMarkRoadMapService _getBookMarkRoadMapService;
-		private readonly IGetUserFromCookieService _getUserFromCookieService;
+		
 		private readonly IEditPasswordService _editPasswordService;
 
 
@@ -28,14 +28,12 @@ namespace Appdoon.WebApi.Controllers
 								 IEditUserService editUserService,
 								 IGetRegisteredRoadMapService getRegisteredRoadMapService,
 								 IGetBookMarkRoadMapService getBookMarkRoadMapService,
-								 IGetUserFromCookieService getUserFromCookieService,
 								 IEditPasswordService editPasswordService)
 		{
 			_getUserService = getUserService;
 			_editUserService = editUserService;
 			_getRegisteredRoadMapService = getRegisteredRoadMapService;
 			_getBookMarkRoadMapService = getBookMarkRoadMapService;
-			_getUserFromCookieService = getUserFromCookieService;
 			_editPasswordService = editPasswordService;
 
 		}
@@ -84,12 +82,7 @@ namespace Appdoon.WebApi.Controllers
 
 
 
-		[HttpGet]
-		public JsonResult InfoFromCookie()
-		{
-			var result = _getUserFromCookieService.Execute(HttpContext);
-			return new JsonResult(result);
-		}
+
 
 		private int GetIdFromCookie()
 		{
