@@ -1,0 +1,14 @@
+.middle-container .form-checkout .form-checkout-row .btn-registrar {
+    padding: 7px 20px;
+    border-radius: 15px;
+    background-color: #651fff;
+    color: #fff;
+    margin-top: 15px;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+}
+
+.middle-container .form-checkout .form-checkout-row .btn-registrar:hover{
+    background-color: #7234f8
+}

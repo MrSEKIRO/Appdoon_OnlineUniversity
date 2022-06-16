@@ -1,9 +1,24 @@
-import React,{Component} from "react";
+import React,{Component, useEffect} from "react";
 import {NavLink} from 'react-router-dom';
+import { useCookies } from "react-cookie";
+import { useNavigate } from 'react-router-dom';
 import $ from 'jquery';
 
 
 const Login = () => {
+
+    const [cookies, setCookie] = useCookies(['Appdoon_Auth']);
+
+
+    
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(cookies.Appdoon_Auth){
+            navigate('/profile')
+        }
+    },[cookies])
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -25,33 +40,41 @@ const Login = () => {
             })
         })
 
-            .then(res => res.json())
-            .then((result) => {
-                if (result.IsSuccess) {
-                    document.getElementById("result_message").style.color = "green";
-                    document.getElementById("result_message").innerHTML = result.Message;
-                }
-                else {
-                    document.getElementById("result_message").style.color = "red";
-                    document.getElementById("result_message").innerHTML = result.Message;
-                }
-            },
-                (error) => {
-                    document.getElementById("result_message").style.color = "red";
-                    document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
-                })
+        .then(res => res.json())
+        .then((result) => {
+            if (result.IsSuccess) {
+                document.getElementById("result_message").style.color = "green";
+                document.getElementById("result_message").innerHTML = result.Message;
+                setTimeout(() => {
+                    window.location.href="/profile";
+                }, 100);
+            }
+            else {
+                document.getElementById("result_message").style.color = "red";
+                document.getElementById("result_message").innerHTML = result.Message;
+            }
+        },
+            (error) => {
+                document.getElementById("result_message").style.color = "red";
+                document.getElementById("result_message").innerHTML = "خطایی رخ داده است!";
+            })
     }
 
 
     return (
+        !cookies.Appdoon_Auth &&
         <div>
             <div class="container">
                 <div class="row">
                     <div class="col-lg">
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                         <section class="page-account-box">
                             <div class="col-lg-6 col-md-6 col-xs-12 mx-auto">
                                 <div class="ds-userlogin">
-                                    <a href="#" class="account-box-logo">digismart</a>
+                                    <a href="#" class="account-box-logo">Appdoon</a>
                                     <div class="account-box">
 
                                         <div class="account-box-headline">
@@ -70,7 +93,7 @@ const Login = () => {
                                         <div class="Login-to-account mt-4">
                                             <div class="account-box-content">
                                                 <h4>ورود به حساب کاربری</h4>
-                                                <form onSubmit={handleSubmit} action="#" class="form-account text-right">
+                                                <form onSubmit={handleSubmit} action="/profile" class="form-account text-right">
 
 
 
@@ -84,7 +107,7 @@ const Login = () => {
 
                                                     <div class="form-account-title">
                                                         <label for="password">رمز عبور</label>
-                                                        <a href="#" class="account-link-password">رمز خود را فراموش کرده ام</a>
+                                                        <NavLink to="/forget_password" className="account-link-password">رمز خود را فراموش کرده ام</NavLink>
                                                         <input dir="auto" type="password" class="password-input" name="Password" />
                                                     </div>
 
@@ -104,7 +127,7 @@ const Login = () => {
                                                         <p style={{ fontSize: "14px" }} id="result_message"></p>
                                                     </div>
                                                     <div class="form-row-account">
-                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login" onClick="window.location.href='http://localhost:3000/Profile';">ورود</button>
+                                                        <button variant="primary" type="submit" class="btn btn-primary btn-login">ورود</button>
                                                     </div>
                                                 </form>
 

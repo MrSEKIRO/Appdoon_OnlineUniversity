@@ -59,7 +59,6 @@ function EditRoadmapModal({ id, roadmap, sensetive, setSensetive }) {
             formData.append("myFile",event.target.Photo.files[0]);
         }
 
-
         formData.append("Title",event.target.Title.value);
         formData.append("Description",event.target.Description.value);
         formData.append("PhotoFileName",imagesrc);

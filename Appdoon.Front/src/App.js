@@ -18,6 +18,8 @@ import Profile from './Components/User/Profile';
 import UserRoadmaps from './Components/User/UserRoadmaps';
 import UserFavoriteRoadmaps from './Components/User/UserFavoriteRoadmaps';
 import EditProfile from './Components/User/EditProfile';
+import EditPassord from './Components/User/EditPassword';
+
 import Lesson from './Components/Roadmap/Lesson';
 
 import Lessons from './Components/Roadmap/Lessons';
@@ -33,6 +35,8 @@ import NotFound from './NotFound';
 
 import All_Questions from './Components/HomeWork/All_Questions';
 
+import ForgetPassword from './Components/ForgetPassword';
+
 
 function App() {
 
@@ -46,9 +50,10 @@ function App() {
 
 
         <Routes>
-          <Route exact path="/" element={<Home/>}/>
+          <Route exact path="/" element={<Roadmaps/>}/>
           <Route exact path="/register" element={<Register/>}/>
           <Route exact path="/login" element={<Login/>}/>
+          <Route exact path="/forget_password" element={<ForgetPassword/>}/>
 
 
           {/*<Route path="/timeline" element={<Timeline/>} exact/>*/}
@@ -70,6 +75,7 @@ function App() {
           <Route path={`/UserRoadmaps`} element={<UserRoadmaps/>}/>
           <Route path={`/UserFavoriteRoadmaps`} element={<UserFavoriteRoadmaps/>}/>
           <Route path={`/EditProfile`} element={<EditProfile/>}/>
+          <Route path={`/EditPassword`} element={<EditPassord/>}/>
 
           <Route path={`/lessons`} element={<Lessons/>}/>
           <Route path={`/lesson/:id`} element={<Lesson/>}/>
