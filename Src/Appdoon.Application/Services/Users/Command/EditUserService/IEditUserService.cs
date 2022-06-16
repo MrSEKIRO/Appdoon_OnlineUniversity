@@ -12,7 +12,7 @@ namespace Appdoon.Application.Services.Users.Command.EditUserService
 {
 	public interface IEditUserService
 	{
-		ResultDto Execute(EditUserDto editUserDto);
+		ResultDto Execute(int id, EditUserDto editUserDto);
 	}
 
 	public class EditUserService : IEditUserService
@@ -23,7 +23,7 @@ namespace Appdoon.Application.Services.Users.Command.EditUserService
 		{
 			_context = context;
 		}
-		public ResultDto Execute(EditUserDto editUserDto)
+		public ResultDto Execute(int id, EditUserDto editUserDto)
 		{
 			try
 			{
@@ -33,8 +33,6 @@ namespace Appdoon.Application.Services.Users.Command.EditUserService
 					Username = editUserDto.Username,
 					FirstName = editUserDto.FirstName,
 					LastName = editUserDto.LastName,
-					Password = editUserDto.Password,
-					RePassword = editUserDto.RePassword,
 					PhoneNumber = editUserDto.PhoneNumber,
 				});
 
@@ -43,8 +41,6 @@ namespace Appdoon.Application.Services.Users.Command.EditUserService
 					"Username",
 					"FirstName",
 					"LastName",
-					"Password",
-					"RePassword",
 					"PhoneNumber",
 				};
 
@@ -61,8 +57,8 @@ namespace Appdoon.Application.Services.Users.Command.EditUserService
 					};
 				}
 
-				var dupUsername = _context.Users.Any(u => u.Username == editUserDto.Username);
-				if(dupUsername == true)
+				var dupUsername = _context.Users.FirstOrDefault(u => u.Username == editUserDto.Username);
+				if(dupUsername != null && dupUsername.Id != id)
 				{
 					return new ResultDto()
 					{
@@ -71,12 +67,11 @@ namespace Appdoon.Application.Services.Users.Command.EditUserService
 					};
 				}
 
-				var user = _context.Users.Find(editUserDto.Id);
+				var user = _context.Users.Find(id);
 
 				user.Username = editUserDto.Username;
 				user.FirstName = editUserDto.FirstName;
 				user.LastName = editUserDto.LastName;
-				user.Password = editUserDto.Password;
 				user.PhoneNumber = editUserDto.PhoneNumber;
 
 				_context.SaveChanges();
@@ -100,12 +95,9 @@ namespace Appdoon.Application.Services.Users.Command.EditUserService
 
 	public class EditUserDto
 	{
-		public int Id { get; set; }
 		public string Username { get; set; } = string.Empty;
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
-		public string Password { get; set; } = string.Empty;
-		public string RePassword { get; set; } = string.Empty;
 		public string PhoneNumber { get; set; }
 	}
 }

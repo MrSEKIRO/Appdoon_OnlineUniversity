@@ -4,12 +4,24 @@ import useFetch from '../Common/useFetch';
 import { Col, Form } from "react-bootstrap";
 import RoadmapBox from '../Roadmap/RoadmapBox';
 import UserRoadmapBox from './UserRoadmapBox';
+import { useCookies } from "react-cookie";
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const UserFavoriteRoadmaps = () => {
+
+    const [cookies, setCookie] = useCookies(['Appdoon_Auth']);
+    const navigate = useNavigate();
+    useEffect(()=>{
+        if(!cookies.Appdoon_Auth){
+            navigate('/login')
+        }
+    },[cookies])
 
     const {data : roadmaps, isLogin, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/Index');
 
     return(
+        cookies.Appdoon_Auth &&
         <div class="container-main">
         <div class="d-block">
             <section class="profile-home">
@@ -28,25 +40,30 @@ const UserFavoriteRoadmaps = () => {
                                 <section class="profile-box">
                                     <ul class="profile-account-navs">
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/Profile" class=""><i class="mdi mdi-account-outline"></i>
+                                            <NavLink to="/Profile" class=""><i class="mdi mdi-account-outline"></i>
                                                 پروفایل
-                                            </a>
+                                            </NavLink>
                                         </li>
                                         
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/UserRoadmaps" class=""><i class=""></i>
+                                            <NavLink to="/UserRoadmaps" class=""><i class=""></i>
                                                 لیست رودمپ های من
-                                            </a>
+                                            </NavLink>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/UserFavoriteRoadmaps" class="active"><i class="active"></i>
+                                            <NavLink to="/UserFavoriteRoadmaps" class="active"><i class="active"></i>
                                                 رودمپ های مورد علاقه من
-                                            </a>
+                                            </NavLink>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="EditProfile" class=""><i class=""></i>
+                                            <NavLink to="/EditProfile" class=""><i class=""></i>
                                                 ویرایش اطلاعات      
-                                            </a>
+                                            </NavLink>
+                                        </li>
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <NavLink to="/EditPassword" class=""><i class=""></i>
+                                                تغییر رمز عبور
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 </section>

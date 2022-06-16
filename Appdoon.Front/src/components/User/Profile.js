@@ -14,12 +14,11 @@ const Profile = () => {
     const [cookies, setCookie] = useCookies(['Appdoon_Auth']);
     const navigate = useNavigate();
 
-    const {data : info} = useFetch(url+'InfoFromCookie',sensetive);
-
+    const {data : info} = useFetch(url+'Info',sensetive);
+    
     useEffect(()=>{
-        alert(info.Email)
         if(!cookies.Appdoon_Auth){
-            navigate('/NotFound')
+            navigate('/login')
         }
     },[cookies])
 
@@ -52,25 +51,30 @@ const Profile = () => {
                                 <section class="profile-box">
                                     <ul class="profile-account-navs">
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/Profile" class="active"><i class="mdi mdi-account-outline"></i>
+                                            <NavLink to="/Profile" class="active"><i class="mdi mdi-account-outline"></i>
                                                 پروفایل
-                                            </a>
+                                            </NavLink>
                                         </li>
                                         
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/UserRoadmaps" class=""><i class=""></i>
+                                            <NavLink to="/UserRoadmaps" class=""><i class=""></i>
                                                 لیست رودمپ های من
-                                            </a>
+                                            </NavLink>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="/UserFavoriteRoadmaps" class=""><i class=""></i>
+                                            <NavLink to="/UserFavoriteRoadmaps" class=""><i class=""></i>
                                                 رودمپ های مورد علاقه من
-                                            </a>
+                                            </NavLink>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
-                                            <a href="EditProfile" class=""><i class=""></i>
+                                            <NavLink to="/EditProfile" class=""><i class=""></i>
                                                 ویرایش اطلاعات      
-                                            </a>
+                                            </NavLink>
+                                        </li>
+                                        <li class="profile-account-nav-item navigation-link-dashboard">
+                                            <NavLink to="/EditPassword" class=""><i class=""></i>
+                                                تغییر رمز عبور
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 </section>
@@ -84,28 +88,28 @@ const Profile = () => {
                                             <tr>
                                                 <td class="w-50">
                                                     <div class="title">نام کاربری  :</div>
-                                                    <div class="value">sabarzii</div>
+                                                    <div class="value">{info.Username || "_____"}</div>
                                                 </td>
                                                 <td></td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     <div class="title">نام:</div>
-                                                    <div class="value"></div>
+                                                    <div class="value">{info.FirstName || "_____"}</div>
                                                 </td>
                                                 <td>
                                                     <div class="title">نام خانوادگی :</div>
-                                                    <div class="value">رضی</div>
+                                                    <div class="value">{info.LastName || "_____"}</div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     <div class="title">ایمیل :</div>
-                                                    <div class="value">razi.saba@yahoo.com</div>
+                                                    <div class="value">{info.Email || "_____"}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="title"> شناره تلفن :</div>
-                                                    <div class="value">09356950935</div>
+                                                    <div class="title"> شماره تلفن :</div>
+                                                    <div class="value">{info.PhoneNumber || "_____"}</div>
                                                 </td>
                                             </tr>
                                         </tbody>
