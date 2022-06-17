@@ -53,6 +53,7 @@ namespace Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapServic
                             RoadMapId = s.RoadMapId,
                             ChildSteps = s.ChildSteps,
                         }).ToList(),
+                        CreatorId = (int)r.CreatoreId
                     }).FirstOrDefault();
 
                 if (roadmap == null)
@@ -92,5 +93,6 @@ namespace Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapServic
         public int Stars { get; set; }
         public List<Category> Categories { get; set; }
         public List<Step> Steps { get; set; }
+        public int CreatorId { get; set; }
     }
 }

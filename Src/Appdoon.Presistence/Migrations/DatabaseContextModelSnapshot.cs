@@ -140,13 +140,16 @@ namespace Appdoon.Presistence.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsRequired")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("RemoveTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StepId")
+                    b.Property<int?>("StepId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -289,13 +292,16 @@ namespace Appdoon.Presistence.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsRequired")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("RemoveTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("RoadMapId")
+                    b.Property<int?>("RoadMapId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -343,21 +349,21 @@ namespace Appdoon.Presistence.Migrations
                         new
                         {
                             Id = 1,
-                            InsertTime = new DateTime(2022, 5, 27, 23, 54, 27, 139, DateTimeKind.Local).AddTicks(405),
+                            InsertTime = new DateTime(2022, 6, 11, 19, 23, 55, 297, DateTimeKind.Local).AddTicks(9813),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            InsertTime = new DateTime(2022, 5, 27, 23, 54, 27, 145, DateTimeKind.Local).AddTicks(8183),
+                            InsertTime = new DateTime(2022, 6, 11, 19, 23, 55, 304, DateTimeKind.Local).AddTicks(2554),
                             IsRemoved = false,
                             Name = "Teacher"
                         },
                         new
                         {
                             Id = 3,
-                            InsertTime = new DateTime(2022, 5, 27, 23, 54, 27, 145, DateTimeKind.Local).AddTicks(8498),
+                            InsertTime = new DateTime(2022, 6, 11, 19, 23, 55, 304, DateTimeKind.Local).AddTicks(2955),
                             IsRemoved = false,
                             Name = "User"
                         });
@@ -525,9 +531,7 @@ namespace Appdoon.Presistence.Migrations
                 {
                     b.HasOne("Appdoon.Domain.Entities.RoadMaps.Step", "Step")
                         .WithMany("ChildSteps")
-                        .HasForeignKey("StepId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StepId");
 
                     b.Navigation("Step");
                 });
@@ -546,9 +550,7 @@ namespace Appdoon.Presistence.Migrations
                 {
                     b.HasOne("Appdoon.Domain.Entities.RoadMaps.RoadMap", "RoadMap")
                         .WithMany("Steps")
-                        .HasForeignKey("RoadMapId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoadMapId");
 
                     b.Navigation("RoadMap");
                 });

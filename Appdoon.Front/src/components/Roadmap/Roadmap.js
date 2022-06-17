@@ -2,7 +2,7 @@ import Step from "./Step";
 import React,{Component} from "react";
 import "../../Modular_Css/RoadmapStyle.css";
 import ReactDOM from 'react-dom';
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 import ChildStepModal from '../Modals/ChildStepModal';
@@ -27,6 +27,11 @@ const Roadmap = () => {
     
     
     const [sensetive, setSensetive] = useState(false);
+
+    //User
+    const [urlAuth, setUrlAuth] = useState(process.env.REACT_APP_API + "Authentication/InfoFromCookie")
+    const {data : userInfo} = useFetch(urlAuth,sensetive);
+
 
     const [url, setUrl] = useState(process.env.REACT_APP_API + 'roadmap/Get/'+id);
 
@@ -81,7 +86,7 @@ const Roadmap = () => {
 
 
 
-            {<ChildStepModal inputFields={editInputFields} setInputFields={setEditInputFields} childStep={childStep} setIdChildStep={setIdChildStep}/>}
+            {<ChildStepModal inputFields={editInputFields} setInputFields={setEditInputFields} childStep={childStep} setIdChildStep={setIdChildStep} userInfo={userInfo} CreatorId = {roadmap.CreatorId}/>}
             
             {<EditRoadmapModal id={"editModalRoadmap"} roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             {<DeleteRoadmapModal id={"deleteModalRoadmap"} roadmap = {roadmap} sensetive = {sensetive} setSensetive = {setSensetive}/>}
@@ -94,26 +99,40 @@ const Roadmap = () => {
 
             {<CreateStepModal id={"createModalStep"} roadmapId={roadmap.Id} sensetive = {sensetive} setSensetive = {setSensetive}/>}
             {<CreateChildStepModal id={"createModalChildStep"+idStep} inputFields = {inputFields} setInputFields={setInputFields} stepId={idStep} sensetive = {sensetive} setSensetive = {setSensetive}/>}
+            {userInfo.Role && (userInfo.Id == roadmap.CreatorId || userInfo.Role == "Admin") &&
             <div style={{float:"left" , marginTop:"20px", marginLeft:"20px"}}>
 
+                
                 <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#createModalStep" variant="success" class="btn btn-success" onClick={() => {clearStep();}}><i class="far fa-plus-square"></i></button>
                 <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#editModalRoadmap" variant="primary" class="btn btn-primary" onClick={() => {clear();}}><i class="far fa-edit"></i></button>
                 <button href="#!" data-toggle="modal" data-target="#deleteModalRoadmap" variant="primary" class="btn btn-danger" onClick={() => {clear();}}><i class="far fa-trash-alt"></i></button>
                 
             </div>
+            }
             {roadmap && roadmap.Id > 0 && (
                 
                 <div className='timelineBody'>
                     
-                   
+
                     <h1 dir="rtl">رودمپ {roadmap.Title}</h1>
                     <p  dir="rtl">{roadmap.Description}</p>
+                    {!userInfo.Role && <p>.برای استفاده از رودمپ‌ و امکانات آن ابتدا در سایت <NavLink to="/register">ثبت‌نام</NavLink> کنید</p>}
+                    
+
+                    <span className="BigCircle" style={{marginBottom:"-40px"}}>
+                        <p style={{marginTop:"12px"}}>شروع</p>
+                    </span>
+                    
                     <div class="timeline-container">
                         
                         {roadmap.Steps.map((step, idx) => (
-                            <Step setInputFields={setInputFields} step={step} key={idx} setIdChildStep={setIdChildStep} setIdStep={setIdStep}/>
+                            <Step setInputFields={setInputFields} step={step} key={idx} setIdChildStep={setIdChildStep} setIdStep={setIdStep} userInfo={userInfo} CreatorId = {roadmap.CreatorId}/>
                         ))}
                     </div>
+
+                    <span className="BigCircle" style={{marginTop:"-40px"}}>
+                        <p style={{marginTop:"12px"}}>پایان</p>
+                    </span>
                     
                 </div>
                 )

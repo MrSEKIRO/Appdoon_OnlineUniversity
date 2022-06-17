@@ -1,5 +1,7 @@
-﻿using Appdoon.Common.Dtos;
+﻿using Appdoon.Application.Interfaces;
+using Appdoon.Common.Dtos;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,36 +12,49 @@ namespace Appdoon.Application.Services.Users.Query.GetUserFromCookieService
 {
 	public interface IGetUserFromCookieService
 	{
-		ResultDto<UserCookieDto> Execute(HttpContext httpContext);
+		ResultDto<UserCookieDto> Execute(int id);
 	}
 
 	public class GetUserFromCookieService : IGetUserFromCookieService
 	{
-		public ResultDto<UserCookieDto> Execute(HttpContext httpContext)
+		private readonly IDatabaseContext _context;
+		public GetUserFromCookieService(IDatabaseContext context)
+		{
+			_context = context;
+		}
+		public ResultDto<UserCookieDto> Execute(int id)
 		{
 			try
 			{
-				var identity= httpContext.User.Identities.FirstOrDefault();
+				var user = _context.Users
+					.Where(u => u.Id == id)
+					.Include(u => u.Roles).FirstOrDefault();
 
-				var email = identity.Claims
-					.Skip(1)
-					.FirstOrDefault()
-					.Value;
-				
-				var name = identity.Claims
-					.Skip(2)
-					.FirstOrDefault()
-					.Value;
+				// I doubt on it
+				if (user == null)
+				{
+					return new ResultDto<UserCookieDto>()
+					{
+						IsSuccess = false,
+						Message = "کاربر یافت نشد!",
+						Data = new(),
+					};
+				}
+
+				var userCookie = new UserCookieDto
+				{
+					Id = user.Id,
+					Email = user.Email,
+					Username = user.Username,
+					Role = user.Roles[0].Name
+
+				};
 
 				return new ResultDto<UserCookieDto>()
 				{
 					IsSuccess = true,
-					Data = new UserCookieDto()
-					{
-						Name = name,
-						Email = email,
-					},
-					Message = "اطالاعات کاربر ارسال شد!",
+					Message = "اطلاعات یوزر دریافت شد",
+					Data = userCookie,
 				};
 			}
 			catch(Exception e)
@@ -55,7 +70,9 @@ namespace Appdoon.Application.Services.Users.Query.GetUserFromCookieService
 	}
 	public class UserCookieDto
 	{
+		public int? Id { get; set; }
 		public string Email { get; set; } = string.Empty;
-		public string Name { get; set; } = string.Empty;
+		public string Username { get; set; } = string.Empty;
+		public string Role { get; set; } = string.Empty;
 	}
 }

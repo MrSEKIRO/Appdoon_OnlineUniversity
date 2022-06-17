@@ -16,6 +16,12 @@ const Roadmaps = () =>{
     const [sensetive, setSensetive] = useState(false);
 
 
+    //User
+    const [urlAuth, setUrlAuth] = useState(process.env.REACT_APP_API + "Authentication/InfoFromCookie")
+    const {data : userInfo} = useFetch(urlAuth,sensetive);
+
+    
+
     //Roadmaps
     const [urlGet, setUrlGet] = useState(process.env.REACT_APP_API + "roadmap/get");
     const [pageSize, setPageSize] = useState(9);
@@ -300,7 +306,7 @@ const Roadmaps = () =>{
 
 
                             <div style={{float:"left" , marginTop:"0px", marginLeft:"10px", marginBottom:"10px"}}>
-                                <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#createModalRoadmap" variant="success" class="btn btn-success" onClick={() => {clear();}}>افزودن رودمپ‌</button>
+                                {userInfo.Role && (userInfo.Role == "Teacher" || userInfo.Role == "Admin") && <button style={{marginLeft:"10px"}} href="#!" data-toggle="modal" data-target="#createModalRoadmap" variant="success" class="btn btn-success" onClick={() => {clear();}}>افزودن رودمپ‌</button>}
                             </div>
 
                             <div style={{width:"80%", marginRight:"20px"}} class="input-group rounded">
