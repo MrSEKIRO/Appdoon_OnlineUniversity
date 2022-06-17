@@ -9,7 +9,9 @@ import Roadmap from '../Roadmap/Roadmap';
 const Question = (props) => {
 
     return(
-        <h6 >{props.question}</h6>
+        <div className="questionBox">
+            <p className="pp">{props.question}</p>
+        </div>
     );
 
 }
