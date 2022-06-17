@@ -1,6 +1,7 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.Dtos;
 using Appdoon.Domain.Entities.RoadMaps;
+using Appdoon.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,15 @@ namespace Appdoon.Application.Services.RoadMaps.Query.CheckUserRegisterRoadmapSe
 			try
 			{
 				var user = _context.Users
-					.Include(u => u.SignedRoadMaps.Select(sr=> sr.Id))
+					.Include(u => u.SignedRoadMaps)
+					.Select(u => new User()
+					{
+						Id = u.Id,
+						SignedRoadMaps = u.SignedRoadMaps.Select(sr => new RoadMap()
+						{
+							Id = sr.Id,
+						}).ToList(),
+					})
 					.Where(u => u.Id == UserId)
 					.FirstOrDefault();
 
