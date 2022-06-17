@@ -30,6 +30,7 @@ using Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.CheckUserRegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.FilterRoadmapsService;
+using Appdoon.Application.Services.RoadMaps.Query.GetPreviewRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.GetUserRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.SearchRoadmapsService;
 using Appdoon.Application.Services.Steps.Command.CreateStepService;
@@ -256,6 +257,14 @@ namespace OU_API
 
             // done childstep service
             services.AddScoped<IDoneChildStepService, DoneChildStepService>();
+
+            // get preview of roadmap for not register users
+            services.AddScoped<IGetPreviewRoadmapService, GetPreviewRoadmapService>();
+
+
+
+
+
 
 
             // Injection for user validatore

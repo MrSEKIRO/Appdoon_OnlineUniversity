@@ -1,5 +1,6 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.Dtos;
+using Appdoon.Domain.Entities.RoadMaps;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Appdoon.Application.Services.RoadMaps.Query.CheckUserRegisterRoadmapSe
 			try
 			{
 				var user = _context.Users
-					.Include(u => u.SignedRoadMaps)
+					.Include(u => u.SignedRoadMaps.Select(sr=> sr.Id))
 					.Where(u => u.Id == UserId)
 					.FirstOrDefault();
 
@@ -67,7 +68,7 @@ namespace Appdoon.Application.Services.RoadMaps.Query.CheckUserRegisterRoadmapSe
 				return new ResultDto<bool>()
 				{
 					IsSuccess = false,
-					Message = "خطا در چک کردن رودمپ و کابر",
+					Message = "خطا در چک کردن رودمپ و کاربر",
 					Data = false,
 				};
 			}
