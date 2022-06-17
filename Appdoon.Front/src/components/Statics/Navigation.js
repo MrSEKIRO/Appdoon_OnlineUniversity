@@ -115,6 +115,11 @@ const Navigation = () => {
                                             <NavLink className="current-link-menu" to="/All_Questions">
                                               صفحه تمرینات
                                             </NavLink>
+                                        </li> 
+                                        <li id="nav-menu-item" class="menu-item">
+                                            <NavLink className="current-link-menu" to="/EditQuiz">
+                                              صفحه ساخت تمرینات
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 </div>

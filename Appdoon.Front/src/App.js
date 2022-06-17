@@ -33,7 +33,6 @@ import NotFound from './NotFound';
 
 import All_Questions from './Components/HomeWork/All_Questions';
 
-
 function App() {
 
   return (
@@ -83,6 +82,7 @@ function App() {
           <Route path="*" element={<NotFound/>}/>
           
           <Route path={`/All_Questions`} element={<All_Questions/>}/>
+
 
 
         </Routes>

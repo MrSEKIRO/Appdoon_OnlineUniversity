@@ -20,23 +20,27 @@ export default class All_Questions extends Component {
             1: {
                 1: 'اروپا',
                 2: 'آمریکا',
-                3: 'آسیا'
+                3: 'آسیا',
+                4: 'آفریقا'
             },
             2: {
                 1: 'کلاس',
                 2: 'استراکت',
-                3: 'پراپرتی'
+                3: 'پراپرتی',
+                4: 'آبجکت'
             },
             3: {
                 1: 'BFS',
                 2: 'DFS',
-                3: 'DIJEKSTRA'
+                3: 'DIJEKSTRA',
+                4: 'bellman ford'
             }
         },
         correctAnswers: {
             1: '2',
             2: '1',
-            3: '1'
+            3: '1',
+            4: '3'
         },
         correctAnswer: 0,
         clickedAnswer: 0,
@@ -70,6 +74,14 @@ export default class All_Questions extends Component {
         });
     }
 
+    prevStep = (step) => {
+        this.setState({
+            step: step - 1,
+            correctAnswer: 0,
+            clickedAnswer: 0
+        });
+    }
+
     render(){
     let { quiestions, answers, correctAnswer, clickedAnswer, step, score } = this.state;
 
@@ -78,11 +90,14 @@ export default class All_Questions extends Component {
             <div class="post-item-cart d-block order-2">
                  <div class="content-page">
                      <div class="cart-form">
-
-
+                       
                         <div className="Content">
+
                             {step <= Object.keys(quiestions).length ? 
                                 (<>
+                                    <div className="number">
+                                        <p>سوال {step} از {Object.keys(quiestions).length} </p>
+                                    </div>
                                     <Question
                                         question={quiestions[step]}
                                     />
@@ -93,18 +108,18 @@ export default class All_Questions extends Component {
                                         correctAnswer={correctAnswer}
                                         clickedAnswer={clickedAnswer}
                                     />
-                                    <button
-                                    className="NextStep"
-                                    disabled={
-                                        clickedAnswer && Object.keys(quiestions).length >= step
-                                        ? false : true
-                                    }
-                                    onClick={() => this.nextStep(step)}>Next</button>
+                                        <button
+                                        className="NextStep"
+                                        disabled={
+                                            clickedAnswer && Object.keys(quiestions).length >= step
+                                            ? false : true
+                                        }
+                                        onClick={() => this.nextStep(step)}>بعدی</button>
+
                                 </>) : (
                                     <div className="finalPage">
-                                        <h1>You have completed the quiz!</h1>
-                                        <p>Your score is: {score} of {Object.keys(quiestions).length}</p>
-                                        <p>Thank you!</p>
+                                        <h1>تمرین به پایان رسید</h1>
+                                        <p>نمره ی شما: {score} از {Object.keys(quiestions).length}</p>
                                     </div>
                                 )
                             }
