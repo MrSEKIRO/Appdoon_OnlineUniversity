@@ -147,7 +147,7 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 
-		[HttpPost]
+		[HttpGet]
 		public JsonResult RegisterRoadmap(int RoadmapId, int UserId)
 		{
 			// should use cookies for geting userId not api call
