@@ -21,12 +21,14 @@ using Appdoon.Application.Services.Linkers.Command.DeleteLinkerService;
 using Appdoon.Application.Services.Linkers.Command.UpdateLinkerService;
 using Appdoon.Application.Services.Linkers.Query.GetAllLinkersService;
 using Appdoon.Application.Services.Linkers.Query.GetIndividualLinkerService;
+using Appdoon.Application.Services.Progress.Command.DoneChildStepService;
 using Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Command.DeleteRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService;
 using Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService;
+using Appdoon.Application.Services.RoadMaps.Query.CheckUserRegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.FilterRoadmapsService;
 using Appdoon.Application.Services.RoadMaps.Query.GetUserRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.SearchRoadmapsService;
@@ -249,9 +251,11 @@ namespace OU_API
             // register roadmap
             services.AddScoped<IRegisterRoadmapService, RegisterRoadmapService>();
 
+            // check user has roadmap or not
+            services.AddScoped<ICheckUserRegisterRoadmapService,CheckUserRegisterRoadmapService>();
 
-
-
+            // done childstep service
+            services.AddScoped<IDoneChildStepService, DoneChildStepService>();
 
 
             // Injection for user validatore

@@ -93,14 +93,20 @@ namespace Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService
 
 				foreach(var step in roadmap.Steps)
 				{
-					var stepProgress = new StepProgress();
+					var stepProgress = new StepProgress()
+					{
+						IsRequired = step.IsRequired,
+					};
 					
 					user.StepProgresses.Add(stepProgress);
 					stepProgress.Step = step;
 					_context.SaveChanges();
 					foreach(var childStep in step.ChildSteps)
 					{
-						var childStepProgress = new ChildStepProgress();
+						var childStepProgress = new ChildStepProgress()
+						{
+							IsRequired = childStep.IsRequired,
+						};
 
 						user.ChildStepProgresses.Add(childStepProgress);
 						childStepProgress.ChildStep = childStep;
