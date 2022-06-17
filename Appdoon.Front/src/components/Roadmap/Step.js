@@ -3,7 +3,7 @@ import { event } from "jquery";
 import { useEffect, useState } from "react";
 
 
-const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep, userInfo, CreatorId}) => {
+const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep, userInfo, CreatorId, HasRoadmap}) => {
 
 
     const [doneState, changeState] = useState([{toggled: false}]);
@@ -51,7 +51,7 @@ const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep, userInfo
 
                 <span className="tag zoom">
                    {step.Title}
-                    {userInfo.Role && 
+                    {userInfo.Role && HasRoadmap && 
                     <button className={doneState && doneState.at(0).toggled ? "hi1" : "hi3"} onClick={() => toggleingactive(0)}>
                         {doneState && doneState.at(0).toggled &&
                             <svg xmlns="http://www.w3.org/2000/svg"  height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
@@ -84,7 +84,7 @@ const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep, userInfo
 
                                     <ul>
                                         <li>
-                                            {userInfo.Role && 
+                                            {userInfo.Role && HasRoadmap &&
                                             <button className={doneState && doneState[idx+1] && doneState[idx+1].toggled ? "hi2" : "hi4"} onClick={() => toggleingactive(idx+1)}>
                                             {doneState && doneState[idx+1] && doneState[idx+1].toggled &&
                                                 <svg xmlns="http://www.w3.org/2000/svg"  height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
@@ -97,7 +97,7 @@ const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep, userInfo
 
                                             
 
-                                            <a href="#!" marginTop="0" data-toggle="modal" data-target="#myModal" onClick={() => {setIdChildStep(childstep.Id)}}>{!userInfo.Role && `. `}{childstep.Title}</a>
+                                            <a href="#!" marginTop="0" data-toggle="modal" data-target="#myModal" onClick={() => {setIdChildStep(childstep.Id)}}>{(!userInfo.Role || !HasRoadmap) && `. `}{childstep.Title}</a>
                                         </li>
                                     </ul>
 

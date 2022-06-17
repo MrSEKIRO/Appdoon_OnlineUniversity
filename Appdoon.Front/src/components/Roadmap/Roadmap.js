@@ -2,7 +2,7 @@ import Step from "./Step";
 import React,{Component} from "react";
 import "../../Modular_Css/RoadmapStyle.css";
 import ReactDOM from 'react-dom';
-import { NavLink, useParams } from "react-router-dom";
+import { Navigate, NavLink, useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 import ChildStepModal from '../Modals/ChildStepModal';
@@ -25,6 +25,7 @@ const Roadmap = () => {
 
     const {id} = useParams();
     
+    const navigate = useNavigate();
     
     const [sensetive, setSensetive] = useState(false);
 
@@ -32,13 +33,46 @@ const Roadmap = () => {
     const [urlAuth, setUrlAuth] = useState(process.env.REACT_APP_API + "Authentication/InfoFromCookie")
     const {data : userInfo} = useFetch(urlAuth,sensetive);
 
-    const [urlRegisteredRoadmaps, setUrlRegisteredRoadmaps] = useState(process.env.REACT_APP_API + "Profile/RegisteredRoadMaps")
-    const {data : registeredRoadmaps} = useFetch(urlRegisteredRoadmaps,sensetive);
+    const [urlHasRoadmap, setUrlHasRoadmap] = useState(process.env.REACT_APP_API + "Roadmap/HasUserRoadmap")
+    const [query_string_has_roadmap, set_query_string_has_roadmap] = useState(`${urlHasRoadmap}?RoadmapId=${-1}&UserId=${-1}`)
+    const [HasRoadmap, setHasRoadmap] = useState(false);
+
+    const [urlRegisterRoadmap, setUrlRegisterRoadmap] = useState(process.env.REACT_APP_API + "Roadmap/RegisterRoadmap")
+    const [query_string_register_roadmap, set_query_string_register_roadmap] = useState(`${urlRegisterRoadmap}?RoadmapId=${-1}&UserId=${-1}`)
+    
+
 
 
     const [url, setUrl] = useState(process.env.REACT_APP_API + 'roadmap/Get/'+id);
 
     const {data : roadmap} = useFetch(url,sensetive);
+
+
+    useEffect (() => {
+        if(roadmap && userInfo){
+            set_query_string_has_roadmap(`${urlHasRoadmap}?RoadmapId=${roadmap.Id}&UserId=${userInfo.Id}`);
+            set_query_string_register_roadmap(`${urlRegisterRoadmap}?RoadmapId=${roadmap.Id}&UserId=${userInfo.Id}`);
+
+            fetch(`${urlHasRoadmap}?RoadmapId=${roadmap.Id}&UserId=${userInfo.Id}`, {credentials:"include"})
+            .then(res => {
+                if(!res.ok){
+                    throw Error('could not fetch!');
+                }
+                return res.json();
+            })
+            .then(data => {
+                setHasRoadmap(data.Data);
+            })
+            .catch(err => {
+                if(err.name === 'AbortError'){
+                    console.log('fetch aborted');
+                }
+                else{
+                    console.log(err.message);
+                }
+            })
+        }
+    },[roadmap,userInfo])
 
     const [urlStep, setUrlStep] = useState(process.env.REACT_APP_API + 'step/');
     const [urlChildStep, setUrlChildStep] = useState(process.env.REACT_APP_API + 'childstep/');
@@ -77,7 +111,33 @@ const Roadmap = () => {
 
 
     const HandleEnroll = () => {
+        if(!userInfo.Role){
+            navigate("/login");
+        }
+        else if(!HasRoadmap){
+            
+            fetch(query_string_register_roadmap, {credentials:"include"})
+            .then(res => {
+                if(!res.ok){
+                    throw Error('could not fetch!');
+                }
+                return res.json();
+            })
+            .then(data => {
+                
+            })
+            .catch(err => {
+                
+                if(err.name === 'AbortError'){
+                    console.log('fetch aborted');
+                }
+                else{
+                    
+                    console.log(err.message);
+                }
+            })
 
+        }
     }
     
     return(
@@ -126,16 +186,16 @@ const Roadmap = () => {
                     <p  dir="rtl">{roadmap.Description}</p>
                     {!userInfo.Role && <p>.برای استفاده از رودمپ‌ و امکانات آن ابتدا در سایت <NavLink to="/register">ثبت‌نام</NavLink> کنید</p>}
                     
-                    {userInfo.Role && !registeredRoadmaps.includes(roadmap.Id) && <p>.برای شروع یادگیری این رودمپ همین حالا روی <button onClick={() => HandleEnroll()} type="button" class="btn btn-primary" style={{paddingBottom:"13px", backgroundColor:"#651fff", borderRadius:"50%"}}>شروع</button> کلیک کن</p>}
+                    {userInfo.Role && !HasRoadmap && <p>.برای شروع یادگیری این رودمپ همین حالا روی <button onClick={() => HandleEnroll()} type="button" class="btn btn-primary" style={{paddingBottom:"13px", backgroundColor:"#651fff", borderRadius:"50%"}}>شروع</button> کلیک کن</p>}
 
-                    <span className="BigCircle" style={{marginBottom:"-40px"}}>
+                    <span className={`BigCircle ${HasRoadmap && "Active"}`} style={{marginBottom:"-40px"}}>
                         <p style={{marginTop:"12px"}}><button onClick={() => HandleEnroll()} type="button" style={{backgroundColor:"rgb(255, 255, 255, 0)"}}>شروع</button></p>
                     </span>
                     
                     <div class="timeline-container">
                         
                         {roadmap.Steps.map((step, idx) => (
-                            <Step setInputFields={setInputFields} step={step} key={idx} setIdChildStep={setIdChildStep} setIdStep={setIdStep} userInfo={userInfo} CreatorId = {roadmap.CreatorId}/>
+                            <Step setInputFields={setInputFields} step={step} key={idx} setIdChildStep={setIdChildStep} setIdStep={setIdStep} userInfo={userInfo} CreatorId = {roadmap.CreatorId} HasRoadmap={HasRoadmap}/>
                         ))}
                     </div>
 

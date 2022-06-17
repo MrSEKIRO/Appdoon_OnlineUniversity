@@ -63,7 +63,7 @@ function DeleteChildStepModal({id}) {
                     </div>
                     <div class="modal-footer">
                         <div style={{width:"100%"}}>
-                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_delete_childstep"></p>
+                            <p style={{fontSize : "14px", float:"right", marginTop:"8px", marginBottom:"-8px"}} id="result_message_exit"></p>
                             <button style={{float:"left"}} type="submit" form="exit" class="btn btn-danger">خروج</button>
                         </div>
                     </div>
