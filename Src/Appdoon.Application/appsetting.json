@@ -1,0 +1,7 @@
+{
+  "Application": {
+    "LoginPath": "/login",
+    "AppDomain": "http://localhost:5001/api/",
+    "ForgotPassword": "Authentication/ResetPassword?userId={0}&token={1}"
+  }
+}

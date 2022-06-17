@@ -1,7 +1,7 @@
 import React from "react";
 import "../../Modular_Css/ChildStepModal.css";
 
-function ChildStepModal({inputFields, setInputFields,childStep, setIdChildStep}) {
+function ChildStepModal({inputFields, setInputFields,childStep, setIdChildStep, userInfo, CreatorId}) {
 
   const clear = async() =>{
     document.getElementById("TitleChildStep").value = childStep.Title;
@@ -48,11 +48,12 @@ function ChildStepModal({inputFields, setInputFields,childStep, setIdChildStep})
               ))}
             </ol>
           </div>
-          <div class="modal-footer"  >
+          <div class="modal-footer">
             <div style={{width: "100%"}}>
               <div className="edit_delete">
-                  <button style={{marginLeft:"5px"}} href="#!" data-toggle="modal" data-target={"#editModalChildStep"+childStep.Id} variant="primary" class="btn btn-primary" onClick={() => {clear(); setIdChildStep(childStep.Id);}}><i class="far fa-edit"></i></button>
-                  <button href="#!" data-toggle="modal" data-target={"#deleteModalChildStep"+childStep.Id} variant="primary" class="btn btn-danger" onClick={() => {clear(); setIdChildStep(childStep.Id);}}><i class="far fa-trash-alt"></i></button>
+
+                  {userInfo.Role && (userInfo.Id == CreatorId || userInfo.Role == "Admin") && <button style={{marginLeft:"5px"}} href="#!" data-toggle="modal" data-target={"#editModalChildStep"+childStep.Id} variant="primary" class="btn btn-primary" onClick={() => {clear(); setIdChildStep(childStep.Id);}}><i class="far fa-edit"></i></button>}
+                  {userInfo.Role && (userInfo.Id == CreatorId || userInfo.Role == "Admin") && <button href="#!" data-toggle="modal" data-target={"#deleteModalChildStep"+childStep.Id} variant="primary" class="btn btn-danger" onClick={() => {clear(); setIdChildStep(childStep.Id);}}><i class="far fa-trash-alt"></i></button>}
                   <a style={{float:"left"}} target="_blank" href={childStep.Link}><button type="button" class="btn btn-success">بیشتر بدانید ...</button></a>
               </div>
             </div>

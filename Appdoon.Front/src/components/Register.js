@@ -1,8 +1,21 @@
 import React,{Component} from "react";
 import {NavLink} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { useEffect } from "react";
 //import{Button,Form} from 'react-bootstrap';
 
 const Register = () => {
+
+    let navigate = useNavigate();
+
+    const [cookies, setCookie] = useCookies(['Appdoon_Auth']);
+
+    useEffect(()=>{
+        if(cookies.Appdoon_Auth){
+            navigate('/profile')
+        }
+    },[cookies])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -25,6 +38,10 @@ const Register = () => {
             if(result.IsSuccess){
                 document.getElementById("register_error").style.color = "green";
                 document.getElementById("register_error").innerHTML = result.Message;
+                setTimeout(() => {
+                    navigate('/profile');
+                    window.location.reload();
+                }, 100);
             }
             else{
                 document.getElementById("register_error").style.color = "red";
@@ -42,10 +59,15 @@ const Register = () => {
 
 
     return(
+        !cookies.Appdoon_Auth &&
         <div>
             <div className="container">
                 <div className="row">
                     <div className="col-lg">
+                        <br />
+                        <br />
+                        <br />
+                        <br />
                         <section className="page-account-box">
                             <div className="col-lg-6 col-md-6 col-xs-12 mx-auto">
                                 <div className="ds-userlogin">

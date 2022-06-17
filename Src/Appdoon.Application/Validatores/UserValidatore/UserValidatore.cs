@@ -32,16 +32,16 @@ namespace Appdoon.Application.Validatores.UserValidatore
 				.Length(3, 20).WithMessage("نام کاربری باید حداقل 3 و حداکثر 20 کاراکتر باشد!")
 				.Must(username => CommonRegex.isValidUsername(username) == true).WithMessage("فرمت نام کاربری صحیح نیست!");
 
-			RuleFor(u => u.FirstName)
-				.NotEmpty().WithMessage("اسم خود را وارد کنید!")
-				.Length(3, 20).WithMessage("نام بایستی حداقل 3 و حداکثر 20 کاراکتر باشد!");
+			//RuleFor(u => u.FirstName)
+			//	.NotEmpty().WithMessage("اسم خود را وارد کنید!")
+			//	.Length(3, 20).WithMessage("نام بایستی حداقل 3 و حداکثر 20 کاراکتر باشد!");
 
-			RuleFor(u=>u.LastName)
-				.NotEmpty().WithMessage("نام خوانوداگی را وارد کنید!")
-				.Length(3, 20).WithMessage("نام خوانوادگی باید حداقل 3 و حداکثر 20 کاراکتر باشد!");
+			//RuleFor(u=>u.LastName)
+			//	.NotEmpty().WithMessage("نام خوانوداگی را وارد کنید!")
+			//	.Length(3, 20).WithMessage("نام خوانوادگی باید حداقل 3 و حداکثر 20 کاراکتر باشد!");
 
-			RuleFor(u => u.PhoneNumber)
-				.NotEmpty().WithMessage("شماره تلفن خود را وارد کنید!");
+			//RuleFor(u => u.PhoneNumber)
+			//	.NotEmpty().WithMessage("شماره تلفن خود را وارد کنید!");
 		}
 	}
 }

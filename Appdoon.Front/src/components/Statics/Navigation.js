@@ -1,23 +1,14 @@
 import React,{Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import { Navbar,Nav } from 'react-bootstrap';
+import { useCookies } from "react-cookie";
+import Exit from "../Modals/Exit";
 
 const Navigation = () => {
+    const [cookies, setCookie] = useCookies(['Appdoon_Auth']);
     return(
         <div>
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">جستجو</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {<Exit id={"ExitModal"}/>}
             <div class="nav-categories-overlay"></div>
             <div class="overlay-search-box"></div>
             <header class="header-main">
@@ -30,7 +21,7 @@ const Navigation = () => {
                                     <div class="col-lg-3 pr">
                                         <div class="header-logo row text-right">
                                             <a href="#">
-                                                <img src="../assets/images/logo.png" alt="دیجی اسمارت" width="200px"/>
+                                                <img src="../assets/images/logo.png" alt="Appdoon" width="200px"/>
                                             </a>
                                         </div>
                                     </div>
@@ -46,28 +37,53 @@ const Navigation = () => {
                                                     <span class="icon-account">
                                                         <img src="../assets/images/man.png" class="avator"/>
                                                     </span>
-                                                    <span class="title-account">حساب کاربری</span>
+                                                    {cookies.Appdoon_Auth && <NavLink to="/profile"><span class="title-account">حساب کاربری</span></NavLink>}
+                                                    {!cookies.Appdoon_Auth && <NavLink to="/login"><span class="title-account">ورود / ثبت‌نام</span></NavLink>}
+
                                                     <div class="dropdown-menu">
                                                         <ul class="account-uls mb-0">
+
                                                             <li class="account-item">
-                                                                <NavLink className="account-link" to="/profile">
-                                                                    پروفایل
-                                                                </NavLink>
+                                                                {cookies.Appdoon_Auth &&
+                                                                    <NavLink className="account-link" to="/UserRoadmaps">
+                                                                        رودمپ‌های من
+                                                                    </NavLink>
+                                                                }
+
+                                                            </li>
+
+                                                            <li class="account-item">
+                                                                {cookies.Appdoon_Auth &&
+                                                                    <NavLink className="account-link" to="/profile">
+                                                                        پروفایل
+                                                                    </NavLink>
+                                                                }
+
+                                                            </li>
+
+
+
+
+                                                            <li class="account-item">
+                                                                {!cookies.Appdoon_Auth &&
+                                                                    <NavLink className="account-link" to="/register">
+                                                                        ثبت نام
+                                                                    </NavLink>
+                                                                }
                                                             </li>
                                                             <li class="account-item">
-                                                                <NavLink className="account-link" to="/register">
-                                                                    ثبت نام
-                                                                </NavLink>
+                                                                {!cookies.Appdoon_Auth &&
+                                                                    <NavLink className="account-link" to="/login">
+                                                                        ورود
+                                                                    </NavLink>
+                                                                }
                                                             </li>
                                                             <li class="account-item">
-                                                                <NavLink className="account-link" to="/login">
-                                                                    ورود
-                                                                </NavLink>
-                                                            </li>
-                                                            <li class="account-item">
-                                                                <NavLink className="account-link" to="/">
-                                                                    خروج
-                                                                </NavLink>
+                                                                {cookies.Appdoon_Auth &&
+                                                                    <NavLink data-toggle="modal" data-target="#ExitModal" className="account-link" to="#!">
+                                                                        خروج
+                                                                    </NavLink>
+                                                                }
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -84,9 +100,11 @@ const Navigation = () => {
                                     <ul class="menu-ul mega-menu-level-one">
 
                                         <li id="nav-menu-item" class="menu-item">
+                                            
                                             <NavLink className="current-link-menu" to="/roadmaps">
                                                 رودمپ‌ها
                                             </NavLink>
+
                                         </li>
 
                                         <li id="nav-menu-item" class="menu-item">
@@ -96,25 +114,13 @@ const Navigation = () => {
                                         </li>
 
                                         <li id="nav-menu-item" class="menu-item">
+
+                                            
                                             <NavLink className="current-link-menu" to="/categories">
                                               دسته‌ها
                                             </NavLink>
-                                        </li>
-                                        
-                                        <li id="nav-menu-item" class="menu-item">
-                                            <NavLink className="current-link-menu" to="/TeacherProfile">
-                                              پروفایل معلم 
-                                            </NavLink>
-                                        </li>
-                                        <li id="nav-menu-item" class="menu-item">
-                                            <NavLink className="current-link-menu" to="/Profile">
-                                              پروفایل یوزر 
-                                            </NavLink>
-                                        </li>
-                                        <li id="nav-menu-item" class="menu-item">
-                                            <NavLink className="current-link-menu" to="/All_Questions">
-                                              صفحه تمرینات
-                                            </NavLink>
+
+
                                         </li>
                                     </ul>
                                 </div>

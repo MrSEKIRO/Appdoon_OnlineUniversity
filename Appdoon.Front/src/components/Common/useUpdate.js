@@ -3,6 +3,7 @@ const useUpdate = async(url,body,headers) => {
     let color = "";
     
     await fetch(url,{
+        credentials:"include",
         method:"PUT",
         headers:headers,
         body:body
@@ -10,7 +11,7 @@ const useUpdate = async(url,body,headers) => {
     .then(res=>res.json())
     .then((result)=>{
         if(result.IsSuccess){
-            
+
             message = result.Message;
             color = "green";
             
@@ -23,7 +24,7 @@ const useUpdate = async(url,body,headers) => {
         }
     })
     .catch(error => {
-        
+        alert(error.message);
         message = "خطایی رخ داده است!";
         color = "red";
     })
