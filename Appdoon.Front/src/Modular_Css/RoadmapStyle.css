@@ -279,6 +279,7 @@ h1 {
     width: 60px;
     height: 60px;
     z-index: 200;
+    box-shadow: 0 0 12px #651fff;
 }
 
 .Active{

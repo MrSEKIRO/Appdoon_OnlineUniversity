@@ -32,6 +32,9 @@ const Roadmap = () => {
     const [urlAuth, setUrlAuth] = useState(process.env.REACT_APP_API + "Authentication/InfoFromCookie")
     const {data : userInfo} = useFetch(urlAuth,sensetive);
 
+    const [urlRegisteredRoadmaps, setUrlRegisteredRoadmaps] = useState(process.env.REACT_APP_API + "Profile/RegisteredRoadMaps")
+    const {data : registeredRoadmaps} = useFetch(urlRegisteredRoadmaps,sensetive);
+
 
     const [url, setUrl] = useState(process.env.REACT_APP_API + 'roadmap/Get/'+id);
 
@@ -71,6 +74,11 @@ const Roadmap = () => {
 
     const [inputFields, setInputFields] = useState([]);
     const [editInputFields, setEditInputFields] = useState([]);
+
+
+    const HandleEnroll = () => {
+
+    }
     
     return(
 
@@ -118,9 +126,10 @@ const Roadmap = () => {
                     <p  dir="rtl">{roadmap.Description}</p>
                     {!userInfo.Role && <p>.برای استفاده از رودمپ‌ و امکانات آن ابتدا در سایت <NavLink to="/register">ثبت‌نام</NavLink> کنید</p>}
                     
+                    {userInfo.Role && !registeredRoadmaps.includes(roadmap.Id) && <p>.برای شروع یادگیری این رودمپ همین حالا روی <button onClick={() => HandleEnroll()} type="button" class="btn btn-primary" style={{paddingBottom:"13px", backgroundColor:"#651fff", borderRadius:"50%"}}>شروع</button> کلیک کن</p>}
 
                     <span className="BigCircle" style={{marginBottom:"-40px"}}>
-                        <p style={{marginTop:"12px"}}>شروع</p>
+                        <p style={{marginTop:"12px"}}><button onClick={() => HandleEnroll()} type="button" style={{backgroundColor:"rgb(255, 255, 255, 0)"}}>شروع</button></p>
                     </span>
                     
                     <div class="timeline-container">
