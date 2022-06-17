@@ -4,7 +4,9 @@ using Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService;
 using Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService;
+using Appdoon.Application.Services.RoadMaps.Query.CheckUserRegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.FilterRoadmapsService;
+using Appdoon.Application.Services.RoadMaps.Query.GetPreviewRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.GetUserRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.SearchRoadmapsService;
 using Appdoon.Domain.Entities.RoadMaps;
@@ -41,6 +43,8 @@ namespace Appdoon.WebApi.Controllers
 
 		private readonly IGetUserRoadmapService _getUserRoadmapService;
 		private readonly IRegisterRoadmapService _registerRoadmapService;
+		private readonly ICheckUserRegisterRoadmapService _checkUserRegisterRoadmapService;
+		private readonly IGetPreviewRoadmapService _getPreviewRoadmapService;
 		private readonly IWebHostEnvironment _env;
 
 
@@ -53,6 +57,8 @@ namespace Appdoon.WebApi.Controllers
 								  IFilterRoadmapsService filterRoadmapsService,
 								  IGetUserRoadmapService getUserRoadmapService,
 								  IRegisterRoadmapService registerRoadmapService,
+								  ICheckUserRegisterRoadmapService checkUserRegisterRoadmapService,
+								  IGetPreviewRoadmapService getPreviewRoadmapService,
 								  IWebHostEnvironment env)
 		{
 			_getAllRoadmapsService = getAllRoadmapsService;
@@ -64,6 +70,8 @@ namespace Appdoon.WebApi.Controllers
 			_filterRoadmapsService = filterRoadmapsService;
 			_getUserRoadmapService = getUserRoadmapService;
 			_registerRoadmapService = registerRoadmapService;
+			_checkUserRegisterRoadmapService = checkUserRegisterRoadmapService;
+			_getPreviewRoadmapService = getPreviewRoadmapService;
 			_env = env;
 		}
 
@@ -131,11 +139,27 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 
+		[HttpGet]
+		public JsonResult HasUserRoadmap(int RoadmapId, int UserId)
+		{
+			var result = _checkUserRegisterRoadmapService.Execute(RoadmapId, UserId);
+
+			return new JsonResult(result);
+		}
+
 		[HttpPost]
-		public JsonResult RegisterRoadmap(int RoadmapId,int UserId)
+		public JsonResult RegisterRoadmap(int RoadmapId, int UserId)
 		{
 			// should use cookies for geting userId not api call
 			var result = _registerRoadmapService.Execute(RoadmapId, UserId);
+
+			return new JsonResult(result);
+		}
+
+		[HttpGet]
+		public JsonResult GetPreviewRoadmap(int RoadmapId)
+		{
+			var result=_getPreviewRoadmapService.Execute(RoadmapId);
 
 			return new JsonResult(result);
 		}
