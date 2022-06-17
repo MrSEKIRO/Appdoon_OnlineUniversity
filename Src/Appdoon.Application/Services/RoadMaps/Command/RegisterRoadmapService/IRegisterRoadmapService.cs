@@ -41,44 +41,45 @@ namespace Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService
 				}
 
 				var roadmap = _context.RoadMaps
-					.Include(r => r.Steps)
-						.ThenInclude(s=>s.ChildSteps)
-					//{
-					//	Id = r.Id,
-					//	Title = r.Title,
-					//	Categories = r.Categories,
-					//	Description = r.Description,
-					//	ImageSrc = r.ImageSrc,
-					//	InsertTime = r.InsertTime,
-					//	UpdateTime = r.UpdateTime,
-					//	RemoveTime = r.RemoveTime,
-					//	IsRemoved = r.IsRemoved,
-					//	Stars = r.Stars,
-					//	Steps = r.Steps.Select(s => new Step()
-					//	{
-					//		Id = s.Id,
-					//		Title = s.Title,
-					//		Description = s.Description,
-					//		Link = s.Link,
-					//		InsertTime = s.InsertTime,
-					//		UpdateTime = s.UpdateTime,
-					//		RemoveTime = s.RemoveTime,
-					//		IsRemoved = s.IsRemoved,
-					//		IsRequired = s.IsRequired,
-					//		ChildSteps = s.ChildSteps.Select(cs => new ChildStep()
-					//		{
-					//			Id = cs.Id,
-					//			Title= cs.Title,
-					//			Description= cs.Description,
-					//			Link= cs.Link,
-					//			InsertTime = cs.InsertTime,
-					//			UpdateTime = cs.UpdateTime,
-					//			RemoveTime = cs.RemoveTime,
-					//			IsRemoved = cs.IsRemoved,
-					//			IsRequired = cs.IsRequired,
-					//		}).ToList(),
-					//	}).ToList(),
-					//})
+					//.Include(r => r.Steps)
+					//	.ThenInclude(s=>s.ChildSteps)
+					.Select(r=>new RoadMap()
+					{
+						Id = r.Id,
+							//Title = r.Title,
+							//Categories = r.Categories,
+							//Description = r.Description,
+							//ImageSrc = r.ImageSrc,
+							//InsertTime = r.InsertTime,
+							//UpdateTime = r.UpdateTime,
+							//RemoveTime = r.RemoveTime,
+							//IsRemoved = r.IsRemoved,
+							//Stars = r.Stars,
+							Steps = r.Steps.Select(s => new Step()
+							{
+								Id = s.Id,
+								//Title = s.Title,
+								//Description = s.Description,
+								//Link = s.Link,
+								//InsertTime = s.InsertTime,
+								//UpdateTime = s.UpdateTime,
+								//RemoveTime = s.RemoveTime,
+								//IsRemoved = s.IsRemoved,
+								IsRequired = s.IsRequired,
+								ChildSteps = s.ChildSteps.Select(cs => new ChildStep()
+								{
+									Id = cs.Id,
+									//Title = cs.Title,
+									//Description = cs.Description,
+									//Link = cs.Link,
+									//InsertTime = cs.InsertTime,
+									//UpdateTime = cs.UpdateTime,
+									//RemoveTime = cs.RemoveTime,
+									//IsRemoved = cs.IsRemoved,
+									IsRequired = cs.IsRequired,
+								}).ToList(),
+							}).ToList(),
+						})
 					.Where(r => r.Id == RoadmapId)
 					.FirstOrDefault();
 
