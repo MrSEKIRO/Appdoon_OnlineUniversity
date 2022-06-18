@@ -16,7 +16,7 @@ namespace Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService
 {
     public interface ICreateRoadmapService
     {
-        ResultDto Execute(HttpRequest httpRequest, string currentpath);
+        ResultDto Execute(HttpRequest httpRequest, string currentpath, int CreatorId);
     }
     public class CreateRoadMapIndividualService : ICreateRoadmapService
     {
@@ -28,7 +28,7 @@ namespace Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService
             _context = context;
             _environment = environment;
         }
-        public ResultDto Execute(HttpRequest httpRequest, string currentpath)
+        public ResultDto Execute(HttpRequest httpRequest, string currentpath, int CreatorId)
         {
             try
             {
@@ -105,6 +105,20 @@ namespace Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService
                 }
 
                 //////////////////////
+                ///
+
+                var creator = _context.Users
+                    .Where(c => c.Id == CreatorId)
+                    .FirstOrDefault();
+
+                if(creator == null)
+                {
+                    return new ResultDto()
+                    {
+                        IsSuccess = false,
+                        Message = "کاربر پیدا نشد!",
+                    };
+                }
 
 
                 var roadmap = new RoadMap()
@@ -113,6 +127,7 @@ namespace Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService
                     Description = Description.ToString(),
                     ImageSrc = imageSrc,
                     Categories = categories,
+                    Creatore = creator,
                 };
 
                 // validate inputes

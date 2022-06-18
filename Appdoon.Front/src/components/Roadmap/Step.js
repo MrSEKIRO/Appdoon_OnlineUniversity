@@ -3,27 +3,61 @@ import { event } from "jquery";
 import { useEffect, useState } from "react";
 
 
-const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep, userInfo, CreatorId, HasRoadmap}) => {
+const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep, userInfo, CreatorId, HasRoadmap, Status, sensetive, setSensetive}) => {
 
 
     const [doneState, changeState] = useState([{toggled: false}]);
 
+    const [urlDoneChildStep, setUrlDoneChildStep] = useState(process.env.REACT_APP_API + 'roadmap/DoneChildStep')
 
-    function toggleingactive (index){
-        const arrCopy = doneState;
+    async function DoneChildStep (ChildStepId){
+        await fetch(`${urlDoneChildStep}?ChildStepId=${ChildStepId}`, {method:"POST", credentials:"include"})
+        .then(res => {
+            if(!res.ok){
+                throw Error('could not fetch!');
+            }
+            return res.json();
+        })
+        .then(data => {
+            
+        })
+        .catch(err => {
+            
+            if(err.name === 'AbortError'){
+                console.log('fetch aborted');
+            }
+            else{
+                
+                console.log(err.message);
+            }
+        })
 
-        arrCopy[index].toggled = !arrCopy[index].toggled;
-        console.log(doneState);
-        changeState([...doneState , arrCopy]);
-        //changeState(arrCopy);
+        setSensetive(!sensetive);
+
+
     }
 
     useEffect(() => {
-        changeState([{toggled: false}]);
-        for(var i = 0; i < step.ChildSteps.length; i++){
-            changeState(doneState => [...doneState, {toggled: false}])
+        if(Status == 0){
+            changeState([{toggled: false}]);
         }
-    },[step])
+        else if(Status == -1){
+            changeState([{toggled: false}]);
+        }
+        else if(Status == 1){
+            changeState([{toggled: true}]);
+        }
+        if(HasRoadmap){
+            for(var i = 0; i < step.ChildSteps.length; i++){
+                if(step.ChildSteps[i].ChildStepProgresses[0].IsDone){
+                    changeState(doneState => [...doneState, {toggled: true}])
+                }
+                else{
+                    changeState(doneState => [...doneState, {toggled: false}])
+                }
+            }
+        }
+    },[step,HasRoadmap])
 
 
 
@@ -47,17 +81,17 @@ const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep, userInfo
     return(
         
         <div className="timeline-item">
-            <div className="timeline-item-content">
+            <div className={`timeline-item-content ${Status == -1 && HasRoadmap && "NotActive"}`}>
 
-                <span className="tag zoom">
+                <span className="tag">
                    {step.Title}
-                    {userInfo.Role && HasRoadmap && 
-                    <button className={doneState && doneState.at(0).toggled ? "hi1" : "hi3"} onClick={() => toggleingactive(0)}>
+                    {userInfo.Role && HasRoadmap &&
+                    <button className={doneState && !doneState.at(0).toggled ? "hi1" : "hi3"}>
                         {doneState && doneState.at(0).toggled &&
-                            <svg xmlns="http://www.w3.org/2000/svg"  height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
                         }
                         {doneState && !doneState.at(0).toggled &&
-                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
+                            <br/>
                         }
                     </button>
                     }
@@ -85,12 +119,12 @@ const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep, userInfo
                                     <ul>
                                         <li>
                                             {userInfo.Role && HasRoadmap &&
-                                            <button className={doneState && doneState[idx+1] && doneState[idx+1].toggled ? "hi2" : "hi4"} onClick={() => toggleingactive(idx+1)}>
+                                            <button className={doneState && doneState[idx+1] && doneState[idx+1].toggled ? "hi2" : "hi4"} onClick={(Status == 0 || Status == 1) && (() => DoneChildStep(childstep.Id))}>
                                             {doneState && doneState[idx+1] && doneState[idx+1].toggled &&
                                                 <svg xmlns="http://www.w3.org/2000/svg"  height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
                                             }
                                             {doneState && doneState[idx+1] && !doneState[idx+1].toggled &&
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 24 24" width="20px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z"/></svg>
+                                                <br/>
                                             }
                                             </button>
                                             }
@@ -131,7 +165,7 @@ const Step = ({ step , setInputFields ,key , setIdChildStep, setIdStep, userInfo
                     </div>
                 }
                 
-                <span className="circle" />
+                <span className={`circle ${(Status == 0 || Status == 1) && HasRoadmap && "Active"}`} />
                 
             </div>
         </div>

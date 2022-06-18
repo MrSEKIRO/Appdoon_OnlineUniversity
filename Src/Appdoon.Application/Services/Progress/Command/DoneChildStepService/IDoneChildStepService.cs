@@ -46,19 +46,33 @@ namespace Appdoon.Application.Services.Progress.Command.DoneChildStepService
 
 				// check is step is completed or not
 				var stepId = _context.ChildSteps
-					.Include(cs => cs.StepId)
+					//.Include(cs => cs.StepId)
+					.Select(cs => new ChildStep()
+					{
+						Id = cs.Id,
+						StepId = cs.StepId
+					})
 					.Where(cs => cs.Id == ChildStepId)
 					.FirstOrDefault()
 					.StepId;
 
 				var childStepIdsOfStep = _context.ChildSteps
-					.Include(cs => cs.StepId)
+					//.Include(cs => cs.StepId)
+					.Select(cs => new ChildStep()
+					{
+						Id = cs.Id,
+						StepId = cs.StepId
+					})
 					.Where(cs => cs.StepId == stepId)
 					.Select(cs => cs.Id)
 					.ToList();
 
+
+
 				bool isStepCompleted = _context.ChildStepProgresses
-					.Where(csp => childStepIdsOfStep.Contains(csp.Id))
+					.Include(csp => csp.ChildStep)
+					.Include(csp => csp.User)
+					.Where(csp => childStepIdsOfStep.Contains(csp.ChildStepId) && csp.UserId == UserId)
 					.Select(csp => new { IsDone = csp.IsDone, IsRequired = csp.IsRequired })
 					.All(csp => csp.IsDone == true || csp.IsRequired == false);
 
