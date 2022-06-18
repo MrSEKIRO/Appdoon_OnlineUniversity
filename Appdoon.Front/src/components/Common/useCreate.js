@@ -3,6 +3,7 @@ const useCreate = async(url,body,headers) => {
     let color = "";
     
     await fetch(url,{
+        credentials:"include",
         method:"POST",
         headers:headers,
         body:body

@@ -98,6 +98,10 @@ h1 {
     text-align: right;
 }
 
+.NotActive{
+    opacity: 0.5;
+}
+
 .hi1
 {
     border: #651fff;
@@ -266,6 +270,9 @@ h1 {
     width: 20px;
     height: 20px;
     z-index: 200;
+}
+.timeline-item-content .Active {
+    background-color: rgb(165, 123, 255);
 }
 
 

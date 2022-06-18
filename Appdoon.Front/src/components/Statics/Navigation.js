@@ -3,9 +3,16 @@ import {NavLink} from 'react-router-dom';
 import { Navbar,Nav } from 'react-bootstrap';
 import { useCookies } from "react-cookie";
 import Exit from "../Modals/Exit";
+import { useState } from 'react';
+import useFetch from '../Common/useFetch';
 
 const Navigation = () => {
     const [cookies, setCookie] = useCookies(['Appdoon_Auth']);
+    const [sensetive, setSensetive] = useState(false);
+    //User
+    const [urlAuth, setUrlAuth] = useState(process.env.REACT_APP_API + "Authentication/InfoFromCookie")
+    const {data : userInfo} = useFetch(urlAuth,sensetive);
+
     return(
         <div>
             {<Exit id={"ExitModal"}/>}
@@ -115,10 +122,11 @@ const Navigation = () => {
 
                                         <li id="nav-menu-item" class="menu-item">
 
-                                            
-                                            <NavLink className="current-link-menu" to="/categories">
-                                              دسته‌ها
-                                            </NavLink>
+                                            {userInfo.Role == "Admin" && 
+                                                <NavLink className="current-link-menu" to="/categories">
+                                                دسته‌ها
+                                                </NavLink>
+                                            }
 
 
                                         </li>
