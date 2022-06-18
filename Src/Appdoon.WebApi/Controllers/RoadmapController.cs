@@ -1,10 +1,13 @@
-﻿using Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService;
+﻿using Appdoon.Application.Services.Progress.Command.DoneChildStepService;
+using Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Command.DeleteRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService;
 using Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService;
+using Appdoon.Application.Services.RoadMaps.Query.CheckUserRegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.FilterRoadmapsService;
+using Appdoon.Application.Services.RoadMaps.Query.GetPreviewRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.GetUserRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.SearchRoadmapsService;
 using Appdoon.Domain.Entities.RoadMaps;
@@ -39,8 +42,15 @@ namespace Appdoon.WebApi.Controllers
 		//filter
 		private readonly IFilterRoadmapsService _filterRoadmapsService;
 
+		
+
 		private readonly IGetUserRoadmapService _getUserRoadmapService;
 		private readonly IRegisterRoadmapService _registerRoadmapService;
+		private readonly ICheckUserRegisterRoadmapService _checkUserRegisterRoadmapService;
+		private readonly IGetPreviewRoadmapService _getPreviewRoadmapService;
+
+		private readonly IDoneChildStepService _doneChildStepService;
+
 		private readonly IWebHostEnvironment _env;
 
 
@@ -53,6 +63,9 @@ namespace Appdoon.WebApi.Controllers
 								  IFilterRoadmapsService filterRoadmapsService,
 								  IGetUserRoadmapService getUserRoadmapService,
 								  IRegisterRoadmapService registerRoadmapService,
+								  ICheckUserRegisterRoadmapService checkUserRegisterRoadmapService,
+								  IGetPreviewRoadmapService getPreviewRoadmapService,
+								  IDoneChildStepService doneChildStepService,
 								  IWebHostEnvironment env)
 		{
 			_getAllRoadmapsService = getAllRoadmapsService;
@@ -64,6 +77,9 @@ namespace Appdoon.WebApi.Controllers
 			_filterRoadmapsService = filterRoadmapsService;
 			_getUserRoadmapService = getUserRoadmapService;
 			_registerRoadmapService = registerRoadmapService;
+			_checkUserRegisterRoadmapService = checkUserRegisterRoadmapService;
+			_getPreviewRoadmapService = getPreviewRoadmapService;
+			_doneChildStepService = doneChildStepService;
 			_env = env;
 		}
 
@@ -91,11 +107,21 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 
+		[HttpGet("{RoadmapId}")]
+		public JsonResult UserRoadmap(int RoadmapId)
+		{
+			int UserId = GetIdFromCookie();
+			var result = _getUserRoadmapService.Execute(RoadmapId, UserId);
+
+			return new JsonResult(result);
+		}
+
 		// POST api/<RoadmapController>
 		[HttpPost]
 		public JsonResult Post()
 		{
-			var result = _createRoadmapService.Execute(Request, _env.ContentRootPath);
+			int CreatorId = GetIdFromCookie();
+			var result = _createRoadmapService.Execute(Request, _env.ContentRootPath, CreatorId);
 			return new JsonResult(result);
 		}
 
@@ -131,13 +157,68 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 
+		[HttpGet]
+		public JsonResult HasUserRoadmap(int RoadmapId)
+		{
+
+			int UserId = GetIdFromCookie();
+			var result = _checkUserRegisterRoadmapService.Execute(RoadmapId, UserId);
+
+			return new JsonResult(result);
+		}
+
 		[HttpPost]
-		public JsonResult RegisterRoadmap(int RoadmapId,int UserId)
+		public JsonResult RegisterRoadmap(int RoadmapId)
 		{
 			// should use cookies for geting userId not api call
+			int UserId = GetIdFromCookie();
 			var result = _registerRoadmapService.Execute(RoadmapId, UserId);
 
 			return new JsonResult(result);
+		}
+
+		[HttpGet]
+		public JsonResult GetPreviewRoadmap(int RoadmapId)
+		{
+			var result=_getPreviewRoadmapService.Execute(RoadmapId);
+
+			return new JsonResult(result);
+		}
+
+		[HttpPost]
+		public JsonResult DoneChildStep(int ChildStepId)
+		{
+			int UserId = GetIdFromCookie();
+			var result = _doneChildStepService.Execute(ChildStepId, UserId);
+
+			return new JsonResult(result);
+		}
+
+
+		private int GetIdFromCookie()
+		{
+			try
+			{
+				if (HttpContext.User.Identities.FirstOrDefault().Claims.FirstOrDefault() == null)
+				{
+					return -1;
+				}
+
+				var IdStr = HttpContext.User.Identities
+					.FirstOrDefault()
+					.Claims
+					//.Where(c => c.Type == "NameIdentifier")
+					.FirstOrDefault()
+					.Value;
+
+				int Id = int.Parse(IdStr);
+				return Id;
+			}
+			catch (Exception e)
+			{
+				return -1;
+			}
+
 		}
 	}
 }

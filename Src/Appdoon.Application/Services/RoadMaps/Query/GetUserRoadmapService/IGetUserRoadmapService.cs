@@ -35,6 +35,7 @@ namespace Appdoon.Application.Services.RoadMaps.Query.GetUserRoadmapService
 					.SignedRoadMaps
 					.Any(srp => srp.Id == RoadmapId);
 
+				/*
 				if(hasRoadmap == false)
 				{
 					return new ResultDto<IndividualRoadMapDto>()
@@ -44,6 +45,7 @@ namespace Appdoon.Application.Services.RoadMaps.Query.GetUserRoadmapService
 						Data = new(),
 					};
 				}
+				*/
 
 
 				var roadmap = _context.RoadMaps
