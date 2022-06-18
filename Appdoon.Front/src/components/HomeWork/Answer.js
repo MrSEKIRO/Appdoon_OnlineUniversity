@@ -29,13 +29,7 @@ const Answer = (props) => {
             <ul disabled={props.clickedAnswer ? true : false} className="Answers">
                 {answers}
             </ul>
-            <div>
-                {
-                    props.correctAnswer ?
-                    'Correct Answer!' : 
-                    props.clickedAnswer ? 'Incorrect Answer!' : ''
-                }
-            </div>
+
         </>
     );
 

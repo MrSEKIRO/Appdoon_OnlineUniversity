@@ -5,8 +5,10 @@
     color:#fff;
     padding: 10px 30px;
     border: 0;
-    border-radius: 3px;
+    border-radius: 10px;
     cursor: pointer;
+    margin-left: 53%;
+    margin-right: 47%;
 }
 .NextStep:hover{
     background-color: green;
@@ -15,6 +17,12 @@
     display: none;
 }
 
+.PreviousStep:hover{
+    background-color: rgb(105, 38, 38);
+}
+.PreviousStep[disabled]{
+    display: none;
+}
 .finalPage{
     text-align: center;
 }
@@ -37,16 +45,16 @@
 }
 .Answers li{
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 15px;
     background-color: #651fff;
     width: 30%;
-    margin-right:0px;
+    margin-right:auto;
+    margin-left: auto;
     margin-top: 5px;
     margin-bottom: 5px;
-    text-align: right;
+    text-align: center;
+    font-weight: bold;
     color :rgb(244, 237, 237);
-    border-left: 8px solid #191649;
-
 }
 .Answers li:hover{
     cursor: pointer;
@@ -67,16 +75,33 @@
     pointer-events: none;
     opacity: 0.7;
 }
-.container2
+
+.pp
 {
-    width: 50%;
-}
-.Content h6
-{
-    font-family: 'Lato', sans-serif;
     margin-top: 10px;
-    margin-right: 25px;
+    margin-right: 20px;
     font-size: 20px;
-    text-align: right;
-    color: #17063d;
+    text-align: center;
+    color: #000000;
+    font-weight: bolder;
+}
+.questionBox
+{
+    background-color: #a2a2a272;
+    border-radius: 17px;
+
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 25px;
+    
+    width: auto;
+    height: auto;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.number
+{
+    font-size: large;
+    text-align: center;
 }
