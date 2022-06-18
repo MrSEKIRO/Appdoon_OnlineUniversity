@@ -120,8 +120,6 @@ const Navigation = () => {
                                             </NavLink>
                                         </li>
 
-                                        <li id="nav-menu-item" class="menu-item">
-
 
                                         <li id="nav-menu-item" class="menu-item">
                                             <NavLink className="current-link-menu" to="/All_Questions">
@@ -133,13 +131,16 @@ const Navigation = () => {
                                               صفحه ساخت تمرینات
                                             </NavLink>
                                         </li>
-                                                      <li id="nav-menu-item" class="menu-item">
-                                                                                                 {userInfo.Role == "Admin" && 
+                                        
+                                        <li id="nav-menu-item" class="menu-item">
+                                            {userInfo.Role == "Admin" && 
                                                 <NavLink className="current-link-menu" to="/categories">
                                                 دسته‌ها
                                                 </NavLink>
                                             }
-                                                     </li>
+                                        </li>
+
+                                        
                                     </ul>
                                 </div>
                             </div>
