@@ -40,49 +40,72 @@ namespace Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService
                     };
                 }
 
-                var roadmap = _context.RoadMaps
-                  .Include(r => r.Steps)
-                    .ThenInclude(s => s.ChildSteps)
-                  //{
-                  //  Id = r.Id,
-                  //  Title = r.Title,
-                  //  Categories = r.Categories,
-                  //  Description = r.Description,
-                  //  ImageSrc = r.ImageSrc,
-                  //  InsertTime = r.InsertTime,
-                  //  UpdateTime = r.UpdateTime,
-                  //  RemoveTime = r.RemoveTime,
-                  //  IsRemoved = r.IsRemoved,
-                  //  Stars = r.Stars,
-                  //  Steps = r.Steps.Select(s => new Step()
-                  //  {
-                  //    Id = s.Id,
-                  //    Title = s.Title,
-                  //    Description = s.Description,
-                  //    Link = s.Link,
-                  //    InsertTime = s.InsertTime,
-                  //    UpdateTime = s.UpdateTime,
-                  //    RemoveTime = s.RemoveTime,
-                  //    IsRemoved = s.IsRemoved,
-                  //    IsRequired = s.IsRequired,
-                  //    ChildSteps = s.ChildSteps.Select(cs => new ChildStep()
-                  //    {
-                  //      Id = cs.Id,
-                  //      Title= cs.Title,
-                  //      Description= cs.Description,
-                  //      Link= cs.Link,
-                  //      InsertTime = cs.InsertTime,
-                  //      UpdateTime = cs.UpdateTime,
-                  //      RemoveTime = cs.RemoveTime,
-                  //      IsRemoved = cs.IsRemoved,
-                  //      IsRequired = cs.IsRequired,
-                  //    }).ToList(),
-                  //  }).ToList(),
-                  //})
-                  .Where(r => r.Id == RoadmapId)
-                  .FirstOrDefault();
+                #region UnEficient
+                //var roadmap = _context.RoadMaps
 
-                if (roadmap == null)
+                //  .Include(r => r.Steps)
+                //    .ThenInclude(s => s.ChildSteps)
+
+                //{
+                //  Id = r.Id,
+                //  Title = r.Title,
+                //  Categories = r.Categories,
+                //  Description = r.Description,
+                //  ImageSrc = r.ImageSrc,
+                //  InsertTime = r.InsertTime,
+                //  UpdateTime = r.UpdateTime,
+                //  RemoveTime = r.RemoveTime,
+                //  IsRemoved = r.IsRemoved,
+                //  Stars = r.Stars,
+                //  Steps = r.Steps.Select(s => new Step()
+                //  {
+                //    Id = s.Id,
+                //    Title = s.Title,
+                //    Description = s.Description,
+                //    Link = s.Link,
+                //    InsertTime = s.InsertTime,
+                //    UpdateTime = s.UpdateTime,
+                //    RemoveTime = s.RemoveTime,
+                //    IsRemoved = s.IsRemoved,
+                //    IsRequired = s.IsRequired,
+                //    ChildSteps = s.ChildSteps.Select(cs => new ChildStep()
+                //    {
+                //      Id = cs.Id,
+                //      Title= cs.Title,
+                //      Description= cs.Description,
+                //      Link= cs.Link,
+                //      InsertTime = cs.InsertTime,
+                //      UpdateTime = cs.UpdateTime,
+                //      RemoveTime = cs.RemoveTime,
+                //      IsRemoved = cs.IsRemoved,
+                //      IsRequired = cs.IsRequired,
+                //    }).ToList(),
+                //  }).ToList(),
+                //})
+
+                //.Where(r => r.Id == RoadmapId)
+                //.FirstOrDefault();
+                #endregion
+
+                var roadmap = _context.RoadMaps
+                    .Select(r => new RoadMap()
+                    {
+                        Id = r.Id,
+						Steps = r.Steps.Select(s => new Step()
+                        {
+                            Id = s.Id,
+                            IsRequired = s.IsRequired,
+                            ChildSteps = s.ChildSteps.Select(cs => new ChildStep()
+                            {
+                                Id = cs.Id,
+                                IsRequired = cs.IsRequired,
+                            }).ToList(),
+                        }).ToList(),
+                    })
+                    .Where(r => r.Id == RoadmapId)
+                    .FirstOrDefault();
+
+				if(roadmap == null)
                 {
                     return new ResultDto()
                     {
@@ -91,27 +114,53 @@ namespace Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService
                     };
                 }
 
+                bool hasSignedBefore = _context.Users
+                    .Include(u => u.SignedRoadMaps)
+                    .Where(u => u.Id == UserId)
+                    .First()
+                    .SignedRoadMaps
+                    .Any(sr => sr.Id == RoadmapId);
+
+				if(hasSignedBefore == true)
+				{
+                    return new ResultDto()
+                    {
+                        IsSuccess = false,
+                        Message = "کاربر قبلن در این رودمپ ثبت نام کرده است!",
+                    };
+				}
+
+                _context.Entry(roadmap).State = EntityState.Unchanged;
+
+                user.SignedRoadMaps.Add(roadmap);
+
                 foreach (var step in roadmap.Steps)
                 {
-                    var stepProgress = new StepProgress();
+                    _context.Entry(step).State = EntityState.Unchanged;
+
+                    var stepProgress = new StepProgress()
+                    {
+                        IsRequired = step.IsRequired,
+                    };
 
                     user.StepProgresses.Add(stepProgress);
                     stepProgress.Step = step;
-                    _context.SaveChanges();
+
                     foreach (var childStep in step.ChildSteps)
                     {
-                        var childStepProgress = new ChildStepProgress();
+                        _context.Entry(childStep).State = EntityState.Unchanged;
+
+                        var childStepProgress = new ChildStepProgress()
+                        {
+                            IsRequired = childStep.IsRequired,
+                        };
+
 
                         user.ChildStepProgresses.Add(childStepProgress);
                         childStepProgress.ChildStep = childStep;
-                        _context.SaveChanges();
-
                     }
                 }
 
-                user.SignedRoadMaps ??= new List<RoadMap>();
-
-                user.SignedRoadMaps.Add(roadmap);
                 _context.SaveChanges();
 
                 return new ResultDto()

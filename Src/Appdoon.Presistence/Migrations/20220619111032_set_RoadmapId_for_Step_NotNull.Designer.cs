@@ -4,14 +4,16 @@ using Appdoon.Presistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Appdoon.Presistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220619111032_set_RoadmapId_for_Step_NotNull")]
+    partial class set_RoadmapId_for_Step_NotNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,7 +157,7 @@ namespace Appdoon.Presistence.Migrations
                     b.Property<DateTime?>("RemoveTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StepId")
+                    b.Property<int?>("StepId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -355,21 +357,21 @@ namespace Appdoon.Presistence.Migrations
                         new
                         {
                             Id = 1,
-                            InsertTime = new DateTime(2022, 6, 19, 15, 45, 22, 249, DateTimeKind.Local).AddTicks(4104),
+                            InsertTime = new DateTime(2022, 6, 19, 15, 40, 30, 856, DateTimeKind.Local).AddTicks(9210),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            InsertTime = new DateTime(2022, 6, 19, 15, 45, 22, 259, DateTimeKind.Local).AddTicks(7989),
+                            InsertTime = new DateTime(2022, 6, 19, 15, 40, 30, 864, DateTimeKind.Local).AddTicks(7286),
                             IsRemoved = false,
                             Name = "Teacher"
                         },
                         new
                         {
                             Id = 3,
-                            InsertTime = new DateTime(2022, 6, 19, 15, 45, 22, 259, DateTimeKind.Local).AddTicks(8394),
+                            InsertTime = new DateTime(2022, 6, 19, 15, 40, 30, 864, DateTimeKind.Local).AddTicks(7689),
                             IsRemoved = false,
                             Name = "User"
                         });
@@ -537,9 +539,7 @@ namespace Appdoon.Presistence.Migrations
                 {
                     b.HasOne("Appdoon.Domain.Entities.RoadMaps.Step", "Step")
                         .WithMany("ChildSteps")
-                        .HasForeignKey("StepId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StepId");
 
                     b.Navigation("Step");
                 });

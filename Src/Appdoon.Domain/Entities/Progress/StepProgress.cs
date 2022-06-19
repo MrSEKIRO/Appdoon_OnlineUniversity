@@ -14,10 +14,10 @@ namespace Appdoon.Domain.Entities.Progress
 		public bool IsDone { get; set; } = false;
 		public bool IsRequired { get; set; } = true;
 
-		public Step Step { get; set; } = new();
+		public Step? Step { get; set; }
 		public int StepId { get; set; }
 
-		public User User { get; set; }
+		public User? User { get; set; }
 		public int UserId { get; set; }
 
 	}
