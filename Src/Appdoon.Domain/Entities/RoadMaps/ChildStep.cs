@@ -12,9 +12,9 @@ namespace Appdoon.Domain.Entities.RoadMaps
 		public bool IsRequired { get; set; } = true;
 
 		public Step? Step { get; set; }
-		public int? StepId { get; set; }
+		public int StepId { get; set; }
 
-		public List<Linker>? Linkers { get; set; }
+		public List<Linker> Linkers { get; set; } = new();
 
 		public List<ChildStepProgress> ChildStepProgresses { get; set; } = new();
 	}
