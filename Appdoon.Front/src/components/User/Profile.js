@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Profile = () => {
+    
     const [sensetive, setSensetive] = useState(false);
     const [url, setUrl] = useState(process.env.REACT_APP_API + 'profile/');
 
@@ -90,7 +91,10 @@ const Profile = () => {
                                                     <div class="title">نام کاربری  :</div>
                                                     <div class="value">{info.Username || "_____"}</div>
                                                 </td>
-                                                <td></td>
+                                                <td class="w-50">
+                                                    <div class="title">نقش  :</div>
+                                                    <div class="value">{info.Role || "_____"}</div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>

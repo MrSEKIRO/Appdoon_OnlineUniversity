@@ -22,6 +22,7 @@ namespace Appdoon.Application.Services.Users.Query.GetUserService
 		public string LastName;
 		public string Email;
 		public string PhoneNumber;
+		public string Role;
 	}
 
 	public class GetUserService : IGetUserService
@@ -31,6 +32,7 @@ namespace Appdoon.Application.Services.Users.Query.GetUserService
 		{
 			_context = context;
 		}
+
 		public ResultDto<GetUserDto> Execute(int id)
 		{
 			try
@@ -44,6 +46,7 @@ namespace Appdoon.Application.Services.Users.Query.GetUserService
 					LastName = u.LastName,
 					Email = u.Email,
 					PhoneNumber = u.PhoneNumber,
+					Role = RoleToPersian(u.Roles.FirstOrDefault().Name)
 				}).FirstOrDefault();
 
 				// I doubt on it
@@ -74,6 +77,22 @@ namespace Appdoon.Application.Services.Users.Query.GetUserService
 				};
 			}
 		}
+
+		static string RoleToPersian(string role)
+        {
+            switch (role)
+            {
+				case "User":
+					return "دانش آموز";
+				case "Teacher":
+					return "معلم";
+				case "Admin":
+					return "مدیر سایت";
+				default:
+					return "دانش آموز";
+			}
+        }
+
 	}
 
 }
