@@ -2,6 +2,7 @@
 using Appdoon.Domain.Entities.RoadMaps;
 using Appdoon.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,5 +29,7 @@ namespace Appdoon.Application.Interfaces
 
 		Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
 		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
+		EntityEntry Entry(object entity);
 	}
 }
