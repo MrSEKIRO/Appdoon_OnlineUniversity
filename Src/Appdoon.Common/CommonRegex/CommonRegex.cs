@@ -33,7 +33,7 @@ namespace Appdoon.Common.CommonRegex
         public static bool isValidUsername(string username)
         {
 
-            string strRegex = @"(^[a-z A-Z]{3,32}$)";
+            string strRegex = @"(^[a-z A-Z 0-9]{3,32}$)";
             Regex re = new Regex(strRegex, RegexOptions.IgnoreCase);
             if (re.IsMatch(username))
                 return (true);

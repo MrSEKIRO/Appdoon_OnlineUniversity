@@ -3,6 +3,8 @@ import {NavLink} from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useEffect } from "react";
+import Select from 'react-select';
+import { useState } from "react";
 //import{Button,Form} from 'react-bootstrap';
 
 const Register = () => {
@@ -17,10 +19,20 @@ const Register = () => {
         }
     },[cookies])
 
+
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        let role = "User";
+        if(selectedOption){
+            role = selectedOption.value;
+        }
+
+        //console.log(roles);
+
         fetch(process.env.REACT_APP_API+'authentication/register',{
             method:"POST",
+            credential:"include",
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json'
@@ -28,13 +40,15 @@ const Register = () => {
             body:JSON.stringify({
                 Email:event.target.Email.value,
                 Username:event.target.Username.value,
-                Password:event.target.Password.value
-
+                Password:event.target.Password.value,
+                Role:role
 
             })
         })
         .then(res=>res.json())
         .then((result)=>{
+            alert("dkjsvhs")
+            console.log(result)
             if(result.IsSuccess){
                 document.getElementById("register_error").style.color = "green";
                 document.getElementById("register_error").innerHTML = result.Message;
@@ -52,11 +66,36 @@ const Register = () => {
         },
         (error)=>{
             document.getElementById("register_error").style.color = "red";
-            document.getElementById("register_error").innerHTML = "خطایی رخ داده است!";
+            document.getElementById("register_error").innerHTML = error.message;
         })
     }
 
+    const customStyleForTestsList = {
 
+        container:(provided) => ({
+            ...provided,
+            minWidth:"300px",
+        }),
+
+        menuList:(provided) => ({
+            ...provided,
+            maxHeight:"200px",
+        }),
+        menu:(provided) => ({
+            ...provided,
+            zIndex: "9999",
+        }),
+        
+    };
+    const [options, setOptions] = useState([
+        {value: "User", label:"دانش آموز"},
+        {value: "Teacher", label:"معلم"}
+    ]);
+    const [selectedOption,setSelectedOption] = useState({value: "User", label:"دانش آموز"});
+
+    const handleChange = (selectedOption) => {
+        setSelectedOption(selectedOption);
+    };
 
     return(
         !cookies.Appdoon_Auth &&
@@ -110,6 +149,19 @@ const Register = () => {
                                                     <div className="form-account-title">
                                                         <label for="password">رمز عبور</label>
                                                         <input dir="auto" type="password" className="password-input" name="Password"/>
+                                                    </div>
+
+                                                    <div className="form-account-title">
+                                                        <label for="role">نقش</label>
+                                                        <Select 
+                                                            className="reactselect"
+                                                            menuPlacement="top"
+                                                            placeholder="نقش خود را انتخاب کنید ..."
+                                                            value={selectedOption}
+                                                            onChange={handleChange}
+                                                            options={options}
+                                                            styles={customStyleForTestsList}
+                                                        />
                                                     </div>
 
 
