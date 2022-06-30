@@ -18,7 +18,7 @@ namespace Appdoon.Domain.Entities.RoadMaps
 		public List<Step> Steps { get; set; } = new();
 		public List<User> Students { get; set; } = new();
 		public User? Creatore { get; set; }
-		public int? CreatoreId { get; set; }
+		public int CreatoreId { get; set; }
 		public List<User> UsersBookmarked { get; set; } = new();
 	}
 }
