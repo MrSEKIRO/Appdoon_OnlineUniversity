@@ -25,7 +25,10 @@ namespace Appdoon.WebApi.Controllers
 		[HttpGet]
 		public JsonResult AddLesson()
 		{
-			var result = _createLessonService.Execute(HttpContext.Request, _env.ContentRootPath);
+			// this service is trash
+			int userId = 0;
+
+			var result = _createLessonService.Execute(HttpContext.Request, _env.ContentRootPath, userId);
 			return new JsonResult(result);
 		}
 
