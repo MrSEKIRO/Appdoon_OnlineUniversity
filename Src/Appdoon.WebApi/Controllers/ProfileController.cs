@@ -1,6 +1,7 @@
 ﻿using Appdoon.Application.Services.Users.Command.EditPasswordService;
 using Appdoon.Application.Services.Users.Command.EditUserService;
 using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
+using Appdoon.Application.Services.Users.Query.GetCreatedLessonsService;
 using Appdoon.Application.Services.Users.Query.GetCreatedRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetUserFromCookieService;
@@ -24,13 +25,15 @@ namespace Appdoon.WebApi.Controllers
 
 		private readonly IEditPasswordService _editPasswordService;
 		private readonly IGetCreatedRoadMapService _getCreatedRoadMapService;
+		private readonly IGetCreatedLessonsService _getCreatedLessonsService;
 
 		public ProfileController(IGetUserService getUserService,
 								 IEditUserService editUserService,
 								 IGetRegisteredRoadMapService getRegisteredRoadMapService,
 								 IGetBookMarkRoadMapService getBookMarkRoadMapService,
 								 IEditPasswordService editPasswordService,
-								 IGetCreatedRoadMapService getCreatedRoadMapService)
+								 IGetCreatedRoadMapService getCreatedRoadMapService,
+								 IGetCreatedLessonsService getCreatedLessonsService)
 		{
 			_getUserService = getUserService;
 			_editUserService = editUserService;
@@ -38,6 +41,7 @@ namespace Appdoon.WebApi.Controllers
 			_getBookMarkRoadMapService = getBookMarkRoadMapService;
 			_editPasswordService = editPasswordService;
 			_getCreatedRoadMapService = getCreatedRoadMapService;
+			_getCreatedLessonsService = getCreatedLessonsService;
 		}
 		[HttpGet]
 		public JsonResult Info()
@@ -92,7 +96,15 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 
+		[HttpGet]
+		public JsonResult GetCreatedLessons()
+		{
+			var userId = GetIdFromCookie();
 
+			var result=_getCreatedLessonsService.Execute(userId);
+
+			return new JsonResult(result);
+		}
 
 
 		private int GetIdFromCookie()

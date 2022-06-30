@@ -50,6 +50,7 @@ using Appdoon.Application.Services.Users.Command.LoginUserService;
 using Appdoon.Application.Services.Users.Command.RegisterUserService;
 using Appdoon.Application.Services.Users.Command.ResetPasswordService;
 using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
+using Appdoon.Application.Services.Users.Query.GetCreatedLessonsService;
 using Appdoon.Application.Services.Users.Query.GetCreatedRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetUserFromCookieService;
@@ -269,6 +270,8 @@ namespace OU_API
             // get created roadmaps service
             services.AddScoped<IGetCreatedRoadMapService, GetCreatedRoadMapService>();
 
+            // get created lessons service
+            services.AddScoped<IGetCreatedLessonsService,GetCreatedLessonsService>();
 
 
             // Injection for user validatore
