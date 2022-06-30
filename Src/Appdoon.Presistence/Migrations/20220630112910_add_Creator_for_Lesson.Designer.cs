@@ -4,14 +4,16 @@ using Appdoon.Presistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Appdoon.Presistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220630112910_add_Creator_for_Lesson")]
+    partial class add_Creator_for_Lesson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,7 +254,7 @@ namespace Appdoon.Presistence.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CreatoreId")
+                    b.Property<int?>("CreatoreId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -360,21 +362,21 @@ namespace Appdoon.Presistence.Migrations
                         new
                         {
                             Id = 1,
-                            InsertTime = new DateTime(2022, 6, 30, 17, 33, 27, 339, DateTimeKind.Local).AddTicks(4498),
+                            InsertTime = new DateTime(2022, 6, 30, 15, 59, 9, 672, DateTimeKind.Local).AddTicks(5098),
                             IsRemoved = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            InsertTime = new DateTime(2022, 6, 30, 17, 33, 27, 346, DateTimeKind.Local).AddTicks(8684),
+                            InsertTime = new DateTime(2022, 6, 30, 15, 59, 9, 676, DateTimeKind.Local).AddTicks(5692),
                             IsRemoved = false,
                             Name = "Teacher"
                         },
                         new
                         {
                             Id = 3,
-                            InsertTime = new DateTime(2022, 6, 30, 17, 33, 27, 346, DateTimeKind.Local).AddTicks(8940),
+                            InsertTime = new DateTime(2022, 6, 30, 15, 59, 9, 676, DateTimeKind.Local).AddTicks(5936),
                             IsRemoved = false,
                             Name = "User"
                         });
@@ -565,8 +567,7 @@ namespace Appdoon.Presistence.Migrations
                     b.HasOne("Appdoon.Domain.Entities.Users.User", "Creatore")
                         .WithMany("CreatedRoadMaps")
                         .HasForeignKey("CreatoreId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Creatore");
                 });
