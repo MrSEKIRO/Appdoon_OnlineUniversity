@@ -50,6 +50,7 @@ using Appdoon.Application.Services.Users.Command.LoginUserService;
 using Appdoon.Application.Services.Users.Command.RegisterUserService;
 using Appdoon.Application.Services.Users.Command.ResetPasswordService;
 using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
+using Appdoon.Application.Services.Users.Query.GetCreatedRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetUserFromCookieService;
 using Appdoon.Application.Services.Users.Query.GetUserService;
@@ -265,7 +266,8 @@ namespace OU_API
             // bookmark roadmap service
             services.AddScoped<IBookmarkRoadmapService,BookmarkRoadmapService>();
 
-
+            // get created roadmaps service
+            services.AddScoped<IGetCreatedRoadMapService, GetCreatedRoadMapService>();
 
 
 
