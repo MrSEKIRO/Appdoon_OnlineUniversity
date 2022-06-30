@@ -27,6 +27,7 @@ using Appdoon.Application.Services.Roadmaps.Command.DeleteRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService;
 using Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapService;
+using Appdoon.Application.Services.RoadMaps.Command.BookmarkRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.CheckUserRegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.FilterRoadmapsService;
@@ -261,7 +262,8 @@ namespace OU_API
             // get preview of roadmap for not register users
             services.AddScoped<IGetPreviewRoadmapService, GetPreviewRoadmapService>();
 
-
+            // bookmark roadmap service
+            services.AddScoped<IBookmarkRoadmapService,BookmarkRoadmapService>();
 
 
 
