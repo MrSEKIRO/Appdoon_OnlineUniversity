@@ -18,7 +18,7 @@ const ListCategory = () => {
     const [urlGet, setUrlGet] = useState(process.env.REACT_APP_API + "category/get");
     const [pageSize, setPageSize] = useState(10);
     const [pageNumber, setPageNumber] = useState(1);
-    const [query_string_categories, set_query_string_categories] = useState(`${urlGet}?page_number=${pageNumber}&page_size=${pageSize}`)
+    const [query_string_categories, set_query_string_categories] = useState(`${urlGet}?PageNumber=${pageNumber}&PageSize=${pageSize}`)
     const {data} = useFetch(query_string_categories,sensetive);
     const [categories, setCategories] = useState(null);
     const [rowCount, setRowCount] = useState(null);
@@ -29,7 +29,7 @@ const ListCategory = () => {
         if(document.getElementById("search_box_info").value == ""){
             document.getElementById("search_box_info").dir = "rtl";
             setPageNumber(1);
-            set_query_string_categories(`${urlGet}?page_number=${1}&page_size=${pageSize}`);
+            set_query_string_categories(`${urlGet}?PageNumber=${1}&PageSize=${pageSize}`);
         }
         else{
             document.getElementById("search_box_info").dir = "auto";
@@ -37,7 +37,7 @@ const ListCategory = () => {
             
             let searched_text = document.getElementById("search_box_info").value;
             setPageNumber(1);
-            const query_string_search = `${urlSearch}?searched_text=${searched_text}&page_number=${1}&page_size=${pageSize}`
+            const query_string_search = `${urlSearch}?SearchedText=${searched_text}&PageNumber=${1}&PageSize=${pageSize}`
             set_query_string_categories(query_string_search);
 
         }
@@ -61,11 +61,11 @@ const ListCategory = () => {
         if(document.getElementById("search_box_info").value != ""){
             setPageNumber(page_number);
             let searched_text = document.getElementById("search_box_info").value;
-            set_query_string_categories(`${urlSearch}?searched_text=${searched_text}&page_number=${page_number}&page_size=${pageSize}`);
+            set_query_string_categories(`${urlSearch}?SearchedText=${searched_text}&PageNumber=${page_number}&PageSize=${pageSize}`);
         }
         else{
             setPageNumber(page_number);
-            set_query_string_categories(`${urlGet}?page_number=${page_number}&page_size=${pageSize}`);
+            set_query_string_categories(`${urlGet}?PageNumber=${page_number}&PageSize=${pageSize}`);
         }
     }
 

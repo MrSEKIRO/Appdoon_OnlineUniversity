@@ -143,9 +143,9 @@ namespace Appdoon.WebApi.Controllers
 
 		// GET api/<RoadmapController>
 		[HttpGet]
-		public JsonResult Search(string searched_text, int page_number, int page_size)
+		public JsonResult Search(string SearchedText, int PageNumber, int PageSize)
 		{
-			var result = _searchRoadmapsService.Execute(searched_text, page_number, page_size);
+			var result = _searchRoadmapsService.Execute(SearchedText, PageNumber, PageSize);
 			return new JsonResult(result);
 		}
 
@@ -177,10 +177,10 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 
-		[HttpGet]
-		public JsonResult GetPreviewRoadmap(int RoadmapId)
+		[HttpGet("{id}")]
+		public JsonResult GetPreviewRoadmap(int id)
 		{
-			var result=_getPreviewRoadmapService.Execute(RoadmapId);
+			var result=_getPreviewRoadmapService.Execute(id);
 
 			return new JsonResult(result);
 		}

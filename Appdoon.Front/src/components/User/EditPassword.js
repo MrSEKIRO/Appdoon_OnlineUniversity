@@ -75,12 +75,12 @@ const EditProfile = () => {
                                         
                                         <li class="profile-account-nav-item navigation-link-dashboard">
                                             <NavLink to="/UserRoadmaps" class=""><i class=""></i>
-                                                لیست رودمپ های من
+                                                لیست رودمپ‌های من
                                             </NavLink>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
                                             <NavLink to="/UserFavoriteRoadmaps" class=""><i class=""></i>
-                                                رودمپ های مورد علاقه من
+                                                رودمپ‌های مورد علاقه من
                                             </NavLink>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">

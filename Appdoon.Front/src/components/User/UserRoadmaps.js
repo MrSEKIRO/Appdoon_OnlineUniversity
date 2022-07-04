@@ -18,7 +18,11 @@ const UserRoadmaps = () => {
         }
     },[cookies])
 
-    const {data : roadmaps, isLogin, error} = useFetch(process.env.REACT_APP_API+'RoadMaps/Index');
+    const [sensetive, setSensetive] = useState(false);
+
+    //User
+    const [urlRoadmaps, setUrlRoadmaps] = useState(process.env.REACT_APP_API + 'profile/RegisteredRoadMaps')
+    const {data : roadmaps} = useFetch(urlRoadmaps,sensetive);
 
     return(
         cookies.Appdoon_Auth &&
@@ -47,12 +51,12 @@ const UserRoadmaps = () => {
                                         
                                         <li class="profile-account-nav-item navigation-link-dashboard">
                                             <NavLink to="/UserRoadmaps" class="active"><i class=""></i>
-                                                لیست رودمپ های من
+                                                لیست رودمپ‌های من
                                             </NavLink>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
                                             <NavLink to="/UserFavoriteRoadmaps" class=""><i class=""></i>
-                                                رودمپ های مورد علاقه من
+                                                رودمپ‌های مورد علاقه من
                                             </NavLink>
                                         </li>
                                         <li class="profile-account-nav-item navigation-link-dashboard">
@@ -79,7 +83,7 @@ const UserRoadmaps = () => {
                     <div class="heightB">
                         <section class="heightB">
 
-                        {roadmaps.length > 0 && (
+                            {roadmaps.length > 0 && (
                                 <div class="heightB">
                                     {roadmaps.map((data, idx) => (
                                             
@@ -89,9 +93,9 @@ const UserRoadmaps = () => {
                                 )
                             }
                 
-                            {roadmaps.length == 0 && (
+                            {roadmaps.length === 0 && (
                                 <div>
-                                    
+                                    شما در هیچ رودمپی شرکت نکرده‌اید.
                                 </div>)
                             }
 

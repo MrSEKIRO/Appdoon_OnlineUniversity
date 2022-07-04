@@ -1,4 +1,5 @@
-﻿using Appdoon.Application.Services.Users.Command.EditPasswordService;
+﻿using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
+using Appdoon.Application.Services.Users.Command.EditPasswordService;
 using Appdoon.Application.Services.Users.Command.EditUserService;
 using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
@@ -6,6 +7,7 @@ using Appdoon.Application.Services.Users.Query.GetUserFromCookieService;
 using Appdoon.Application.Services.Users.Query.GetUserService;
 using Appdoon.Common.UserRoles;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -22,20 +24,24 @@ namespace Appdoon.WebApi.Controllers
 		private readonly IGetBookMarkRoadMapService _getBookMarkRoadMapService;
 		
 		private readonly IEditPasswordService _editPasswordService;
+        private readonly ICreateLessonService _createLessonService;
+        private readonly IWebHostEnvironment _env;
 
-
-		public ProfileController(IGetUserService getUserService,
+        public ProfileController(IWebHostEnvironment env,
+								 IGetUserService getUserService,
 								 IEditUserService editUserService,
 								 IGetRegisteredRoadMapService getRegisteredRoadMapService,
 								 IGetBookMarkRoadMapService getBookMarkRoadMapService,
-								 IEditPasswordService editPasswordService)
+								 IEditPasswordService editPasswordService,
+								 ICreateLessonService createLessonService)
 		{
 			_getUserService = getUserService;
 			_editUserService = editUserService;
 			_getRegisteredRoadMapService = getRegisteredRoadMapService;
 			_getBookMarkRoadMapService = getBookMarkRoadMapService;
 			_editPasswordService = editPasswordService;
-
+			_createLessonService = createLessonService;
+			_env = env;
 		}
 		[HttpGet]
 		public JsonResult Info()
@@ -61,7 +67,7 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 
-		[HttpPost]
+		[HttpGet]
 		public JsonResult RegisteredRoadMaps()
 		{
 			int Id = GetIdFromCookie();
@@ -70,7 +76,7 @@ namespace Appdoon.WebApi.Controllers
 
 			return new JsonResult(result);
 		}
-		[HttpPost]
+		[HttpGet]
 		public JsonResult BookMarkedRoadMaps()
         {
             int Id = GetIdFromCookie();
@@ -81,7 +87,12 @@ namespace Appdoon.WebApi.Controllers
         }
 
 
-
+		[HttpGet]
+		public JsonResult AddLesson()
+		{
+			var result = _createLessonService.Execute(HttpContext.Request, _env.ContentRootPath);
+			return new JsonResult(result);
+		}
 
 
 		private int GetIdFromCookie()
