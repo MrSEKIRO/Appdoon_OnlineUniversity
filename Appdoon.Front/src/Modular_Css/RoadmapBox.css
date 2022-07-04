@@ -74,3 +74,49 @@ span.edit{
     margin-top: 10px;
     color: #c3c3c3;
 }
+
+.add-group-border {
+    width: 185px;
+    height: 185px;
+    border: 2px solid cornflowerblue;
+    position: relative;
+    margin: 0 10px 40px;
+    display: inline-block;
+}
+
+.add-group-border .add-group {
+    width: 80px;
+    height: 80px;
+    background-color: cornflowerblue;
+    border-radius: 100%;
+    margin: 33px auto;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+
+.add-group-border img {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 15px;
+    right: 41px;
+    border: #000;
+    border-radius: 50px;
+}
+
+.add-group-border:hover h3 {
+    color: #fff;
+    position: absolute;
+    top: 125px;
+    right: 0;
+    left: 0;
+    text-align: center;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -o-transition: all 50ms ease;
+    -ms-transition: all 500ms ease;
+    transition: all 500ms ease;
+}

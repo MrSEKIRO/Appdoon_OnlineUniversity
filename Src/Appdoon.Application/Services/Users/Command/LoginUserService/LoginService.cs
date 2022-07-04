@@ -93,7 +93,7 @@ namespace Appdoon.Application.Services.Users.Command.LoginUserService
 					};
 				}
 
-				if(ArshiaHash.Verify(userWithUsername.Password, userWithUsername.Password))
+				if(ArshiaHash.Verify(loginUserDto.Password, userWithUsername.Password))
 				{
 					return new ResultDto<UserLoginInfoDto>()
 					{

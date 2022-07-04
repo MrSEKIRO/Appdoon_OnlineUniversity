@@ -34,7 +34,7 @@ namespace Appdoon.Application.Services.RoadMaps.Query.GetPreviewRoadmapService
 			{
 				var preveiwRoadmap = _context.RoadMaps
 					.Include(r => r.Categories)
-					.Include(r => r.Steps.Take(3).ToList())
+					.Include(r => r.Steps.Take(3))
 						.ThenInclude(s => s.ChildSteps)
 					.Where(r => r.Id == RoadmapId)
 					.Select(r=>new PreviewRoadmapDto()
