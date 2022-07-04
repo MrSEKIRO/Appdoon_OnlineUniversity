@@ -27,6 +27,7 @@ using Appdoon.Application.Services.Roadmaps.Command.DeleteRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService;
 using Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapService;
+using Appdoon.Application.Services.RoadMaps.Command.BookmarkRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.CheckUserRegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.FilterRoadmapsService;
@@ -49,6 +50,8 @@ using Appdoon.Application.Services.Users.Command.LoginUserService;
 using Appdoon.Application.Services.Users.Command.RegisterUserService;
 using Appdoon.Application.Services.Users.Command.ResetPasswordService;
 using Appdoon.Application.Services.Users.Query.GetBookMarkRoadMapService;
+using Appdoon.Application.Services.Users.Query.GetCreatedLessonsService;
+using Appdoon.Application.Services.Users.Query.GetCreatedRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetRegisteredRoadMapService;
 using Appdoon.Application.Services.Users.Query.GetUserFromCookieService;
 using Appdoon.Application.Services.Users.Query.GetUserService;
@@ -261,10 +264,14 @@ namespace OU_API
             // get preview of roadmap for not register users
             services.AddScoped<IGetPreviewRoadmapService, GetPreviewRoadmapService>();
 
+            // bookmark roadmap service
+            services.AddScoped<IBookmarkRoadmapService,BookmarkRoadmapService>();
 
+            // get created roadmaps service
+            services.AddScoped<IGetCreatedRoadMapService, GetCreatedRoadMapService>();
 
-
-
+            // get created lessons service
+            services.AddScoped<IGetCreatedLessonsService,GetCreatedLessonsService>();
 
 
             // Injection for user validatore
