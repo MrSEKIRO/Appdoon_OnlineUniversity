@@ -32,7 +32,7 @@ const Register = () => {
 
         fetch(process.env.REACT_APP_API+'authentication/register',{
             method:"POST",
-            credential:"include",
+            credentials:'include',
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json'
@@ -47,8 +47,6 @@ const Register = () => {
         })
         .then(res=>res.json())
         .then((result)=>{
-            alert("dkjsvhs")
-            console.log(result)
             if(result.IsSuccess){
                 document.getElementById("register_error").style.color = "green";
                 document.getElementById("register_error").innerHTML = result.Message;

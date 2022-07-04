@@ -53,9 +53,9 @@ namespace Appdoon.WebApi.Controllers
 
         // GET: api/<LessonController>
         [HttpGet]
-        public JsonResult Get(int page_number, int page_size)
+        public JsonResult Get(int PageNumber, int PageSize)
         {
-            var result = _getAllLessonsService.Execute(page_number, page_size);
+            var result = _getAllLessonsService.Execute(PageNumber, PageSize);
             return new JsonResult(result);
         }
 
@@ -95,9 +95,9 @@ namespace Appdoon.WebApi.Controllers
 
         // GET api/<LessonController>
         [HttpGet]
-        public JsonResult Search(string searched_text, int page_number, int page_size)
+        public JsonResult Search(string SearchedText, int PageNumber, int PageSize)
         {
-            var result = _searchLessonsService.Execute(searched_text, page_number, page_size);
+            var result = _searchLessonsService.Execute(SearchedText, PageNumber, PageSize);
             return new JsonResult(result);
         }
 

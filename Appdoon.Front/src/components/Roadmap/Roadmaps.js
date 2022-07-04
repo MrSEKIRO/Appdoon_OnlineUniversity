@@ -26,7 +26,7 @@ const Roadmaps = () =>{
     const [urlGet, setUrlGet] = useState(process.env.REACT_APP_API + "roadmap/get");
     const [pageSize, setPageSize] = useState(9);
     const [pageNumber, setPageNumber] = useState(1);
-    const [query_string_roadmaps, set_query_string_roadmaps] = useState(`${urlGet}?page_number=${pageNumber}&page_size=${pageSize}`)
+    const [query_string_roadmaps, set_query_string_roadmaps] = useState(`${urlGet}?PageNumber=${pageNumber}&PageSize=${pageSize}`)
     const {data} = useFetch(query_string_roadmaps,sensetive);
     const [roadmaps, setRoadmaps] = useState(null);
     const [rowCount, setRowCount] = useState(null);
@@ -93,7 +93,7 @@ const Roadmaps = () =>{
         if(document.getElementById("search_box_info").value == ""){
             document.getElementById("search_box_info").dir = "rtl";
             setPageNumber(1);
-            set_query_string_roadmaps(`${urlGet}?page_number=${1}&page_size=${pageSize}`);
+            set_query_string_roadmaps(`${urlGet}?PageNumber=${1}&PageSize=${pageSize}`);
         }
         else{
             document.getElementById("search_box_info").dir = "auto";
@@ -101,7 +101,7 @@ const Roadmaps = () =>{
             
             let searched_text = document.getElementById("search_box_info").value;
             setPageNumber(1);
-            const query_string_search = `${urlSearch}?searched_text=${searched_text}&page_number=${1}&page_size=${pageSize}`
+            const query_string_search = `${urlSearch}?SearchedText=${searched_text}&PageNumber=${1}&PageSize=${pageSize}`
             set_query_string_roadmaps(query_string_search);
 
         }
@@ -112,7 +112,7 @@ const Roadmaps = () =>{
         if(document.getElementById("search_box_info").value != ""){
             setPageNumber(page_number);
             let searched_text = document.getElementById("search_box_info").value;
-            set_query_string_roadmaps(`${urlSearch}?searched_text=${searched_text}&page_number=${page_number}&page_size=${pageSize}`);
+            set_query_string_roadmaps(`${urlSearch}?SearchedText=${searched_text}&PageNumber=${page_number}&PageSize=${pageSize}`);
         }
         else if(filterSelectedOptions.length != 0){
             setPageNumber(page_number);
@@ -156,7 +156,7 @@ const Roadmaps = () =>{
         }
         else{
             setPageNumber(page_number);
-            set_query_string_roadmaps(`${urlGet}?page_number=${page_number}&page_size=${pageSize}`);
+            set_query_string_roadmaps(`${urlGet}?PageNumber=${page_number}&PageSize=${pageSize}`);
         }
     }
 
@@ -165,7 +165,7 @@ const Roadmaps = () =>{
     const [urlCategories, setUrlCategories] = useState(process.env.REACT_APP_API + "category/get");
     const [pageSizeCategories, setPageSizeCategories] = useState(9999);
     const [pageNumberCategories, setPageNumberCategories] = useState(1);
-    const [query_string_categories, set_query_string_categories] = useState(`${urlCategories}?page_number=${pageNumberCategories}&page_size=${pageSizeCategories}`)
+    const [query_string_categories, set_query_string_categories] = useState(`${urlCategories}?PageNumber=${pageNumberCategories}&PageSize=${pageSizeCategories}`)
     const {data : cats} = useFetch(query_string_categories,sensetive);
     const [categories, setCategories] = useState(null);
     const [rowCountCats, setRowCountCats] = useState(null);
@@ -210,7 +210,7 @@ const Roadmaps = () =>{
         document.getElementById("search_box_info").dir = "rtl";
         if(selectedOptions.length == 0){
             setPageNumber(1);
-            set_query_string_roadmaps(`${urlGet}?page_number=${1}&page_size=${pageSize}`);
+            set_query_string_roadmaps(`${urlGet}?PageNumber=${1}&PageSize=${pageSize}`);
             setRoadmaps(data.Roadmaps);
             setRowCount(data.RowCount);
         }
