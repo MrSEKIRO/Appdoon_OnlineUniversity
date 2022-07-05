@@ -25,7 +25,7 @@ namespace Appdoon.Domain.Entities.Users
 
 		public List<StepProgress> StepProgresses { get; set; } = new();
 		public List<ChildStepProgress> ChildStepProgresses { get; set; } = new();
-
+		public List<HomeworkProgress> HomeworkProgresses { get; set; } = new();
 		public List<Lesson> CreatedLessons { get; set; } = new();
 	}
 }

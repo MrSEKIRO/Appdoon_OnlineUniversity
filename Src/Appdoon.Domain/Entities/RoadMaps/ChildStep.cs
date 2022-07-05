@@ -1,4 +1,5 @@
 ﻿using Appdoon.Domain.Commons;
+using Appdoon.Domain.Entities.HomeWorks;
 using Appdoon.Domain.Entities.Progress;
 using System.Collections.Generic;
 
@@ -17,5 +18,8 @@ namespace Appdoon.Domain.Entities.RoadMaps
 		public List<Linker> Linkers { get; set; } = new();
 
 		public List<ChildStepProgress> ChildStepProgresses { get; set; } = new();
-	}
+
+        public int? HomeworkId { get; set; }
+        public Homework? Homework { get; set; }
+    }
 }

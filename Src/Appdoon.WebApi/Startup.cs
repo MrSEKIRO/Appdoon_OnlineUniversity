@@ -10,6 +10,10 @@ using Appdoon.Application.Services.ChildSteps.Command.DeleteChildStepService;
 using Appdoon.Application.Services.ChildSteps.Command.UpdateChildStepService;
 using Appdoon.Application.Services.ChildSteps.Query.GetAllChildStepsService;
 using Appdoon.Application.Services.ChildSteps.Query.GetIndividualChildStepService;
+using Appdoon.Application.Services.Homeworks.Command.CreateHomeworkService;
+using Appdoon.Application.Services.Homeworks.Command.DeleteHomeworkService;
+using Appdoon.Application.Services.Homeworks.Command.UpdateHomeworkService;
+using Appdoon.Application.Services.Homeworks.Query.GetHomeworkService;
 using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
 using Appdoon.Application.Services.Lessons.Command.DeleteLessonService;
 using Appdoon.Application.Services.Lessons.Command.UpdateLessonService;
@@ -266,6 +270,12 @@ namespace OU_API
 
             // bookmark roadmap service
             services.AddScoped<IBookmarkRoadmapService,BookmarkRoadmapService>();
+
+            //homework
+            services.AddScoped<IGetHomeworkService, GetHomeworkService>();
+            services.AddScoped<ICreateHomeworkService, CreateHomeworkService>();
+            services.AddScoped<IUpdateHomeworkService, UpdateHomeworkService>();
+            services.AddScoped<IDeleteHomeworkService, DeleteHomeworkService>();
 
             // get created roadmaps service
             services.AddScoped<IGetCreatedRoadMapService, GetCreatedRoadMapService>();
