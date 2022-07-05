@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Services\Homeworks\Command\" />
     <Folder Include="Services\Progress\Query\" />
   </ItemGroup>
 

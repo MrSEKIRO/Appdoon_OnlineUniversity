@@ -10,6 +10,10 @@ using Appdoon.Application.Services.ChildSteps.Command.DeleteChildStepService;
 using Appdoon.Application.Services.ChildSteps.Command.UpdateChildStepService;
 using Appdoon.Application.Services.ChildSteps.Query.GetAllChildStepsService;
 using Appdoon.Application.Services.ChildSteps.Query.GetIndividualChildStepService;
+using Appdoon.Application.Services.Homeworks.Command.CreateHomeworkService;
+using Appdoon.Application.Services.Homeworks.Command.DeleteHomeworkService;
+using Appdoon.Application.Services.Homeworks.Command.UpdateHomeworkService;
+using Appdoon.Application.Services.Homeworks.Query.GetHomeworkService;
 using Appdoon.Application.Services.Lessons.Command.CreateLessonService;
 using Appdoon.Application.Services.Lessons.Command.DeleteLessonService;
 using Appdoon.Application.Services.Lessons.Command.UpdateLessonService;
@@ -262,10 +266,11 @@ namespace OU_API
             services.AddScoped<IGetPreviewRoadmapService, GetPreviewRoadmapService>();
 
 
-
-
-
-
+            //homework
+            services.AddScoped<IGetHomeworkService, GetHomeworkService>();
+            services.AddScoped<ICreateHomeworkService, CreateHomeworkService>();
+            services.AddScoped<IUpdateHomeworkService, UpdateHomeworkService>();
+            services.AddScoped<IDeleteHomeworkService, DeleteHomeworkService>();
 
             // Injection for user validatore
             // Be aware of UserValidatore class in Asp.Net
