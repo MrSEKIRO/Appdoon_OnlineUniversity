@@ -71,7 +71,9 @@ namespace Appdoon.WebApi.Controllers
         [HttpPost]
         public JsonResult Post()
         {
-            var result = _createLessonService.Execute(Request, _env.ContentRootPath);
+            var userId = GetIdFromCookie();
+
+            var result = _createLessonService.Execute(Request, _env.ContentRootPath, userId);
             return new JsonResult(result);
         }
 
@@ -97,6 +99,32 @@ namespace Appdoon.WebApi.Controllers
         {
             var result = _searchLessonsService.Execute(SearchedText, PageNumber, PageSize);
             return new JsonResult(result);
+        }
+
+        private int GetIdFromCookie()
+        {
+            try
+            {
+                if(HttpContext.User.Identities.FirstOrDefault().Claims.FirstOrDefault() == null)
+                {
+                    return -1;
+                }
+
+                var IdStr = HttpContext.User.Identities
+                    .FirstOrDefault()
+                    .Claims
+                    //.Where(c => c.Type == "NameIdentifier")
+                    .FirstOrDefault()
+                    .Value;
+
+                int Id = int.Parse(IdStr);
+                return Id;
+            }
+            catch(Exception e)
+            {
+                return -1;
+            }
+
         }
     }
 }

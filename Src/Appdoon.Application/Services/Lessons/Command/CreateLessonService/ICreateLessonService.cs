@@ -20,7 +20,7 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 	}
 	public interface ICreateLessonService
 	{
-		ResultDto Execute(HttpRequest httpRequest, string currentpath);
+		ResultDto Execute(HttpRequest httpRequest, string currentpath, int userId);
 	}
 
 	public class CreateLessonService : ICreateLessonService
@@ -31,13 +31,13 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 		{
 			_context = context;
 		}
-		public ResultDto Execute(HttpRequest httpRequest, string currentpath)
+		public ResultDto Execute(HttpRequest httpRequest, string currentpath, int userId)
 		{
 			try
 			{
 				List<string> data = new List<string>();
 
-				foreach (var key in httpRequest.Form.Keys)
+				foreach(var key in httpRequest.Form.Keys)
 				{
 					var val = httpRequest.Form[key];
 					data.Add(val);
@@ -51,7 +51,7 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 				var imageSrc = "";
 				var TimeNow = DateTime.Now;
 				var ImageName = Title + "_" + TimeNow.Ticks.ToString();
-				if (httpRequest.Form.Files.Count() != 0)
+				if(httpRequest.Form.Files.Count() != 0)
 				{
 					var postedFile = httpRequest.Form.Files[0];
 					string filename = postedFile.FileName;
@@ -65,7 +65,7 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 					}
 
 					var physicalPath = currentpath + "/Photos/Lesson/" + $"({ImageName})" + filename;
-					using (var stream = new FileStream(physicalPath, FileMode.Create))
+					using(var stream = new FileStream(physicalPath, FileMode.Create))
 					{
 						postedFile.CopyTo(stream);
 					}
@@ -77,14 +77,22 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 					imageSrc = PhotoFileName;
 				}
 
-
-
+				var creator = _context.Users.Find(userId);
+				if(creator == null)
+				{
+					return new ResultDto()
+					{
+						IsSuccess = false,
+						Message = "کاربر سازنده مقاله یافت نشد!",
+					};
+				}
 
 				var lesson = new Lesson()
 				{
 					Title = Title.ToString(),
 					Text = Text.ToString(),
-					TopBannerSrc = imageSrc
+					TopBannerSrc = imageSrc,
+					Creator = creator,
 				};
 
 				_context.Lessons.Add(lesson);
@@ -95,8 +103,8 @@ namespace Appdoon.Application.Services.Lessons.Command.CreateLessonService
 					IsSuccess = true,
 					Message = "مقاله ساخته شد",
 				};
-            }
-			catch (Exception e)
+			}
+			catch(Exception e)
 			{
 				return new ResultDto()
 				{

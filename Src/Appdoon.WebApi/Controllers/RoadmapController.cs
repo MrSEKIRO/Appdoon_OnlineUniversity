@@ -4,6 +4,7 @@ using Appdoon.Application.Services.Roadmaps.Command.DeleteRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Query.GetAllRoadmapsService;
 using Appdoon.Application.Services.Roadmaps.Query.GetIndividualRoadmapService;
+using Appdoon.Application.Services.RoadMaps.Command.BookmarkRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Command.RegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.CheckUserRegisterRoadmapService;
 using Appdoon.Application.Services.RoadMaps.Query.FilterRoadmapsService;
@@ -46,6 +47,7 @@ namespace Appdoon.WebApi.Controllers
 
 		private readonly IGetUserRoadmapService _getUserRoadmapService;
 		private readonly IRegisterRoadmapService _registerRoadmapService;
+		private readonly IBookmarkRoadmapService _bookmarkRoadmapService;
 		private readonly ICheckUserRegisterRoadmapService _checkUserRegisterRoadmapService;
 		private readonly IGetPreviewRoadmapService _getPreviewRoadmapService;
 
@@ -63,6 +65,7 @@ namespace Appdoon.WebApi.Controllers
 								  IFilterRoadmapsService filterRoadmapsService,
 								  IGetUserRoadmapService getUserRoadmapService,
 								  IRegisterRoadmapService registerRoadmapService,
+								  IBookmarkRoadmapService bookmarkRoadmapService,
 								  ICheckUserRegisterRoadmapService checkUserRegisterRoadmapService,
 								  IGetPreviewRoadmapService getPreviewRoadmapService,
 								  IDoneChildStepService doneChildStepService,
@@ -77,6 +80,7 @@ namespace Appdoon.WebApi.Controllers
 			_filterRoadmapsService = filterRoadmapsService;
 			_getUserRoadmapService = getUserRoadmapService;
 			_registerRoadmapService = registerRoadmapService;
+			_bookmarkRoadmapService = bookmarkRoadmapService;
 			_checkUserRegisterRoadmapService = checkUserRegisterRoadmapService;
 			_getPreviewRoadmapService = getPreviewRoadmapService;
 			_doneChildStepService = doneChildStepService;
@@ -177,8 +181,19 @@ namespace Appdoon.WebApi.Controllers
 			return new JsonResult(result);
 		}
 
+		[HttpPost]
+		public JsonResult BookmarkRoadmap(int RoadmapId)
+		{
+			int userId= GetIdFromCookie();
+			var result=_bookmarkRoadmapService.Execute(RoadmapId, userId);
+
+			return new JsonResult(result);
+		}
+
+
 		[HttpGet("{id}")]
 		public JsonResult GetPreviewRoadmap(int id)
+
 		{
 			var result=_getPreviewRoadmapService.Execute(id);
 
