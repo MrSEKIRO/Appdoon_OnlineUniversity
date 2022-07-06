@@ -72,7 +72,7 @@ namespace Appdoon.Application.Services.Homeworks.Command.CreateHomeworkService
                     Questions = questions,
                     MinScore = minScore,
                     ChildStep = childStep,
-                    ChildStepId = childStepId
+                 //   ChildStepId = childStepId
                 };
 
                 _context.Homeworks.Add(homework);

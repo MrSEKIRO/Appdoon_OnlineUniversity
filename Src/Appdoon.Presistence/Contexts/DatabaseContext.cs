@@ -1,5 +1,7 @@
 ﻿using Appdoon.Application.Interfaces;
 using Appdoon.Common.UserRoles;
+using Appdoon.Domain.Entities.Homeworks;
+using Appdoon.Domain.Entities.HomeWorks;
 using Appdoon.Domain.Entities.Progress;
 using Appdoon.Domain.Entities.RoadMaps;
 using Appdoon.Domain.Entities.Users;
@@ -29,6 +31,9 @@ namespace Appdoon.Presistence.Contexts
 		public DbSet<Lesson> Lessons { get; set; }
 		public DbSet<StepProgress> StepProgresses { get; set; }
 		public DbSet<ChildStepProgress> ChildStepProgresses { get; set; }
+        public DbSet<HomeworkProgress> HomeworkProgresses { get; set; }
+		public DbSet<Homework> Homeworks { get; set; }
+		public DbSet<Question> Questions { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -48,6 +53,10 @@ namespace Appdoon.Presistence.Contexts
 
 			modelBuilder.Entity<StepProgress>().HasQueryFilter(u => u.IsRemoved == false);
 			modelBuilder.Entity<ChildStepProgress>().HasQueryFilter(u => u.IsRemoved == false);
+
+			modelBuilder.Entity<Homework>().HasQueryFilter(u => u.IsRemoved == false);
+			modelBuilder.Entity<HomeworkProgress>().HasQueryFilter(u => u.IsRemoved == false);
+			modelBuilder.Entity<Question>().HasQueryFilter(u => u.IsRemoved == false);
 
 			// Registerd RoadMaps for User
 			modelBuilder.Entity<User>()

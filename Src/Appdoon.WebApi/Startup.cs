@@ -25,7 +25,8 @@ using Appdoon.Application.Services.Linkers.Command.DeleteLinkerService;
 using Appdoon.Application.Services.Linkers.Command.UpdateLinkerService;
 using Appdoon.Application.Services.Linkers.Query.GetAllLinkersService;
 using Appdoon.Application.Services.Linkers.Query.GetIndividualLinkerService;
-using Appdoon.Application.Services.Progress.Command.DoneChildStepService;
+using Appdoon.Application.Services.Progress.Command.DoneChildStep;
+using Appdoon.Application.Services.Progress.Command.DoneHomeworkService;
 using Appdoon.Application.Services.Roadmaps.Command.CreateRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Command.DeleteRoadmapService;
 using Appdoon.Application.Services.Roadmaps.Command.UpdateRoadmapService;
@@ -276,6 +277,8 @@ namespace OU_API
             services.AddScoped<ICreateHomeworkService, CreateHomeworkService>();
             services.AddScoped<IUpdateHomeworkService, UpdateHomeworkService>();
             services.AddScoped<IDeleteHomeworkService, DeleteHomeworkService>();
+
+            services.AddScoped<IDoneHomeworkService, DoneHomeworkService>();
 
             // get created roadmaps service
             services.AddScoped<IGetCreatedRoadMapService, GetCreatedRoadMapService>();

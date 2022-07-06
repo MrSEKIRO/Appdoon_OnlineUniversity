@@ -16,6 +16,6 @@ namespace Appdoon.Domain.Entities.Progress
         public int UserId { get; set; }
         public User? User { get; set; }
         public int Score { get; set; }
-        public bool IsDone { get; set; }
+        public bool IsDone { get; set; } = false;
     }
 }
