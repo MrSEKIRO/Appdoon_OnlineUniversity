@@ -16,6 +16,6 @@ namespace Appdoon.Domain.Entities.HomeWorks
         public int MinScore { get; set; }
         public List<HomeworkProgress> HomeworkProgresses { get; set; } = new();
         public ChildStep? ChildStep { get; set; }
-        public int ChildStepId { get; set; }
+      //  public int ChildStepId { get; set; }
     }
 }

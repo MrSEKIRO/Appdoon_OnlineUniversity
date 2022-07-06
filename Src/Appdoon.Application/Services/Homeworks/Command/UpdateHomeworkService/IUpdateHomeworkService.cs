@@ -76,7 +76,7 @@ namespace Appdoon.Application.Services.Homeworks.Command.UpdateHomeworkService
                 homework.UpdateTime = DateTime.Now;
                 homework.Questions = questions;
                 homework.MinScore = minScore;
-                homework.ChildStepId = childStepId;
+             //   homework.ChildStepId = childStepId;
                 homework.ChildStep = childStep;
 
                 _context.SaveChanges();
