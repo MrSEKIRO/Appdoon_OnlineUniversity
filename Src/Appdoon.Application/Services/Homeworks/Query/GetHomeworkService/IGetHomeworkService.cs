@@ -47,7 +47,7 @@ namespace Appdoon.Application.Services.Homeworks.Query.GetHomeworkService
                         MinScore = h.MinScore,
                         HomeworkProgresses = h.HomeworkProgresses,
                         ChildStep = h.ChildStep,
-                        ChildStepId = h.ChildStepId
+                    //    ChildStepId = h.ChildStepId
                     }).FirstOrDefault();
 
                 if (homework == null)

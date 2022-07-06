@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Appdoon.Application.Services.Progress.Command.DoneChildStepService
+namespace Appdoon.Application.Services.Progress.Command.DoneChildStep
 {
 	public interface IDoneChildStepService
 	{
